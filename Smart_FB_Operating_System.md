@@ -54,11 +54,11 @@
 ## 0.3 📦 Bất Cập Về KIỂM KÊ HÀNG HÓA & NGUYÊN LIỆU
 
 ### Hiện trạng:
-- **Không biết chính xác tồn kho:** Bao nhiêu kg cà phê hạt còn? Sữa tươi còn mấy lít? Syrup caramel còn mấy chai? → **Không ai biết chính xác** cho đến khi kiểm kê cuối tháng.
-- **Kiểm kê thủ công:** Cuối mỗi tháng (hoặc tuần), nhân viên phải **đếm tay từng món** → mất 3-5 tiếng, dễ sai, dễ bỏ sót.
-- **Không có BOM (Bill of Materials):** Bán 1 ly Latte = bao nhiêu gram cà phê + bao nhiêu ml sữa + bao nhiêu ml syrup? → **Không có công thức chuẩn** trong hệ thống → không thể tự động trừ kho.
-- **Hết nguyên liệu giữa ca:** Đang giờ cao điểm, nhân viên phát hiện hết sữa tươi → phải chạy ra ngoài mua → **mất 30 phút**, khách chờ.
-- **Thất thoát nguyên liệu 5-15%:** Nhân viên pha nhiều hơn công thức, đổ bỏ ly pha hỏng, hoặc "xin" nguyên liệu mang về → **chủ quán không biết**.
+- **Không kiểm soát được nguyên liệu xuất từ kho lên quầy:** Khi lấy 2kg cà phê hạt, 5 hộp sữa tươi hay 2 chai syrup từ kho tổng lên quầy pha chế, nhân viên thường **không ghi chép sổ sách** → không biết Kho tổng còn bao nhiêu kg, Quầy đã nhận bao nhiêu.
+- **Kiểm kê thủ công & phức tạp:** Cuối tháng/cuối tuần nhân viên phải đếm tay từng túi/hộp → mất 3-5 tiếng, dễ sai lệch giữa sổ sách và thực tế.
+- **Không thể trừ kho chi tiết theo từng gram/ml:** Pha chế thực tế luôn có độ hao hụt (dial-in máy xay lãng phí 50-100g/ngày, trót tay đổ sữa...), nếu bắt hệ thống trừ từng gram theo từng ly sẽ **xa rời thực tế** và tạo ra chênh lệch ảo khổng lồ.
+- **Hết nguyên liệu giữa ca:** Đang giờ cao điểm, nhân viên phát hiện hết sữa/cà phê trên quầy mà kho tổng cũng hết → phải chạy ra ngoài mua lẻ → **mất 30 phút**, khách chờ.
+- **Thất thoát nguyên liệu 5-15%:** Xuất nguyên liệu lên quầy không ai kiểm soát → mất mát, dùng lãng phí hoặc thất thoát không rõ nguyên nhân.
 
 ### Hậu quả thực tế:
 | Vấn đề | Thiệt hại |
@@ -223,22 +223,22 @@
 
 ---
 
-## 5. ✅ Giải Quyết V3 (Kiểm Kê) → BOM Tự Động + AI Đề Xuất Nhập Hàng
+## 5. ✅ Giải Quyết V3 (Kiểm Kê) → Quản Lý Xuất Kho Quầy + AI Đề Xuất Nhập Hàng (Theo Kg/Hộp/Chai)
 
-| Trước (Thủ công) | Sau (Tự động) |
+| Trước (Thủ công / Sai lệch) | Sau (Hệ thống F&B OS Thực Tế) |
 |---|---|
-| Không biết tồn kho chính xác | Mỗi đơn bán → **tự động trừ kho theo BOM** (1 Latte = 18g cà phê + 200ml sữa + ...) |
-| Kiểm kê cuối tháng 3-5 tiếng | **Kiểm kê nhanh**: Scan + nhập số thực tế → so sánh tự động với tồn kho hệ thống |
-| Hết nguyên liệu giữa ca | **Alert tự động** khi tồn kho < mức tối thiểu: "Sữa tươi còn 5 lít — dưới mức 10 lít" |
-| Không biết thất thoát bao nhiêu | **Báo cáo chênh lệch**: Bán 100 ly Latte = lẽ ra dùng 2kg cà phê → thực tế dùng 2.4kg → **thất thoát 20%** |
-| Nhập hàng theo cảm tính | **AI đề xuất nhập hàng**: Dự báo 7 ngày tới bán ~500 ly Latte → cần nhập 9kg cà phê + 100 lít sữa |
+| Xuất hàng từ kho lên quầy không ghi chép | **Quản lý xuất kho quầy**: Ghi nhận chính xác mỗi lần chuyển nguyên liệu từ Kho tổng lên Quầy (VD: xuất 2kg cà phê, 5L sữa, 1 chai syrup) |
+| Cố trừ kho từng gram theo ly (sai số lớn) | **Theo dõi tồn kho theo đơn vị thực tế (Kg/Hộp/Chai)**: Quản lý lượng nguyên liệu xuất lên quầy & tồn kho tổng, phù hợp thực tế vận hành |
+| Kiểm kê cuối tháng 3-5 tiếng | **Kiểm kê kho & quầy nhanh**: Nhập số lượng thực tế kiểm đếm (Kg/Hộp/Chai) → Hệ thống tự động tính toán chênh lệch |
+| Hết nguyên liệu giữa ca | **Alert cảnh báo ngưỡng tồn kho**: Cảnh báo khi tồn kho tổng hoặc tồn quầy < mức tối thiểu (VD: "Cà phê kho tổng còn 2kg — cần nhập thêm") |
+| Nhập hàng theo cảm tính | **AI đề xuất nhập hàng**: Dự báo tốc độ tiêu thụ nguyên liệu (Kg/Lít/Chai) trong 7-30 ngày tới → tạo đơn nhập hàng tối ưu |
 
 **AI cụ thể:**
-- **Input:** Lịch sử bán hàng 90 ngày + BOM + tồn kho hiện tại + lead time nhà cung cấp
+- **Input:** Lịch sử xuất kho quầy (Kg/Hộp/Chai) + Lịch sử doanh số đơn hàng + Tồn kho thực tế + Lead time NCC
 - **Model:** XGBoost + time-series decomposition
-- **Output:** Đề xuất đơn nhập hàng tối ưu — giảm tồn kho dư + không bao giờ hết hàng
+- **Output:** Đề xuất số lượng nguyên liệu (Kg cà phê, Hộp sữa, Chai syrup) cần nhập từ Nhà cung cấp cho tuần/tháng tới.
 
-**Kết quả:** Giảm thất thoát từ 5-15% xuống <2%. Giảm 80% thời gian kiểm kê. Không bao giờ hết nguyên liệu giữa ca.
+**Kết quả:** Giảm thất thoát xuống <2%. Thực tế hóa quản lý kho. Giảm 80% thời gian kiểm kê. Không bao giờ hết hàng giữa ca.
 
 ---
 
@@ -255,19 +255,19 @@
 
 ---
 
-## 7. ✅ Giải Quyết V5 (Chất Lượng) → BOM Chuẩn Hóa + IoT Giám Sát Máy Pha
+## 7. ✅ Giải Quyết V5 (Chất Lượng) → Công Thức Chuẩn Hóa + IoT Giám Sát Máy Pha
 
 | Trước (Phụ thuộc barista) | Sau (Chuẩn hóa + IoT) |
 |---|---|
-| Barista pha theo cảm tính | **BOM chi tiết**: 1 Latte = 18g cà phê (±1g) + 200ml sữa 65°C + 25s chiết xuất |
-| Quán Q1 khác quán Q9 | **Cùng 1 BOM trên hệ thống** — barista nào cũng pha đúng công thức |
-| Barista mới mất 2-4 tuần học | **App hiển thị công thức + video hướng dẫn** ngay trên màn hình POS |
+| Barista pha theo cảm tính | **Công thức pha chế chuẩn hóa**: Quy định chuẩn 1 Latte (18g cà phê, 200ml sữa 65°C, chiết xuất 25s) hiển thị trên App pha chế |
+| Quán Q1 khác quán Q9 | **Cùng 1 quy chuẩn công thức trên hệ thống** — barista nào cũng tuân thủ đúng tỷ lệ |
+| Barista mới mất 2-4 tuần học | **App hiển thị công thức + video hướng dẫn** ngay trên màn hình POS / Tablet pha chế |
 | Không biết máy xay mòn | **IoT sensor** trên máy pha: đo áp suất chiết xuất, nhiệt độ nước → cảnh báo khi lệch chuẩn |
 
 **IoT cụ thể (cho quán premium/chuỗi lớn):**
 - **Sensor nhiệt độ** trên group head máy espresso: đảm bảo nước 90-96°C
 - **Flow meter** đo lưu lượng nước: đảm bảo 25-30ml espresso shot
-- **Smart scale** (cân điện tử Bluetooth): kiểm tra trọng lượng cà phê xay chính xác
+- **Smart scale** (cân điện tử Bluetooth): hỗ trợ cân cà phê định lượng tại quầy khi xay
 
 **Kết quả:** Chất lượng đồng nhất 95%+ giữa các chi nhánh. Đào tạo barista mới từ 2-4 tuần → 3-5 ngày.
 
@@ -508,7 +508,7 @@
 | 🔴 **Admin (Chủ chuỗi)** | Quản lý toàn bộ hệ thống, xem tổng | Dashboard tổng, quản lý chi nhánh, phân quyền, tài chính, HĐĐT |
 | 🟠 **Manager (Quản lý chi nhánh)** | Quản lý 1 cửa hàng | POS, kho, ca làm, doanh thu chi nhánh, phê duyệt nhập hàng |
 | 🟢 **Staff (Nhân viên)** | Thu ngân, phục vụ | Tạo order, thanh toán, gọi món, chấm công, xin đổi ca |
-| 🔵 **Kitchen (Bếp/Bar)** | Pha chế, nấu bếp | KDS hiển thị order, cập nhật "đang làm"/"xong", xem BOM |
+| 🔵 **Kitchen (Bếp/Bar)** | Pha chế, nấu bếp | KDS hiển thị order, cập nhật "đang làm"/"xong", xem công thức pha chế |
 | 🟣 **Customer (Khách hàng)** | Đặt bàn, mua hàng | App/Zalo: đặt bàn, xem menu, tích điểm, feedback, chatbot |
 
 ---
@@ -518,7 +518,7 @@
 | # | Module | Chức Năng Chính |
 |---|---|---|
 | M1 | 🛒 **POS — Bán Hàng** | Order, chia/gộp bill, thanh toán VietQR/MoMo/tiền mặt, KDS, quản lý bàn |
-| M2 | 📦 **Kho — Nguyên Liệu** | BOM tự động trừ, kiểm kê, alert hết hàng, AI đề xuất nhập, quản lý NCC |
+| M2 | 📦 **Kho — Nguyên Liệu** | Quản lý xuất kho quầy (Kg/Hộp/Chai), kiểm kê kho & quầy, alert hết hàng, AI đề xuất nhập hàng |
 | M3 | 📋 **Menu — Thực Đơn** | CRUD món, giá theo chi nhánh, combo, AI gợi ý combo, ảnh + mô tả |
 | M4 | 👥 **CRM & Loyalty** | Hồ sơ khách, tích điểm, phân nhóm, AI churn prediction, auto-voucher |
 | M5 | 📊 **Analytics & AI** | Dashboard real-time, forecast doanh thu, so sánh chi nhánh, heatmap giờ |
@@ -555,7 +555,7 @@
 | **SV 1 — Backend Lead** | API, Database, Auth, Payment | Order Service, Payment (VietQR/MoMo), E-Invoice API, WebSocket |
 | **SV 2 — Frontend Lead** | Web App (Admin/Manager), KDS | Dashboard, POS UI, Menu Management, KDS Kitchen Display |
 | **SV 3 — AI Engineer** | ML models, Chatbot, Analytics | AI Forecast (Prophet), Chatbot NLP (RAG), Churn Prediction, Combo AI |
-| **SV 4 — Full-stack + IoT** | Mobile App, Inventory, HRM, IoT | Flutter App, Inventory/BOM, HRM + Chấm công, ESP32 sensor |
+| **SV 4 — Full-stack + IoT** | Mobile App, Inventory, HRM, IoT | Flutter App, Quản lý kho & Xuất kho quầy, HRM + Chấm công, ESP32 sensor |
 
 ---
 
@@ -565,9 +565,9 @@
 |---|---|---|---|
 | Chấm công gian lận | QR + GPS lock + selfie | Face recognition (tùy chọn) | Gian lận → 0%, tiết kiệm 2-3 ngày tính lương |
 | Xếp ca cảm tính | AI demand forecast + auto-scheduling | XGBoost time-series + Optimization | Tiết kiệm 30% nhân công lãng phí |
-| Thất thoát nguyên liệu 5-15% | BOM tự động trừ + AI đề xuất nhập | XGBoost demand forecast | Thất thoát < 2%, không hết hàng giữa ca |
+| Thất thoát nguyên liệu 5-15% | Quản lý xuất kho quầy + AI đề xuất nhập | XGBoost demand forecast | Thất thoát < 2%, không hết hàng giữa ca |
 | Không biết lợi nhuận thật | Dashboard tích hợp real-time | Analytics engine | Biết lãi/lỗ từng quán mỗi ngày |
-| Chất lượng không đồng nhất | BOM chuẩn hóa + IoT sensor | ESP32 + DS18B20 + Smart Scale | Đồng nhất 95%+ giữa chi nhánh |
+| Chất lượng không đồng nhất | Công thức chuẩn hóa + IoT sensor | ESP32 + DS18B20 + Smart Scale | Đồng nhất 95%+ giữa chi nhánh |
 | Khách bỏ đi không biết | CRM + AI Churn Prediction | Random Forest / XGBoost | Giữ thêm 15-25% khách, tăng 20% doanh thu |
 | Máy pha / tủ lạnh hỏng bất ngờ | IoT monitoring + Predictive Maintenance | ESP32 + Vibration + Smart Plug | Giảm 70% sự cố bất ngờ |
 | Điện lãng phí 15-25% | IoT Smart Meter + AI optimization | Smart Plug + AI schedule | Tiết kiệm 15-20% điện/tháng |

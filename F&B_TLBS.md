@@ -78,11 +78,11 @@
 - **Thanh toán đa phương thức:** Tích hợp mã VietQR động, Ví MoMo, ZaloPay, Tiền mặt.
 - **Màn hình KDS (Kitchen Display System):** Thay thế in phiếu bếp thủ công bằng màn hình cảm ứng điện tử.
 
-#### Module 2: 📦 Kho — Quản Lý Nguyên Liệu & Định Lượng (BOM)
-- **Định lượng công thức (Bill of Materials - BOM):** Thiết lập định lượng nguyên liệu chuẩn cho từng món (Ví dụ: 1 ly Trà sữa Nướng = 150ml trà xanh + 30g bột kem + 20g đường + 40g trân châu).
-- **Trừ kho tự động theo thời gian thực:** Mỗi khi 1 order được thanh toán, kho tự động trừ nguyên liệu tương ứng.
-- **Quản lý nhập / xuất / chuyển kho:** Ghi nhận lịch sử nhập kho từ nhà cung cấp, chuyển nguyên liệu giữa các chi nhánh.
-- **Kiểm kê định kỳ:** Đối soát giữa số lượng tồn kho trên phần mềm và số lượng kiểm kê thực tế.
+#### Module 2: 📦 Kho — Quản Lý Nguyên Liệu & Xuất Kho Quầy
+- **Quản lý xuất kho quầy (Requisition):** Ghi nhận chính xác lượng nguyên liệu xuất từ Kho tổng lên Quầy pha chế (Ví dụ: xuất 2 túi Cà phê hạt 1kg, 5 hộp Sữa tươi 1L, 1 chai Syrup Caramel).
+- **Theo dõi tồn kho 2 tầng (Kho tổng & Quầy):** Quản lý tồn kho theo đơn vị thực tế (Kg, Lít, Hộp, Chai, Bao), phù hợp thực tế vận hành quán.
+- **Quản lý nhập / xuất / chuyển kho:** Ghi nhận lịch sử nhập kho từ nhà cung cấp, chuyển nguyên liệu giữa các chi nhánh hoặc từ Kho tổng ra Quầy.
+- **Kiểm kê định kỳ & Đối soát:** Nhập số lượng thực tế kiểm đếm (Kg/Hộp/Chai) tại quầy & kho → hệ thống tự động tính toán chênh lệch và cảnh báo thất thoát.
 
 #### Module 3: 📋 Menu — Quản Lý Thực Đơn & Giá
 - **Phân loại danh mục:** Món chính, Món phụ, Đồ uống, Topping, Combo.
@@ -96,7 +96,7 @@
 
 #### Module 5: 📊 Analytics & AI Forecast — Phân Tích & Dự Báo Kinh Doanh
 - **Dashboard quản trị:** Biểu đồ doanh thu, số lượng đơn hàng, món bán chạy nhất (Top Sellers), khung giờ vàng.
-- **Phân tích chi phí & Lợi nhuận:** Tự động tính toán Cost of Goods Sold (COGS) dựa trên giá nhập nguyên liệu và định lượng BOM.
+- **Phân tích chi phí & Lợi nhuận:** Tự động tính toán Cost of Goods Sold (COGS) dựa trên giá nhập nguyên liệu và lịch sử xuất kho quầy.
 
 #### Module 6: 🤖 AI Chatbot — Đặt Bàn & Đặt Món Trực Tuyến
 - **Tích hợp đa kênh:** Hoạt động trên Zalo OA và Facebook Messenger.
@@ -186,7 +186,7 @@
 | **Backend & Architecture Lead** | **Sinh viên 1** | Thiết kế Database schema (PostgreSQL), API Gateway, JWT Auth. Xây dựng Core Microservices: Order Service, POS Engine, Payment Integration (VietQR/MoMo API). Triển khai Server, Docker containerization, WebSocket cho giao tiếp real-time giữa POS và KDS. |
 | **Frontend & Mobile Lead** | **Sinh viên 2** | Phát triển Web Admin Dashboard (React.js / Next.js) cho Chủ chuỗi & Manager. Phát triển giao diện POS Tablet tối ưu trải nghiệm thao tác nhanh cho thu ngân. Xây dựng màn hình Bếp KDS (Kitchen Display System). |
 | **AI & Data Engineer** | **Sinh viên 3** | Xây dựng mô hình AI dự báo nhu cầu nguyên liệu (Time-series forecast). Phát triển mô hình Churn Prediction và Recommendation Engine (Gợi ý combo). Xây dựng Chatbot RAG đặt bàn tiếng Việt tích hợp Zalo OA API. |
-| **Full-Stack & Business Logic** | **Sinh viên 4** | Phát triển Module Inventory & BOM (Định lượng nguyên liệu tự động trừ kho). Phát triển Module HRM (Xếp ca, chấm công QR, tính lương). Xây dựng Zalo Mini App / Mobile App cho Khách hàng cuối (Tích điểm, đặt món). |
+| **Full-Stack & Business Logic** | **Sinh viên 4** | Phát triển Module Inventory (Quản lý kho tổng & Xuất kho quầy theo Kg/Hộp/Chai). Phát triển Module HRM (Xếp ca, chấm công QR, tính lương). Xây dựng Zalo Mini App / Mobile App cho Khách hàng cuối (Tích điểm, đặt món). |
 
 ---
 
@@ -684,7 +684,7 @@
 | # | Module | Highlight |
 |---|---|---|
 | 1 | 🛒 POS — Bán Hàng | Order, chia/gộp bill, thanh toán VietQR/MoMo, KDS |
-| 2 | 📦 Kho — Nguyên Liệu | BOM tự động trừ, 🤖 AI đề xuất nhập hàng |
+| 2 | 📦 Kho — Nguyên Liệu | Xuất kho quầy theo Kg/Hộp/Chai, kiểm kê, 🤖 AI đề xuất nhập hàng |
 | 3 | 📋 Menu — Thực Đơn | Giá đa chi nhánh, 🤖 AI gợi ý combo |
 | 4 | 👥 CRM & Loyalty | Tích điểm, 🤖 AI Churn Prediction |
 | 5 | 📊 Analytics & AI Forecast | Dashboard, 🤖 AI dự báo doanh thu + nguyên liệu |
