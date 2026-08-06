@@ -123,35 +123,37 @@
 
 ---
 
-## 0.7 🔧 Bất Cập Về THIẾT BỊ Hỏng Bất Ngờ
+## 0.7 📋 Bất Cập Về BÁO CÁO CUỐI NGÀY (EOD Report) Thủ Công
 
 ### Hiện trạng:
-- **Máy pha espresso hỏng giữa giờ cao điểm:** Máy espresso giá 30-100 triệu VNĐ, hỏng đột ngột → **cả quán tê liệt**, không bán được sản phẩm chính.
-- **Tủ lạnh/tủ mát không được giám sát:** Bánh ngọt, sữa tươi, kem để trong tủ lạnh → **tủ hỏng ban đêm** → sáng đến mở ra mới biết → hàng hỏng hết.
-- **Bảo trì theo lịch cố định:** 6 tháng gọi thợ 1 lần, bất kể máy đang khỏe hay sắp hỏng → **hoặc tốn tiền bảo trì không cần thiết, hoặc hỏng trước kỳ bảo trì**.
-- **Máy xay cà phê mòn lưỡi:** Lưỡi xay mòn dần → cà phê xay không đều → chiết xuất kém → **chất lượng giảm mà không ai biết** cho đến khi khách phàn nàn.
+- **Tổng hợp doanh thu cuối ca bằng tay:** Cuối mỗi ca (hoặc cuối ngày), quản lý phải tự đếm tiền mặt trong két, đối chiếu với sổ bán hàng, cộng thêm tiền chuyển khoản/MoMo → **mất 30-60 phút mỗi tối**.
+- **Gửi báo cáo qua Zalo cho chủ quán:** Quản lý chụp sổ hoặc gõ tay số liệu gửi tin nhắn Zalo → **dễ gõ sai số**, chủ quán nhận 5-10 tin Zalo mỗi tối từ 5 chi nhánh khác nhau, **không tổng hợp được**.
+- **Không phát hiện chênh lệch tiền mặt kịp thời:** Tiền trong két thiếu so với số đơn trong POS nhưng phải đến cuối tháng kiểm toán mới biết → **mất dấu vết, không quy được trách nhiệm**.
+- **Chủ chuỗi không có bức tranh tổng quan:** Muốn biết "hôm nay toàn chuỗi doanh thu bao nhiêu?" phải đợi quản lý từng quán gửi số → **biết vào sáng hôm sau**, không real-time.
 
 ### Hậu quả thực tế:
 | Vấn đề | Thiệt hại |
 |---|---|
-| Máy espresso hỏng giờ cao điểm | Mất 50-100 đơn × 50K = 2.5-5 triệu doanh thu + mất uy tín |
-| Tủ lạnh hỏng ban đêm | Thiệt hại 3-10 triệu tiền nguyên liệu (sữa, bánh, kem) |
-| Máy xay mòn không phát hiện | Chất lượng giảm dần → khách bỏ đi mà không biết tại sao |
+| Tổng hợp báo cáo thủ công mỗi tối | Quản lý mất 30-60 phút/ngày = ~15-30 giờ/tháng lãng phí |
+| Số liệu gõ tay sai sót | Chênh lệch 2-5% doanh thu báo cáo vs thực tế |
+| Chủ chuỗi không có dashboard real-time | Ra quyết định chậm 12-24 tiếng, không cắt lỗ kịp |
 
 ---
 
-## 0.8 ⚡ Bất Cập Về CHI PHÍ ĐIỆN NĂNG
+## 0.8 🧠 Bất Cập Về THIẾU DATA ĐỂ RA QUYẾT ĐỊNH MENU & THỊ TRƯỜNG
 
 ### Hiện trạng:
-- **Điều hòa chạy 24/7:** Quán mở cửa 7h-22h nhưng điều hòa **bật từ 6h30 và tắt lúc 22h30** — 16 tiếng/ngày bất kể khách đông hay vắng.
-- **Đèn trang trí sáng cả ngày:** Đèn neon, đèn mood lighting bật từ sáng đến tối dù **ban ngày ánh sáng tự nhiên đủ**.
-- **Không theo dõi tiêu thụ điện theo thiết bị:** Hóa đơn điện 15-25 triệu/tháng nhưng **không biết máy nào "ngốn" điện nhất** → không tối ưu được.
+- **Thêm/bỏ món theo cảm tính:** Chủ quán thấy quán bạn bán Matcha chạy → bắt chước thêm vào menu mà **không biết khách của mình có thích không**.
+- **Không biết món nào đang lên/xuống:** Có 40 món trên menu nhưng không biết top 5 bán chạy nhất đang tăng hay giảm doanh thu theo tuần → **giữ món kém, bỏ lỡ trend**.
+- **Giá bán chưa tối ưu:** Không biết tăng giá 5K/ly khách có bỏ không, giảm giá 10K có kéo thêm khách không → **quyết định giá bằng linh cảm**.
+- **Không biết thời điểm tốt nhất để khuyến mãi:** Push khuyến mãi lúc quán đã đông (lãng phí margin) thay vì lúc vắng (kéo khách).
 
 ### Hậu quả thực tế:
 | Vấn đề | Thiệt hại |
 |---|---|
-| Điện lãng phí 15-25% | Quán tốn 20 triệu/tháng → lãng phí 3-5 triệu/tháng |
-| Chuỗi 10 quán | Lãng phí 30-50 triệu VNĐ/tháng toàn chuỗi |
+| Thêm món không phù hợp khách hàng | Tốn chi phí nguyên liệu mới + đào tạo pha chế, bán được 2-3 ly/ngày rồi bỏ |
+| Giữ 10-15 món bán chậm trên menu | Chiếm chỗ, gây khó khăn kiểm kê, lãng phí nguyên liệu |
+| Khuyến mãi sai thời điểm | Giảm margin khi không cần, không kéo khách khi cần |
 
 ---
 ---
@@ -186,8 +188,8 @@
 | **V4** | Không biết lợi nhuận thật, quản lý tài chính rời rạc | Tài chính | Ra quyết định sai, nuôi quán lỗ hàng tháng |
 | **V5** | Chất lượng sản phẩm không đồng nhất giữa chi nhánh | Sản phẩm | Mất 10-20% khách trung thành |
 | **V6** | Không quản lý được khách hàng, không giữ chân được | CRM | Chi phí tìm khách mới đắt gấp 5-7 lần |
-| **V7** | Thiết bị hỏng bất ngờ (máy pha, tủ lạnh) | Thiết bị | 2.5-10 triệu/lần sự cố |
-| **V8** | Chi phí điện cao, không tối ưu | Vận hành | Lãng phí 15-25% chi phí điện |
+| **V7** | Báo cáo cuối ngày (EOD) thủ công, chủ chuỗi không có dashboard | Báo cáo | Mất 30-60 phút/tối, sai sót 2-5% số liệu |
+| **V8** | Thiếu data phân tích xu hướng menu & thị trường | Menu/KD | Thêm/bỏ món theo cảm tính, khuyến mãi sai thời điểm |
 
 ---
 ---
@@ -300,40 +302,41 @@
 
 ---
 
-## 9. ✅ Giải Quyết V7 (Thiết Bị) → IoT Giám Sát + AI Predictive Maintenance
+## 9. ✅ Giải Quyết V7 (Báo Cáo Cuối Ngày) → Auto EOD Report + Dashboard Real-time Chuỗi
 
-| Trước (Hỏng rồi mới biết) | Sau (IoT + AI dự báo) |
+| Trước (Thủ công + Zalo) | Sau (Tự động hóa hoàn toàn) |
 |---|---|
-| Máy espresso hỏng giữa giờ cao điểm | **IoT sensor** giám sát áp suất, nhiệt độ, rung động → cảnh báo trước 3-7 ngày |
-| Tủ lạnh hỏng ban đêm → mất hàng | **DS18B20 sensor** trong tủ lạnh → alert SMS/Zalo ngay khi nhiệt độ tăng bất thường |
-| Máy xay mòn lưỡi không biết | Sensor **đếm số shot** + đo thời gian xay → cảnh báo "đã xay 5,000 shot — cần thay lưỡi" |
-| Bảo trì 6 tháng/lần (cố định) | AI phân tích dữ liệu sensor → bảo trì **đúng lúc cần** — không sớm không muộn |
+| Quản lý đếm két tiền, gõ số liệu gửi Zalo | **Auto EOD Report**: Hệ thống tự tổng hợp doanh thu (tiền mặt + chuyển khoản + ví điện tử) cuối ca → gửi báo cáo tự động qua Zalo/Email |
+| Chủ chuỗi nhận 5-10 tin Zalo mỗi tối | **Dashboard chuỗi real-time**: 1 màn hình duy nhất xem doanh thu, số đơn, so sánh chi nhánh — mọi lúc, mọi nơi |
+| Chênh lệch tiền mặt phát hiện trễ | **Đối soát két tiền cuối ca**: Nhập số tiền mặt thực đếm → hệ thống so sánh vs doanh thu tiền mặt trên POS → cảnh báo ngay nếu chênh lệch > 50K |
+| Sáng hôm sau mới biết doanh thu hôm qua | **Push notification**: Kết ca → chủ quán nhận ngay thông báo: "Chi nhánh Nguyễn Huệ — Ca tối: 8.5 triệu, 127 đơn, tiền mặt khớp 100%" |
 
-**IoT cụ thể:**
-- **ESP32 + DS18B20**: Giám sát tủ lạnh, tủ mát (nhiệt độ mỗi 5 phút)
-- **Smart plug (Sonoff S31)**: Đo điện năng máy pha, máy xay, điều hòa
-- **Vibration sensor (MPU-6050)**: Đo rung động bơm máy espresso
-
-**Kết quả:** Giảm 70% sự cố thiết bị bất ngờ. Không bao giờ mất hàng trong tủ lạnh vì hỏng ban đêm.
+**Kết quả:** Quản lý tiết kiệm 30-60 phút mỗi tối. Chủ chuỗi biết doanh thu real-time 24/7. Phát hiện chênh lệch tiền ngay trong ca.
 
 ---
 
-## 10. ✅ Giải Quyết V8 (Điện Năng) → IoT Smart Meter + AI Energy Optimization
+## 10. ✅ Giải Quyết V8 (Menu Intelligence) → AI Phân Tích Xu Hướng & Gợi Ý Chiến Lược Menu
 
-| Trước (Bật cả ngày) | Sau (IoT + AI) |
+| Trước (Cảm tính) | Sau (AI-powered Menu Intelligence) |
 |---|---|
-| Điều hòa bật 16 tiếng/ngày | **IoT smart plug** + AI: Tự giảm/tắt khi vắng khách (dưới 5 người) |
-| Không biết máy nào tốn điện nhất | **Dashboard điện năng**: Máy pha 25%, điều hòa 45%, đèn 15%, khác 15% |
-| Chuỗi 10 quán lãng phí 30-50 triệu/tháng | **So sánh điện năng giữa chi nhánh**: Quán C tốn 22 triệu trong khi quán D cùng diện tích chỉ tốn 16 triệu → kiểm tra |
+| Thêm/bỏ món theo trend bên ngoài | **AI Menu Analytics**: Phân tích doanh số từng món theo tuần/tháng/mùa → "Matcha Latte tăng 35% trong 4 tuần → đề xuất tạo thêm biến thể Matcha" |
+| Giữ 10-15 món bán chậm trên menu | **AI gợi ý loại bỏ/điều chỉnh**: "Smoothie Dâu: chỉ bán 2 ly/ngày, rating feedback 2.8/5 → đề xuất loại bỏ hoặc thay đổi công thức" |
+| Giá bán theo linh cảm | **AI Price Sensitivity**: Phân tích sự thay đổi doanh số khi điều chỉnh giá → "Tăng giá Latte từ 45K→50K: dự báo giảm 8% đơn nhưng tăng 12% doanh thu" |
+| Khuyến mãi sai thời điểm | **AI Smart Promotion**: Kết hợp dữ liệu giờ vắng + tồn kho + thời tiết → "14h-16h thứ 3-5 vắng nhất → push combo giảm 20% qua Zalo cho khách lân cận" |
 
-**Kết quả:** Tiết kiệm 15-20% chi phí điện/quán/tháng.
+**AI cụ thể:**
+- **Input:** Doanh số từng món theo giờ/ngày/tuần + QR feedback rating + tồn kho + thời tiết + ngày lễ
+- **Model:** Time-series decomposition + Clustering (nhóm món) + Elasticity regression (price sensitivity)
+- **Output:** Báo cáo Menu Intelligence hàng tuần — top món tăng trưởng, món cần loại, thời điểm khuyến mãi tối ưu, gợi ý giá
+
+**Kết quả:** Loại bỏ 10-15 món kém → giảm phức tạp kho & menu. Tăng 10-15% doanh thu nhờ push đúng món, đúng giờ, đúng giá.
 
 ---
 ---
 
 # 📝 PHẦN III: AI VÀ IoT ỨNG DỤNG NHƯ THẾ NÀO — CHI TIẾT KỸ THUẬT
 
-## 11. 🤖 Tổng Hợp 6 Tính Năng AI
+## 11. 🤖 Tổng Hợp 7 Tính Năng AI
 
 | # | Tên AI Feature | Bài Toán Giải Quyết | Model / Thuật Toán | Dữ Liệu Đầu Vào | Kết Quả Đầu Ra |
 |---|---|---|---|---|---|
@@ -343,34 +346,30 @@
 | AI-4 | **Churn Prediction khách hàng** | Giữ chân khách sắp bỏ đi | Random Forest / XGBoost classification | Tần suất mua, giá trị mua, khoảng cách giữa lần mua | "Khách Nguyễn A: 78% churn risk → gửi voucher 30% off" |
 | AI-5 | **Chatbot NLP tiếng Việt** | Đặt bàn/đặt món qua Zalo/Facebook | RAG (LLM + Vector DB) + PhoBERT intent | Tin nhắn khách: "Cho em đặt 2 ly trà sữa 3h chiều nha 🧋" | Parse: {item: "trà sữa", qty: 2, time: "15:00"} → tạo order |
 | AI-6 | **Đề xuất ca làm việc** | Xếp ca tối ưu tự động | Constraint Optimization + Demand Forecast | Dự báo lượng khách/giờ + availability NV + quy tắc công bằng | Bảng ca tuần tối ưu — quản lý chỉ cần duyệt |
+| AI-7 | **Menu Intelligence & Smart Promotion** | Tối ưu menu + khuyến mãi đúng thời điểm | Time-series decomposition + Clustering + Elasticity regression | Doanh số từng món/giờ + QR feedback + tồn kho + thời tiết | "Matcha +35% 4 tuần, Smoothie Dâu 2 ly/ngày → loại. Giờ vắng 14-16h → push combo" |
 
 ---
 
-## 12. 📡 Tổng Hợp IoT (Cho Chuỗi Premium / Có Nhu Cầu)
+## 12. 📡 Tổng Hợp IoT (Tùy Chọn Mở Rộng Cho Chuỗi Lớn)
 
 | # | Thiết Bị IoT | Giao Thức | Vai Trò | Giá Ước Tính |
 |---|---|---|---|---|
-| IoT-1 | **ESP32 + DS18B20** | WiFi + MQTT | Giám sát nhiệt độ tủ lạnh/tủ mát mỗi 5 phút | ~180K VNĐ/bộ |
-| IoT-2 | **Smart Plug (Sonoff S31)** | WiFi | Đo điện năng từng thiết bị (máy pha, điều hòa, máy xay) | ~200K VNĐ/cái |
-| IoT-3 | **Smart Scale (cân BT)** | Bluetooth | Kiểm tra trọng lượng cà phê xay/nguyên liệu — so sánh với BOM | ~300K VNĐ/cái |
-| IoT-4 | **Vibration Sensor (MPU-6050)** | I2C → ESP32 | Đo rung động bơm máy espresso → phát hiện hao mòn | ~40K VNĐ |
-| IoT-5 | **Pressure Transducer** | Analog → ESP32 | Đo áp suất chiết xuất espresso (lý tưởng: 9 bar) | ~120K VNĐ |
-| IoT-6 | **Đầu đọc QR / NFC** | USB | Chấm công nhân viên + check-in khách hàng loyalty | ~500K VNĐ |
+| IoT-1 | **ESP32 + DS18B20** | WiFi + MQTT | Giám sát nhiệt độ tủ lạnh/tủ mát — cảnh báo khi nhiệt độ bất thường | ~180K VNĐ/bộ |
+| IoT-2 | **Smart Scale (cân BT)** | Bluetooth | Hỗ trợ cân nguyên liệu tại quầy khi xuất kho | ~300K VNĐ/cái |
+| IoT-3 | **Đầu đọc QR / NFC** | USB | Chấm công nhân viên + check-in khách hàng loyalty | ~500K VNĐ |
 
 ### Luồng IoT Data:
 
 ```
 [DS18B20] Nhiệt độ tủ lạnh ────┐
-[Smart Plug] Điện năng thiết bị ┤
-[Vibration] Rung động máy pha ──┼──► [ESP32 Hub] ──WiFi/MQTT──► [Cloud]
-[Pressure] Áp suất espresso ────┤                                 │
-[Smart Scale] Cân nguyên liệu ──┘                                 ├── InfluxDB
-                                                                    ├── AI Engine
+[Smart Scale] Cân nguyên liệu ──┼──► [ESP32 Hub] ──WiFi/MQTT──► [Cloud]
+[QR/NFC] Chấm công & Loyalty ──┘                                 │
+                                                                    ├── InfluxDB
                                                                     ├── Alert (SMS/Zalo)
                                                                     └── Web Dashboard
 ```
 
-**Lưu ý quan trọng:** IoT là **phần mở rộng tùy chọn** — hệ thống F&B OS hoạt động hoàn chỉnh **không cần IoT** (chỉ cần POS + Web + App). IoT bổ sung thêm khả năng giám sát thiết bị và kiểm soát chất lượng cho các chuỗi lớn muốn "nâng cấp".
+**Lưu ý quan trọng:** IoT là **phần mở rộng tùy chọn** — hệ thống F&B OS hoạt động hoàn chỉnh **không cần IoT** (chỉ cần POS + Web + App). IoT bổ sung thêm khả năng giám sát kho lạnh và hỗ trợ kiểm kê cho các chuỗi lớn muốn "nâng cấp".
 
 ---
 ---
@@ -575,12 +574,12 @@
 | Chấm công gian lận | QR + GPS lock + selfie | Face recognition (tùy chọn) | Gian lận → 0%, tiết kiệm 2-3 ngày tính lương |
 | Xếp ca cảm tính | AI demand forecast + auto-scheduling | XGBoost time-series + Optimization | Tiết kiệm 30% nhân công lãng phí |
 | Thất thoát nguyên liệu 5-15% | Quản lý xuất kho quầy + AI đề xuất nhập | XGBoost demand forecast | Thất thoát < 2%, không hết hàng giữa ca |
-| Chất lượng không đồng nhất & Thiếu Data | Công thức chuẩn + QR Code Feedback + IoT | ESP32 + DS18B20 + Feedback Analytics | Đồng nhất 95%+, xử lý phàn nàn 100% tại chỗ, tối ưu menu theo data |
-| Biết lợi nhuận thật | Dashboard tích hợp real-time | Analytics engine | Biết lãi/lỗ từng quán mỗi ngày |
+| Không biết lợi nhuận thật | Dashboard tích hợp real-time | Analytics engine | Biết lãi/lỗ từng quán mỗi ngày |
+| Chất lượng không đồng nhất & Thiếu Data | Công thức chuẩn + QR Code Feedback | Feedback Analytics | Đồng nhất 95%+, xử lý phàn nàn 100% tại chỗ, tối ưu menu theo data |
 | Khách bỏ đi không biết | CRM + AI Churn Prediction | Random Forest / XGBoost | Giữ thêm 15-25% khách, tăng 20% doanh thu |
-| Máy pha / tủ lạnh hỏng bất ngờ | IoT monitoring + Predictive Maintenance | ESP32 + Vibration + Smart Plug | Giảm 70% sự cố bất ngờ |
-| Điện lãng phí 15-25% | IoT Smart Meter + AI optimization | Smart Plug + AI schedule | Tiết kiệm 15-20% điện/tháng |
+| Báo cáo cuối ngày thủ công 30-60 phút | Auto EOD Report + Dashboard chuỗi real-time | Auto aggregation + Push notification | Tiết kiệm 30-60 phút/tối, phát hiện chênh lệch ngay |
+| Thêm/bỏ món theo cảm tính, KM sai thời điểm | AI Menu Intelligence + Smart Promotion | Time-series + Clustering + Price Elasticity | Tăng 10-15% doanh thu, loại món kém, push đúng giờ vắng |
 
 ---
 
-> **Tóm lại:** Nền tảng F&B Operating System giải quyết **8 bất cập thực tế** mà hầu hết quán cà phê tại VN đang gặp — từ chấm công, xếp ca, kiểm kê, tài chính, chất lượng, khách hàng, thiết bị đến điện năng. Tích hợp **6 AI features** (forecast, combo, churn, chatbot NLP, scheduling, inventory) + **IoT tùy chọn** (tủ lạnh, máy pha, điện năng). Đối thủ hiện tại (iPOS, CukCuk) **chưa có AI thực sự** → đây là lợi thế cạnh tranh rõ ràng.
+> **Tóm lại:** Nền tảng F&B Operating System giải quyết **8 bất cập thực tế** mà hầu hết quán cà phê tại VN đang gặp — từ chấm công, xếp ca, kiểm kê, tài chính, chất lượng, khách hàng, báo cáo cuối ngày đến chiến lược menu. Tích hợp **7 AI features** (forecast doanh thu, forecast nguyên liệu, combo AI, churn prediction, chatbot NLP, smart scheduling, menu intelligence) + **IoT tùy chọn** (giám sát tủ lạnh, cân nguyên liệu). Đối thủ hiện tại (iPOS, CukCuk) **chưa có AI thực sự** → đây là lợi thế cạnh tranh rõ ràng.

@@ -32,7 +32,7 @@
 | **Lĩnh vực** | Quản lý nhà hàng, cà phê, chuỗi F&B | Phân phối sỉ, B2B e-Commerce |
 | **Quy mô hệ thống** | 8 Module chính, 5 Actors | 7 Module chính, 4 Actors |
 | **Đối tượng người dùng** | Chủ chuỗi, Quản lý cửa hàng, Thu ngân, Bếp, Khách hàng | Nhà sản xuất/Phân phối, Đại lý/Cửa hàng, Đơn vị vận chuyển, Sàn |
-| **Số lượng AI features** | 6 tính năng AI cốt lõi | 6 tính năng AI cốt lõi |
+| **Số lượng AI features** | 7 tính năng AI cốt lõi | 6 tính năng AI cốt lõi |
 | **Giao diện & Trải nghiệm** | Web Dashboard + POS Tablet + App Mobile + KDS Bếp | Web Portal B2B + Mobile App B2B |
 | **Tích hợp bên thứ 3** | VietQR/MoMo, Zalo OA, Hóa đơn điện tử (VNPT/Viettel) | GHN/GHTK/ViettelPost, Cổng thanh toán B2B, OCR Engine |
 | **Tính ứng dụng thị trường** | Rất cao (Thị trường F&B Việt Nam bùng nổ, các POS cũ thiếu AI) | Cực cao (Xu hướng chuyển đổi số chuỗi cung ứng B2B) |
