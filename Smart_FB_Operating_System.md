@@ -343,7 +343,7 @@
 | AI-1 | **Thống Kê doanh thu bằng AI** | Thông kê so sánh doanh thu các tuần các tháng, quán, quý | Prophet / LSTM time-series | Doanh thu lịch sửn | "Tháng này so với tháng trước bao nhiêu " |
 | AI-2 | **Gợi ý combo bán chạy** | Tăng doanh thu trung bình/đơn | Association Rules (Apriori) + Collaborative Filtering | Lịch sử đơn hàng (món nào hay đi kèm nhau) | "Combo Latte + Croissant: 68% khách mua Latte cũng mua Croissant" |
 | AI-3 | **Churn Prediction khách hàng** | Giữ chân khách sắp bỏ đi | Random Forest / XGBoost classification | Tần suất mua, giá trị mua, khoảng cách giữa lần mua | "Khách Nguyễn A: 78% churn risk → gửi voucher 30% off" |
-| AI-4 | **Chatbot NLP tiếng Việt** | hỏi menu , hỏi món gì ngon , hỏi nguyên liệu gồm gì có dị ứng không | RAG (LLM + Vector DB) + PhoBERT intent | Tin nhắn khách: "trình bày cho khách hàng" | Parse: {item: "trà sữa", qty: 2, time: "15:00"} → tạo order |
+| AI-4 | **Chatbot NLP tiếng Việt** |cho nhân viên hỏi nguyên liệu , cách vận hành quán , Cho admin AL-1  | RAG (LLM + Vector DB) + PhoBERT intent | Tin nhắn khách: "trình bày cho Admin và staff" | Parse: {item: "trà sữa", qty: 2, time: "15:00"} → tạo order |
 | AI-5 | **Menu Intelligence & Smart Promotion** | Tối ưu menu + khuyến mãi đúng thời điểm | Time-series decomposition + Clustering + Elasticity regression | Doanh số từng món/giờ + QR feedback + tồn kho + thời tiết | "Matcha +35% 4 tuần, Smoothie Dâu 2 ly/ngày → loại. Giờ vắng 14-16h → push combo" |
 
 ---
