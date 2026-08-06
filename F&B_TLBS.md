@@ -93,6 +93,7 @@
 - **Hồ sơ định danh khách hàng:** Lưu trữ SĐT, tên, ngày sinh, lịch sử giao dịch, tổng chi tiêu.
 - **Hệ thống tích điểm tự động:** Tự động quy đổi doanh số thành điểm thưởng (Ví dụ: 100,000 VNĐ = 10 điểm).
 - **Hạng thành viên (Tiering):** Đồng, Bạc, Vàng, Kim Cương với các đặc quyền giảm giá riêng.
+- **Kênh Feedback Khách Hàng Qua Mã QR:** Mã QR in dưới hóa đơn hoặc dán tại bàn cho phép khách scan Zalo Mini App chấm 1-5 sao, chọn lý do (nhạt, ngọt quá, phục vụ chậm). Đánh giá ≤ 2 sao tự động gửi alert cho Quản lý & kích hoạt voucher đền bù tức thì.
 
 #### Module 5: 📊 Analytics & AI Forecast — Phân Tích & Dự Báo Kinh Doanh
 - **Dashboard quản trị:** Biểu đồ doanh thu, số lượng đơn hàng, món bán chạy nhất (Top Sellers), khung giờ vàng.

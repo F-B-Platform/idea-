@@ -87,20 +87,22 @@
 
 ---
 
-## 0.5 🍵 Bất Cập Về CHẤT LƯỢNG SẢN PHẨM Không Đồng Nhất
+## 0.5 🍵 Bất Cập Về CHẤT LƯỢNG SẢN PHẨM Không Đồng Nhất & Thiếu Data Feedback
 
 ### Hiện trạng:
 - **Phụ thuộc tay nghề barista:** Cùng 1 công thức Latte, barista A pha ngon, barista B pha nhạt — vì **không có hệ thống kiểm soát thông số** (lượng cà phê, nhiệt độ sữa, thời gian chiết xuất).
 - **Quán Q1 khác quán Q9:** Khách quen uống ở quán trung tâm, đến quán ngoại thành thấy "khác vị" → **mất niềm tin vào thương hiệu**.
 - **Đào tạo barista mới mất 2-4 tuần:** Người mới phải học thuộc 30-50 công thức → **dễ sai**, phải có người kèm liên tục.
-- **Không có data để cải tiến menu:** Không biết ly nào khách khen, ly nào bị trả lại → **cải tiến menu bằng cảm tính**.
+- **Khách không có kênh phản hồi kín đáo:** Khi món dở, khách thường im lặng bỏ đi hoặc bóc phốt lên MXH → chủ quán không biết ca nào, barista nào pha hỏng để khắc phục.
+- **Không có data thực tế để cải tiến menu:** Không biết chính xác ly nào khách khen/chê → cải tiến menu bằng cảm tính thay vì dữ liệu thật từ khách.
 
 ### Hậu quả thực tế:
 | Vấn đề | Thiệt hại |
 |---|---|
 | Chất lượng không đồng nhất giữa chi nhánh | Mất 10-20% khách trung thành do "không đúng vị quen" |
 | Barista mới pha sai | 5-10 ly bỏ/ngày × 40K/ly = 200-400K lãng phí/ngày |
-| Không có data cải tiến | Giữ món bán chậm trên menu → chiếm chỗ, lãng phí nguyên liệu |
+| Khách bỏ đi do trải nghiệm kém mà quán không biết | Mất khách âm thầm, giảm doanh thu 15-25% |
+| Cải tiến menu bằng cảm tính | Giữ món bán chậm/vị kém trên menu → lãng phí nguyên liệu & nguyên cớ mất khách |
 
 ---
 
@@ -255,21 +257,28 @@
 
 ---
 
-## 7. ✅ Giải Quyết V5 (Chất Lượng) → Công Thức Chuẩn Hóa + IoT Giám Sát Máy Pha
+## 7. ✅ Giải Quyết V5 (Chất Lượng & Feedback) → Công Thức Chuẩn Hóa + IoT + QR Customer Feedback
 
-| Trước (Phụ thuộc barista) | Sau (Chuẩn hóa + IoT) |
+| Trước (Phụ thuộc & Không data) | Sau (Chuẩn hóa + QR Feedback + IoT) |
 |---|---|
 | Barista pha theo cảm tính | **Công thức pha chế chuẩn hóa**: Quy định chuẩn 1 Latte (18g cà phê, 200ml sữa 65°C, chiết xuất 25s) hiển thị trên App pha chế |
 | Quán Q1 khác quán Q9 | **Cùng 1 quy chuẩn công thức trên hệ thống** — barista nào cũng tuân thủ đúng tỷ lệ |
-| Barista mới mất 2-4 tuần học | **App hiển thị công thức + video hướng dẫn** ngay trên màn hình POS / Tablet pha chế |
-| Không biết máy xay mòn | **IoT sensor** trên máy pha: đo áp suất chiết xuất, nhiệt độ nước → cảnh báo khi lệch chuẩn |
+| Khách bị phục vụ dở im lặng bỏ đi | **QR Code Feedback tại bàn / trên Bill**: Khách scan QR qua Zalo Mini App chấm 1-5 sao + chọn lý do (VD: "nhạt", "ngọt quá", "phục vụ chậm") |
+| Không biết ca nào/món nào dở | **Alert Real-time & Auto-Voucher đền bù**: Feedback ≤ 2 sao → alert quản lý ngay + tự động gửi voucher đền bù giữ chân khách |
+| Cải tiến menu bằng cảm tính | **AI Data Analytics Feedback**: Gom dữ liệu đánh giá theo chi nhánh/ca làm/từng món → cải tiến menu & đào tạo nhân sự dựa trên data thực tế |
+
+**Quy trình QR Feedback thực tế:**
+1. In mã QR cá nhân hóa ở chân hóa đơn / dán sticker QR tại bàn.
+2. Khách scan QR bằng Zalo Mini App → Chấm sao + chọn đánh giá chất lượng món & thái độ phục vụ.
+3. Nếu đánh giá 1-2 sao → Hệ thống gửi thông báo khẩn tới Zalo Manager + gửi tặng tự động Voucher đền bù cho khách.
+4. Dashboard phân tích điểm Rating trung bình từng món & từng ca làm việc của từng chi nhánh.
 
 **IoT cụ thể (cho quán premium/chuỗi lớn):**
 - **Sensor nhiệt độ** trên group head máy espresso: đảm bảo nước 90-96°C
 - **Flow meter** đo lưu lượng nước: đảm bảo 25-30ml espresso shot
 - **Smart scale** (cân điện tử Bluetooth): hỗ trợ cân cà phê định lượng tại quầy khi xay
 
-**Kết quả:** Chất lượng đồng nhất 95%+ giữa các chi nhánh. Đào tạo barista mới từ 2-4 tuần → 3-5 ngày.
+**Kết quả:** Chất lượng đồng nhất 95%+. Xử lý 100% sự cố khách phàn nàn ngay tại chỗ. Tối ưu menu 100% dựa trên data thật.
 
 ---
 
@@ -520,7 +529,7 @@
 | M1 | 🛒 **POS — Bán Hàng** | Order, chia/gộp bill, thanh toán VietQR/MoMo/tiền mặt, KDS, quản lý bàn |
 | M2 | 📦 **Kho — Nguyên Liệu** | Quản lý xuất kho quầy (Kg/Hộp/Chai), kiểm kê kho & quầy, alert hết hàng, AI đề xuất nhập hàng |
 | M3 | 📋 **Menu — Thực Đơn** | CRUD món, giá theo chi nhánh, combo, AI gợi ý combo, ảnh + mô tả |
-| M4 | 👥 **CRM & Loyalty** | Hồ sơ khách, tích điểm, phân nhóm, AI churn prediction, auto-voucher |
+| M4 | 👥 **CRM & Loyalty** | Hồ sơ khách, tích điểm, phân nhóm, QR Customer Feedback (đánh giá món/ca), AI churn prediction, auto-voucher |
 | M5 | 📊 **Analytics & AI** | Dashboard real-time, forecast doanh thu, so sánh chi nhánh, heatmap giờ |
 | M6 | 🤖 **Chatbot AI** | Đặt bàn/đặt món qua Zalo/FB, hỏi đáp menu, xử lý feedback, NLP tiếng Việt |
 | M7 | 👨‍💼 **HRM — Nhân Sự** | Chấm công QR/GPS, xếp ca AI, đổi ca app, tính lương tự động |
@@ -566,8 +575,8 @@
 | Chấm công gian lận | QR + GPS lock + selfie | Face recognition (tùy chọn) | Gian lận → 0%, tiết kiệm 2-3 ngày tính lương |
 | Xếp ca cảm tính | AI demand forecast + auto-scheduling | XGBoost time-series + Optimization | Tiết kiệm 30% nhân công lãng phí |
 | Thất thoát nguyên liệu 5-15% | Quản lý xuất kho quầy + AI đề xuất nhập | XGBoost demand forecast | Thất thoát < 2%, không hết hàng giữa ca |
-| Không biết lợi nhuận thật | Dashboard tích hợp real-time | Analytics engine | Biết lãi/lỗ từng quán mỗi ngày |
-| Chất lượng không đồng nhất | Công thức chuẩn hóa + IoT sensor | ESP32 + DS18B20 + Smart Scale | Đồng nhất 95%+ giữa chi nhánh |
+| Chất lượng không đồng nhất & Thiếu Data | Công thức chuẩn + QR Code Feedback + IoT | ESP32 + DS18B20 + Feedback Analytics | Đồng nhất 95%+, xử lý phàn nàn 100% tại chỗ, tối ưu menu theo data |
+| Biết lợi nhuận thật | Dashboard tích hợp real-time | Analytics engine | Biết lãi/lỗ từng quán mỗi ngày |
 | Khách bỏ đi không biết | CRM + AI Churn Prediction | Random Forest / XGBoost | Giữ thêm 15-25% khách, tăng 20% doanh thu |
 | Máy pha / tủ lạnh hỏng bất ngờ | IoT monitoring + Predictive Maintenance | ESP32 + Vibration + Smart Plug | Giảm 70% sự cố bất ngờ |
 | Điện lãng phí 15-25% | IoT Smart Meter + AI optimization | Smart Plug + AI schedule | Tiết kiệm 15-20% điện/tháng |
