@@ -340,23 +340,13 @@
 
 | # | Tên AI Feature | Bài Toán Giải Quyết | Model / Thuật Toán | Dữ Liệu Đầu Vào | Kết Quả Đầu Ra |
 |---|---|---|---|---|---|
-| AI-1 | **Dự báo doanh thu & lượng khách** | Biết trước 7-30 ngày doanh thu bao nhiêu | Prophet / LSTM time-series | Doanh thu lịch sử + thời tiết + ngày lễ + sự kiện | "Thứ 7 tuần tới: 185 khách, doanh thu dự kiến 12.5 triệu" |
-| AI-2 | **Dự báo nhu cầu nguyên liệu** | Nhập hàng đúng lúc, đúng lượng | XGBoost + time-series | Lịch sử bán × BOM + tồn kho + lead time NCC | "Cần nhập 9kg cà phê + 100 lít sữa trước thứ 5" |
-| AI-3 | **Gợi ý combo bán chạy** | Tăng doanh thu trung bình/đơn | Association Rules (Apriori) + Collaborative Filtering | Lịch sử đơn hàng (món nào hay đi kèm nhau) | "Combo Latte + Croissant: 68% khách mua Latte cũng mua Croissant" |
-| AI-4 | **Churn Prediction khách hàng** | Giữ chân khách sắp bỏ đi | Random Forest / XGBoost classification | Tần suất mua, giá trị mua, khoảng cách giữa lần mua | "Khách Nguyễn A: 78% churn risk → gửi voucher 30% off" |
-| AI-5 | **Chatbot NLP tiếng Việt** | Đặt bàn/đặt món qua Zalo/Facebook | RAG (LLM + Vector DB) + PhoBERT intent | Tin nhắn khách: "Cho em đặt 2 ly trà sữa 3h chiều nha 🧋" | Parse: {item: "trà sữa", qty: 2, time: "15:00"} → tạo order |
-| AI-6 | **Đề xuất ca làm việc** | Xếp ca tối ưu tự động | Constraint Optimization + Demand Forecast | Dự báo lượng khách/giờ + availability NV + quy tắc công bằng | Bảng ca tuần tối ưu — quản lý chỉ cần duyệt |
-| AI-7 | **Menu Intelligence & Smart Promotion** | Tối ưu menu + khuyến mãi đúng thời điểm | Time-series decomposition + Clustering + Elasticity regression | Doanh số từng món/giờ + QR feedback + tồn kho + thời tiết | "Matcha +35% 4 tuần, Smoothie Dâu 2 ly/ngày → loại. Giờ vắng 14-16h → push combo" |
+| AI-1 | **Thống Kê doanh thu bằng AI** | Thông kê so sánh doanh thu các tuần các tháng, quán, quý | Prophet / LSTM time-series | Doanh thu lịch sửn | "Tháng này so với tháng trước bao nhiêu " |
+| AI-2 | **Gợi ý combo bán chạy** | Tăng doanh thu trung bình/đơn | Association Rules (Apriori) + Collaborative Filtering | Lịch sử đơn hàng (món nào hay đi kèm nhau) | "Combo Latte + Croissant: 68% khách mua Latte cũng mua Croissant" |
+| AI-3 | **Churn Prediction khách hàng** | Giữ chân khách sắp bỏ đi | Random Forest / XGBoost classification | Tần suất mua, giá trị mua, khoảng cách giữa lần mua | "Khách Nguyễn A: 78% churn risk → gửi voucher 30% off" |
+| AI-4 | **Chatbot NLP tiếng Việt** | hỏi menu , hỏi món gì ngon , hỏi nguyên liệu gồm gì có dị ứng không | RAG (LLM + Vector DB) + PhoBERT intent | Tin nhắn khách: "trình bày cho khách hàng" | Parse: {item: "trà sữa", qty: 2, time: "15:00"} → tạo order |
+| AI-5 | **Menu Intelligence & Smart Promotion** | Tối ưu menu + khuyến mãi đúng thời điểm | Time-series decomposition + Clustering + Elasticity regression | Doanh số từng món/giờ + QR feedback + tồn kho + thời tiết | "Matcha +35% 4 tuần, Smoothie Dâu 2 ly/ngày → loại. Giờ vắng 14-16h → push combo" |
 
 ---
-
-## 12. 📡 Tổng Hợp IoT (Tùy Chọn Mở Rộng Cho Chuỗi Lớn)
-
-| # | Thiết Bị IoT | Giao Thức | Vai Trò | Giá Ước Tính |
-|---|---|---|---|---|
-| IoT-1 | **ESP32 + DS18B20** | WiFi + MQTT | Giám sát nhiệt độ tủ lạnh/tủ mát — cảnh báo khi nhiệt độ bất thường | ~180K VNĐ/bộ |
-| IoT-2 | **Smart Scale (cân BT)** | Bluetooth | Hỗ trợ cân nguyên liệu tại quầy khi xuất kho | ~300K VNĐ/cái |
-| IoT-3 | **Đầu đọc QR / NFC** | USB | Chấm công nhân viên + check-in khách hàng loyalty | ~500K VNĐ |
 
 ### Luồng IoT Data:
 
