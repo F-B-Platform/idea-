@@ -410,7 +410,10 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 |---|---|
 | **Không xếp hàng** | Scan QR tại bàn → đặt món ngay → không cần đứng chờ |
 | **Đặt đúng ý** | Tự chọn Size, Đường, Đá, Topping trên điện thoại → không sợ bị ghi sai |
-| **Thanh toán tiện lợi** | VietQR / MoMo / Tiền mặt — tùy chọn |
+| **Biết chờ bao lâu** | Hiển thị thời gian chờ ước tính (~8 phút) → không bất an, không phải hỏi nhân viên |
+| **AI gợi ý món** | Hỏi chatbot "tôi thích vị đắng" → AI gợi ý ngay món phù hợp + allergen filter |
+| **Gọi thêm dễ dàng** | Muốn order thêm → bấm "Gọi thêm" từ điện thoại — không cần lên quầy |
+| **Thanh toán tiện lợi** | VietQR / MoMo / Tiền mặt / Split Bill chia nhóm — tùy chọn |
 | **Tích điểm tự động** | Không cần thẻ giấy, không cần tải app → tích điểm ngay khi đặt qua QR |
 | **Nhận ưu đãi** | Voucher sinh nhật, ưu đãi loyalty gửi qua Zalo tự động |
 
@@ -519,6 +522,17 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 # 📝 PHẦN VII: TÍNH NĂNG HỆ THỐNG CHI TIẾT THEO TỪNG ACTOR
 
+### Tổng Quan 4 Actor
+
+| Actor | Giao Diện | Số Tính Năng | Highlight Chính |
+|---|---|---|---|
+| 👤 **Khách hàng** | QR Order Web (PWA) | 24 tính năng | Order, Thanh toán, AI gợi ý, Split Bill, Loyalty |
+| 🧋 **Barista / Pha chế** | KDS (TV/Tablet) | 11 tính năng | Real-time order, Công thức chuẩn, Báo hết món, Sơ đồ bàn |
+| 🏪 **Quản lý chi nhánh** | App Mobile + Web | 13 tính năng | Ca làm việc, Nhập/Xuất kho, Báo cáo, Chatbot AI |
+| 👑 **Chủ chuỗi / Admin** | Web Dashboard | 22 tính năng | Dashboard, P&L, Menu, RBAC, 5 AI, Audit Log, Export |
+
+---
+
 ## 18. 👤 ACTOR 1: KHÁCH HÀNG (Customer)
 
 > **Giao diện:** QR Order Web (PWA) — mở bằng trình duyệt điện thoại, KHÔNG cần tải app
@@ -549,18 +563,31 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 |---|---|---|
 | C-11 | **🤖 Chatbot gợi ý món** | Bấm "Gợi ý cho tôi" → chat với AI: hỏi theo khẩu vị, thời tiết, dị ứng, trend → AI gợi ý món phù hợp |
 | C-12 | **Xem món bán chạy** | Hiển thị tag "Best Seller", "Mới", "Hot" trên menu dựa trên data bán hàng thật |
-| C-13 | **Theo dõi trạng thái đơn** | Sau khi đặt → màn hình hiện: "Đang pha chế..." → "Món đã sẵn sàng! 🔔" |
-| C-14 | **Thông báo khi món xong** | Push notification trên trình duyệt hoặc hiện trên màn hình đặt món |
-| C-15 | **QR Feedback đánh giá** | Scan QR tại bàn → đánh giá 1-5 sao + ghi chú → gửi feedback trực tiếp |
-| C-16 | **Tích điểm Loyalty tự động** | Mỗi đơn hàng tự động tích điểm theo SĐT (không cần thẻ giấy, không cần app) |
-| C-17 | **Xem lịch sử đặt hàng** | Khách có SĐT → xem lại các đơn trước + đặt lại nhanh |
-| C-18 | **Nhận voucher qua Zalo** | Voucher sinh nhật, ưu đãi loyalty, voucher "lâu ngày chưa ghé" — gửi tự động qua Zalo OA |
+| C-13 | **Theo dõi trạng thái đơn real-time** | Sau khi đặt → thanh tiến trình: "Đã xác nhận → Đang pha chế... → Sẵn sàng! 🔔" |
+| C-14 | **Thời gian chờ ước tính** | Hiển thị: "Đơn của bạn dự kiến xong sau ~8 phút" — tính từ số đơn đang chờ trên KDS |
+| C-15 | **Thông báo khi món xong** | Push notification trên trình duyệt hoặc hiện trên màn hình đặt món |
+| C-16 | **Gọi nhân viên** | Nút "Gọi nhân viên 🔔" trên màn hình QR → nhân viên nhận thông báo trên App: "Bàn 5 cần hỗ trợ" |
+| C-17 | **QR Feedback đánh giá** | Scan QR tại bàn → đánh giá 1-5 sao **từng món** + ghi chú → gửi feedback trực tiếp |
+| C-18 | **Tích điểm Loyalty tự động** | Mỗi đơn hàng tự động tích điểm theo SĐT (không cần thẻ giấy, không cần app) |
+| C-19 | **Xem lịch sử đặt hàng** | Khách có SĐT → xem lại các đơn trước + đặt lại nhanh 1 click |
+| C-20 | **Nhận voucher qua Zalo** | Voucher sinh nhật, ưu đãi loyalty, voucher "lâu ngày chưa ghé" — gửi tự động qua Zalo OA |
+
+### 18.4 Tính Năng Nâng Cao (UX+)
+
+| # | Tính Năng | Mô Tả Chi Tiết |
+|---|---|---|
+| C-21 | **Gọi thêm món (Add to order)** | Sau khi đặt xong, khách muốn thêm 1 ly nữa → bấm "Gọi thêm" → thêm vào đơn đang chạy, không tạo đơn mới |
+| C-22 | **Allergen & Calories** | Mỗi món hiển thị: thành phần dị ứng (sữa, gluten, đậu phộng) + calories ước tính → khách sức khỏe yên tâm |
+| C-23 | **Món yêu thích / Quick Reorder** | Khách lưu món hay gọi → lần sau vào QR menu hiện ngay "Món của bạn" → order 1 click |
+| C-24 | **Split Bill (Chia tiền nhóm)** | Nhóm 4 người → bấm "Chia tiền" → chọn chia đều hoặc chia theo món → mỗi người nhận QR thanh toán riêng |
 
 ---
 
 ## 19. 🧋 ACTOR 2: BARISTA / PHA CHẾ (Staff)
 
 > **Giao diện:** Màn hình KDS (Kitchen Display System) — hiển thị trên TV/Tablet tại quầy pha chế
+
+### 19.1 Quản Lý Đơn Hàng
 
 | # | Tính Năng | Mô Tả Chi Tiết |
 |---|---|---|
@@ -569,8 +596,18 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | S-03 | **Ưu tiên đơn chờ lâu** | Đơn chờ > 3 phút → đổi màu vàng. Chờ > 5 phút → đổi màu đỏ → pha trước |
 | S-04 | **Bấm "Hoàn thành"** | Pha xong → bấm nút → đơn biến mất khỏi KDS → khách nhận thông báo "Món đã sẵn sàng" |
 | S-05 | **Xem ghi chú khách** | Hiện rõ ghi chú: "Ít đá", "Không đường", "Thêm shot" → không cần hỏi lại |
-| S-06 | **🤖 Hỏi Chatbot AI** | Hỏi: "Cappuccino cần gì?" → AI trả lời công thức. Hỏi: "Syrup Caramel còn không?" → AI check kho |
-| S-07 | **Chấm công QR + GPS** | Đầu ca: Scan QR động (đổi 30 giây) + GPS lock (bán kính 50m) → hệ thống ghi giờ vào/ra |
+| S-06 | **Xem đơn gom theo bàn** | Chế độ "Bàn View": xem tất cả món bàn 5 đã order (kể cả nhiều lần) → mang 1 chuyến đủ |
+
+### 19.2 Hỗ Trợ Vận Hành
+
+| # | Tính Năng | Mô Tả Chi Tiết |
+|---|---|---|
+| S-07 | **Báo Hết Món (Out of Stock)** | Barista bấm "Hết" trên KDS → món **tự ẩn ngay lập tức** trên QR Order của khách — không cần nhờ Admin |
+| S-08 | **In Bill / Receipt** | Kết nối máy in nhiệt → in hóa đơn khi khách yêu cầu (tên món, giá, tổng tiền, mã đơn) |
+| S-09 | **Sơ đồ bàn (Floor Map)** | Xem trực quan bàn nào đang có khách (xanh/đỏ), bàn nào trống → ưu tiên phục vụ đúng bàn |
+| S-10 | **Nhận thông báo gọi nhân viên** | Khi khách bấm "Gọi nhân viên" từ QR → nhân viên nhận chuông thông báo: "Bàn 5 cần hỗ trợ" |
+| S-11 | **🤖 Hỏi Chatbot AI** | Hỏi: "Cappuccino cần gì?" → AI trả lời công thức. Hỏi: "Syrup Caramel còn không?" → AI check kho |
+| S-12 (gộp) | **Chấm công QR + GPS** | Đầu ca: Scan QR động (đổi 30 giây) + GPS lock (bán kính 50m) → hệ thống ghi giờ vào/ra |
 
 ---
 
@@ -600,8 +637,16 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | # | Tính Năng | Mô Tả Chi Tiết |
 |---|---|---|
 | M-08 | **Xem doanh thu ca/ngày** | Doanh thu, số đơn, trung bình/đơn, top món bán chạy — **chỉ của quán mình** |
-| M-09 | **Nhận báo cáo EOD tự động** | Cuối ca → hệ thống tự gửi báo cáo qua Zalo/Email → không cần gõ tay |
-| M-10 | **🤖 Hỏi Chatbot AI** | Hỏi: "Hôm nay doanh thu bao nhiêu?" "CF hao hụt tháng này?" → AI trả lời tức thì |
+| M-09 | **Biểu đồ doanh thu theo giờ** | Chart hiển thị giờ nào đông (đơn nhiều), giờ nào vắng → QL xếp ca đúng người đúng lúc |
+| M-10 | **Nhận báo cáo EOD tự động** | Cuối ca → hệ thống tự gửi báo cáo qua Zalo/Email → không cần gõ tay |
+| M-11 | **🤖 Hỏi Chatbot AI** | Hỏi: "Hôm nay doanh thu bao nhiêu?" "CF hao hụt tháng này?" → AI trả lời tức thì |
+
+### 20.4 Quản Lý Kho Nâng Cao
+
+| # | Tính Năng | Mô Tả Chi Tiết |
+|---|---|---|
+| M-12 | **Nhập kho từ NCC (Goods Receipt)** | Khi NCC giao hàng: QL nhập phiếu "Nhận 10kg CF hạt + 50 hộp sữa" → kho tổng cộng số thêm. Đối chiếu với đơn đặt hàng |
+| M-13 | **Quản lý Sơ Đồ Bàn** | Cấu hình bàn của quán (bàn 1-20, khu vực: Trong/Ngoài/VIP) → dùng cho KDS Floor Map và QR Order theo bàn |
 
 ---
 
@@ -646,6 +691,16 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | A-16 | **🤖 AI Combo Suggest** | AI phân tích: "68% khách mua Latte cũng mua Croissant → tạo combo 75K" |
 | A-17 | **🤖 Chatbot Admin** | Hỏi bất kỳ: "Tháng này hao hụt bao nhiêu?" "Quán nào lãi nhất?" → AI trả lời |
 
+### 21.5 Quản Trị & Bảo Mật Hệ Thống
+
+| # | Tính Năng | Mô Tả Chi Tiết |
+|---|---|---|
+| A-18 | **Export Báo Cáo (Excel / PDF)** | Xuất báo cáo doanh thu, lương, kho theo tháng/quý → file Excel/PDF gửi kế toán |
+| A-19 | **Audit Log (Nhật Ký Thao Tác)** | Ghi lại mọi thao tác: ai sửa giá, ai xóa đơn, ai đổi menu — lúc nào, IP nào → chống gian lận nội bộ |
+| A-20 | **Giờ Hoạt Động (Business Hours)** | Cài giờ mở/đóng cửa từng quán → QR Order tự hiện thông báo "Quán đã đóng cửa" ngoài giờ hoạt động |
+| A-21 | **RBAC — Phân Quyền Chi Tiết** | Cấu hình quyền theo chức năng: QL chỉ xem kho + doanh thu quán mình, không thấy lương toàn chuỗi |
+| A-22 | **Broadcast Notification** | Gửi thông báo đến tất cả nhân viên/quản lý cùng lúc: "Hôm nay đóng cửa sớm 8h — Kiểm kê tháng" |
+
 ---
 
 ## 22. 📊 BẢNG TỔNG HỢP: VẤN ĐỀ → GIẢI PHÁP → CÔNG NGHỆ → KẾT QUẢ
@@ -664,5 +719,5 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 ---
 
-> **Tóm lại:** Smart F&B Operating System **thay thế hoàn toàn hệ thống POS truyền thống** bằng **QR Self-Order** — khách tự đặt món trên điện thoại, tự thanh toán, đơn bay thẳng vào bếp. Tích hợp **6 AI features** bao gồm chatbot gợi ý món cho khách hàng theo khẩu vị, chatbot nội bộ cho nhân viên & admin, thống kê doanh thu thông minh, gợi ý combo, dự đoán khách sắp bỏ đi, và tối ưu menu tự động. Hệ thống phục vụ **4 nhóm người dùng** (Khách hàng, Barista, Quản lý chi nhánh, Chủ chuỗi) — mỗi người có giao diện và tính năng riêng biệt. Không cần máy POS đắt tiền, không cần thu ngân, không chiết khấu 20-30% như Grab — **100% doanh thu về chủ quán**.
+> **Tóm lại:** Smart F&B Operating System **thay thế hoàn toàn hệ thống POS truyền thống** bằng **QR Self-Order** — khách tự đặt món trên điện thoại, tự thanh toán, đơn bay thẳng vào bếp. Tích hợp **6 AI features** bao gồm chatbot gợi ý món cho khách hàng theo khẩu vị, chatbot nội bộ cho nhân viên & admin, thống kê doanh thu thông minh, gợi ý combo, dự đoán khách sắp bỏ đi, và tối ưu menu tự động. Hệ thống phục vụ **4 nhóm người dùng** với tổng cộng **70+ tính năng** chi tiết — Khách hàng (24 features: QR Order, AI gợi ý, Split Bill, thời gian chờ, gọi thêm món), Barista (12 features: KDS, báo hết món, sơ đồ bàn), Quản lý (13 features: nhập/xuất kho, biểu đồ theo giờ), Chủ chuỗi (22 features: P&L, Audit Log, Export, RBAC). Không cần máy POS đắt tiền, không cần thu ngân, không chiết khấu 20-30% như Grab — **100% doanh thu về chủ quán**.
 
