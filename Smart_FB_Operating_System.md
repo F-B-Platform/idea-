@@ -363,18 +363,19 @@
 
 # 📝 PHẦN III: AI ỨNG DỤNG — CHI TIẾT KỸ THUẬT
 
-## 11. 🤖 Tổng Hợp 6 Tính Năng AI
+## 11. 🤖 Tổng Hợp 5 Tính Năng AI
 
 | # | Tên AI Feature | Bài Toán Giải Quyết | Ai Sử Dụng | Model / Thuật Toán | Ví Dụ Kết Quả |
 |---|---|---|---|---|---|
-| AI-1 | **Thống kê & So sánh doanh thu bằng AI** | So sánh doanh thu theo tuần/tháng/quý giữa các quán | 👑 Admin | Prophet / LSTM time-series | "Tháng 8 Q1 tăng 12% so với T7, Q3 giảm 5% — cần kiểm tra" |
+| AI-1 | **Thống kê & So sánh doanh thu bằng AI** | So sánh doanh thu theo tuần/tháng/quý giữa các quán. Hỏi đáp bằng ngôn ngữ tự nhiên | 👑 Admin + 🏪 Manager | Prophet / LSTM time-series + RAG (LLM) | Admin: "So sánh Q1 vs Q3 tháng 8" → AI trả lời kèm biểu đồ. QL: "Hôm nay doanh thu bao nhiêu?" → "18.5 triệu, tăng 8% so với hôm qua" |
 | AI-2 | **Gợi ý combo bán chạy** | Phân tích món nào hay mua cùng nhau → tạo combo tăng doanh thu | ⚙️ Hệ thống tự động | Association Rules (Apriori) + Collaborative Filtering | "68% khách mua Latte cũng mua Croissant → Combo 75K" |
 | AI-3 | **Churn Prediction khách hàng** | Phát hiện khách sắp bỏ đi → tự động gửi voucher kéo lại | ⚙️ Tự động | Random Forest / XGBoost classification | "Khách Nguyễn A: 78% churn risk → auto gửi voucher 30% off" |
-| AI-4 | **Chatbot AI Nội Bộ (Staff & Admin)** | Nhân viên hỏi về nguyên liệu, công thức. Admin hỏi thống kê | 🧋 Staff + 👑 Admin | RAG (LLM + Vector DB) + PhoBERT | Staff: "Latte cần gì?" → "Esp 2 shot + Sữa 200ml". Admin: "Hao hụt tháng này?" → "2.3kg, tăng 15%" |
-| AI-5 | **Menu Intelligence & Smart Promotion** | Phân tích món bán chạy/chậm, gợi ý giá, khuyến mãi đúng thời điểm | 👑 Admin | Time-series + Clustering + Elasticity regression | "Matcha +35% → thêm biến thể. Smoothie Dâu 2 ly/ngày → loại. 14-16h vắng → push combo" |
-| AI-6 | **Chatbot Gợi Ý Món Cho Khách Hàng** | Khách hỏi chatbot trên QR Order → AI gợi ý món theo khẩu vị, thời tiết, dị ứng, trend | 👤 Khách hàng | RAG + Recommendation Engine + Content-based Filtering | Khách: "Tôi thích vị đắng, ít ngọt" → "Americano hoặc Cappuccino đường 25%". "Hôm nay nóng quá" → "Trà Đào Cam Sả đá" |
+| AI-4 | **Menu Intelligence & Smart Promotion** | Phân tích món bán chạy/chậm, gợi ý giá, khuyến mãi đúng thời điểm | 👑 Admin | Time-series + Clustering + Elasticity regression | "Matcha +35% → thêm biến thể. Smoothie Dâu 2 ly/ngày → loại. 14-16h vắng → push combo" |
+| AI-5 | **Chatbot Gợi Ý Món Cho Khách Hàng** | Khách hỏi chatbot trên QR Order → AI gợi ý món theo khẩu vị, thời tiết, dị ứng, trend | 👤 Khách hàng | RAG + Recommendation Engine + Content-based Filtering | Khách: "Tôi thích vị đắng, ít ngọt" → "Americano hoặc Cappuccino đường 25%". "Hôm nay nóng quá" → "Trà Đào Cam Sả đá" |
 
-### Chi Tiết AI-6: Chatbot Gợi Ý Món Cho Khách Hàng
+> **Lưu ý:** Nhân viên pha chế (Barista) **không cần chatbot hỏi công thức** — vì mỗi đơn hàng trên KDS đã hiển thị **công thức pha chi tiết** kèm theo (xem S-02). AI-1 (Thống kê) phục vụ cho Admin xem toàn chuỗi và Manager xem quán mình.
+
+### Chi Tiết AI-5: Chatbot Gợi Ý Món Cho Khách Hàng
 
 Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách bấm vào để chat với AI:
 
@@ -430,12 +431,12 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | **Cần máy POS?** | ✅ Cần (8-25 triệu/máy) | ❌ Không | **❌ Không cần** |
 | **Cần thu ngân?** | ✅ Cần (1-2 người/ca) | ❌ Không | **❌ Không cần** (hoặc 1 người hỗ trợ) |
 | **Phí hàng tháng** | 250K-2 triệu/tháng | 20-30% chiết khấu/đơn | **Tự sở hữu — 0 đồng chiết khấu** |
-| **AI phân tích** | ❌ Không có | ❌ Không có | **✅ 6 tính năng AI** |
+| **AI phân tích** | ❌ Không có | ❌ Không có | **✅ 5 tính năng AI** |
 | **AI gợi ý cho khách** | ❌ Không | ❌ Không | **✅ Chatbot gợi ý món theo khẩu vị** |
-| **Chatbot nội bộ** | ❌ Không | ❌ Không | **✅ Chatbot AI cho Staff & Admin** |
+| **AI thống kê doanh thu** | ❌ Không | ❌ Không | **✅ AI hỏi đáp doanh thu cho Admin & Manager** |
 | **CRM & Loyalty** | Cơ bản (thẻ giấy) | Không (data thuộc Grab) | **✅ CRM đầy đủ + AI Churn Prediction** |
 | **Quản lý kho** | Cơ bản | ❌ Không | **✅ Xuất kho quầy + AI đề xuất nhập** |
-| **KDS Bếp** | Có (một số) | ❌ Không | **✅ Có + Công thức chuẩn từng ly** |
+| **KDS Bếp** | Có (một số) | ❌ Không | **✅ Có + Công thức chuẩn từng ly (kèm mỗi đơn)** |
 | **Data thuộc ai?** | Thuộc nền tảng | Thuộc Grab/Shopee | **Thuộc 100% chủ quán** |
 
 ## 15. 🎯 Điểm Khác Biệt Cốt Lõi (Unique Selling Points)
@@ -444,10 +445,9 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 |---|---|---|
 | 1 | **QR Self-Order thay thế hoàn toàn POS** | Cắt giảm chi phí máy POS (8-25 triệu) + lương thu ngân (6-16 triệu/tháng) |
 | 2 | **AI Chatbot gợi ý món cho khách** | Khách hỏi "tôi thích vị đắng" → AI gợi ý Americano. Tăng trải nghiệm + tăng giá trị đơn hàng |
-| 3 | **AI Chatbot Nội Bộ** | Nhân viên mới hỏi chatbot về công thức, quy trình → đào tạo nhanh gấp 3 |
-| 4 | **AI Thống Kê & So Sánh Doanh Thu** | Chủ chuỗi hỏi AI: "So sánh Q1 vs Q3 tháng này" → có câu trả lời trong 5 giây |
-| 5 | **QR Feedback + AI Menu Intelligence** | Thu thập data thật từ khách → AI phân tích → đề xuất menu tối ưu (không cảm tính) |
-| 6 | **0 đồng chiết khấu** (khác Grab 20-30%) | Đơn hàng tại quán 100% doanh thu về chủ quán, không chia cho nền tảng |
+| 3 | **AI Thống Kê & Hỏi Đáp Doanh Thu** | Admin/Manager hỏi AI: "So sánh Q1 vs Q3 tháng này" → có câu trả lời trong 5 giây |
+| 4 | **QR Feedback + AI Menu Intelligence** | Thu thập data thật từ khách → AI phân tích → đề xuất menu tối ưu (không cảm tính) |
+| 5 | **0 đồng chiết khấu** (khác Grab 20-30%) | Đơn hàng tại quán 100% doanh thu về chủ quán, không chia cho nền tảng |
 
 ---
 ---
@@ -477,16 +477,16 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 ╠══════════════════════════════════════════════════════════════════════╣
 ║  TẦNG 3: AI ENGINE                                                   ║
 ║                                                                      ║
-║  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐               ║
-║  │ AI-1     │ │ AI-2     │ │ AI-3     │ │ AI-4     │               ║
-║  │ Thống kê │ │ Combo    │ │ Churn    │ │ Chatbot  │               ║
-║  │ Doanh thu│ │ Suggest  │ │ Predict  │ │ Nội bộ   │               ║
-║  └──────────┘ └──────────┘ └──────────┘ └──────────┘               ║
-║  ┌──────────┐ ┌──────────────────────────────────────┐              ║
-║  │ AI-5     │ │ AI-6                                 │              ║
-║  │ Menu     │ │ Chatbot Gợi Ý Món Cho Khách Hàng     │              ║
-║  │ Intel    │ │ (Khẩu vị, thời tiết, dị ứng, trend)  │              ║
-║  └──────────┘ └──────────────────────────────────────┘              ║
+║  ┌──────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐          ║
+║  │ AI-1         │ │ AI-2     │ │ AI-3     │ │ AI-4     │          ║
+║  │ Thống kê     │ │ Combo    │ │ Churn    │ │ Menu     │          ║
+║  │ Doanh thu    │ │ Suggest  │ │ Predict  │ │ Intel    │          ║
+║  │ (Admin + QL) │ │          │ │          │ │          │          ║
+║  └──────────────┘ └──────────┘ └──────────┘ └──────────┘          ║
+║  ┌──────────────────────────────────────────────────┐              ║
+║  │ AI-5: Chatbot Gợi Ý Món Cho Khách Hàng          │              ║
+║  │ (Khẩu vị, thời tiết, dị ứng, trend)             │              ║
+║  └──────────────────────────────────────────────────┘              ║
 ║                                                                      ║
 ╠══════════════════════════════════════════════════════════════════════╣
 ║  TẦNG 4: DATABASE & INFRASTRUCTURE                                   ║
@@ -513,7 +513,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | **Real-time** | WebSocket (Socket.IO) — đơn hàng hiện tức thì trên KDS |
 | **Thanh toán** | VietQR API (VNPay/Vietcombank) + MoMo API |
 | **AI Engine** | Python (scikit-learn, Prophet, LangChain) |
-| **Chatbot (Nội bộ + Khách)** | RAG (LangChain + Vector DB + LLM API) |
+| **Chatbot (Khách hàng)** | RAG (LangChain + Vector DB + LLM API) |
 | **Notification** | Zalo OA API + Email (SendGrid) |
 | **Deploy** | Docker + Cloud (AWS/GCP/VPS) |
 
@@ -527,9 +527,9 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | Actor | Giao Diện | Số Tính Năng | Highlight Chính |
 |---|---|---|---|
 | 👤 **Khách hàng** | QR Order Web (PWA) | 24 tính năng | Order, Thanh toán, AI gợi ý, Split Bill, Loyalty |
-| 🧋 **Barista / Pha chế** | KDS (TV/Tablet) | 12 tính năng | Real-time order, Công thức chuẩn, Báo hết món, Sơ đồ bàn |
-| 🏪 **Quản lý chi nhánh** | App Mobile + Web | 13 tính năng | Ca làm việc, Nhập/Xuất kho, Báo cáo, Chatbot AI |
-| 👑 **Chủ chuỗi / Admin** | Web Dashboard | 22 tính năng | Dashboard, P&L, Menu, RBAC, 5 AI, Audit Log, Export |
+| 🧋 **Barista / Pha chế** | KDS (TV/Tablet) | 11 tính năng | Real-time order, Công thức chuẩn kèm đơn, Báo hết món, Sơ đồ bàn |
+| 🏪 **Quản lý chi nhánh** | App Mobile + Web | 13 tính năng | Ca làm việc, Nhập/Xuất kho, Báo cáo, AI thống kê |
+| 👑 **Chủ chuỗi / Admin** | Web Dashboard | 22 tính năng | Dashboard, P&L, Menu, RBAC, AI thống kê, Audit Log, Export |
 
 ---
 
@@ -606,8 +606,9 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | S-08 | **In Bill / Receipt** | Kết nối máy in nhiệt → in hóa đơn khi khách yêu cầu (tên món, giá, tổng tiền, mã đơn) |
 | S-09 | **Sơ đồ bàn (Floor Map)** | Xem trực quan bàn nào đang có khách (xanh/đỏ), bàn nào trống → ưu tiên phục vụ đúng bàn |
 | S-10 | **Nhận thông báo gọi nhân viên** | Khi khách bấm "Gọi nhân viên" từ QR → nhân viên nhận chuông thông báo: "Bàn 5 cần hỗ trợ" |
-| S-11 | **🤖 Hỏi Chatbot AI** | Hỏi: "Cappuccino cần gì?" → AI trả lời công thức. Hỏi: "Syrup Caramel còn không?" → AI check kho |
-| S-12 (gộp) | **Chấm công QR + GPS** | Đầu ca: Scan QR động (đổi 30 giây) + GPS lock (bán kính 50m) → hệ thống ghi giờ vào/ra |
+| S-11 | **Chấm công QR + GPS** | Đầu ca: Scan QR động (đổi 30 giây) + GPS lock (bán kính 50m) → hệ thống ghi giờ vào/ra |
+
+> **Lưu ý:** Barista **không cần chatbot hỏi công thức** — vì công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn hàng trên KDS (xem S-02).
 
 ---
 
@@ -639,7 +640,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | M-08 | **Xem doanh thu ca/ngày** | Doanh thu, số đơn, trung bình/đơn, top món bán chạy — **chỉ của quán mình** |
 | M-09 | **Biểu đồ doanh thu theo giờ** | Chart hiển thị giờ nào đông (đơn nhiều), giờ nào vắng → QL xếp ca đúng người đúng lúc |
 | M-10 | **Nhận báo cáo EOD tự động** | Cuối ca → hệ thống tự gửi báo cáo qua Zalo/Email → không cần gõ tay |
-| M-11 | **🤖 Hỏi Chatbot AI** | Hỏi: "Hôm nay doanh thu bao nhiêu?" "CF hao hụt tháng này?" → AI trả lời tức thì |
+| M-11 | **🤖 AI Thống kê doanh thu (AI-1)** | Hỏi AI bằng ngôn ngữ tự nhiên: "Hôm nay doanh thu bao nhiêu?" "Hao hụt tháng này?" → AI trả lời tức thì (chỉ xem data quán mình) |
 
 ### 20.4 Quản Lý Kho Nâng Cao
 
@@ -685,11 +686,10 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 | # | Tính Năng | Mô Tả Chi Tiết |
 |---|---|---|
-| A-13 | **🤖 AI Thống kê doanh thu** | Hỏi AI: "So sánh Q1 vs Q3 tháng 8" → AI trả lời kèm biểu đồ |
-| A-14 | **🤖 AI Menu Intelligence** | AI gợi ý: "Matcha tăng 35% → thêm biến thể", "Smoothie Dâu 2 ly/ngày → loại" |
-| A-15 | **🤖 AI Churn Prediction** | Danh sách khách có nguy cơ bỏ đi + hệ thống tự gửi voucher kéo lại |
-| A-16 | **🤖 AI Combo Suggest** | AI phân tích: "68% khách mua Latte cũng mua Croissant → tạo combo 75K" |
-| A-17 | **🤖 Chatbot Admin** | Hỏi bất kỳ: "Tháng này hao hụt bao nhiêu?" "Quán nào lãi nhất?" → AI trả lời |
+| A-13 | **🤖 AI Thống kê doanh thu (AI-1)** | Hỏi AI bằng ngôn ngữ tự nhiên: "So sánh Q1 vs Q3 tháng 8" "Quán nào lãi nhất?" → AI trả lời kèm biểu đồ (xem toàn chuỗi) |
+| A-14 | **🤖 AI Menu Intelligence (AI-4)** | AI gợi ý: "Matcha tăng 35% → thêm biến thể", "Smoothie Dâu 2 ly/ngày → loại" |
+| A-15 | **🤖 AI Churn Prediction (AI-3)** | Danh sách khách có nguy cơ bỏ đi + hệ thống tự gửi voucher kéo lại |
+| A-16 | **🤖 AI Combo Suggest (AI-2)** | AI phân tích: "68% khách mua Latte cũng mua Croissant → tạo combo 75K" |
 
 ### 21.5 Quản Trị & Bảo Mật Hệ Thống
 
@@ -719,5 +719,5 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 ---
 
-> **Tóm lại:** Smart F&B Operating System **thay thế hoàn toàn hệ thống POS truyền thống** bằng **QR Self-Order** — khách tự đặt món trên điện thoại, tự thanh toán, đơn bay thẳng vào bếp. Tích hợp **6 AI features** bao gồm chatbot gợi ý món cho khách hàng theo khẩu vị, chatbot nội bộ cho nhân viên & admin, thống kê doanh thu thông minh, gợi ý combo, dự đoán khách sắp bỏ đi, và tối ưu menu tự động. Hệ thống phục vụ **4 nhóm người dùng** với tổng cộng **70+ tính năng** chi tiết — Khách hàng (24 features: QR Order, AI gợi ý, Split Bill, thời gian chờ, gọi thêm món), Barista (12 features: KDS, báo hết món, sơ đồ bàn), Quản lý (13 features: nhập/xuất kho, biểu đồ theo giờ), Chủ chuỗi (22 features: P&L, Audit Log, Export, RBAC). Không cần máy POS đắt tiền, không cần thu ngân, không chiết khấu 20-30% như Grab — **100% doanh thu về chủ quán**.
+> **Tóm lại:** Smart F&B Operating System **thay thế hoàn toàn hệ thống POS truyền thống** bằng **QR Self-Order** — khách tự đặt món trên điện thoại, tự thanh toán, đơn bay thẳng vào bếp. Tích hợp **5 AI features**: chatbot gợi ý món cho khách theo khẩu vị, AI thống kê doanh thu cho Admin & Manager, gợi ý combo, dự đoán khách sắp bỏ đi, và tối ưu menu tự động. Barista không cần chatbot — công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn trên KDS. Hệ thống phục vụ **4 nhóm người dùng** với tổng cộng **69 tính năng** — Khách hàng (24), Barista (11), Quản lý (13), Chủ chuỗi (21). Không cần máy POS đắt tiền, không cần thu ngân, không chiết khấu 20-30% như Grab — **100% doanh thu về chủ quán**.
 
