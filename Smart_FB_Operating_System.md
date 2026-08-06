@@ -527,7 +527,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | Actor | Giao Diện | Số Tính Năng | Highlight Chính |
 |---|---|---|---|
 | 👤 **Khách hàng** | QR Order Web (PWA) | 24 tính năng | Order, Thanh toán, AI gợi ý, Split Bill, Loyalty |
-| 🧋 **Barista / Pha chế** | KDS (TV/Tablet) | 11 tính năng | Real-time order, Công thức chuẩn, Báo hết món, Sơ đồ bàn |
+| 🧋 **Barista / Pha chế** | KDS (TV/Tablet) | 12 tính năng | Real-time order, Công thức chuẩn, Báo hết món, Sơ đồ bàn |
 | 🏪 **Quản lý chi nhánh** | App Mobile + Web | 13 tính năng | Ca làm việc, Nhập/Xuất kho, Báo cáo, Chatbot AI |
 | 👑 **Chủ chuỗi / Admin** | Web Dashboard | 22 tính năng | Dashboard, P&L, Menu, RBAC, 5 AI, Audit Log, Export |
 
