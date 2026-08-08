@@ -50,7 +50,7 @@
 ## 0.2 📋 Bất Cập Về CHẤM CÔNG & QUẢN LÝ NHÂN SỰ
 
 ### Hiện trạng:
-- **Chấm công bằng sổ tay hoặc vân tay:** Nhân viên nhờ đồng nghiệp chấm hộ, đi muộn 15-30 phút nhưng sổ ghi đúng giờ → **gian lận 5-10% quỹ lương/tháng**.
+- **Chấm công bằng sổ tay hoặc máy độc lập:** Chấm công giấy dễ nhờ chấm hộ, hoặc dùng máy chấm công rời rạc không tự động đồng bộ dữ liệu với phần mềm quản lý → **gian lận 5-10% quỹ lương/tháng** và tốn công đối soát.
 - **Xếp ca theo cảm tính:** Quản lý xếp ca giống nhau mọi ngày (4 NV sáng, 4 NV tối) mà không biết Thứ 2 vắng khách (chỉ cần 2 NV), Thứ 7 đông gấp đôi (cần 6 NV) → **lãng phí 20-30% chi phí nhân công**.
 - **Tính lương cuối tháng mất 2-3 ngày:** Quản lý phải lật sổ chấm công, tính tay từng ca, cộng phụ cấp, trừ nghỉ → **sai sót thường xuyên, nhân viên khiếu nại**.
 
@@ -276,13 +276,13 @@
 
 ---
 
-## 4. ✅ Giải Quyết V2 (Chấm Công) → QR Check-in + GPS Lock
+## 4. ✅ Giải Quyết V2 (Chấm Công) → Đa Phương Thức (QR + GPS Lock hoặc Máy Chấm Công Sinh Trắc Học)
 
-| Trước (Thủ công) | Sau (Hệ thống F&B OS) |
+| Trước (Thủ công / Rời rạc) | Sau (Hệ thống F&B OS) |
 |---|---|
-| Chấm công sổ tay / vân tay — dễ gian lận | **QR Code động** đổi mỗi 30 giây + **GPS Lock** (bán kính 50m quán) |
-| Không biết ai đi muộn | Ghi nhận chính xác giờ vào/ra **từng phút**, selfie tùy chọn |
-| Cuối tháng tính lương 2-3 ngày | Hệ thống **tự tính lương** theo giờ thực tế + phụ cấp |
+| Chấm công sổ tay / máy rời rạc — dễ gian lận, mất công tổng hợp | **Option 1 (App):** QR Code động (đổi 30s) + GPS Lock (bán kính 50m quán)<br>**Option 2 (Phần cứng):** Tích hợp máy chấm công sinh trắc học (vân tay / Face ID) tự động đồng bộ API |
+| Không biết ai đi muộn | Ghi nhận chính xác giờ vào/ra **từng phút**, tự động cảnh báo đi muộn/về sớm |
+| Cuối tháng tính lương 2-3 ngày | Hệ thống **tự tính lương** theo giờ thực tế + phụ cấp ca làm |
 
 **Kết quả:** Gian lận → 0%. Tiết kiệm 2-3 ngày tính lương/tháng.
 
@@ -606,7 +606,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | S-08 | **In Bill / Receipt** | Kết nối máy in nhiệt → in hóa đơn khi khách yêu cầu (tên món, giá, tổng tiền, mã đơn) |
 | S-09 | **Sơ đồ bàn (Floor Map)** | Xem trực quan bàn nào đang có khách (xanh/đỏ), bàn nào trống → ưu tiên phục vụ đúng bàn |
 | S-10 | **Nhận thông báo gọi nhân viên** | Khi khách bấm "Gọi nhân viên" từ QR → nhân viên nhận chuông thông báo: "Bàn 5 cần hỗ trợ" |
-| S-11 | **Chấm công QR + GPS (option : mua máy chấm công vân tay hiệu quả hơn k gian lận )** | Đầu ca: Scan QR động (đổi 30 giây) + GPS lock (bán kính 50m) → hệ thống ghi giờ vào/ra |
+| S-11 | **Chấm công đa phương thức** | **Tùy chọn 1 (App):** Scan QR Code động (đổi 30s) + GPS Lock (bán kính 50m).<br>**Tùy chọn 2 (Mở rộng phần cứng):** Tích hợp máy chấm công sinh trắc học (vân tay / Face ID) giúp triệt tiêu gian lận tuyệt đối |
 
 > **Lưu ý:** Barista **không cần chatbot hỏi công thức** — vì công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn hàng trên KDS (xem S-02).
 
@@ -709,7 +709,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 |---|---|---|---|
 | POS lỗi thời, xếp hàng, sai đơn | **QR Self-Order** — khách scan QR tự đặt món | PWA + WebSocket + VietQR | Không cần máy POS, không cần thu ngân, sai đơn → 0% |
 | Khách không biết chọn gì | **AI Chatbot gợi ý** theo khẩu vị, thời tiết, dị ứng | RAG + Recommendation Engine | Tăng trải nghiệm + tăng giá trị đơn hàng |
-| Chấm công gian lận | QR động + GPS Lock (Chấm công bằng máy ) | QR Code + Geolocation API | Gian lận → 0%, tiết kiệm 2-3 ngày tính lương |
+| Chấm công gian lận | **QR động + GPS Lock** hoặc **Tích hợp Máy chấm công sinh trắc học** (vân tay/Face ID) | Geolocation API / Biometric Hardware SDK | Gian lận → 0%, tự động tính lương ca |
 | Thất thoát nguyên liệu 5-15% | Xuất kho quầy + Kiểm kê + AI cảnh báo | Inventory module | Thất thoát < 2%, không hết hàng giữa ca |
 | Không biết lợi nhuận thật | Dashboard tài chính real-time + P&L | Analytics + Dashboard | Biết lãi/lỗ từng quán mỗi ngày |
 | Chất lượng không đồng nhất | KDS công thức chuẩn + QR Feedback | KDS Web App + Feedback module | 95%+ chuẩn vị, thu thập 100% feedback |
