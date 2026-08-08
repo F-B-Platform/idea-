@@ -537,10 +537,11 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 > **Giao diện:** QR Order Web (PWA) — mở bằng trình duyệt điện thoại, KHÔNG cần tải app
 
-### 18.1 Tính Năng Đặt Món (QR Order)
+### 18.1 Tính Năng Nhận Diện & Đặt Món (QR Order)
 
 | # | Tính Năng | Mô Tả Chi Tiết |
 |---|---|---|
+| C-00 | **Nhận diện khách hàng qua SĐT** | Sau khi scan QR, hệ thống hiện popup nhập số điện thoại.<br>**Lần đầu:** Yêu cầu nhập thêm Tên → tạo hồ sơ khách mới trong CRM.<br>**Đã có số:** Tự động nhận diện → hiện tên khách, điểm loyalty, lịch sử đơn trước. |
 | C-01 | **Scan QR xem menu** | Quét mã QR tại bàn/quầy → mở trang menu trên trình duyệt. Hệ thống tự nhận diện số bàn + chi nhánh |
 | C-02 | **Menu trực quan** | Hiển thị menu phân loại (Cà phê / Trà / Đá xay / Bánh / Topping) kèm ảnh, giá, mô tả từng món |
 | C-03 | **Tùy chỉnh món** | Chọn Size (S/M/L), mức đường (0-25-50-75-100%), mức đá (không/ít/nhiều), thêm Topping |
@@ -571,9 +572,9 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | C-16 | **Thông báo khi món xong** | Push notification trên trình duyệt hoặc hiện trên màn hình đặt món |
 | C-17 | **Gọi nhân viên** | Nút "Gọi nhân viên 🔔" trên màn hình QR → nhân viên nhận thông báo trên App: "Bàn 5 cần hỗ trợ" |
 | C-18 | **QR Feedback đánh giá** | Scan QR tại bàn → đánh giá 1-5 sao **từng món** + ghi chú → gửi feedback trực tiếp |
-| C-19 | **Tích điểm Loyalty tự động** | Mỗi đơn hàng tự động tích điểm theo SĐT (không cần thẻ giấy, không cần app) |
-| C-20 | **Xem lịch sử đặt hàng** | Khách có SĐT → xem lại các đơn trước + đặt lại nhanh 1 click |
-| C-21 | **Nhận voucher qua Zalo** | Voucher sinh nhật, ưu đãi loyalty, voucher "lâu ngày chưa ghé" — gửi tự động qua Zalo OA |
+| C-19 | **Tích điểm Loyalty tự động** | Mỗi đơn hoàn tất → hệ thống tự động cộng điểm vào số điện thoại (không cần thẻ giấy, không cần app riêng) |
+| C-20 | **Lưu lịch sử uống & CRM** | Mỗi lần khách order → ghi lại vào hồ sơ CRM: món đã gọi, số lần ghé, ngày cuối ghé, tổng chi tiêu. Dùng cho AI Churn Prediction & gửi Voucher |
+| C-21 | **Nhận voucher qua Zalo** | Voucher sinh nhật, ưu đãi loyalty, voucher "lâu ngày chưa ghé" — gửi tự động qua Zalo OA kèm liên kết vào QR Order |
 
 ### 18.4 Tính Năng Nâng Cao (UX+)
 
@@ -581,8 +582,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 |---|---|---|
 | C-21 | **Gọi thêm món (Add to order)** | Sau khi đặt xong, khách muốn thêm 1 ly nữa → bấm "Gọi thêm" → thêm vào đơn đang chạy, không tạo đơn mới |
 | C-22 | **Allergen & Calories** | Mỗi món hiển thị: thành phần dị ứng (sữa, gluten, đậu phộng) + calories ước tính → khách sức khỏe yên tâm |
-| C-23 | **Món yêu thích / Quick Reorder** | Khách lưu món hay gọi → lần sau vào QR menu hiện ngay "Món của bạn" → order 1 click |
-| C-24 | **Split Bill (Chia tiền nhóm)** | Nhóm 4 người → bấm "Chia tiền" → chọn chia đều hoặc chia theo món → mỗi người nhận QR thanh toán riêng |
+| C-23 | **Món yêu thích / Quick Reorder** | Khách lưu món hay gọi (dựa CRM) → lần sau vào QR menu hiện ngay “Món của bạn” → order 1 click |
 
 ---
 

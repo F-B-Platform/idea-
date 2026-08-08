@@ -8,6 +8,7 @@
 
 | # | Workflow | Actor chính | Actor liên quan |
 |---|---|---|---|
+| WF-00 | Nhận diện Khách hàng qua SĐT (QR Check-in) | 👤 Khách hàng | ⚙️ CRM System |
 | WF-01 | Đặt món & Thanh toán (QR Self-Order) | 👤 Khách hàng | 🧋 Barista |
 | WF-02 | Pha chế & Phục vụ đơn hàng (KDS) | 🧋 Barista | 👤 Khách hàng |
 | WF-03 | Gọi thêm món / Gọi nhân viên | 👤 Khách hàng | 🧋 Barista |
@@ -26,7 +27,55 @@
 
 ---
 
-## WF-01: 🛒 ĐẶT MÓN & THANH TOÁN (QR SELF-ORDER)
+## WF-00: 📱 NHẬN DIỆN KHÁCH HÀNG QUA SĐT (QR CHECK-IN)
+
+> **Actor chính:** 👤 Khách hàng  
+> **Actor liên quan:** ⚙️ CRM System (tự động), 🏦 Quản lý / 👑 Admin (xem hồ sơ khách)
+
+```
+👤 Khách hàng                          ⚙️ Hệ thống CRM
+     │                                       │
+     │  1. Scan QR tại bàn                    │
+     │                                        │
+     │  2. Popup hiện: "Nhập số điện thoại"  │
+     │     (không bắt buộc, có thể bỏ qua)   │
+     │                                        │
+     │  3. Nhập số điện thoại                 │
+     │  │                                     │
+     │  ├── Lần đầu (số chưa có trong CRM) ────► 4a. Tạo hồ sơ mới
+     │  │   → Yêu cầu nhập Thêm Tên           │     • SĐT + Tên
+     │  │   → Khách nhập Tên (“Nam”)          │     • Ngày tạo, chi nhánh đầu tiên
+     │  │                                     │     • Điểm Loyalty = 0
+     │  │                                     │
+     │  └── Đã có số (khách quen) ──────────► 4b. Nạp hồ sơ hiện có
+           → Hiện: “Xin chào Nam! ❤️”        │     • Đưa ra số điểm hiện có
+           → Hiện: Điểm Loyalty (340 điểm)   │     • Lịch sử đơn trước
+           → Hiện: Món thường gọi / Voucher  │     • Voucher khả dụng
+           → Hiện: “Order lại nhanh 1 click”  │
+     │                                        │
+     ▼                                        ▼
+  [Vào Menu Order bình thường]    [Sau khi đặt xong → cập nhập CRM]
+                                       • Ghi lại: món đã gọi, ngày ghé
+                                       • Cộng điểm Loyalty
+                                       • Cập nhận: ngày cuối ghé quán
+```
+
+**Dữ liệu lưu vào CRM theo mỗi lượt ghé:**
+
+| Trường | Ý nghĩa | Dùng cho |
+|---|---|---|
+| `phone` | Số điện thoại | Khóa chính nhận diện |
+| `name` | Tên khách | Hiển thị, gửi Zalo |
+| `last_visit` | Ngày cuối ghé quán | AI-3 Churn Prediction |
+| `visit_count` | Tổng số lần ghé | Được CRM phân hạng |
+| `orders_history` | Lịch sử các món đã gọi | Quick Reorder, AI gợi ý |
+| `total_spent` | Tổng chi tiêu | Loyalty tier, Voucher |
+| `loyalty_points` | Điểm tích lũy | Đổi Voucher |
+| `churn_risk_score` | Điểm nguy cơ bỏ đi (AI-3) | Tự động gửi Voucher giữ chân |
+
+---
+
+## WF-01: 🛒 ĐẶT MÓN (QR SELF-ORDER)
 
 > **Actor chính:** 👤 Khách hàng  
 > **Actor liên quan:** 🧋 Barista (nhận đơn + bill), 🏪 Quản lý / 👑 Admin (cập nhật doanh thu real-time)
@@ -525,4 +574,4 @@ NCC giao hàng đến quán
 
 ---
 
-> **Tổng cộng:** 15 Workflow chính | 4 Actor | 5 AI Module | 69 Tính năng
+> **Tổng cộng:** 16 Workflow chính (WF-00~WF-15) | 4 Actor | 5 AI Module | CRM SĐT-based
