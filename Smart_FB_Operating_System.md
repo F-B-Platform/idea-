@@ -212,12 +212,13 @@
 ║  │  └─ Ghi chú đặc biệt: "Ít đá, thêm shot espresso"       │       ║
 ║  └──────────────────────────┬───────────────────────────────┘       ║
 ║                              │                                       ║
-║  BƯỚC 3: THANH TOÁN                                                 ║
+║  BƯỚC 3: YÊU CẦU THANH TOÁN (Nhân viên xác nhận)                    ║
 ║  ┌──────────────────────────▼───────────────────────────────┐       ║
-║  │  💳 Chọn hình thức thanh toán:                            │       ║
-║  │  ├─ 📲 VietQR (Mã QR động — đúng số tiền, tự xác nhận)  │       ║
-║  │  ├─ 📲 MoMo / ZaloPay                                    │       ║
-║  │  └─ 💵 Tiền mặt (thanh toán tại quầy sau khi nhận món)   │       ║
+║  │  💳 Khách bấm "Yêu cầu bill":                            │       ║
+║  │  ├─ 🔔 NV nhận alert → In bill → Mang ra bàn             │       ║
+║  │  ├─ 💵 Tiền mặt (NV thu tại bàn hoặc khách ra quầy)     │       ║
+║  │  ├─ 📲 Chuyển khoản VietQR (NV xuất mã QR cho khách)    │       ║
+║  │  └─ ✅ NV xác nhận thanh toán → Dashboard cập nhật       │       ║
 ║  └──────────────────────────┬───────────────────────────────┘       ║
 ║                              │                                       ║
 ║  BƯỚC 4: ĐƠN HÀNG BAY VÀO BẾP                                     ║
@@ -470,8 +471,8 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 ║                                                                      ║
 ║  ┌─────────────┐  ┌──────────┐  ┌──────────┐  ┌──────────────────┐ ║
 ║  │ REST API    │  │ WebSocket│  │ Auth &   │  │ Payment Gateway │ ║
-║  │ (CRUD)      │  │ (Real-   │  │ RBAC     │  │ (VietQR, MoMo)  │ ║
-║  │             │  │  time)   │  │          │  │                  │ ║
+║  │ (CRUD)      │  │ (Real-   │  │ RBAC     │  │ (VietQR, NV    │ ║
+║  │             │  │  time)   │  │          │  │  xác nhận)     │ ║
 ║  └─────────────┘  └──────────┘  └──────────┘  └──────────────────┘ ║
 ║                                                                      ║
 ╠══════════════════════════════════════════════════════════════════════╣
@@ -511,7 +512,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | **Backend API** | Node.js (NestJS) hoặc Python (FastAPI) |
 | **Database** | PostgreSQL + Redis (cache & real-time) |
 | **Real-time** | WebSocket (Socket.IO) — đơn hàng hiện tức thì trên KDS |
-| **Thanh toán** | VietQR API (VNPay/Vietcombank) + MoMo API |
+| **Thanh toán** | VietQR API (VNPay/Vietcombank) — NV xác nhận thủ công, không dùng cổng thanh toán tự động |
 | **AI Engine** | Python (scikit-learn, Prophet, LangChain) |
 | **Chatbot (Khách hàng)** | RAG (LangChain + Vector DB + LLM API) |
 | **Notification** | Zalo OA API + Email (SendGrid) |
