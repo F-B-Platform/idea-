@@ -606,7 +606,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | S-08 | **In Bill / Receipt** | Kết nối máy in nhiệt → in hóa đơn khi khách yêu cầu (tên món, giá, tổng tiền, mã đơn) |
 | S-09 | **Sơ đồ bàn (Floor Map)** | Xem trực quan bàn nào đang có khách (xanh/đỏ), bàn nào trống → ưu tiên phục vụ đúng bàn |
 | S-10 | **Nhận thông báo gọi nhân viên** | Khi khách bấm "Gọi nhân viên" từ QR → nhân viên nhận chuông thông báo: "Bàn 5 cần hỗ trợ" |
-| S-11 | **Chấm công QR + GPS** | Đầu ca: Scan QR động (đổi 30 giây) + GPS lock (bán kính 50m) → hệ thống ghi giờ vào/ra |
+| S-11 | **Chấm công QR + GPS (option : mua máy chấm công vân tay hiệu quả hơn k gian lận )** | Đầu ca: Scan QR động (đổi 30 giây) + GPS lock (bán kính 50m) → hệ thống ghi giờ vào/ra |
 
 > **Lưu ý:** Barista **không cần chatbot hỏi công thức** — vì công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn hàng trên KDS (xem S-02).
 
@@ -709,7 +709,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 |---|---|---|---|
 | POS lỗi thời, xếp hàng, sai đơn | **QR Self-Order** — khách scan QR tự đặt món | PWA + WebSocket + VietQR | Không cần máy POS, không cần thu ngân, sai đơn → 0% |
 | Khách không biết chọn gì | **AI Chatbot gợi ý** theo khẩu vị, thời tiết, dị ứng | RAG + Recommendation Engine | Tăng trải nghiệm + tăng giá trị đơn hàng |
-| Chấm công gian lận | QR động + GPS Lock | QR Code + Geolocation API | Gian lận → 0%, tiết kiệm 2-3 ngày tính lương |
+| Chấm công gian lận | QR động + GPS Lock (Chấm công bằng máy ) | QR Code + Geolocation API | Gian lận → 0%, tiết kiệm 2-3 ngày tính lương |
 | Thất thoát nguyên liệu 5-15% | Xuất kho quầy + Kiểm kê + AI cảnh báo | Inventory module | Thất thoát < 2%, không hết hàng giữa ca |
 | Không biết lợi nhuận thật | Dashboard tài chính real-time + P&L | Analytics + Dashboard | Biết lãi/lỗ từng quán mỗi ngày |
 | Chất lượng không đồng nhất | KDS công thức chuẩn + QR Feedback | KDS Web App + Feedback module | 95%+ chuẩn vị, thu thập 100% feedback |
