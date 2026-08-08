@@ -11,19 +11,18 @@
 | WF-01 | Đặt món & Thanh toán (QR Self-Order) | 👤 Khách hàng | 🧋 Barista |
 | WF-02 | Pha chế & Phục vụ đơn hàng (KDS) | 🧋 Barista | 👤 Khách hàng |
 | WF-03 | Gọi thêm món / Gọi nhân viên | 👤 Khách hàng | 🧋 Barista |
-| WF-04 | Chia tiền nhóm (Split Bill) | 👤 Khách hàng | — |
-| WF-05 | Chatbot AI Gợi ý món | 👤 Khách hàng | ⚙️ AI-5 |
-| WF-06 | Đánh giá & Feedback | 👤 Khách hàng | 🏪 Quản lý |
-| WF-07 | Báo hết món (Out of Stock) | 🧋 Barista | 👤 Khách hàng (tự ẩn trên menu) |
-| WF-08 | Chấm công đầu/cuối ca | 🧋 Barista | 🏪 Quản lý |
-| WF-09 | Mở ca / Kết ca | 🏪 Quản lý | 👑 Admin |
-| WF-10 | Xuất kho quầy & Kiểm kê | 🏪 Quản lý | — |
-| WF-11 | Nhập kho từ Nhà cung cấp | 🏪 Quản lý | — |
-| WF-12 | Xem báo cáo & AI Thống kê | 🏪 Quản lý + 👑 Admin | ⚙️ AI-1 |
-| WF-13 | Quản lý Menu & Giá | 👑 Admin | 👤 Khách (menu cập nhật) |
-| WF-14 | Tạo Combo & Khuyến mãi | 👑 Admin | ⚙️ AI-2, AI-4 |
-| WF-15 | AI Churn Prediction & Giữ chân khách | ⚙️ AI-3 (Tự động) | 👤 Khách hàng |
-| WF-16 | Quản lý Loyalty & Voucher | 👑 Admin | 👤 Khách hàng |
+| WF-04 | Chatbot AI Gợi ý món | 👤 Khách hàng | ⚙️ AI-5 |
+| WF-05 | Đánh giá & Feedback | 👤 Khách hàng | 🏪 Quản lý |
+| WF-06 | Báo hết món (Out of Stock) | 🧋 Barista | 👤 Khách hàng (tự ẩn trên menu) |
+| WF-07 | Chấm công đầu/cuối ca | 🧋 Barista | 🏪 Quản lý |
+| WF-08 | Mở ca / Kết ca | 🏪 Quản lý | 👑 Admin |
+| WF-09 | Xuất kho quầy & Kiểm kê | 🏪 Quản lý | — |
+| WF-10 | Nhập kho từ Nhà cung cấp | 🏪 Quản lý | — |
+| WF-11 | Xem báo cáo & AI Thống kê | 🏪 Quản lý + 👑 Admin | ⚙️ AI-1 |
+| WF-12 | Quản lý Menu & Giá | 👑 Admin | 👤 Khách (menu cập nhật) |
+| WF-13 | Tạo Combo & Khuyến mãi | 👑 Admin | ⚙️ AI-2, AI-4 |
+| WF-14 | AI Churn Prediction & Giữ chân khách | ⚙️ AI-3 (Tự động) | 👤 Khách hàng |
+| WF-15 | Quản lý Loyalty & Voucher | 👑 Admin | 👤 Khách hàng |
 
 ---
 
@@ -134,30 +133,6 @@
 🧋 Barista nhận thông báo:
    "Bàn 5 cần hỗ trợ"
    → Đến bàn hỗ trợ khách
-```
-
----
-
-## WF-04: 💰 CHIA TIỀN NHÓM (SPLIT BILL)
-
-> **Actor chính:** 👤 Khách hàng (Nhóm)
-
-```
-👤 Nhóm 4 người (Bàn 7)
-     │
-     │  Đặt tổng 4 món = 200K
-     │
-     ▼
-  Bấm "Chia tiền" trên màn hình đơn hàng
-     │
-     ├── Chọn "Chia đều" → 50K mỗi người
-     │   HOẶC
-     └── Chọn "Chia theo món" → Ai gọi món gì trả món đó
-           │
-           ▼
-     Hệ thống tạo 4 mã QR thanh toán riêng
-     → Mỗi người scan mã QR của mình → Trả phần mình
-     → Đơn tự động hoàn tất khi tất cả đã thanh toán
 ```
 
 ---
@@ -513,10 +488,10 @@ NCC giao hàng đến quán
      • Scan QR Order           • Nhận đơn real-time      • Mở/kết ca
      • Thanh toán VietQR       • Xem công thức chuẩn     • Đối soát két
      • Chatbot AI gợi ý        • Báo hết món             • Nhập/Xuất kho
-     • Split Bill              • Sơ đồ bàn               • Kiểm kê
-     • Gọi thêm món            • In bill                 • Xếp ca NV
-     • Feedback                • Chấm công               • Biểu đồ doanh thu
-     • Loyalty/Voucher         • Nhận "Gọi NV"           • AI Thống kê (AI-1)
+     • Gọi thêm món            • Sơ đồ bàn               • Kiểm kê
+     • Feedback                • In bill                 • Xếp ca NV
+     • Loyalty/Voucher         • Chấm công               • Biểu đồ doanh thu
+                               • Nhận "Gọi NV"           • AI Thống kê (AI-1)
           │                         │                         │
           └─────────────────────────┼─────────────────────────┘
                                     │
@@ -540,4 +515,4 @@ NCC giao hàng đến quán
 
 ---
 
-> **Tổng cộng:** 16 Workflow chính | 4 Actor | 5 AI Module | 69 Tính năng
+> **Tổng cộng:** 15 Workflow chính | 4 Actor | 5 AI Module | 69 Tính năng
