@@ -1,4 +1,4 @@
-# 🔄 CÁC WORKFLOW CHÍNH TRONG HỆ THỐNG SMART F&B OS
+﻿# 🔄 CÁC WORKFLOW CHÍNH TRONG HỆ THỐNG SMART F&B OS
 
 > Tài liệu mô tả chi tiết các luồng nghiệp vụ (Workflow) trong hệ thống và cách từng Actor tương tác.
 
@@ -196,7 +196,7 @@
 
 ---
 
-## WF-05: 🤖 CHATBOT AI GỢI Ý MÓN (AI-5)
+## WF-04: 🤖 CHATBOT AI GỢI Ý MÓN (AI-5)
 
 > **Actor chính:** 👤 Khách hàng
 > **AI Module:** AI-5 (Recommendation Engine)
@@ -232,7 +232,7 @@
 
 ---
 
-## WF-06: ⭐ ĐÁNH GIÁ & FEEDBACK
+## WF-05: ⭐ ĐÁNH GIÁ & FEEDBACK
 
 > **Actor chính:** 👤 Khách hàng
 > **Actor liên quan:** 🏪 Quản lý (nhận alert)
@@ -254,7 +254,7 @@
 
 ---
 
-## WF-07: 🚫 BÁO HẾT MÓN (OUT OF STOCK)
+## WF-06: 🚫 BÁO HẾT MÓN (OUT OF STOCK)
 
 > **Actor chính:** 🧋 Barista
 > **Ảnh hưởng:** 👤 Khách hàng (tự ẩn trên menu)
@@ -273,7 +273,7 @@
 
 ---
 
-## WF-08: ⏰ CHẤM CÔNG ĐẦU / CUỐI CA
+## WF-07: ⏰ CHẤM CÔNG ĐẦU / CUỐI CA
 
 > **Actor chính:** 🧋 Barista (Nhân viên)
 > **Actor liên quan:** 🏪 Quản lý (xem báo cáo chấm công)
@@ -303,7 +303,7 @@
 
 ---
 
-## WF-09: 📋 MỞ CA / KẾT CA
+## WF-08: 📋 MỞ CA / KẾT CA
 
 > **Actor chính:** 🏪 Quản lý chi nhánh
 
@@ -335,7 +335,7 @@ CUỐI NGÀY:
 
 ---
 
-## WF-10: 📦 XUẤT KHO QUẦY & KIỂM KÊ
+## WF-09: 📦 XUẤT KHO QUẦY & KIỂM KÊ
 
 > **Actor chính:** 🏪 Quản lý chi nhánh
 
@@ -366,7 +366,7 @@ KIỂM KÊ:
 
 ---
 
-## WF-11: 📥 NHẬP KHO TỪ NHÀ CUNG CẤP
+## WF-10: 📥 NHẬP KHO TỪ NHÀ CUNG CẤP
 
 > **Actor chính:** 🏪 Quản lý chi nhánh
 
@@ -389,7 +389,7 @@ NCC giao hàng đến quán
 
 ---
 
-## WF-12: 📊 XEM BÁO CÁO & AI THỐNG KÊ (AI-1)
+## WF-11: 📊 XEM BÁO CÁO & AI THỐNG KÊ (AI-1)
 
 > **Actor chính:** 🏪 Quản lý + 👑 Admin
 > **AI Module:** AI-1 (Prophet / LLM RAG)
@@ -420,7 +420,7 @@ NCC giao hàng đến quán
 
 ---
 
-## WF-13: 🍽️ QUẢN LÝ MENU & GIÁ
+## WF-12: 🍽️ QUẢN LÝ MENU & GIÁ
 
 > **Actor chính:** 👑 Admin
 
@@ -448,7 +448,7 @@ NCC giao hàng đến quán
 
 ---
 
-## WF-14: 🎯 TẠO COMBO & KHUYẾN MÃI (AI-2 + AI-4)
+## WF-13: 🎯 TẠO COMBO & KHUYẾN MÃI (AI-2 + AI-4)
 
 > **Actor chính:** 👑 Admin
 > **AI Module:** AI-2 (Combo Suggest), AI-4 (Menu Intelligence)
@@ -477,7 +477,7 @@ NCC giao hàng đến quán
 
 ---
 
-## WF-15: 🔮 AI CHURN PREDICTION & GIỮ CHÂN KHÁCH (AI-3)
+## WF-14: 🔮 AI CHURN PREDICTION & GIỮ CHÂN KHÁCH (AI-3)
 
 > **Actor chính:** ⚙️ AI-3 (Tự động)
 > **Actor ảnh hưởng:** 👤 Khách hàng
@@ -501,7 +501,7 @@ NCC giao hàng đến quán
 
 ---
 
-## WF-16: 🎁 QUẢN LÝ LOYALTY & VOUCHER
+## WF-15: 🎁 QUẢN LÝ LOYALTY & VOUCHER
 
 > **Actor chính:** 👑 Admin
 > **Actor ảnh hưởng:** 👤 Khách hàng
@@ -575,3 +575,4 @@ NCC giao hàng đến quán
 ---
 
 > **Tổng cộng:** 16 Workflow chính (WF-00~WF-15) | 4 Actor | 5 AI Module | CRM SĐT-based
+

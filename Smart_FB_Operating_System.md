@@ -526,7 +526,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 | Actor | Giao Diện | Số Tính Năng | Highlight Chính |
 |---|---|---|---|
-| 👤 **Khách hàng** | QR Order Web (PWA) | 24 tính năng | Order, Thanh toán, AI gợi ý, Split Bill, Loyalty |
+| 👤 **Khách hàng** | QR Order Web (PWA) | 24 tính năng | Order, Thanh toán, AI gợi ý, CRM SĐT, Loyalty |
 | 🧋 **Barista / Pha chế** | KDS (TV/Tablet) | 11 tính năng | Real-time order, Công thức chuẩn kèm đơn, Báo hết món, Sơ đồ bàn |
 | 🏪 **Quản lý chi nhánh** | App Mobile + Web | 13 tính năng | Ca làm việc, Nhập/Xuất kho, Báo cáo, AI thống kê |
 | 👑 **Chủ chuỗi / Admin** | Web Dashboard | 22 tính năng | Dashboard, P&L, Menu, RBAC, AI thống kê, Audit Log, Export |
@@ -723,4 +723,5 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 ---
 
 > **Tóm lại:** Smart F&B Operating System **thay thế hoàn toàn hệ thống POS truyền thống** bằng **QR Self-Order** — khách tự đặt món trên điện thoại, tự thanh toán, đơn bay thẳng vào bếp. Tích hợp **5 AI features**: chatbot gợi ý món cho khách theo khẩu vị, AI thống kê doanh thu cho Admin & Manager, gợi ý combo, dự đoán khách sắp bỏ đi, và tối ưu menu tự động. Barista không cần chatbot — công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn trên KDS. Hệ thống phục vụ **4 nhóm người dùng** với tổng cộng **69 tính năng** — Khách hàng (24), Barista (11), Quản lý (13), Chủ chuỗi (21). Không cần máy POS đắt tiền, không cần thu ngân, không chiết khấu 20-30% như Grab — **100% doanh thu về chủ quán**.
+
 
