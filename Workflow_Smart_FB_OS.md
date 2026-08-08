@@ -28,40 +28,50 @@
 
 ## WF-01: 🛒 ĐẶT MÓN & THANH TOÁN (QR SELF-ORDER)
 
-> **Actor chính:** 👤 Khách hàng
-> **Actor liên quan:** 🧋 Barista (nhận đơn trên KDS)
+> **Actor chính:** 👤 Khách hàng  
+> **Actor liên quan:** 🧋 Barista (nhận đơn + bill), 🏪 Quản lý / 👑 Admin (cập nhật doanh thu real-time)
 
 ```
-👤 Khách hàng                          🧋 Barista (KDS Bếp)
-     │                                       │
-     │  1. Scan QR tại bàn                    │
-     │  → Mở menu PWA trên trình duyệt       │
-     │                                        │
-     │  2. Chọn món, chỉnh Size/Đường/Đá      │
-     │     Thêm Topping, ghi chú đặc biệt    │
-     │                                        │
-     │  3. Thêm vào giỏ hàng                  │
-     │     Chọn "Tại bàn" hoặc "Mang đi"     │
-     │                                        │
-     │  4. Thanh toán                          │
-     │     ├─ VietQR động (auto xác nhận)      │
-     │     ├─ MoMo / ZaloPay                   │
-     │     └─ Tiền mặt (chọn trả sau)         │
-     │                                        │
-     │  5. Đơn hàng được gửi ─── WebSocket ──→│ 6. Đơn hiện trên KDS
-     │                                        │    kèm CÔNG THỨC PHA
-     │                                        │
-     │  8. Nhận thông báo                     │ 7. Pha xong → bấm
-     │     "Món đã sẵn sàng! 🔔"              │    "Hoàn thành"
-     │                                        │
-     ▼                                        ▼
-  [ Nhận món tại quầy / NV mang đến bàn ]
+👤 Khách hàng                     🧋 Barista (KDS Bếp)        📊 Admin/Manager
+     │                                  │                          │
+     │  1. Scan QR tại bàn               │                          │
+     │  → Mở menu PWA trên trình duyệt  │                          │
+     │                                   │                          │
+     │  2. Chọn món, chỉnh Size/Đường/Đá │                          │
+     │     Thêm Topping, ghi chú đặc biệt│                          │
+     │                                   │                          │
+     │  3. Thêm vào giỏ hàng             │                          │
+     │     Chọn "Tại bàn" hoặc "Mang đi" │                          │
+     │                                   │                          │
+     │  4. Gửi đơn (không thanh toán)    │                          │
+     │  → Đơn bay qua WebSocket ─────────→ 5. KDS hiện đơn         │
+     │                                   │    + CÔNG THỨC PHA       │
+     │                                   │                          │
+     │  7. Nhận thông báo 🔔             │  6. Pha xong             │
+     │     "Món đã sẵn sàng!"            │  → Bấm "Hoàn thành"     │
+     │                                   │                          │
+     │  8. Nhận món (NV mang ra bàn)     │                          │
+     │                                   │                          │
+     │  9. Yêu cầu thanh toán            │                          │
+     │  → Bấm "💳 Yêu cầu bill"         │  Alert: "Bàn 5 cần bill" │
+     │                                   │  → In bill → Ra bàn      │
+     │                                   │                          │
+     │  10. Thanh toán (2 lựa chọn)      │                          │
+     │  ├── Tại bàn: NV thu tiền mặt     │                          │
+     │  │           hoặc quét VietQR     │                          │
+     │  └── Tại quầy: Khách tự ra trả   │                          │
+     │                                   │                          │
+     │                                   │  11. NV xác nhận ─────────→ Dashboard cập nhật
+     │                                   │      thanh toán           │  doanh thu tức thì
+     ▼                                   ▼                          ▼
+  [ Kết thúc phiên order ]      [ Đơn hoàn tất ]       [ Doanh thu +XX.XK 📈 ]
 ```
 
 **Điểm đặc biệt:**
-- Khách **không cần tải App** — PWA mở trên trình duyệt.
-- Hệ thống **tự nhận diện số bàn** từ mã QR.
-- Đơn đẩy **real-time** qua WebSocket (không chờ ai gõ lại).
+- Khách **không tự thanh toán online** — nhân viên xác nhận dòng tiền.
+- Hỗ trợ **2 hình thức:** Nhân viên mang bill ra bàn **hoặc** khách ra quầy.
+- Mỗi đơn xác nhận → **doanh thu cập nhật real-time** lên Dashboard Admin + Manager ngay lập tức.
+
 
 ---
 

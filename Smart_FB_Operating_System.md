@@ -246,7 +246,7 @@
 | **Giờ cao điểm** | Xếp hàng 5-10 người, khách bỏ đi | **Không xếp hàng** — 50 khách đặt cùng lúc được |
 | **Nhân sự thu ngân** | Cần 1-2 thu ngân mỗi ca | **Không cần thu ngân** (hoặc giảm xuống 1 người hỗ trợ) |
 | **Chi phí máy POS** | 8-25 triệu/máy + phí hàng tháng | **0 đồng** — chỉ cần in QR Code dán bàn |
-| **Thanh toán** | Thu ngân nhận tiền mặt, quét mã thủ công | **Tự động:** VietQR động tự tạo theo số tiền |
+| **Thanh toán** | Thu ngân nhận tiền mặt, quét mã thử công | **Yêu cầu bill:** Khách bấm "Yêu cầu thanh toán" → NV mang bill ra bàn hoặc thu tại quầy. Xác nhận → cập nhật real-time lên Admin/Manager |
 | **Data khách hàng** | Không thu thập được | **Tự động:** SĐT khi thanh toán → CRM Loyalty |
 
 ### 3.3 Mã QR Tại Quán — Hoạt Động Thế Nào?
@@ -414,7 +414,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | **Biết chờ bao lâu** | Hiển thị thời gian chờ ước tính (~8 phút) → không bất an, không phải hỏi nhân viên |
 | **AI gợi ý món** | Hỏi chatbot "tôi thích vị đắng" → AI gợi ý ngay món phù hợp + allergen filter |
 | **Gọi thêm dễ dàng** | Muốn order thêm → bấm "Gọi thêm" từ điện thoại — không cần lên quầy |
-| **Thanh toán tiện lợi** | VietQR / MoMo / Tiền mặt / Split Bill chia nhóm — tùy chọn |
+| **Thanh toán tiện lợi** | Yêu cầu bill từ điện thoại → NV mang ra bàn. Hoặc tự ra quầy thanh toán. Tiền mặt / VietQR — tùy ý |
 | **Tích điểm tự động** | Không cần thẻ giấy, không cần tải app → tích điểm ngay khi đặt qua QR |
 | **Nhận ưu đãi** | Voucher sinh nhật, ưu đãi loyalty gửi qua Zalo tự động |
 
@@ -552,25 +552,28 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 | # | Tính Năng | Mô Tả Chi Tiết |
 |---|---|---|
-| C-07 | **Thanh toán VietQR động** | Hệ thống tự tạo mã VietQR chứa đúng số tiền + tài khoản quán → khách scan trả → hệ thống tự xác nhận |
-| C-08 | **Thanh toán MoMo / ZaloPay** | Tích hợp ví điện tử phổ biến tại VN |
-| C-09 | **Thanh toán tiền mặt** | Chọn "Trả tiền mặt tại quầy" → nhân viên thu tiền sau khi nhận món |
-| C-10 | **Áp mã giảm giá / Voucher** | Nhập mã voucher hoặc áp tự động nếu đủ điều kiện (Loyalty, sinh nhật, combo) |
+| C-07 | **Yêu cầu in bill** | Khách bấm "💳 Yêu cầu thanh toán" trên QR Menu → hệ thống gửi thông báo cho nhân viên: “Bàn 5 cần đưa bill” → NV in hóa đơn và mang ra bàn |
+| C-08 | **Thanh toán tại bàn** | NV đưa bill ra bàn → khách chọn: **Tiền mặt** (NV thu) hoặc **Chuyển khoản VietQR** (NV xuất mã QR) → NV xác nhận thanh toán |
+| C-09 | **Thanh toán tại quầy** | Khách tự ra quầy thanh toán trước khi về → NV quầy xuất bill, thu tiền mặt hoặc nhận chuyển khoản → xác nhận |
+| C-10 | **Áp mã giảm giá / Voucher** | Khách báo mã voucher cho NV khi thanh toán → NV nhập mã vào hệ thống → giảm tự động vào tổng tiền |
+| C-11 | **Cập nhật doanh thu real-time** | Mỗi đơn được xác nhận thanh toán → doanh thu cập nhật tực thì lên Dashboard Admin và Manager |
+
+> **Lưu ý:** Khách không tự thanh toán online. Việc xác nhận thanh toán do nhân viên thực hiện — đảm bảo kiểm soát dòng tiền chặt chẽ và tránh phát sinh sai sót thanh toán.
 
 ### 18.3 Tính Năng Trải Nghiệm & AI
 
 | # | Tính Năng | Mô Tả Chi Tiết |
 |---|---|---|
-| C-11 | **🤖 Chatbot gợi ý món** | Bấm "Gợi ý cho tôi" → chat với AI: hỏi theo khẩu vị, thời tiết, dị ứng, trend → AI gợi ý món phù hợp |
-| C-12 | **Xem món bán chạy** | Hiển thị tag "Best Seller", "Mới", "Hot" trên menu dựa trên data bán hàng thật |
-| C-13 | **Theo dõi trạng thái đơn real-time** | Sau khi đặt → thanh tiến trình: "Đã xác nhận → Đang pha chế... → Sẵn sàng! 🔔" |
-| C-14 | **Thời gian chờ ước tính** | Hiển thị: "Đơn của bạn dự kiến xong sau ~8 phút" — tính từ số đơn đang chờ trên KDS |
-| C-15 | **Thông báo khi món xong** | Push notification trên trình duyệt hoặc hiện trên màn hình đặt món |
-| C-16 | **Gọi nhân viên** | Nút "Gọi nhân viên 🔔" trên màn hình QR → nhân viên nhận thông báo trên App: "Bàn 5 cần hỗ trợ" |
-| C-17 | **QR Feedback đánh giá** | Scan QR tại bàn → đánh giá 1-5 sao **từng món** + ghi chú → gửi feedback trực tiếp |
-| C-18 | **Tích điểm Loyalty tự động** | Mỗi đơn hàng tự động tích điểm theo SĐT (không cần thẻ giấy, không cần app) |
-| C-19 | **Xem lịch sử đặt hàng** | Khách có SĐT → xem lại các đơn trước + đặt lại nhanh 1 click |
-| C-20 | **Nhận voucher qua Zalo** | Voucher sinh nhật, ưu đãi loyalty, voucher "lâu ngày chưa ghé" — gửi tự động qua Zalo OA |
+| C-12 | **🤖 Chatbot gợi ý món** | Bấm "Gợi ý cho tôi" → chat với AI: hỏi theo khẩu vị, thời tiết, dị ứng, trend → AI gợi ý món phù hợp |
+| C-13 | **Xem món bán chạy** | Hiển thị tag "Best Seller", "Mới", "Hot" trên menu dựa trên data bán hàng thật |
+| C-14 | **Theo dõi trạng thái đơn real-time** | Sau khi đặt → thanh tiến trình: "Đã xác nhận → Đang pha chế... → Sẵn sàng! 🔔" |
+| C-15 | **Thời gian chờ ước tính** | Hiển thị: "Đơn của bạn dự kiến xong sau ~8 phút" — tính từ số đơn đang chờ trên KDS |
+| C-16 | **Thông báo khi món xong** | Push notification trên trình duyệt hoặc hiện trên màn hình đặt món |
+| C-17 | **Gọi nhân viên** | Nút "Gọi nhân viên 🔔" trên màn hình QR → nhân viên nhận thông báo trên App: "Bàn 5 cần hỗ trợ" |
+| C-18 | **QR Feedback đánh giá** | Scan QR tại bàn → đánh giá 1-5 sao **từng món** + ghi chú → gửi feedback trực tiếp |
+| C-19 | **Tích điểm Loyalty tự động** | Mỗi đơn hàng tự động tích điểm theo SĐT (không cần thẻ giấy, không cần app) |
+| C-20 | **Xem lịch sử đặt hàng** | Khách có SĐT → xem lại các đơn trước + đặt lại nhanh 1 click |
+| C-21 | **Nhận voucher qua Zalo** | Voucher sinh nhật, ưu đãi loyalty, voucher "lâu ngày chưa ghé" — gửi tự động qua Zalo OA |
 
 ### 18.4 Tính Năng Nâng Cao (UX+)
 
