@@ -93,13 +93,23 @@
 | | Thời gian chờ | "Dự kiến xong sau ~8 phút" |
 | | Thông báo khi xong | Điện thoại báo: "Món của bạn đã sẵn sàng!" |
 | | Gọi nhân viên | Bấm nút 🔔 → NV nhận thông báo: "Bàn 5 cần hỗ trợ" |
-| | Đánh giá & Review | Đánh giá 1-5 sao từng món + chụp ảnh + tùy chọn ẩn danh. Review hiển thị công khai cho khách sau tham khảo |
+| **⭐ Feedback & Review** | Đánh giá từng món | Đánh giá 1-5 sao **từng món** riêng biệt (không chỉ đánh giá chung) |
+| | 📸 Chụp ảnh thực tế | Chụp ảnh món nước/quán bằng camera ĐT → upload trực tiếp lên hệ thống |
+| | 🕵️ Tùy chọn Ẩn danh | Không muốn lộ tên? Tích chọn "Ẩn danh" → review không hiện tên khách |
+| | 🌐 Hiển thị công khai | Review hiển thị **công khai trên trang QR Menu** → khách sau quét QR sẽ thấy đánh giá thực tế (giống Google Review) |
+| | 🚨 Cảnh báo đánh giá kém | Đánh giá ≤ 2 sao → hệ thống **tự động gửi cảnh báo** đến Quản lý để xử lý ngay |
 | **Tích điểm** | Loyalty tự động | Mỗi đơn hoàn tất → tự động cộng điểm vào SĐT |
 | | Lưu lịch sử | Hệ thống nhớ: món đã gọi, số lần ghé, tổng chi tiêu |
 | | Nhận voucher Zalo | Voucher sinh nhật, "lâu ngày chưa ghé" → gửi tự động qua Zalo |
 | **Nâng cao** | Gọi thêm món | Thêm vào đơn đang chạy, không cần tạo đơn mới |
 | | Dị ứng & Calories | Hiện thành phần dị ứng + calories từng món |
 | | Món yêu thích | Hiện "Món của bạn" dựa lịch sử → đặt lại 1 click |
+
+> **💡 Điểm nổi bật về Feedback:**
+> - Khách chụp ảnh thực tế → tăng **uy tín quán** (khách mới thấy ảnh thực, không phải ảnh quảng cáo)
+> - Tùy chọn ẩn danh → khách **dám nói thật**, giúp quán cải thiện
+> - Hiển thị công khai → tạo **hiệu ứng Social Proof** (giống Shopee / Google Review)
+> - Cảnh báo tự động khi đánh giá kém → Quản lý **xử lý tại chỗ**, không để khách ra về bực mình
 
 ---
 
