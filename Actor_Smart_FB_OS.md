@@ -143,7 +143,7 @@ Pha chế theo công thức chuẩn → Bấm "Hoàn thành" → Khách nhận �
 Nhận alert "Bàn X cần bill" → In bill → Mang ra bàn → Thu tiền → Xác nhận
 ```
 
-### Danh sách tính năng (11 tính năng)
+### Danh sách tính năng (12 tính năng)
 
 | Nhóm | # | Tính Năng | Mô Tả |
 |---|---|---|---|
@@ -308,7 +308,7 @@ Xem tổng quan 3 quán real-time (doanh thu, đơn, cảnh báo)
 | Chỉ Tiêu | Giá Trị |
 |---|---|
 | Tổng số Actor | **4** (Khách, Barista, Quản lý, Admin) |
-| Tổng số tính năng | **70** (24 + 11 + 13 + 22) |
+| Tổng số tính năng | **71** (24 + 12 + 13 + 22) |
 | Tổng AI Module | **5** (Thống kê, Combo, Churn, Menu Intel, Chatbot) |
 | Actor dùng AI nhiều nhất | 👑 Admin (4 AI: AI-1, AI-2, AI-3, AI-4) |
 | Actor có nhiều tính năng nhất | 👤 Khách hàng (24 tính năng) |
