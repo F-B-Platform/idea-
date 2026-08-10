@@ -9,11 +9,11 @@
 | # | Actor | Vai Trò | Giao Diện | Số Tính Năng |
 |---|---|---|---|---|
 | 1 | 👤 **Khách hàng** | Người đặt món, thanh toán, feedback | QR Order Web (PWA) trên trình duyệt | 24 |
-| 2 | 🧋 **Barista / Pha chế** | Nhận đơn, pha chế, phục vụ, chấm công | KDS (Kitchen Display System) trên TV/Tablet | 11 |
+| 2 | 🧋 **Barista / Phục vụ** | Nhận đơn, pha chế, phục vụ, chấm công | KDS (TV/Tablet) + Staff App (Mobile) | 12 |
 | 3 | 🏪 **Quản lý chi nhánh** | Quản lý ca, kho, báo cáo chi nhánh | App Manager (Mobile) + Web (giới hạn quyền) | 13 |
 | 4 | 👑 **Chủ chuỗi / Admin** | Quản trị toàn bộ chuỗi, AI phân tích | Web Dashboard (Desktop/Laptop) — toàn quyền | 22 |
 
-> **Tổng cộng:** 4 Actor | 70 tính năng | 5 AI Module
+> **Tổng cộng:** 4 Actor | 71 tính năng | 5 AI Module
 
 ---
 
@@ -110,7 +110,7 @@ Feedback đánh giá từng món → Tích điểm Loyalty tự động
 | | C-15 | Thời gian chờ ước tính | "Dự kiến xong sau ~8 phút" |
 | | C-16 | Thông báo khi món xong | Push notification trên trình duyệt |
 | | C-17 | Gọi nhân viên | Nút "Gọi nhân viên 🔔" → NV nhận alert "Bàn 5 cần hỗ trợ" |
-| | C-18 | QR Feedback | Đánh giá 1-5 sao **từng món** + ghi chú |
+| | C-18 | QR Feedback & Review công khai | Scan QR/uống xong → đánh giá 1-5 sao + **tải ảnh thực tế** + tùy chọn **Ẩn danh** + **Publish công khai** lên QR menu |
 | **CRM & Loyalty** | C-19 | Tích điểm Loyalty | Tự động cộng điểm vào SĐT khi hoàn tất đơn |
 | | C-20 | Lưu lịch sử uống & CRM | Ghi lại: món đã gọi, số lần ghé, ngày cuối, tổng chi tiêu |
 | | C-21 | Nhận voucher qua Zalo | Voucher sinh nhật, loyalty, "lâu ngày chưa ghé" → gửi tự động |
@@ -120,13 +120,14 @@ Feedback đánh giá từng món → Tích điểm Loyalty tự động
 
 ---
 
-## 2. 🧋 ACTOR 2: BARISTA / PHA CHẾ (Staff)
+## 2. 🧋 ACTOR 2: BARISTA / PHỤC VỤ (Staff)
 
 ### Mô tả vai trò
-Barista là nhân viên pha chế tại quán. Nhận đơn real-time qua KDS, pha theo công thức chuẩn hiển thị tự động trên màn hình, in bill và thu tiền cho khách.
+Barista và nhân viên phục vụ là lực lượng vận hành tại quán. Nhận đơn real-time qua màn hình KDS tại quầy, pha chế theo công thức chuẩn, phục vụ khách tại bàn và nhận alert từ **App Nội Bộ Nhân Viên (Staff Mobile App)**.
 
 ### Giao diện
 - **KDS (Kitchen Display System)** — TV hoặc Tablet full-screen tại quầy pha chế
+- **Staff Mobile App (App Nội Bộ Nhân Viên)** — Ứng dụng di động cho nhân viên phục vụ & pha chế
 
 ### Luồng tương tác chính
 ```
@@ -155,8 +156,9 @@ Nhận alert "Bàn X cần bill" → In bill → Mang ra bàn → Thu tiền →
 | **Vận hành** | S-07 | Báo Hết Món | Bấm "Hết" trên KDS → món tự ẩn ngay trên QR Order khách |
 | | S-08 | In Bill / Receipt | Kết nối máy in nhiệt → in hóa đơn khi khách yêu cầu |
 | | S-09 | Sơ đồ bàn (Floor Map) | Xem trực quan bàn nào có khách (xanh/đỏ), bàn nào trống |
-| | S-10 | Nhận thông báo "Gọi NV" | Khách bấm "Gọi nhân viên" → chuông alert: "Bàn 5 cần hỗ trợ" |
+| | S-10 | Nhận thông báo "Gọi NV" | Khách bấm "Gọi nhân viên" → chuông alert trên KDS & Staff App: "Bàn 5 cần hỗ trợ" |
 | | S-11 | Chấm công đa phương thức | App: QR động + GPS Lock. Mở rộng: Máy vân tay / Face ID |
+| | S-12 | App Nội Bộ Nhân Viên (Staff App) | App di động nội bộ: Rung/phát chuông alert gọi bàn 🔔/báo bill 💳, xuất mã VietQR di động, báo hết món, sơ đồ bàn |
 
 > **Lưu ý quan trọng:** Barista **KHÔNG CẦN chatbot hỏi công thức** — vì công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn hàng trên KDS (S-02).
 

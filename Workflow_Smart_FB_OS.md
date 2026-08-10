@@ -1,4 +1,4 @@
-﻿# 🔄 CÁC WORKFLOW CHÍNH TRONG HỆ THỐNG SMART F&B OS
+# 🔄 CÁC WORKFLOW CHÍNH TRONG HỆ THỐNG SMART F&B OS
 
 > Tài liệu mô tả chi tiết các luồng nghiệp vụ (Workflow) trong hệ thống và cách từng Actor tương tác.
 
@@ -232,25 +232,41 @@
 
 ---
 
-## WF-05: ⭐ ĐÁNH GIÁ & FEEDBACK
+## WF-05: ⭐ ĐÁNH GIÁ & FEEDBACK CÔNG KHAI
 
-> **Actor chính:** 👤 Khách hàng
-> **Actor liên quan:** 🏪 Quản lý (nhận alert)
+> **Actor chính:** 👤 Khách hàng  
+> **Actor liên quan:** 🏪 Quản lý (nhận alert khi đánh giá thấp), 🧋 Staff / Phục vụ (App nội bộ)
 
 ```
-👤 Khách (sau khi nhận món)
+👤 Khách (sau khi dùng món xong)
      │
-     │  Scan QR tại bàn hoặc bấm trên QR Order
+     │  1. Bấm nút "⭐ Đánh giá trải nghiệm" trên QR Order Web (PWA)
      │
      ▼
-  Đánh giá TỪNG MÓN (1-5 sao)
-     │  + Ghi chú: "Latte hơi nhạt"
-     │
-     ├── ≥ 4 sao → Lưu CRM + hiện "Cảm ơn bạn!"
-     │
-     └── ≤ 2 sao → 🚨 Alert ngay cho 🏪 Quản lý
-         → QL đến bàn xin lỗi / xử lý trong 5 phút
+┌────────────────────────────────────────────────────────┐
+│  MÀN HÌNH FEEDBACK & REVIEW                            │
+│                                                        │
+│  ⭐ Đánh giá 1-5 sao từng món                          │
+│  📸 Tải ảnh thực tế (Photo Upload món nước/quán)       │
+│  ✍️ Viết nhận xét chi tiết                              │
+│  🕵️ Tùy chọn: [x] Gửi Ẩn Danh (hoặc dùng Tên từ CRM)   │
+└──────────────────────────┬─────────────────────────────┘
+                           │
+                           ▼
+     ┌─────────────────────┴─────────────────────┐
+     │                                           │
+     ▼                                           ▼
+ 🌐 PUBLISH CÔNG KHAI                       🚨 XỬ LÝ KHẮC PHỤC
+ Hiển thị ngay lên trang                    (Khi đánh giá ≤ 2 sao)
+ QR Menu cho các khách                      Tự động bắn Alert khẩn cấp
+ sau quét QR tham khảo                      đến App Nội Bộ của Quản lý
+ đánh giá thực tế                          → QL đến bàn đổi món/xin lỗi
 ```
+
+**Đặc điểm nổi bật của luồng Feedback:**
+- **Tải ảnh thực tế:** Khách chụp và upload trực tiếp từ camera điện thoại.
+- **Tùy chọn ẩn danh:** Khách không muốn lộ Tên/SĐT có thể tích chọn "Ẩn danh".
+- **Publish công khai:** Review hiển thị công khai trên menu QR (tương tự Google Review / Shopee) tăng mức độ uy tín và minh bạch của quán.
 
 ---
 

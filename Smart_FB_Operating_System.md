@@ -572,7 +572,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | C-15 | **Thời gian chờ ước tính** | Hiển thị: "Đơn của bạn dự kiến xong sau ~8 phút" — tính từ số đơn đang chờ trên KDS |
 | C-16 | **Thông báo khi món xong** | Push notification trên trình duyệt hoặc hiện trên màn hình đặt món |
 | C-17 | **Gọi nhân viên** | Nút "Gọi nhân viên 🔔" trên màn hình QR → nhân viên nhận thông báo trên App: "Bàn 5 cần hỗ trợ" |
-| C-18 | **QR Feedback đánh giá** | Scan QR tại bàn → đánh giá 1-5 sao **từng món** + ghi chú → gửi feedback trực tiếp |
+| C-18 | **QR Feedback & Review công khai** | Scan QR/uống xong → đánh giá 1-5 sao **từng món** + **tải ảnh thực tế** + ghi chú.<br>• **Ẩn danh:** Khách có thể chọn ẩn danh hoặc hiện tên CRM.<br>• **Publish công khai:** Feedback hiển thị trực tiếp trên trang QR Menu cho các khách sau xem đánh giá thực tế.<br>• **Alert cảnh báo:** Đánh giá ≤ 2 sao tự động gửi alert đến App Quản lý để xử lý khẩn cấp |
 | C-19 | **Tích điểm Loyalty tự động** | Mỗi đơn hoàn tất → hệ thống tự động cộng điểm vào số điện thoại (không cần thẻ giấy, không cần app riêng) |
 | C-20 | **Lưu lịch sử uống & CRM** | Mỗi lần khách order → ghi lại vào hồ sơ CRM: món đã gọi, số lần ghé, ngày cuối ghé, tổng chi tiêu. Dùng cho AI Churn Prediction & gửi Voucher |
 | C-21 | **Nhận voucher qua Zalo** | Voucher sinh nhật, ưu đãi loyalty, voucher "lâu ngày chưa ghé" — gửi tự động qua Zalo OA kèm liên kết vào QR Order |
@@ -587,9 +587,11 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 ---
 
-## 19. 🧋 ACTOR 2: BARISTA / PHA CHẾ (Staff)
+## 19. 🧋 ACTOR 2: BARISTA / PHỤC VỤ (Staff)
 
-> **Giao diện:** Màn hình KDS (Kitchen Display System) — hiển thị trên TV/Tablet tại quầy pha chế
+> **Giao diện:** 
+> 1. Màn hình KDS (Kitchen Display System) — hiển thị trên TV/Tablet tại quầy pha chế
+> 2. **App Nội Bộ Nhân Viên (Staff Mobile App)** — chạy trên điện thoại nhân viên phục vụ / pha chế
 
 ### 19.1 Quản Lý Đơn Hàng
 
@@ -611,6 +613,7 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | S-09 | **Sơ đồ bàn (Floor Map)** | Xem trực quan bàn nào đang có khách (xanh/đỏ), bàn nào trống → ưu tiên phục vụ đúng bàn |
 | S-10 | **Nhận thông báo gọi nhân viên** | Khi khách bấm "Gọi nhân viên" từ QR → nhân viên nhận chuông thông báo: "Bàn 5 cần hỗ trợ" |
 | S-11 | **Chấm công đa phương thức** | **Tùy chọn 1 (App):** Scan QR Code động (đổi 30s) + GPS Lock (bán kính 50m).<br>**Tùy chọn 2 (Mở rộng phần cứng):** Tích hợp máy chấm công sinh trắc học (vân tay / Face ID) giúp triệt tiêu gian lận tuyệt đối |
+| S-12 | **App Nội Bộ Nhân Viên (Staff App)** | Ung dụng di động cho nhân viên phục vụ / barista:<br>• Rung/Phát chuông alert khi khách bấm "Gọi nhân viên 🔔" hoặc "Yêu cầu bill 💳"<br>• Xác nhận thanh toán tại bàn / xuất mã VietQR di động<br>• Báo hết món trực tiếp từ điện thoại<br>• Xem sơ đồ bàn di động & nhận thông báo món pha xong từ KDS |
 
 > **Lưu ý:** Barista **không cần chatbot hỏi công thức** — vì công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn hàng trên KDS (xem S-02).
 
@@ -723,6 +726,6 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 
 ---
 
-> **Tóm lại:** Smart F&B Operating System **thay thế hoàn toàn hệ thống POS truyền thống** bằng **QR Self-Order** — khách tự đặt món trên điện thoại, tự thanh toán, đơn bay thẳng vào bếp. Tích hợp **5 AI features**: chatbot gợi ý món cho khách theo khẩu vị, AI thống kê doanh thu cho Admin & Manager, gợi ý combo, dự đoán khách sắp bỏ đi, và tối ưu menu tự động. Barista không cần chatbot — công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn trên KDS. Hệ thống phục vụ **4 nhóm người dùng** với tổng cộng **69 tính năng** — Khách hàng (24), Barista (11), Quản lý (13), Chủ chuỗi (21). Không cần máy POS đắt tiền, không cần thu ngân, không chiết khấu 20-30% như Grab — **100% doanh thu về chủ quán**.
+> **Tóm lại:** Smart F&B Operating System **thay thế hoàn toàn hệ thống POS truyền thống** bằng **QR Self-Order** — khách tự đặt món trên điện thoại, tự thanh toán, đơn bay thẳng vào bếp. Tích hợp **5 AI features**: chatbot gợi ý món cho khách theo khẩu vị, AI thống kê doanh thu cho Admin & Manager, gợi ý combo, dự đoán khách sắp bỏ đi, và tối ưu menu tự động. Barista không cần chatbot — công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn trên KDS. Hệ thống phục vụ **4 nhóm người dùng** với tổng cộng **71 tính năng** — Khách hàng (24), Barista/Phục vụ (12 - KDS + Staff Mobile App nội bộ), Quản lý (13), Chủ chuỗi (22). Không cần máy POS đắt tiền, không cần thu ngân, không chiết khấu 20-30% như Grab — **100% doanh thu về chủ quán**.
 
 
