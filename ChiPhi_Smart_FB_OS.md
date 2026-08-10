@@ -149,17 +149,44 @@
 
 ---
 
-## 🆓 DỊCH VỤ MIỄN PHÍ ĐÃ TẬN DỤNG
+## 🆓 DỊCH VỤ MIỄN PHÍ — NẾU DÙNG TRẢ PHÍ THÌ BAO NHIÊU?
 
-| Dịch vụ | Ghi chú |
-|---|---|
-| **VietQR API** | API mở, 0 đồng, không giới hạn |
-| **Cloudflare CDN + SSL** | Free plan đủ dùng |
-| **Firebase Cloud Messaging** | Push notification miễn phí |
-| **Let's Encrypt SSL** | Tự động renew, 0 đồng |
-| **Zalo OA (free tier)** | 500 msg/tháng — đủ cho 3 quán nhỏ |
-| **SendGrid (free tier)** | 100 email/ngày — đủ gửi EOD |
-| **OpenWeatherMap** | 1000 calls/ngày — đủ cho Chatbot |
-| **Google Fonts** | 0 đồng |
-| **GitHub Actions** | CI/CD 2000 phút/tháng miễn phí |
-| **UptimeRobot** | Monitoring 50 endpoint miễn phí |
+| Dịch vụ | Free tier (đủ dùng?) | Nếu trả phí | Chi phí/tháng (VNĐ) |
+|---|---|---|---|
+| **VietQR API** | ✅ Hoàn toàn miễn phí, không giới hạn | Không có gói trả phí — luôn free | **0** |
+| **Cloudflare CDN + SSL** | ✅ Free plan: SSL + CDN + DDoS protect | Pro plan: WAF nâng cao, analytics | **500.000** (~$20/tháng) |
+| **Firebase Push (FCM)** | ✅ Miễn phí, không giới hạn số lượng push | Không cần trả phí — luôn free | **0** |
+| **Let's Encrypt SSL** | ✅ Miễn phí, tự động renew 90 ngày | Nếu muốn SSL trả phí (Wildcard): DigiCert | **200.000** (~$8/tháng, tính theo năm) |
+| **Zalo OA** | ⚠️ Free 500 msg/tháng (3 quán ~300-500 KH) | Gói ZNS trả phí: 200-500đ/tin nhắn | **200.000 - 500.000** (ước tính ~1000 tin/tháng) |
+| **SendGrid Email** | ✅ Free 100 email/ngày = 3000/tháng | Essentials plan: 50K email/tháng | **500.000** (~$20/tháng) |
+| **OpenWeatherMap** | ✅ Free 1000 calls/ngày (đủ cho Chatbot) | Pro: 10K-100K calls/ngày + forecast | **250.000** (~$10/tháng) |
+| **Google Fonts** | ✅ Hoàn toàn miễn phí | Không có gói trả phí — luôn free | **0** |
+| **GitHub Actions** | ✅ Free 2000 phút/tháng (đủ CI/CD) | Team plan: 3000 phút + private runners | **100.000** (~$4/user/tháng) |
+| **UptimeRobot** | ✅ Free 50 monitors, check 5 phút | Pro: check 1 phút + SMS alert + status page | **175.000** (~$7/tháng) |
+| | | | |
+| | | **TỔNG NẾU TRẢ PHÍ TẤT CẢ** | **1.925.000/tháng** |
+
+### 📊 So sánh: Dùng Free vs Trả phí tất cả
+
+| | Dùng Free tier | Trả phí tất cả | Chênh lệch |
+|---|---|---|---|
+| Chi phí/tháng | **0 đồng** | **~1,9 triệu/tháng** | +1,9 triệu |
+| Chi phí/năm | **0 đồng** | **~23 triệu/năm** | +23 triệu |
+
+### 💡 Có cần trả phí không?
+
+| Dịch vụ | Nên trả phí? | Lý do |
+|---|---|---|
+| **VietQR** | ❌ Không cần | Luôn miễn phí, không có gói trả phí |
+| **Firebase FCM** | ❌ Không cần | Luôn miễn phí, Google tài trợ |
+| **Google Fonts** | ❌ Không cần | Luôn miễn phí |
+| **Cloudflare** | ❌ Không cần | Free plan đã có CDN + SSL + DDoS — đủ cho 3 quán |
+| **Let's Encrypt** | ❌ Không cần | SSL miễn phí giống hệt SSL trả tiền về mặt bảo mật |
+| **SendGrid** | ❌ Không cần | 100 email/ngày = 3000/tháng — dư sức gửi EOD 3 quán |
+| **Weather API** | ❌ Không cần | 1000 calls/ngày — chatbot chỉ dùng ~50-100 calls |
+| **GitHub Actions** | ❌ Không cần | Deploy 2-3 lần/tuần — free tier thừa đủ |
+| **UptimeRobot** | ⚠️ Tùy chọn | Free check 5 phút OK. Nếu muốn SMS alert thì trả ~175K/tháng |
+| **Zalo OA** | ⚠️ Tùy chọn | 500 msg/tháng có thể hết nếu gửi voucher nhiều → trả ~300K/tháng |
+
+> **Kết luận:** Hầu hết các dịch vụ **KHÔNG CẦN trả phí**. Chỉ cân nhắc Zalo OA (~300K) và UptimeRobot (~175K) nếu cần mở rộng. Tổng thêm tối đa **~475.000 VNĐ/tháng** nếu cần.
+
