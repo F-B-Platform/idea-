@@ -9,26 +9,28 @@
 
 ## A. CHI PHÍ PHÁT TRIỂN PHẦN MỀM (Thanh toán 1 lần)
 
-Toàn bộ hệ thống phát triển trên nền tảng Web, không cần cài đặt app riêng. Quản lý và Admin truy cập qua trình duyệt trên điện thoại hoặc máy tính.
+Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua trình duyệt, không cần cài app.
 
-| STT | Module | Mô tả | Chi phí |
-|---|---|---|---|
-| 1 | QR Order Web (Khách hàng) | Menu, đặt món, thanh toán VietQR, Chatbot AI gợi ý, CRM, Loyalty, Feedback | 12.000.000 |
-| 2 | KDS & Màn hình Khách (POS 2 màn hình) | Nhận đơn real-time, công thức pha chế, hoàn thành đơn, báo hết món, Offline Mode, hiển thị đơn + QR cho khách | 10.000.000 |
-| 3 | Web Quản lý Chi nhánh (Manager) | Mở/kết ca, nhập xuất kho, kiểm kê, chấm công, báo cáo chi nhánh | 8.000.000 |
-| 4 | Web Dashboard Admin (Chủ chuỗi) | Dashboard doanh thu, quản lý menu/giá, phân quyền, Audit Log | 10.000.000 |
-| 5 | Backend API & Hạ tầng | API, WebSocket real-time, Database, thanh toán VietQR, Docker, Deploy, Backup, Offline Sync | 12.000.000 |
-| 6 | AI Engine | Thống kê doanh thu, Gợi ý combo, Chatbot gợi ý món, Dự đoán khách rời | 8.000.000 |
-| | | | |
-| | **TỔNG PHÁT TRIỂN** | **Thời gian: ~3-4 tháng** | **60.000.000** |
+| Hạng mục | Nội dung |
+|---|---|
+| Giao diện Khách hàng | QR Order Web: menu, đặt món, thanh toán VietQR, Chatbot AI gợi ý, tích điểm, feedback |
+| Giao diện Nhân viên | KDS cảm ứng: nhận đơn real-time, công thức pha, hoàn thành đơn, báo hết món, Offline Mode |
+| Màn hình Khách tại quầy | Hiển thị đơn hàng, giá, tổng tiền, mã VietQR cho khách xem khi thanh toán tại quầy |
+| Giao diện Quản lý | Web quản lý chi nhánh: mở/kết ca, kho, kiểm kê, chấm công, báo cáo |
+| Giao diện Admin | Web dashboard chủ chuỗi: doanh thu, quản lý menu/giá, phân quyền |
+| Backend & Hạ tầng | API, WebSocket real-time, Database, Docker, Deploy, Backup, Offline Sync |
+| AI Engine | Chatbot gợi ý món, thống kê doanh thu, gợi ý combo, dự đoán khách rời |
+| | |
+| **Thời gian phát triển** | **3 - 4 tháng** |
+| **Chi phí trọn gói** | **35.000.000** |
 
 ### Thanh toán theo giai đoạn
 
 | Giai đoạn | Bàn giao | Thanh toán |
 |---|---|---|
-| GĐ 1 (Tháng 1-2) | Backend + QR Order + KDS chạy thử được | 25.000.000 (42%) |
-| GĐ 2 (Tháng 2-3) | Manager Web + Admin Web + VietQR + Offline Mode | 20.000.000 (33%) |
-| GĐ 3 (Tháng 3-4) | AI Engine + Testing + Deploy + Đào tạo + Nghiệm thu | 15.000.000 (25%) |
+| GĐ 1 (Tháng 1-2) | Backend + QR Order + KDS chạy thử được | 15.000.000 |
+| GĐ 2 (Tháng 2-3) | Quản lý + Admin + VietQR + Offline Mode | 12.000.000 |
+| GĐ 3 (Tháng 3-4) | AI + Testing + Deploy + Đào tạo + Nghiệm thu | 8.000.000 |
 
 ---
 
@@ -39,7 +41,7 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, không cần cài 
 | 1 | Máy POS 2 màn hình cảm ứng (Sunmi T2s / D2s) | 9.000.000 | 3 | 27.000.000 | 15.6" NV cảm ứng + 10" Khách xem đơn & QR |
 | 2 | Máy in hóa đơn nhiệt 80mm | 2.000.000 | 3 | 6.000.000 | Dùng lại máy in cũ nếu có: 0 đ |
 | 3 | Bảng QR Code Acrylic để bàn | 30.000 | 60 | 1.800.000 | 20 bàn mỗi chi nhánh |
-| 4 | Bảng QR Takeaway tại quầy | 30.000 | 3 | 90.000 | Khách mang đi quét QR đặt món tại quầy |
+| 4 | Bảng QR Takeaway tại quầy | 30.000 | 3 | 90.000 | Khách mang đi quét QR đặt món |
 | 5 | Router WiFi + 4G Backup | 1.200.000 | 3 | 3.600.000 | Tự chuyển sang 4G khi WiFi chết |
 | 6 | Lắp đặt, cấu hình & chạy thử | 1.000.000 | 3 | 3.000.000 | Trọn gói 3 chi nhánh |
 | | | | | | |
@@ -88,16 +90,29 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, không cần cài 
 
 ---
 
-## F. TỔNG HỢP CHI PHÍ ĐẦU TƯ
+## F. CHI PHÍ PHÁT SINH CÓ THỂ XẢY RA
+
+| STT | Hạng mục | Khi nào phát sinh | Chi phí ước tính |
+|---|---|---|---|
+| 1 | Thay bảng QR Acrylic hư/mất | Khách làm hư hoặc mất | 30.000/bảng |
+| 2 | Nâng cấp Zalo OA trả phí | Gửi voucher > 500 tin/tháng | 200.000 - 500.000/tháng |
+| 3 | Nâng cấp cấu hình Server | Mở rộng > 5 chi nhánh | +400.000 - 800.000/tháng |
+| 4 | Sửa chữa/thay thế máy POS | Sau 3-5 năm hoặc hư hỏng | 5.000.000 - 9.000.000/máy |
+| 5 | Phát triển tính năng lớn mới | Yêu cầu ngoài phạm vi ban đầu | Báo giá riêng |
+| 6 | Đào tạo nhân viên mới | Tuyển NV mới cần hướng dẫn | Miễn phí (đào tạo nội bộ) |
+
+---
+
+## G. TỔNG HỢP CHI PHÍ ĐẦU TƯ
 
 ### Chi phí ban đầu
 
 | Hạng mục | Chi phí |
 |---|---|
-| Phát triển phần mềm | 60.000.000 |
+| Phát triển phần mềm | 35.000.000 |
 | Thiết bị phần cứng (3 chi nhánh) | 41.490.000 |
-| **TỔNG BAN ĐẦU** | **101.490.000** |
-| *Dùng lại máy in cũ* | *95.490.000* |
+| **TỔNG BAN ĐẦU** | **76.490.000** |
+| *Dùng lại máy in cũ* | *70.490.000* |
 
 ### Chi phí hàng tháng
 
@@ -111,14 +126,14 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, không cần cài 
 
 | Mốc thời gian | Chi phí | Ghi chú |
 |---|---|---|
-| **Ban đầu** | **101.490.000** | Phần mềm + thiết bị |
+| **Ban đầu** | **76.490.000** | Phần mềm + thiết bị |
 | **Mỗi tháng** | **3.860.000** | Vận hành + bảo trì cơ bản |
-| **Năm đầu tiên** | **~136.200.000** | Ban đầu + 9 tháng vận hành (3 tháng BH miễn phí) |
+| **Năm đầu tiên** | **~111.200.000** | Ban đầu + 9 tháng vận hành (3 tháng BH miễn phí) |
 | **Từ năm thứ 2** | **~46.300.000/năm** | Vận hành + bảo trì |
 
 ---
 
-## G. SO SÁNH CHI PHÍ: CÂY POS CŨ vs SMART F&B OS
+## H. SO SÁNH CHI PHÍ: CÂY POS CŨ vs SMART F&B OS
 
 | Hạng mục | Cây POS cũ (tháng) | Smart F&B OS (tháng) | Tiết kiệm |
 |---|---|---|---|
@@ -130,29 +145,30 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, không cần cài 
 | **Tổng ước tính/tháng** | **~35.000.000 - 42.000.000** | **~6.860.000** | **Tiết kiệm ~28 - 35 triệu** |
 
 > Tiết kiệm ròng: Khoảng **28 - 35 triệu/tháng**.  
-> **Thời gian hoàn vốn toàn bộ:** Khoảng **3 - 4 tháng** vận hành.  
-> Từ tháng thứ 5 trở đi, toàn bộ khoản tiết kiệm là lợi nhuận ròng.
+> **Thời gian hoàn vốn toàn bộ:** Khoảng **2 - 3 tháng** vận hành.  
+> Từ tháng thứ 4 trở đi, toàn bộ khoản tiết kiệm là lợi nhuận ròng.
 
 ---
 
-## H. ĐIỀU KHOẢN THANH TOÁN
+## I. ĐIỀU KHOẢN THANH TOÁN
 
 | Đợt | Nội dung | Số tiền | Thời điểm |
 |---|---|---|---|
-| Đợt 1 | Ký hợp đồng + Khởi động phát triển | 25.000.000 | Ngày ký |
-| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị | 20.000.000 + 41.490.000 | Sau 2 tháng |
-| Đợt 3 | Nghiệm thu + Golive | 15.000.000 | Sau 3-4 tháng |
+| Đợt 1 | Ký hợp đồng + Khởi động phát triển | 15.000.000 | Ngày ký |
+| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị | 12.000.000 + 41.490.000 | Sau 2 tháng |
+| Đợt 3 | Nghiệm thu + Golive | 8.000.000 | Sau 3-4 tháng |
 | Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.860.000 | Từ tháng thứ 7 |
 
 ---
 
-## I. GHI CHÚ QUAN TRỌNG
+## J. GHI CHÚ QUAN TRỌNG
 
 1. Báo giá chưa bao gồm thuế VAT (nếu có).
 2. Phần mềm thuộc sở hữu 100% của khách hàng sau khi thanh toán đầy đủ, bao gồm toàn bộ mã nguồn.
-3. Toàn bộ giao diện Quản lý và Admin là Web, truy cập trên điện thoại hoặc máy tính qua trình duyệt, không cần cài đặt app.
+3. Toàn bộ giao diện Quản lý và Admin là Web, truy cập trên điện thoại hoặc máy tính, không cần cài app.
 4. Bảo hành phần mềm miễn phí 3 tháng sau nghiệm thu.
 5. Hệ thống có cơ chế dự phòng mất mạng 3 lớp: Router 4G, Offline Mode trên POS, và PWA cache menu.
 6. Máy in cũ của cây POS (chuẩn ESC/POS, khổ 80mm) có thể tái sử dụng, giảm 6 triệu chi phí thiết bị.
 7. Dữ liệu hệ thống được sao lưu tự động hàng ngày.
 8. Khi mất mạng hoàn toàn, quán vẫn hoạt động: NV tạo đơn trên POS, thu tiền mặt, dữ liệu tự đồng bộ khi có mạng.
+9. Chi phí phát sinh (Mục F) chỉ phát sinh khi có nhu cầu thực tế, không bắt buộc.
