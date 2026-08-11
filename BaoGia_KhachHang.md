@@ -105,31 +105,66 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua tr�
 
 ## G. TỔNG HỢP CHI PHÍ ĐẦU TƯ
 
-### Chi phí ban đầu
+### Phương án 1: Triển khai thí điểm 1 chi nhánh trước
+
+| Hạng mục | Chi phí |
+|---|---|
+| Phát triển phần mềm (trọn gói, dùng chung cho mọi chi nhánh) | 35.000.000 |
+| Thiết bị 1 chi nhánh (POS + Máy in + QR 20 bàn + Router 4G + Lắp đặt) | 13.890.000 |
+| **TỔNG BAN ĐẦU (1 CHI NHÁNH)** | **48.890.000** |
+| *Dùng lại máy in cũ* | *46.890.000* |
+
+| Hạng mục | Chi phí/tháng |
+|---|---|
+| Vận hành (Server + Domain + AI + SIM 4G + Giấy in) | 1.440.000 |
+| Bảo trì phần mềm (gói cơ bản) | 2.000.000 |
+| **TỔNG HÀNG THÁNG (1 CHI NHÁNH)** | **3.440.000** |
+
+Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
+
+| Hạng mục | Chi phí/chi nhánh |
+|---|---|
+| Thiết bị (POS + Máy in + QR + Router + Lắp đặt) | 13.890.000 |
+| Vận hành thêm hàng tháng (SIM 4G + Giấy in) | 210.000 |
+| Phần mềm | 0 (đã phát triển, dùng chung) |
+
+---
+
+### Phương án 2: Triển khai đồng loạt 3 chi nhánh
 
 | Hạng mục | Chi phí |
 |---|---|
 | Phát triển phần mềm | 35.000.000 |
 | Thiết bị phần cứng (3 chi nhánh) | 41.490.000 |
-| **TỔNG BAN ĐẦU** | **76.490.000** |
+| **TỔNG BAN ĐẦU (3 CHI NHÁNH)** | **76.490.000** |
 | *Dùng lại máy in cũ* | *70.490.000* |
-
-### Chi phí hàng tháng
 
 | Hạng mục | Chi phí/tháng |
 |---|---|
 | Vận hành hạ tầng | 1.860.000 |
 | Bảo trì phần mềm (gói cơ bản) | 2.000.000 |
-| **TỔNG HÀNG THÁNG** | **3.860.000** |
+| **TỔNG HÀNG THÁNG (3 CHI NHÁNH)** | **3.860.000** |
 
-### Tổng theo thời gian
+---
+
+### So sánh 2 phương án
+
+| Tiêu chí | 1 chi nhánh thí điểm | 3 chi nhánh đồng loạt |
+|---|---|---|
+| Đầu tư ban đầu | **48.890.000** | **76.490.000** |
+| Hàng tháng | 3.440.000 | 3.860.000 |
+| Rủi ro | Thấp — thử trước, mở rộng sau | Trung bình — triển khai cùng lúc |
+| Hoàn vốn | ~2 tháng (tiết kiệm lương 1 thu ngân) | ~2-3 tháng (tiết kiệm lương 3 thu ngân) |
+| Thời gian mở rộng | Thêm chi nhánh bất kỳ lúc nào | Không cần — đã triển khai đủ |
+
+### Tổng theo thời gian (Phương án 1 chi nhánh)
 
 | Mốc thời gian | Chi phí | Ghi chú |
 |---|---|---|
-| **Ban đầu** | **76.490.000** | Phần mềm + thiết bị |
-| **Mỗi tháng** | **3.860.000** | Vận hành + bảo trì cơ bản |
-| **Năm đầu tiên** | **~111.200.000** | Ban đầu + 9 tháng vận hành (3 tháng BH miễn phí) |
-| **Từ năm thứ 2** | **~46.300.000/năm** | Vận hành + bảo trì |
+| **Ban đầu** | **48.890.000** | Phần mềm + thiết bị 1 quán |
+| **Mỗi tháng** | **3.440.000** | Vận hành + bảo trì |
+| **Năm đầu tiên** | **~79.850.000** | Ban đầu + 9 tháng (3 tháng BH miễn phí) |
+| **Mở rộng thêm 1 quán** | **+13.890.000** | Chỉ mua thiết bị, phần mềm dùng chung |
 
 ---
 
@@ -152,10 +187,21 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua tr�
 
 ## I. ĐIỀU KHOẢN THANH TOÁN
 
+### Thanh toán Phương án 1 (1 chi nhánh thí điểm)
+
 | Đợt | Nội dung | Số tiền | Thời điểm |
 |---|---|---|---|
 | Đợt 1 | Ký hợp đồng + Khởi động phát triển | 15.000.000 | Ngày ký |
-| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị | 12.000.000 + 41.490.000 | Sau 2 tháng |
+| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị 1 quán | 12.000.000 + 13.890.000 | Sau 2 tháng |
+| Đợt 3 | Nghiệm thu + Golive | 8.000.000 | Sau 3-4 tháng |
+| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.440.000 | Từ tháng thứ 7 |
+
+### Thanh toán Phương án 2 (3 chi nhánh đồng loạt)
+
+| Đợt | Nội dung | Số tiền | Thời điểm |
+|---|---|---|---|
+| Đợt 1 | Ký hợp đồng + Khởi động phát triển | 15.000.000 | Ngày ký |
+| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị 3 quán | 12.000.000 + 41.490.000 | Sau 2 tháng |
 | Đợt 3 | Nghiệm thu + Golive | 8.000.000 | Sau 3-4 tháng |
 | Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.860.000 | Từ tháng thứ 7 |
 
