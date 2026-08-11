@@ -1,290 +1,283 @@
-# 👥 HỆ THỐNG SMART F&B OS — AI LÀM GÌ, CON NGƯỜI LÀM GÌ?
+# HỆ THỐNG SMART F&B OS — ĐẶC TẢ VAI TRÒ & NĂNG LỰC HỆ THỐNG
 
-> **Tài liệu giới thiệu cho Khách hàng**  
-> Mô tả 4 nhóm người dùng trong hệ thống, mỗi người sẽ **thấy gì, làm gì, và được hỗ trợ gì** từ hệ thống thông minh.
+> **Tài liệu đặc tả cho Khách hàng & Chủ đầu tư**  
+> Mô tả 4 nhóm người dùng trong hệ thống, phạm vi thao tác, giao diện và các tính năng hỗ trợ vận hành.
 
 ---
 
-## 📋 TỔNG QUAN: 4 NHÓM NGƯỜI DÙNG
+## TỔNG QUAN: 4 NHÓM NGƯỜI DÙNG
 
-| # | Ai? | Làm gì? | Dùng thiết bị gì? | Số tính năng |
+| STT | Nhóm người dùng | Vai trò & Thao tác chính | Thiết bị & Giao diện | Số tính năng |
 |---|---|---|---|---|
-| 1 | 👤 **Khách hàng** | Quét QR đặt món, thanh toán, đánh giá | **Điện thoại cá nhân** (trình duyệt, không cần tải app) | 24 |
-| 2 | 🧋 **Nhân viên pha chế / Phục vụ** | Nhận đơn, pha chế, mang bill, chấm công | **TV/Màn hình tại quầy** + **App trên điện thoại NV** | 12 |
-| 3 | 🏪 **Quản lý chi nhánh** | Mở/kết ca, quản lý kho, xem doanh thu | **App trên điện thoại** + Web | 13 |
-| 4 | 👑 **Chủ chuỗi (Admin)** | Quản lý toàn bộ chuỗi, phân tích AI | **Máy tính / Laptop** (Website Dashboard) | 22 |
+| 1 | **Khách hàng** | Quét QR đặt món, thanh toán tại bàn/quầy, đánh giá món | Điện thoại cá nhân (Trình duyệt PWA, không cần cài app) | 24 |
+| 2 | **Nhân viên pha chế / Phục vụ** | Nhận đơn real-time, xem công thức pha, báo hết món, chấm công | TV/Màn hình quầy (KDS) + Mobile App nội bộ nhân viên | 12 |
+| 3 | **Quản lý chi nhánh** | Mở/kết ca, kiểm kê kho, xuất kho quầy, xem báo cáo chi nhánh | App Mobile Quản lý + Web Dashboard | 13 |
+| 4 | **Chủ chuỗi (Admin)** | Quản trị toàn bộ chuỗi, cấu hình menu/giá, phân tích AI | Web Dashboard (Máy tính/Laptop) — Toàn quyền | 22 |
 
-> **Tổng cộng:** 71 tính năng + 5 Module AI thông minh
+> **Tổng cộng hệ thống:** 71 tính năng + 5 Module AI phân tích thông minh
 
 ---
 
-## 📐 MỐI QUAN HỆ GIỮA CÁC NHÓM NGƯỜI DÙNG
+## MỐI QUAN HỆ VÀ LUỒNG VẬN HÀNH GIỮA CÁC ACTOR
 
 ```
-     👤 KHÁCH HÀNG                🧋 NHÂN VIÊN                🏪 QUẢN LÝ
-     (Điện thoại)                (TV quầy + ĐT)              (ĐT + Web)
+      KHÁCH HÀNG                   NHÂN VIÊN                   QUẢN LÝ
+     (Điện thoại PWA)           (TV quầy + App NV)           (App ĐT + Web)
           │                           │                          │
-  Quét QR → Đặt món           Nhận đơn tức thì           Mở ca / Kết ca
-  Nhập SĐT → Tích điểm       Pha chế theo công thức     Nhập/Xuất kho
-  Chat AI → Gợi ý món         Mang bill / Thu tiền       Xem doanh thu
-  Đánh giá → Feedback         Chấm công bằng App        Hỏi AI thống kê
+  Quét QR -> Đặt món           Nhận đơn tức thì           Mở ca / Kết ca
+  Nhập SĐT -> Tích điểm       Pha chế theo công thức     Nhập/Xuất kho quầy
+  Chat AI -> Gợi ý món         In bill / Mang bill        Kiểm kê nguyên liệu
+  Đánh giá -> Feedback         Chấm công QR + GPS         Xem doanh thu chi nhánh
           │                           │                          │
           └───────────────────────────┼──────────────────────────┘
                                       │
-                              👑 CHỦ CHUỖI (ADMIN)
-                              (Website trên máy tính)
+                              CHỦ CHUỖI (ADMIN)
+                           (Website trên máy tính)
                                       │
-                         • Xem doanh thu 3 quán cùng lúc
-                         • Quản lý menu, giá, combo cả chuỗi
-                         • AI dự đoán khách sắp bỏ quán
-                         • AI gợi ý combo bán chạy
-                         • AI phân tích menu nên giữ/loại
-                         • Xuất báo cáo gửi kế toán
+                         • Thống kê doanh thu toàn chuỗi real-time
+                         • Quản lý menu, giá, combo đồng bộ cả chuỗi
+                         • AI dự đoán nguy cơ rời đi của khách hàng
+                         • AI gợi ý tạo combo bán chạy
+                         • AI phân tích hiệu quả menu
+                         • Xuất báo cáo quản trị & kế toán
 ```
 
 ---
 
-## 1. 👤 KHÁCH HÀNG — Tự đặt món trên điện thoại
+## 1. KHÁCH HÀNG — Tự đặt món trên điện thoại
 
-> **Không cần tải app** — chỉ cần quét QR bằng camera điện thoại, menu hiện trên trình duyệt.
+> **Không cần cài đặt ứng dụng** — Khách hàng quét mã QR tại bàn bằng camera điện thoại, giao diện PWA mở trực tiếp trên trình duyệt.
 
-### Khách đến quán sẽ trải qua các bước sau:
+### Trải nghiệm khách hàng tại quán:
 
 ```
-📱 Quét QR tại bàn
+[1] Quét mã QR tại bàn
       │
       ▼
-📞 Nhập số điện thoại
-   ├── Lần đầu → Nhập thêm Tên → Hệ thống tạo hồ sơ khách hàng
-   └── Lần sau → Hệ thống nhận diện → Hiện tên, điểm tích lũy, món hay gọi
+[2] Nhập số điện thoại nhận diện
+   ├── Lần đầu: Nhập thêm Tên -> Hệ thống tự động tạo hồ sơ CRM
+   └── Khách quen: Hệ thống nhận diện -> Hiển thị tên, điểm tích lũy & món hay gọi
       │
       ▼
-📋 Xem menu → Chọn món → Tùy chỉnh (Size / Đường / Đá / Topping)
+[3] Xem Menu -> Chọn món -> Tùy chỉnh (Size / Đường / Đá / Topping)
       │
       ▼
-⏳ Theo dõi trạng thái đơn ("Đang pha chế..." → "Sẵn sàng! 🔔")
+[4] Theo dõi trạng thái đơn hàng (Xác nhận -> Đang pha chế -> Sẵn sàng)
       │
       ▼
-💳 Yêu cầu thanh toán → NV mang bill ra bàn hoặc khách ra quầy
+[5] Yêu cầu thanh toán -> Nhân viên mang bill ra bàn hoặc thanh toán tại quầy
       │
       ▼
-⭐ Đánh giá trải nghiệm → Tự động tích điểm Loyalty
+[6] Đánh giá chất lượng -> Tự động tích điểm Loyalty
 ```
 
-### 24 tính năng cho Khách hàng
+### Danh sách 24 tính năng dành cho Khách hàng
 
-| Nhóm | Tính Năng | Khách hàng được gì? |
+| Nhóm chức năng | Tên tính năng | Mô tả giá trị mang lại |
 |---|---|---|
-| **Nhận diện** | Nhận diện SĐT | Nhập SĐT → hệ thống nhớ tên, điểm tích lũy, món hay gọi |
-| **Đặt món** | Scan QR xem menu | Quét QR tại bàn → mở menu ngay trên trình duyệt |
-| | Menu trực quan | Ảnh đẹp, phân loại rõ ràng (Cà phê / Trà / Bánh) |
-| | Tùy chỉnh món | Chọn Size, Đường, Đá, Topping theo ý muốn |
-| | Ghi chú đặc biệt | "Ít đá", "Thêm shot espresso", "Không đường" |
-| | Giỏ hàng | Thêm nhiều món, chỉnh số lượng trước khi gửi |
-| | Mang đi / Tại quán | Chọn "Tại bàn" hoặc "Mang đi" |
-| **Thanh toán** | Yêu cầu in bill | Bấm nút → nhân viên tự mang bill ra bàn |
-| | Thanh toán tại bàn | Tiền mặt hoặc chuyển khoản (VietQR) → NV xác nhận |
-| | Thanh toán tại quầy | Tự ra quầy trả tiền |
-| | Áp mã giảm giá | Báo mã voucher cho NV → giảm giá tự động |
-| | Doanh thu cập nhật tức thì | Thanh toán xong → chủ quán thấy doanh thu ngay trên Dashboard |
-| **Trải nghiệm** | 🤖 Chat AI gợi ý | Chat với AI: "Tôi muốn uống gì ngọt mát?" → AI gợi ý món phù hợp |
-| | Món bán chạy | Tag "Best Seller", "Mới", "Hot" giúp chọn nhanh |
-| | Theo dõi trạng thái đơn | Thanh tiến trình: "Đã xác nhận → Đang pha → Sẵn sàng 🔔" |
-| | Thời gian chờ | "Dự kiến xong sau ~8 phút" |
-| | Thông báo khi xong | Điện thoại báo: "Món của bạn đã sẵn sàng!" |
-| | Gọi nhân viên | Bấm nút 🔔 → NV nhận thông báo: "Bàn 5 cần hỗ trợ" |
-| **⭐ Feedback & Review** | Đánh giá từng món | Đánh giá 1-5 sao **từng món** riêng biệt (không chỉ đánh giá chung) |
-| | 📸 Chụp ảnh thực tế | Chụp ảnh món nước/quán bằng camera ĐT → upload trực tiếp lên hệ thống |
-| | 🕵️ Tùy chọn Ẩn danh | Không muốn lộ tên? Tích chọn "Ẩn danh" → review không hiện tên khách |
-| | 🌐 Hiển thị công khai | Review hiển thị **công khai trên trang QR Menu** → khách sau quét QR sẽ thấy đánh giá thực tế (giống Google Review) |
-| | 🚨 Cảnh báo đánh giá kém | Đánh giá ≤ 2 sao → hệ thống **tự động gửi cảnh báo** đến Quản lý để xử lý ngay |
-| **Tích điểm** | Loyalty tự động | Mỗi đơn hoàn tất → tự động cộng điểm vào SĐT |
-| | Lưu lịch sử | Hệ thống nhớ: món đã gọi, số lần ghé, tổng chi tiêu |
-| | Nhận voucher Zalo | Voucher sinh nhật, "lâu ngày chưa ghé" → gửi tự động qua Zalo |
-| **Nâng cao** | Gọi thêm món | Thêm vào đơn đang chạy, không cần tạo đơn mới |
-| | Dị ứng & Calories | Hiện thành phần dị ứng + calories từng món |
-| | Món yêu thích | Hiện "Món của bạn" dựa lịch sử → đặt lại 1 click |
+| **Nhận diện** | Nhận diện SĐT | Quét QR nhập SĐT -> Hệ thống nạp hồ sơ CRM, lịch sử món uống và điểm tích lũy |
+| **Đặt món** | Scan QR xem menu | Quét QR tại bàn -> Trình duyệt mở menu tự động gắn đúng số bàn và chi nhánh |
+| | Menu trực quan | Hiển thị menu phân loại rõ ràng (Cà phê, Trà, Bánh) kèm hình ảnh và giá |
+| | Tùy chỉnh món | Cho phép chọn Size (S/M/L), mức Đường, mức Đá và Topping đi kèm |
+| | Ghi chú đặc biệt | Ghi chú yêu cầu riêng: "Ít đá", "Không đường", "Thêm shot espresso" |
+| | Giỏ hàng | Thêm nhiều món, điều chỉnh số lượng và kiểm tra tổng tiền trước khi gửi đơn |
+| | Mang đi / Tại quán | Lựa chọn hình thức "Phục vụ tại bàn" hoặc "Mang đi (Takeaway)" |
+| **Thanh toán** | Yêu cầu in bill | Bấm nút yêu cầu -> Hệ thống thông báo nhân viên in bill và mang ra bàn |
+| | Thanh toán tại bàn | Thanh toán tiền mặt hoặc quét mã VietQR -> Nhân viên xác nhận hoàn tất |
+| | Thanh toán tại quầy | Khách hàng chủ động ra quầy thanh toán trực tiếp với nhân viên |
+| | Áp mã giảm giá | Khách hàng báo mã voucher -> Nhân viên áp dụng trực tiếp trên đơn hàng |
+| | Cập nhật doanh thu | Đơn hàng hoàn tất -> Doanh thu tự động cập nhật tức thì lên Dashboard |
+| **Trải nghiệm** | Chatbot AI gợi ý | Chat tương tác với AI: "Gợi ý đồ uống mát nhẹ" -> AI phân tích đưa ra lựa chọn |
+| | Món bán chạy | Hiển thị nhãn "Best Seller", "Hot Trend" dựa trên dữ liệu bán hàng thực tế |
+| | Trạng thái đơn hàng | Thanh tiến trình cập nhật real-time: "Đã nhận -> Đang pha -> Sẵn sàng" |
+| | Thời gian chờ ước tính | Hiển thị thời gian dự kiến hoàn thành dựa trên số lượng đơn hàng trong hàng chờ |
+| | Thông báo hoàn thành | Bắn thông báo lên trình duyệt điện thoại khi món nước đã pha xong |
+| | Gọi nhân viên | Bấm nút hỗ trợ -> Gửi thông báo đến ứng dụng của nhân viên: "Bàn X cần hỗ trợ" |
+| **Feedback & Review** | Đánh giá từng món | Cho phép đánh giá 1-5 sao chi tiết từng món trong đơn hàng |
+| | Chụp ảnh thực tế | Chụp và tải ảnh trực tiếp từ camera điện thoại lên hệ thống |
+| | Tùy chọn ẩn danh | Tùy chọn ẩn danh tính khi gửi nhận xét để khách hàng thoải mái đóng góp ý kiến |
+| | Hiển thị công khai | Đánh giá hiển thị trực tiếp trên trang QR Menu cho các khách hàng sau tham khảo |
+| | Cảnh báo đánh giá kém | Đánh giá từ 1-2 sao tự động gửi alert khẩn cấp đến Quản lý để xử lý kịp thời |
+| **Tích điểm CRM** | Tích điểm tự động | Đơn hàng hoàn thành tự động cộng điểm loyalty vào tài khoản SĐT khách hàng |
+| | Lưu lịch sử gọi món | Ghi nhận tần suất ghé quán, tổng chi tiêu và các món uống ưa thích |
+| | Gửi voucher qua Zalo | Voucher sinh nhật, ưu đãi tri ân tự động gửi qua Zalo OA |
+| **Nâng cao** | Gọi thêm món | Cho phép chọn thêm món bổ sung vào đơn đang xử lý mà không cần tạo đơn mới |
+| | Dị ứng & Calories | Hiển thị cảnh báo thành phần gây dị ứng và hàm lượng calories từng món |
+| | Món yêu thích | Tự động đề xuất danh mục "Món hay gọi" giúp đặt hàng nhanh trong 1 lần chạm |
 
-> **💡 Điểm nổi bật về Feedback:**
-> - Khách chụp ảnh thực tế → tăng **uy tín quán** (khách mới thấy ảnh thực, không phải ảnh quảng cáo)
-> - Tùy chọn ẩn danh → khách **dám nói thật**, giúp quán cải thiện
-> - Hiển thị công khai → tạo **hiệu ứng Social Proof** (giống Shopee / Google Review)
-> - Cảnh báo tự động khi đánh giá kém → Quản lý **xử lý tại chỗ**, không để khách ra về bực mình
+> **Giá trị cốt lõi của tính năng Feedback:**
+> - Hình ảnh thực tế từ khách hàng giúp tăng tính minh bạch và uy tín cho thương hiệu.
+> - Tùy chọn ẩn danh khuyến khích phản hồi trung thực, giúp bộ phận vận hành cải thiện dịch vụ.
+> - Cơ chế cảnh báo phản hồi kém giúp Quản lý can thiệp xử lý ngay tại quán, tránh suy giảm trải nghiệm khách hàng.
 
 ---
 
-## 2. 🧋 NHÂN VIÊN PHA CHẾ / PHỤC VỤ — Nhận đơn tự động, không cần nhớ
+## 2. NHÂN VIÊN PHA CHẾ / PHỤC VỤ — Nhận đơn tự động, tối ưu pha chế
 
-> **2 màn hình làm việc:** TV tại quầy (hiện đơn hàng) + App trên điện thoại NV (nhận chuông, mang bill)
+> **Môi trường làm việc song song:** Màn hình KDS tại quầy pha chế + App di động nội bộ dành cho nhân viên.
 
-### Quy trình làm việc:
+### Luồng vận hành của Nhân viên:
 
 ```
-📺 Đơn mới hiện trên TV tại quầy (tức thì, không cần ai báo)
+[1] Đơn hàng mới hiển thị tức thì trên màn hình KDS tại quầy
       │
       ▼
-📝 Xem chi tiết: tên món + CÔNG THỨC PHA kèm sẵn
+[2] KDS hiển thị chi tiết tên món + Công thức định lượng chuẩn
       │
       ▼
-☕ Pha chế theo công thức → Bấm "Hoàn thành" → Khách nhận 🔔
+[3] Pha chế theo định lượng -> Bấm "Hoàn thành" -> Bắn thông báo tới khách hàng
       │
       ▼
-📱 ĐT rung: "Bàn 5 cần bill" → In bill → Mang ra bàn → Thu tiền → Xác nhận
+[4] App nhân viên nhận alert "Bàn X cần bill" -> In bill -> Thu tiền -> Xác nhận
 ```
 
-### 12 tính năng cho Nhân viên
+### Danh sách 12 tính năng dành cho Nhân viên
 
-| Nhóm | Tính Năng | NV được hỗ trợ gì? |
+| Nhóm chức năng | Tên tính năng | Giá trị hỗ trợ vận hành |
 |---|---|---|
-| **Đơn hàng** | Đơn hiện tức thì trên TV | Khách đặt xong → đơn hiện ngay trên TV quầy, không cần ai nhận |
-| | Công thức pha kèm sẵn | Mỗi đơn kèm công thức: "Espresso 2 shot + Sữa 200ml + Đá 150g + Đường 25%" |
-| | Ưu tiên đơn chờ lâu | Xanh (< 3 phút) → Vàng (3-5p) → Đỏ (> 5p) — biết đơn nào cần pha gấp |
-| | Bấm "Hoàn thành" | Pha xong → bấm → khách nhận thông báo trên ĐT |
-| | Ghi chú khách | Hiện rõ: "Ít đá", "Không đường", "Thêm shot" |
-| | Gom đơn theo bàn | Xem tất cả món của 1 bàn → mang 1 chuyến đủ hết |
-| **Vận hành** | Báo hết món | Bấm "Hết" → món tự ẩn ngay trên menu của khách |
-| | In bill | Kết nối máy in → in hóa đơn khi khách yêu cầu |
-| | Sơ đồ bàn | Xem bàn nào có khách (đỏ), bàn nào trống (xanh) |
-| | Chuông gọi nhân viên | Khách bấm "Gọi NV" → ĐT rung + chuông: "Bàn 5 cần hỗ trợ" |
-| | Chấm công | Mở app → Quét QR + GPS xác nhận vị trí → Check-in/out |
-| | App NV trên điện thoại | App nội bộ: nhận chuông 🔔, mang bill 💳, báo hết món, xem sơ đồ bàn |
+| **Đơn hàng** | Đơn hàng real-time | Đơn từ QR Order tự động chuyển đến màn hình KDS mà không qua khâu trung gian |
+| | Hiển thị công thức | Tự động đính kèm công thức định lượng chi tiết cho từng món trên màn hình KDS |
+| | Cảnh báo thời gian | Tự động chuyển màu cảnh báo đơn hàng chờ lâu (Xanh -> Vàng -> Đỏ) để ưu tiên |
+| | Xác nhận hoàn thành | Thao tác 1 chạm báo hoàn thành -> Đơn biến mất khỏi KDS và gửi thông báo tới khách |
+| | Hiển thị ghi chú | Hiển thị nổi bật các yêu cầu đặc biệt của khách trên giao diện pha chế |
+| | Gom đơn theo bàn | Chế độ hiển thị tổng hợp toàn bộ món theo từng bàn để nhân viên trả món 1 lần |
+| **Vận hành** | Báo hết món | Thao tác báo hết món trực tiếp trên KDS -> Món nước tự động ẩn trên QR Menu |
+| | In hóa đơn | Kết nối máy in nhiệt tại quầy để xuất hóa đơn thanh toán cho khách hàng |
+| | Sơ đồ bàn trực quan | Cập nhật trạng thái bàn đang có khách hoặc bàn trống theo thời gian thực |
+| | Nhận alert gọi hỗ trợ | Nhận thông báo kèm âm thanh trên KDS và App khi khách hàng bấm nút gọi hỗ trợ |
+| | Chấm công GPS & QR | Thực hiện check-in/check-out ca làm việc bằng mã QR động và bán kính GPS |
+| | Mobile App nội bộ | Ứng dụng di động giúp nhân viên nhận chuông báo bill, xuất VietQR và kiểm tra sơ đồ bàn |
 
-> **Lưu ý:** NV **không cần nhớ công thức** — công thức pha hiện tự động kèm mỗi đơn trên TV.
+> **Lưu ý:** Nhân viên pha chế không cần tra cứu thủ công — Công thức định lượng chuẩn đã được tích hợp tự động trên giao diện KDS.
 
 ---
 
-## 3. 🏪 QUẢN LÝ CHI NHÁNH — Quản lý quán từ điện thoại
+## 3. QUẢN LÝ CHI NHÁNH — Quản lý vận hành & Kho hàng chi nhánh
 
-> **Chỉ xem được data của quán mình**, không thấy quán khác hay lương toàn chuỗi.
+> **Phạm vi quyền hạn:** Quản lý toàn bộ hoạt động trong ca, két tiền, nguyên vật liệu và báo cáo thuộc chi nhánh phụ trách.
 
-### Một ngày làm việc của Quản lý:
+### Quy trình quản lý trong ngày:
 
 ```
-☀️ Sáng: Mở ca → Nhập tiền đầu két
+ĐẦU CA: Mở ca làm việc -> Kiểm đếm và khai báo tiền mặt đầu két
+  │
+TRONG CA:
+  • Duyệt lịch làm việc & phân công ca nhân viên
+  • Xuất kho nguyên liệu từ Kho tổng sang Quầy pha chế
+  • Nhập kho hàng hóa từ Nhà cung cấp
+  • Kiểm kê định kỳ & đối soát hao hụt
+  • Truy vấn dữ liệu qua AI Thống kê
+  │
+CUỐI CA: Kết ca -> Kiểm đếm tiền két thực tế -> Hệ thống đối soát tự động
+```
+
+### Danh sách 13 tính năng dành cho Quản lý chi nhánh
+
+| Nhóm chức năng | Tên tính năng | Mô tả chức năng quản lý |
+|---|---|---|
+| **Quản lý ca** | Mở ca / Kết ca | Khai báo tiền mặt đầu ca và đối soát tiền thực đếm khi đóng ca làm việc |
+| | Đối soát két tiền | Tự động so sánh doanh thu máy ghi nhận với tiền thực đếm -> Cảnh báo khi lệch chênh |
+| | Duyệt lịch làm việc | Xem bảng phân công tuần, duyệt yêu cầu đổi ca và điều phối nhân sự thay thế |
+| | Quản lý chấm công | Ghi nhận thời gian ra/vào ca, phát hiện các trường hợp đi muộn hoặc tăng ca |
+| **Quản lý kho** | Xuất kho quầy | Tạo phiếu điều chuyển nguyên vật liệu từ Kho tổng sang Quầy pha chế |
+| | Kiểm kê nguyên liệu | Nhập số lượng tồn thực tế -> Hệ thống tự động tính toán chênh lệch hao hụt |
+| | Cảnh báo tồn kho | Tự động phát cảnh báo khi nguyên liệu xuống dưới định mức tối thiểu |
+| | Nhập kho nhà cung cấp | Ghi nhận phiếu nhập hàng từ nhà cung cấp và tự động tăng tăng tồn kho tổng |
+| **Báo cáo & AI** | Doanh thu ca/ngày | Theo dõi tổng doanh thu, số lượng đơn, giá trị trung bình đơn của chi nhánh |
+| | Phân tích khung giờ | Biểu đồ mật độ đơn hàng theo khung giờ giúp tối ưu hóa số lượng nhân sự trong ca |
+| | Báo cáo EOD tự động | Tự động tổng hợp và gửi báo cáo kết ca qua Email/Zalo cho cấp quản lý |
+| | AI Thống kê chi nhánh | Truy vấn dữ liệu doanh thu, hao hụt bằng câu hỏi tự nhiên -> AI trích xuất kết quả tức thì |
+| **Cấu hình** | Sơ đồ bàn chi nhánh | Thiếp lập sơ đồ bàn, khu vực (Trong nhà, Sân thượng, VIP) phục vụ hiển thị trên KDS & QR |
+
+---
+
+## 4. CHỦ CHUỖI (ADMIN) — Quản trị chiến lược toàn hệ thống
+
+> **Phạm vi quyền hạn:** Toàn quyền quản trị đa chi nhánh, cấu hình thực đơn toàn chuỗi, quản lý nhân sự và sử dụng 5 Module AI.
+
+### Thao tác quản trị chính của Chủ chuỗi:
+
+```
+[1] Truy cập Web Dashboard trung tâm trên máy tính
       │
       ▼
-🏪 Trong ngày:
-   • Duyệt lịch ca / đổi ca nhân viên
-   • Xuất nguyên liệu từ kho → quầy pha chế
-   • Nhận hàng từ nhà cung cấp → nhập kho
-   • Kiểm kê nguyên liệu
-   • Hỏi AI: "Hôm nay bán bao nhiêu?" → AI trả lời tức thì
+[2] Theo dõi Dashboard tổng quan 3 chi nhánh theo thời gian thực
       │
-      ▼
-🌙 Tối: Kết ca → Đếm tiền két → Hệ thống tự so sánh chênh lệch
+      ├── So sánh hiệu quả kinh doanh giữa các chi nhánh -> Báo cáo P&L tự động
+      ├── Quản lý Thực đơn / Bảng giá / Gói Combo -> Đồng bộ toàn bộ hệ thống
+      ├── Cấu hình chương trình Khuyến mãi / Tích điểm / Phân quyền tài khoản
+      ├── AI Thống kê: Truy vấn so sánh chỉ số kinh doanh toàn chuỗi
+      ├── AI Phân tích: Đề xuất gói Combo, dự báo rủi ro rời đi của khách hàng
+      └── Xuất dữ liệu báo cáo dạng Excel/PDF cho bộ phận Kế toán
 ```
 
-### 13 tính năng cho Quản lý
+### Danh sách 22 tính năng dành cho Chủ chuỗi (Admin)
 
-| Nhóm | Tính Năng | Quản lý được gì? |
+| Nhóm chức năng | Tên tính năng | Giá trị quản trị chiến lược |
 |---|---|---|
-| **Ca làm** | Mở ca / Kết ca | Nhập tiền đầu két (mở ca), đếm tiền thực (kết ca) |
-| | Đối soát két tiền | Hệ thống so sánh: tiền máy tính vs tiền thực đếm → cảnh báo nếu chênh > 50K |
-| | Duyệt lịch ca | Xem bảng ca tuần → duyệt / đổi ca / thêm NV thay thế |
-| | Xem chấm công NV | Ai đi đúng giờ, ai trễ, ai overtime — tất cả trên ĐT |
-| **Kho hàng** | Xuất kho quầy | "Xuất 2kg cà phê hạt + 5 hộp sữa từ Kho → Quầy pha" |
-| | Kiểm kê | Nhập số thực đếm → hệ thống tự tính chênh lệch |
-| | Cảnh báo kho | "Cà phê hạt còn 1.2kg — dự kiến hết trong 1 ngày" |
-| | Nhận hàng từ NCC | NCC giao hàng → nhập phiếu → đối chiếu với đơn đặt |
-| **Báo cáo** | Doanh thu ca/ngày | Doanh thu, số đơn, trung bình/đơn, top món — chỉ quán mình |
-| | Biểu đồ theo giờ | Giờ nào đông / vắng → xếp ca đúng người đúng lúc |
-| | Báo cáo tự động | Cuối ca → hệ thống gửi báo cáo qua Zalo/Email cho QL |
-| | 🤖 Hỏi AI thống kê | "Doanh thu hôm nay?" "Hao hụt tháng này?" → AI trả lời ngay |
-| **Khác** | Sơ đồ bàn | Cấu hình bàn quán: Trong / Ngoài / VIP |
+| **Dashboard** | Tổng quan đa chi nhánh | Hiển thị doanh thu, lượng đơn hàng và cảnh báo của tất cả chi nhánh trên 1 màn hình |
+| | So sánh chi nhánh | Biểu đồ trực quan so sánh chỉ số doanh thu, chi phí giữa các cơ sở kinh doanh |
+| | Báo cáo P&L tự động | Tự động tổng hợp Doanh thu - Chi phí (Nguyên liệu, Lương, Điện nước) = Lợi nhuận ròng |
+| | Cảnh báo trung tâm | Bắn cảnh báo tức thì khi có sự cố lệch két, hết kho hoặc phản hồi chất lượng kém |
+| **Menu & Giá** | Quản lý thực đơn | Tạo mới, chỉnh sửa món ăn, công thức pha và tải hình ảnh đồng bộ cả chuỗi |
+| | Cấu hình giá linh hoạt | Cho phép thiết lập chính sách giá riêng biệt theo từng khu vực/chi nhánh |
+| | Khóa món tức thì | Thao tác tắt hiển thị món nước trên toàn bộ QR Menu khi thiếu nguyên liệu |
+| | Menu theo thời điểm | Thiết lập lịch tự động kích hoạt thực đơn theo mùa hoặc theo khung giờ cố định |
+| | Quản lý gói Combo | Tạo các gói kết hợp món nước + bánh ngọt giúp nâng cao giá trị trung bình đơn |
+| **Nhân sự & CRM** | Quản lý nhân sự chuỗi | Tạo tài khoản, phân quyền truy cập và giám sát bảng chấm công nhân viên toàn hệ thống |
+| | Cấu hình CRM & Loyalty | Thiết lập quy tắc tích điểm, hạng thành viên và các chính sách đổi quà |
+| | Quản lý Khuyến mãi | Cài đặt các chương trình giảm giá theo khung giờ vàng, mã quà tặng sinh nhật |
+| **Phân tích AI** | AI Thống kê toàn chuỗi | Truy vấn so sánh dữ liệu kinh doanh phức tạp bằng ngôn ngữ tự nhiên |
+| | AI Phân tích thực đơn | AI tự động đưa ra khuyến nghị bổ sung món trend hoặc loại bỏ món bán chậm |
+| | AI Dự báo khách rời đi | Phân tích tần suất gọi món để phát hiện khách hàng sắp ngừng quay lại và tự gửi voucher |
+| | AI Đề xuất Combo | Phân tích lịch sử đơn hàng để gợi ý kết hợp các món thường được mua cùng nhau |
+| **Quản trị hệ thống** | Xuất dữ liệu báo cáo | Trích xuất báo cáo doanh thu, kho hàng, chi phí ra file Excel/PDF chuẩn kế toán |
+| | Nhật ký thao tác (Audit Log) | Ghi vết toàn bộ lịch sử chỉnh sửa giá, xóa đơn, đổi menu để phòng ngừa gian lận |
+| | Cấu hình giờ hoạt động | Đặt khung giờ mở/đóng cửa -> Hệ thống tự động chặn đặt hàng ngoài giờ |
+| | Phân quyền RBAC | Phân quyền chi tiết theo từng cấp bậc (Quản lý chỉ xem chi nhánh phụ trách) |
+| | Gửi thông báo hệ thống | Phát thông báo khẩn cấp tới toàn bộ App nhân viên và Quản lý trên toàn chuỗi |
 
 ---
 
-## 4. 👑 CHỦ CHUỖI (ADMIN) — Quản lý tất cả từ 1 màn hình
+## BẢNG PHÂN BỔ CÁC MODULE AI TRONG HỆ THỐNG
 
-> **Quyền cao nhất:** xem tất cả quán real-time, quản lý menu/giá/combo toàn chuỗi, sử dụng 5 AI Module.
-
-### Chủ chuỗi dùng hệ thống để:
-
-```
-💻 Mở Dashboard trên máy tính
-      │
-      ▼
-📊 Xem tổng quan 3 quán cùng lúc (doanh thu, đơn, cảnh báo)
-      │
-      ├── So sánh chi nhánh: Quán nào lãi nhất? Chi phí bất thường?
-      ├── Quản lý Menu / Giá / Combo → thay đổi đồng bộ cả 3 quán
-      ├── Quản lý nhân sự / Loyalty / Khuyến mãi
-      ├── Hỏi AI: "Quán nào lãi nhất tháng này?" → AI trả lời kèm biểu đồ
-      ├── AI gợi ý: tạo combo mới, loại món kém, giữ khách sắp bỏ
-      └── Xuất báo cáo Excel/PDF → gửi kế toán
-```
-
-### 22 tính năng cho Chủ chuỗi
-
-| Nhóm | Tính Năng | Chủ chuỗi được gì? |
+| Module AI | Chức năng cốt lõi | Đối tượng sử dụng |
 |---|---|---|
-| **Dashboard** | Dashboard 3 quán | Doanh thu, đơn, NV, cảnh báo — tất cả trên 1 màn hình |
-| | So sánh chi nhánh | Biểu đồ: quán nào doanh thu cao nhất? Chi phí bất thường? |
-| | Lãi/Lỗ tự động | Doanh thu − Chi phí = Lợi nhuận ròng từng quán, tự tính |
-| | Cảnh báo real-time | NV vắng, két chênh, kho hết, feedback kém → báo tức thì |
-| **Menu & Giá** | Tạo/Sửa/Xóa menu | Tạo món mới kèm ảnh, giá, công thức → đồng bộ cả chuỗi |
-| | Giá theo chi nhánh | Latte Q1: 55K, Thủ Đức: 45K — tùy chỉnh riêng từng quán |
-| | Bật/Tắt món tức thì | Hết sữa → tắt tất cả món có sữa ngay lập tức |
-| | Menu mùa / Giới hạn | Tạo menu mùa tự bật/tắt theo ngày đã hẹn |
-| | Quản lý Combo | Latte + Croissant = 75K (tiết kiệm 15K) — tạo trong 1 phút |
-| **Nhân sự & CRM** | Quản lý NV toàn chuỗi | Thêm/sửa/xóa NV, phân quyền, xem chấm công 3 quán |
-| | Quản lý Loyalty | Cấu hình tích điểm, tạo voucher, hạng thành viên |
-| | Quản lý Khuyến mãi | Giảm 20% khung 14-16h, Buy 1 Get 1, voucher sinh nhật |
-| **🤖 AI thông minh** | AI Thống kê toàn chuỗi | Hỏi: "So sánh Q1 vs Q3 tháng 8?" → AI trả lời kèm biểu đồ |
-| | AI Phân tích menu | "Matcha tăng 35% → thêm biến thể", "Smoothie Dâu 2 ly/ngày → nên loại" |
-| | AI Dự đoán khách bỏ | Danh sách khách sắp bỏ quán + tự gửi voucher kéo lại |
-| | AI Gợi ý Combo | "68% khách mua Latte cũng mua Croissant → tạo combo 75K" |
-| **Quản trị** | Xuất báo cáo | Doanh thu, lương, kho → Excel/PDF gửi kế toán |
-| | Nhật ký thao tác | Ai sửa giá, ai xóa đơn, lúc nào, từ đâu → ghi hết |
-| | Giờ hoạt động | Cài giờ mở/đóng → QR Order tự hiện "Quán đã đóng cửa" |
-| | Phân quyền | QL chỉ xem quán mình, không thấy lương toàn chuỗi |
-| | Gửi thông báo | "Hôm nay đóng cửa sớm 20h" → gửi tất cả NV/QL |
+| **AI Thống kê dữ liệu** | Phân tích câu hỏi tự nhiên -> Trích xuất biểu đồ doanh thu & báo cáo | Quản lý chi nhánh & Chủ chuỗi |
+| **AI Đề xuất Combo** | Phân tích hành vi mua sắm -> Đề xuất gói kết hợp tối ưu doanh số | Chủ chuỗi (Admin) |
+| **AI Dự báo giữ chân khách** | Phát hiện khách hàng giảm tần suất ghé -> Tự động kích hoạt voucher | Chủ chuỗi (Tự động vận hành) |
+| **AI Phân tích thực đơn** | Đánh giá hiệu suất bán của từng món -> Đề xuất tối ưu thực đơn | Chủ chuỗi (Admin) |
+| **AI Chatbot tư vấn** | Tương tác giải đáp nhu cầu đồ uống dựa trên khẩu vị và thời tiết | Khách hàng (trên QR Menu) |
+
+> **Lưu ý:** Bộ phận pha chế vận hành trực tiếp trên màn hình KDS đã có sẵn định lượng công thức, không cần sử dụng Chatbot tra cứu.
 
 ---
 
-## 🔐 AI LÀM GÌ CHO AI?
+## MA TRẬN PHÂN QUYỀN TRUY CẬP (RBAC MATRIX)
 
-| 🤖 AI Module | Làm gì? | Ai dùng? |
-|---|---|---|
-| **AI Thống kê** | Hỏi bằng tiếng Việt: "Doanh thu tuần này?" → AI trả lời kèm biểu đồ | 🏪 Quản lý (quán mình) + 👑 Admin (cả chuỗi) |
-| **AI Gợi ý Combo** | Phân tích data → "68% khách mua Latte cũng mua Croissant" → gợi ý tạo combo | 👑 Admin |
-| **AI Giữ chân khách** | Dự đoán khách sắp bỏ quán → tự gửi voucher kéo lại | 👑 Admin (cấu hình) → Tự động chạy |
-| **AI Phân tích menu** | "Matcha tăng 35% → thêm biến thể", "Smoothie Dâu chỉ 2 ly/ngày → loại" | 👑 Admin |
-| **AI Chatbot gợi ý** | Khách chat: "Tôi muốn uống gì mát?" → AI gợi ý dựa khẩu vị, thời tiết | 👤 Khách hàng |
-
-> **Nhân viên pha chế KHÔNG cần AI** — vì công thức pha đã hiện tự động kèm mỗi đơn trên TV.
-
----
-
-## 🔐 PHÂN QUYỀN: AI THẤY GÌ, LÀM GÌ?
-
-| Chức năng | 👤 Khách | 🧋 NV | 🏪 Quản lý | 👑 Admin |
+| Chức năng hệ thống | Khách hàng | Nhân viên | Quản lý chi nhánh | Chủ chuỗi (Admin) |
 |---|---|---|---|---|
-| Đặt món qua QR | ✅ | — | — | — |
-| Nhận đơn trên TV | — | ✅ | — | — |
-| Báo hết món | — | ✅ | ✅ | ✅ |
-| Chấm công | — | ✅ | 👁️ Xem | 👁️ Xem |
-| Mở/Kết ca | — | — | ✅ | 👁️ Xem |
-| Quản lý kho | — | — | ✅ | 👁️ Xem |
-| Xem doanh thu | — | — | ✅ Quán mình | ✅ Toàn chuỗi |
-| Hỏi AI Thống kê | — | — | ✅ Quán mình | ✅ Toàn chuỗi |
-| Quản lý Menu/Giá | — | — | — | ✅ |
-| Tạo Combo / Khuyến mãi | — | — | — | ✅ |
-| AI Dự đoán / Gợi ý | — | — | — | ✅ |
-| Quản lý Nhân sự | — | — | — | ✅ |
-| Phân quyền / Audit Log | — | — | — | ✅ |
-
-> 🔑 **Nguyên tắc:** Mỗi người chỉ thấy và làm được những gì thuộc phạm vi vai trò của mình. Quản lý chỉ thấy quán mình. Admin thấy tất cả.
+| Đặt món qua QR Menu | Cho phép | — | — | — |
+| Hiển thị đơn hàng KDS | — | Cho phép | — | — |
+| Thao tác báo hết món | — | Cho phép | Cho phép | Cho phép |
+| Chấm công ca làm | — | Cho phép | Xem dữ liệu | Xem dữ liệu |
+| Thao tác Mở/Kết ca | — | — | Cho phép | Xem dữ liệu |
+| Quản lý xuất/nhập kho | — | — | Cho phép | Xem dữ liệu |
+| Báo cáo doanh thu | — | — | Xem chi nhánh | Xem toàn chuỗi |
+| Truy vấn AI Thống kê | — | — | Xem chi nhánh | Xem toàn chuỗi |
+| Quản lý Thực đơn & Giá | — | — | — | Cho phép |
+| Cấu hình Khuyến mãi / Combo | — | — | — | Cho phép |
+| Module AI Phân tích & Dự báo | — | — | — | Cho phép |
+| Quản lý Nhân sự & Phân quyền | — | — | — | Cho phép |
+| Nhật ký Audit Log | — | — | — | Cho phép |
 
 ---
 
-## 📊 TÓM TẮT
+## BẢNG TỔNG HỢP CHỈ TIÊU HỆ THỐNG
 
-| Chỉ tiêu | Giá trị |
+| Chỉ tiêu hệ thống | Dữ liệu quy chuẩn |
 |---|---|
-| Tổng nhóm người dùng | **4** (Khách, NV, Quản lý, Admin) |
-| Tổng tính năng | **71** (24 + 12 + 13 + 22) |
-| Tổng AI Module | **5** (Thống kê, Combo, Giữ khách, Phân tích menu, Chatbot) |
-| Người dùng AI nhiều nhất | 👑 Admin (4 AI) |
-| Nhiều tính năng nhất | 👤 Khách hàng (24 tính năng) |
-| Quyền cao nhất | 👑 Admin (toàn quyền chuỗi) |
+| Tổng số Nhóm người dùng (Actor) | **4** (Khách hàng, Nhân viên, Quản lý, Chủ chuỗi) |
+| Tổng số Tính năng vận hành | **71 tính năng** (Khách hàng: 24, Nhân viên: 12, Quản lý: 13, Admin: 22) |
+| Tổng số Module AI | **5 Module** (Thống kê, Combo, Giữ chân khách, Phân tích thực đơn, Chatbot) |
+| Giao diện chính | QR PWA (Khách), KDS & Mobile App (NV), App & Web (Quản lý), Web Dashboard (Admin) |
