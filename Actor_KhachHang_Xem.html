@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Hệ Thống Smart F&B OS - Các Actor Trong Hệ Thống</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    @page {
+        size: A4;
+        margin: 15mm 15mm 15mm 15mm;
+        @bottom-right {
+            content: counter(page);
+        }
+    }
+    
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        color: #1e293b;
+        line-height: 1.6;
+        font-size: 13px;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    /* Cover / Header Header */
+    .header-banner {
+        background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+        color: white;
+        padding: 24px 28px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+    
+    .header-banner h1 {
+        margin: 0 0 8px 0;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        color: #ffffff;
+    }
+    
+    .header-banner p {
+        margin: 4px 0;
+        font-size: 13px;
+        color: #93c5fd;
+    }
+    
+    .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.15);
+        color: #f1f5f9;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 500;
+        margin-top: 8px;
+    }
+    
+    /* Headings */
+    h2 {
+        color: #0f172a;
+        font-size: 16px;
+        font-weight: 700;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 6px;
+        margin-top: 24px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        page-break-after: avoid;
+    }
+    
+    h3 {
+        color: #1e40af;
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 18px;
+        margin-bottom: 10px;
+        page-break-after: avoid;
+    }
+    
+    blockquote {
+        background: #f0f9ff;
+        border-left: 4px solid #0284c7;
+        margin: 12px 0;
+        padding: 10px 14px;
+        border-radius: 0 8px 8px 0;
+        font-size: 12.5px;
+        color: #0369a1;
+    }
+    
+    /* Tables */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0 20px 0;
+        font-size: 12px;
+        page-break-inside: auto;
+    }
+    
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+    
+    th {
+        background-color: #f1f5f9;
+        color: #334155;
+        font-weight: 600;
+        text-align: left;
+        padding: 8px 12px;
+        border: 1px solid #cbd5e1;
+        font-size: 11.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+    
+    td {
+        padding: 8px 12px;
+        border: 1px solid #e2e8f0;
+        vertical-align: top;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #f8fafc;
+    }
+    
+    tr:hover {
+        background-color: #f1f5f9;
+    }
+    
+    /* Pre / Code Blocks for Diagram */
+    pre {
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 14px 18px;
+        border-radius: 8px;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 11px;
+        line-height: 1.45;
+        overflow-x: auto;
+        margin: 12px 0;
+        border: 1px solid #334155;
+        page-break-inside: avoid;
+    }
+    
+    code {
+        font-family: 'Consolas', 'Courier New', monospace;
+        background: #f1f5f9;
+        color: #0f172a;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 11.5px;
+    }
+    
+    /* Callout Highlight Boxes */
+    .highlight-box {
+        background: #fefce8;
+        border: 1px solid #fef08a;
+        border-left: 4px solid #eab308;
+        padding: 12px 16px;
+        border-radius: 6px;
+        margin: 14px 0;
+        font-size: 12px;
+        color: #713f12;
+    }
+    
+    .highlight-box ul {
+        margin: 6px 0 0 0;
+        padding-left: 20px;
+    }
+
+    .section-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .footer-note {
+        text-align: center;
+        font-size: 11px;
+        color: #94a3b8;
+        margin-top: 30px;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 12px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+        <div class="header-banner">
+            <h1>👥 HỆ THỐNG SMART F&B OS — AI LÀM GÌ, CON NGƯỜI LÀM GÌ?</h1>
+            <p>Tài liệu đặc tả chi tiết 4 Actor & Lợi ích dành cho Khách hàng — Hệ thống Smart F&B OS</p>
+            <span class="badge">Dành cho Khách hàng / Chủ đầu tư</span>
+        </div>
+        <blockquote><strong>Tài liệu giới thiệu cho Khách hàng</strong><br>Mô tả 4 nhóm người dùng trong hệ thống, mỗi người sẽ <strong>thấy gì, làm gì, và được hỗ trợ gì</strong> từ hệ thống thông minh.</blockquote><h2>📋 TỔNG QUAN: 4 NHÓM NGƯỜI DÙNG</h2><table><thead><tr><th>#</th><th>Ai?</th><th>Làm gì?</th><th>Dùng thiết bị gì?</th><th>Số tính năng</th></tr></thead><tbody><tr><td>1</td><td>👤 <strong>Khách hàng</strong></td><td>Quét QR đặt món, thanh toán, đánh giá</td><td><strong>Điện thoại cá nhân</strong> (trình duyệt, không cần tải app)</td><td>24</td></tr><tr><td>2</td><td>🧋 <strong>Nhân viên pha chế / Phục vụ</strong></td><td>Nhận đơn, pha chế, mang bill, chấm công</td><td><strong>TV/Màn hình tại quầy</strong> + <strong>App trên điện thoại NV</strong></td><td>12</td></tr><tr><td>3</td><td>🏪 <strong>Quản lý chi nhánh</strong></td><td>Mở/kết ca, quản lý kho, xem doanh thu</td><td><strong>App trên điện thoại</strong> + Web</td><td>13</td></tr><tr><td>4</td><td>👑 <strong>Chủ chuỗi (Admin)</strong></td><td>Quản lý toàn bộ chuỗi, phân tích AI</td><td><strong>Máy tính / Laptop</strong> (Website Dashboard)</td><td>22</td></tr></tbody></table><blockquote><strong>Tổng cộng:</strong> 71 tính năng + 5 Module AI thông minh</blockquote><h2>📐 MỐI QUAN HỆ GIỮA CÁC NHÓM NGƯỜI DÙNG</h2><pre>     👤 KHÁCH HÀNG                🧋 NHÂN VIÊN                🏪 QUẢN LÝ
+     (Điện thoại)                (TV quầy + ĐT)              (ĐT + Web)
+          │                           │                          │
+  Quét QR → Đặt món           Nhận đơn tức thì           Mở ca / Kết ca
+  Nhập SĐT → Tích điểm       Pha chế theo công thức     Nhập/Xuất kho
+  Chat AI → Gợi ý món         Mang bill / Thu tiền       Xem doanh thu
+  Đánh giá → Feedback         Chấm công bằng App        Hỏi AI thống kê
+          │                           │                          │
+          └───────────────────────────┼──────────────────────────┘
+                                      │
+                              👑 CHỦ CHUỖI (ADMIN)
+                              (Website trên máy tính)
+                                      │
+                         • Xem doanh thu 3 quán cùng lúc
+                         • Quản lý menu, giá, combo cả chuỗi
+                         • AI dự đoán khách sắp bỏ quán
+                         • AI gợi ý combo bán chạy
+                         • AI phân tích menu nên giữ/loại
+                         • Xuất báo cáo gửi kế toán</pre><h2>1. 👤 KHÁCH HÀNG — Tự đặt món trên điện thoại</h2><blockquote><strong>Không cần tải app</strong> — chỉ cần quét QR bằng camera điện thoại, menu hiện trên trình duyệt.</blockquote><h3>Khách đến quán sẽ trải qua các bước sau:</h3><pre>📱 Quét QR tại bàn
+      │
+      ▼
+📞 Nhập số điện thoại
+   ├── Lần đầu → Nhập thêm Tên → Hệ thống tạo hồ sơ khách hàng
+   └── Lần sau → Hệ thống nhận diện → Hiện tên, điểm tích lũy, món hay gọi
+      │
+      ▼
+📋 Xem menu → Chọn món → Tùy chỉnh (Size / Đường / Đá / Topping)
+      │
+      ▼
+⏳ Theo dõi trạng thái đơn ("Đang pha chế..." → "Sẵn sàng! 🔔")
+      │
+      ▼
+💳 Yêu cầu thanh toán → NV mang bill ra bàn hoặc khách ra quầy
+      │
+      ▼
+⭐ Đánh giá trải nghiệm → Tự động tích điểm Loyalty</pre><h3>24 tính năng cho Khách hàng</h3><table><thead><tr><th>Nhóm</th><th>Tính Năng</th><th>Khách hàng được gì?</th></tr></thead><tbody><tr><td><strong>Nhận diện</strong></td><td>Nhận diện SĐT</td><td>Nhập SĐT → hệ thống nhớ tên, điểm tích lũy, món hay gọi</td></tr><tr><td><strong>Đặt món</strong></td><td>Scan QR xem menu</td><td>Quét QR tại bàn → mở menu ngay trên trình duyệt</td></tr><tr><td></td><td>Menu trực quan</td><td>Ảnh đẹp, phân loại rõ ràng (Cà phê / Trà / Bánh)</td></tr><tr><td></td><td>Tùy chỉnh món</td><td>Chọn Size, Đường, Đá, Topping theo ý muốn</td></tr><tr><td></td><td>Ghi chú đặc biệt</td><td>"Ít đá", "Thêm shot espresso", "Không đường"</td></tr><tr><td></td><td>Giỏ hàng</td><td>Thêm nhiều món, chỉnh số lượng trước khi gửi</td></tr><tr><td></td><td>Mang đi / Tại quán</td><td>Chọn "Tại bàn" hoặc "Mang đi"</td></tr><tr><td><strong>Thanh toán</strong></td><td>Yêu cầu in bill</td><td>Bấm nút → nhân viên tự mang bill ra bàn</td></tr><tr><td></td><td>Thanh toán tại bàn</td><td>Tiền mặt hoặc chuyển khoản (VietQR) → NV xác nhận</td></tr><tr><td></td><td>Thanh toán tại quầy</td><td>Tự ra quầy trả tiền</td></tr><tr><td></td><td>Áp mã giảm giá</td><td>Báo mã voucher cho NV → giảm giá tự động</td></tr><tr><td></td><td>Doanh thu cập nhật tức thì</td><td>Thanh toán xong → chủ quán thấy doanh thu ngay trên Dashboard</td></tr><tr><td><strong>Trải nghiệm</strong></td><td>🤖 Chat AI gợi ý</td><td>Chat với AI: "Tôi muốn uống gì ngọt mát?" → AI gợi ý món phù hợp</td></tr><tr><td></td><td>Món bán chạy</td><td>Tag "Best Seller", "Mới", "Hot" giúp chọn nhanh</td></tr><tr><td></td><td>Theo dõi trạng thái đơn</td><td>Thanh tiến trình: "Đã xác nhận → Đang pha → Sẵn sàng 🔔"</td></tr><tr><td></td><td>Thời gian chờ</td><td>"Dự kiến xong sau ~8 phút"</td></tr><tr><td></td><td>Thông báo khi xong</td><td>Điện thoại báo: "Món của bạn đã sẵn sàng!"</td></tr><tr><td></td><td>Gọi nhân viên</td><td>Bấm nút 🔔 → NV nhận thông báo: "Bàn 5 cần hỗ trợ"</td></tr><tr><td><strong>⭐ Feedback & Review</strong></td><td>Đánh giá từng món</td><td>Đánh giá 1-5 sao <strong>từng món</strong> riêng biệt (không chỉ đánh giá chung)</td></tr><tr><td></td><td>📸 Chụp ảnh thực tế</td><td>Chụp ảnh món nước/quán bằng camera ĐT → upload trực tiếp lên hệ thống</td></tr><tr><td></td><td>🕵️ Tùy chọn Ẩn danh</td><td>Không muốn lộ tên? Tích chọn "Ẩn danh" → review không hiện tên khách</td></tr><tr><td></td><td>🌐 Hiển thị công khai</td><td>Review hiển thị <strong>công khai trên trang QR Menu</strong> → khách sau quét QR sẽ thấy đánh giá thực tế (giống Google Review)</td></tr><tr><td></td><td>🚨 Cảnh báo đánh giá kém</td><td>Đánh giá ≤ 2 sao → hệ thống <strong>tự động gửi cảnh báo</strong> đến Quản lý để xử lý ngay</td></tr><tr><td><strong>Tích điểm</strong></td><td>Loyalty tự động</td><td>Mỗi đơn hoàn tất → tự động cộng điểm vào SĐT</td></tr><tr><td></td><td>Lưu lịch sử</td><td>Hệ thống nhớ: món đã gọi, số lần ghé, tổng chi tiêu</td></tr><tr><td></td><td>Nhận voucher Zalo</td><td>Voucher sinh nhật, "lâu ngày chưa ghé" → gửi tự động qua Zalo</td></tr><tr><td><strong>Nâng cao</strong></td><td>Gọi thêm món</td><td>Thêm vào đơn đang chạy, không cần tạo đơn mới</td></tr><tr><td></td><td>Dị ứng & Calories</td><td>Hiện thành phần dị ứng + calories từng món</td></tr><tr><td></td><td>Món yêu thích</td><td>Hiện "Món của bạn" dựa lịch sử → đặt lại 1 click</td></tr></tbody></table><div class="highlight-box"><strong>💡 Điểm nổi bật về Feedback:</strong><br>- Khách chụp ảnh thực tế → tăng <strong>uy tín quán</strong> (khách mới thấy ảnh thực, không phải ảnh quảng cáo)<br>- Tùy chọn ẩn danh → khách <strong>dám nói thật</strong>, giúp quán cải thiện<br>- Hiển thị công khai → tạo <strong>hiệu ứng Social Proof</strong> (giống Shopee / Google Review)<br>- Cảnh báo tự động khi đánh giá kém → Quản lý <strong>xử lý tại chỗ</strong>, không để khách ra về bực mình</div><h2>2. 🧋 NHÂN VIÊN PHA CHẾ / PHỤC VỤ — Nhận đơn tự động, không cần nhớ</h2><blockquote><strong>2 màn hình làm việc:</strong> TV tại quầy (hiện đơn hàng) + App trên điện thoại NV (nhận chuông, mang bill)</blockquote><h3>Quy trình làm việc:</h3><pre>📺 Đơn mới hiện trên TV tại quầy (tức thì, không cần ai báo)
+      │
+      ▼
+📝 Xem chi tiết: tên món + CÔNG THỨC PHA kèm sẵn
+      │
+      ▼
+☕ Pha chế theo công thức → Bấm "Hoàn thành" → Khách nhận 🔔
+      │
+      ▼
+📱 ĐT rung: "Bàn 5 cần bill" → In bill → Mang ra bàn → Thu tiền → Xác nhận</pre><h3>12 tính năng cho Nhân viên</h3><table><thead><tr><th>Nhóm</th><th>Tính Năng</th><th>NV được hỗ trợ gì?</th></tr></thead><tbody><tr><td><strong>Đơn hàng</strong></td><td>Đơn hiện tức thì trên TV</td><td>Khách đặt xong → đơn hiện ngay trên TV quầy, không cần ai nhận</td></tr><tr><td></td><td>Công thức pha kèm sẵn</td><td>Mỗi đơn kèm công thức: "Espresso 2 shot + Sữa 200ml + Đá 150g + Đường 25%"</td></tr><tr><td></td><td>Ưu tiên đơn chờ lâu</td><td>Xanh (< 3 phút) → Vàng (3-5p) → Đỏ (> 5p) — biết đơn nào cần pha gấp</td></tr><tr><td></td><td>Bấm "Hoàn thành"</td><td>Pha xong → bấm → khách nhận thông báo trên ĐT</td></tr><tr><td></td><td>Ghi chú khách</td><td>Hiện rõ: "Ít đá", "Không đường", "Thêm shot"</td></tr><tr><td></td><td>Gom đơn theo bàn</td><td>Xem tất cả món của 1 bàn → mang 1 chuyến đủ hết</td></tr><tr><td><strong>Vận hành</strong></td><td>Báo hết món</td><td>Bấm "Hết" → món tự ẩn ngay trên menu của khách</td></tr><tr><td></td><td>In bill</td><td>Kết nối máy in → in hóa đơn khi khách yêu cầu</td></tr><tr><td></td><td>Sơ đồ bàn</td><td>Xem bàn nào có khách (đỏ), bàn nào trống (xanh)</td></tr><tr><td></td><td>Chuông gọi nhân viên</td><td>Khách bấm "Gọi NV" → ĐT rung + chuông: "Bàn 5 cần hỗ trợ"</td></tr><tr><td></td><td>Chấm công</td><td>Mở app → Quét QR + GPS xác nhận vị trí → Check-in/out</td></tr><tr><td></td><td>App NV trên điện thoại</td><td>App nội bộ: nhận chuông 🔔, mang bill 💳, báo hết món, xem sơ đồ bàn</td></tr></tbody></table><blockquote><strong>Lưu ý:</strong> NV <strong>không cần nhớ công thức</strong> — công thức pha hiện tự động kèm mỗi đơn trên TV.</blockquote><h2>3. 🏪 QUẢN LÝ CHI NHÁNH — Quản lý quán từ điện thoại</h2><blockquote><strong>Chỉ xem được data của quán mình</strong>, không thấy quán khác hay lương toàn chuỗi.</blockquote><h3>Một ngày làm việc của Quản lý:</h3><pre>☀️ Sáng: Mở ca → Nhập tiền đầu két
+      │
+      ▼
+🏪 Trong ngày:
+   • Duyệt lịch ca / đổi ca nhân viên
+   • Xuất nguyên liệu từ kho → quầy pha chế
+   • Nhận hàng từ nhà cung cấp → nhập kho
+   • Kiểm kê nguyên liệu
+   • Hỏi AI: "Hôm nay bán bao nhiêu?" → AI trả lời tức thì
+      │
+      ▼
+🌙 Tối: Kết ca → Đếm tiền két → Hệ thống tự so sánh chênh lệch</pre><h3>13 tính năng cho Quản lý</h3><table><thead><tr><th>Nhóm</th><th>Tính Năng</th><th>Quản lý được gì?</th></tr></thead><tbody><tr><td><strong>Ca làm</strong></td><td>Mở ca / Kết ca</td><td>Nhập tiền đầu két (mở ca), đếm tiền thực (kết ca)</td></tr><tr><td></td><td>Đối soát két tiền</td><td>Hệ thống so sánh: tiền máy tính vs tiền thực đếm → cảnh báo nếu chênh > 50K</td></tr><tr><td></td><td>Duyệt lịch ca</td><td>Xem bảng ca tuần → duyệt / đổi ca / thêm NV thay thế</td></tr><tr><td></td><td>Xem chấm công NV</td><td>Ai đi đúng giờ, ai trễ, ai overtime — tất cả trên ĐT</td></tr><tr><td><strong>Kho hàng</strong></td><td>Xuất kho quầy</td><td>"Xuất 2kg cà phê hạt + 5 hộp sữa từ Kho → Quầy pha"</td></tr><tr><td></td><td>Kiểm kê</td><td>Nhập số thực đếm → hệ thống tự tính chênh lệch</td></tr><tr><td></td><td>Cảnh báo kho</td><td>"Cà phê hạt còn 1.2kg — dự kiến hết trong 1 ngày"</td></tr><tr><td></td><td>Nhận hàng từ NCC</td><td>NCC giao hàng → nhập phiếu → đối chiếu với đơn đặt</td></tr><tr><td><strong>Báo cáo</strong></td><td>Doanh thu ca/ngày</td><td>Doanh thu, số đơn, trung bình/đơn, top món — chỉ quán mình</td></tr><tr><td></td><td>Biểu đồ theo giờ</td><td>Giờ nào đông / vắng → xếp ca đúng người đúng lúc</td></tr><tr><td></td><td>Báo cáo tự động</td><td>Cuối ca → hệ thống gửi báo cáo qua Zalo/Email cho QL</td></tr><tr><td></td><td>🤖 Hỏi AI thống kê</td><td>"Doanh thu hôm nay?" "Hao hụt tháng này?" → AI trả lời ngay</td></tr><tr><td><strong>Khác</strong></td><td>Sơ đồ bàn</td><td>Cấu hình bàn quán: Trong / Ngoài / VIP</td></tr></tbody></table><h2>4. 👑 CHỦ CHUỖI (ADMIN) — Quản lý tất cả từ 1 màn hình</h2><blockquote><strong>Quyền cao nhất:</strong> xem tất cả quán real-time, quản lý menu/giá/combo toàn chuỗi, sử dụng 5 AI Module.</blockquote><h3>Chủ chuỗi dùng hệ thống để:</h3><pre>💻 Mở Dashboard trên máy tính
+      │
+      ▼
+📊 Xem tổng quan 3 quán cùng lúc (doanh thu, đơn, cảnh báo)
+      │
+      ├── So sánh chi nhánh: Quán nào lãi nhất? Chi phí bất thường?
+      ├── Quản lý Menu / Giá / Combo → thay đổi đồng bộ cả 3 quán
+      ├── Quản lý nhân sự / Loyalty / Khuyến mãi
+      ├── Hỏi AI: "Quán nào lãi nhất tháng này?" → AI trả lời kèm biểu đồ
+      ├── AI gợi ý: tạo combo mới, loại món kém, giữ khách sắp bỏ
+      └── Xuất báo cáo Excel/PDF → gửi kế toán</pre><h3>22 tính năng cho Chủ chuỗi</h3><table><thead><tr><th>Nhóm</th><th>Tính Năng</th><th>Chủ chuỗi được gì?</th></tr></thead><tbody><tr><td><strong>Dashboard</strong></td><td>Dashboard 3 quán</td><td>Doanh thu, đơn, NV, cảnh báo — tất cả trên 1 màn hình</td></tr><tr><td></td><td>So sánh chi nhánh</td><td>Biểu đồ: quán nào doanh thu cao nhất? Chi phí bất thường?</td></tr><tr><td></td><td>Lãi/Lỗ tự động</td><td>Doanh thu − Chi phí = Lợi nhuận ròng từng quán, tự tính</td></tr><tr><td></td><td>Cảnh báo real-time</td><td>NV vắng, két chênh, kho hết, feedback kém → báo tức thì</td></tr><tr><td><strong>Menu & Giá</strong></td><td>Tạo/Sửa/Xóa menu</td><td>Tạo món mới kèm ảnh, giá, công thức → đồng bộ cả chuỗi</td></tr><tr><td></td><td>Giá theo chi nhánh</td><td>Latte Q1: 55K, Thủ Đức: 45K — tùy chỉnh riêng từng quán</td></tr><tr><td></td><td>Bật/Tắt món tức thì</td><td>Hết sữa → tắt tất cả món có sữa ngay lập tức</td></tr><tr><td></td><td>Menu mùa / Giới hạn</td><td>Tạo menu mùa tự bật/tắt theo ngày đã hẹn</td></tr><tr><td></td><td>Quản lý Combo</td><td>Latte + Croissant = 75K (tiết kiệm 15K) — tạo trong 1 phút</td></tr><tr><td><strong>Nhân sự & CRM</strong></td><td>Quản lý NV toàn chuỗi</td><td>Thêm/sửa/xóa NV, phân quyền, xem chấm công 3 quán</td></tr><tr><td></td><td>Quản lý Loyalty</td><td>Cấu hình tích điểm, tạo voucher, hạng thành viên</td></tr><tr><td></td><td>Quản lý Khuyến mãi</td><td>Giảm 20% khung 14-16h, Buy 1 Get 1, voucher sinh nhật</td></tr><tr><td><strong>🤖 AI thông minh</strong></td><td>AI Thống kê toàn chuỗi</td><td>Hỏi: "So sánh Q1 vs Q3 tháng 8?" → AI trả lời kèm biểu đồ</td></tr><tr><td></td><td>AI Phân tích menu</td><td>"Matcha tăng 35% → thêm biến thể", "Smoothie Dâu 2 ly/ngày → nên loại"</td></tr><tr><td></td><td>AI Dự đoán khách bỏ</td><td>Danh sách khách sắp bỏ quán + tự gửi voucher kéo lại</td></tr><tr><td></td><td>AI Gợi ý Combo</td><td>"68% khách mua Latte cũng mua Croissant → tạo combo 75K"</td></tr><tr><td><strong>Quản trị</strong></td><td>Xuất báo cáo</td><td>Doanh thu, lương, kho → Excel/PDF gửi kế toán</td></tr><tr><td></td><td>Nhật ký thao tác</td><td>Ai sửa giá, ai xóa đơn, lúc nào, từ đâu → ghi hết</td></tr><tr><td></td><td>Giờ hoạt động</td><td>Cài giờ mở/đóng → QR Order tự hiện "Quán đã đóng cửa"</td></tr><tr><td></td><td>Phân quyền</td><td>QL chỉ xem quán mình, không thấy lương toàn chuỗi</td></tr><tr><td></td><td>Gửi thông báo</td><td>"Hôm nay đóng cửa sớm 20h" → gửi tất cả NV/QL</td></tr></tbody></table><h2>🔐 AI LÀM GÌ CHO AI?</h2><table><thead><tr><th>🤖 AI Module</th><th>Làm gì?</th><th>Ai dùng?</th></tr></thead><tbody><tr><td><strong>AI Thống kê</strong></td><td>Hỏi bằng tiếng Việt: "Doanh thu tuần này?" → AI trả lời kèm biểu đồ</td><td>🏪 Quản lý (quán mình) + 👑 Admin (cả chuỗi)</td></tr><tr><td><strong>AI Gợi ý Combo</strong></td><td>Phân tích data → "68% khách mua Latte cũng mua Croissant" → gợi ý tạo combo</td><td>👑 Admin</td></tr><tr><td><strong>AI Giữ chân khách</strong></td><td>Dự đoán khách sắp bỏ quán → tự gửi voucher kéo lại</td><td>👑 Admin (cấu hình) → Tự động chạy</td></tr><tr><td><strong>AI Phân tích menu</strong></td><td>"Matcha tăng 35% → thêm biến thể", "Smoothie Dâu chỉ 2 ly/ngày → loại"</td><td>👑 Admin</td></tr><tr><td><strong>AI Chatbot gợi ý</strong></td><td>Khách chat: "Tôi muốn uống gì mát?" → AI gợi ý dựa khẩu vị, thời tiết</td><td>👤 Khách hàng</td></tr></tbody></table><blockquote><strong>Nhân viên pha chế KHÔNG cần AI</strong> — vì công thức pha đã hiện tự động kèm mỗi đơn trên TV.</blockquote><h2>🔐 PHÂN QUYỀN: AI THẤY GÌ, LÀM GÌ?</h2><table><thead><tr><th>Chức năng</th><th>👤 Khách</th><th>🧋 NV</th><th>🏪 Quản lý</th><th>👑 Admin</th></tr></thead><tbody><tr><td>Đặt món qua QR</td><td>✅</td><td>—</td><td>—</td><td>—</td></tr><tr><td>Nhận đơn trên TV</td><td>—</td><td>✅</td><td>—</td><td>—</td></tr><tr><td>Báo hết món</td><td>—</td><td>✅</td><td>✅</td><td>✅</td></tr><tr><td>Chấm công</td><td>—</td><td>✅</td><td>👁️ Xem</td><td>👁️ Xem</td></tr><tr><td>Mở/Kết ca</td><td>—</td><td>—</td><td>✅</td><td>👁️ Xem</td></tr><tr><td>Quản lý kho</td><td>—</td><td>—</td><td>✅</td><td>👁️ Xem</td></tr><tr><td>Xem doanh thu</td><td>—</td><td>—</td><td>✅ Quán mình</td><td>✅ Toàn chuỗi</td></tr><tr><td>Hỏi AI Thống kê</td><td>—</td><td>—</td><td>✅ Quán mình</td><td>✅ Toàn chuỗi</td></tr><tr><td>Quản lý Menu/Giá</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr><tr><td>Tạo Combo / Khuyến mãi</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr><tr><td>AI Dự đoán / Gợi ý</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr><tr><td>Quản lý Nhân sự</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr><tr><td>Phân quyền / Audit Log</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr></tbody></table><blockquote>🔑 <strong>Nguyên tắc:</strong> Mỗi người chỉ thấy và làm được những gì thuộc phạm vi vai trò của mình. Quản lý chỉ thấy quán mình. Admin thấy tất cả.</blockquote><h2>📊 TÓM TẮT</h2><table><thead><tr><th>Chỉ tiêu</th><th>Giá trị</th></tr></thead><tbody><tr><td>Tổng nhóm người dùng</td><td><strong>4</strong> (Khách, NV, Quản lý, Admin)</td></tr><tr><td>Tổng tính năng</td><td><strong>71</strong> (24 + 12 + 13 + 22)</td></tr><tr><td>Tổng AI Module</td><td><strong>5</strong> (Thống kê, Combo, Giữ khách, Phân tích menu, Chatbot)</td></tr><tr><td>Người dùng AI nhiều nhất</td><td>👑 Admin (4 AI)</td></tr><tr><td>Nhiều tính năng nhất</td><td>👤 Khách hàng (24 tính năng)</td></tr><tr><td>Quyền cao nhất</td><td>👑 Admin (toàn quyền chuỗi)</td></tr></tbody></table>
+    <div class="footer-note">
+        Smart F&B Operating System &copy; 2026 — Tài liệu phân tích & đặc tả Actor dành cho Khách hàng
+    </div>
+</div>
+</body>
+</html>
