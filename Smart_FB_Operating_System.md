@@ -518,6 +518,156 @@ Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách b�
 | **Notification** | Zalo OA API + Email (SendGrid) |
 | **Deploy** | Docker + Cloud (AWS/GCP/VPS) |
 
+## 18. 🔌 Cơ Chế Hoạt Động Khi Mất Mạng (Offline Resilience)
+
+> **Vấn đề:** Hệ thống Smart F&B OS phụ thuộc Internet để vận hành (QR Order, KDS real-time, VietQR, AI). Nếu mất mạng mà không có cơ chế dự phòng, toàn bộ quán sẽ dừng phục vụ.
+>
+> **Giải pháp:** Áp dụng kiến trúc **3 lớp bảo vệ** — đảm bảo quán vẫn hoạt động bình thường trong mọi tình huống mất mạng.
+
+### Sơ đồ 3 lớp bảo vệ
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    TRẠNG THÁI MẠNG                               │
+│                                                                   │
+│  ✅ WiFi OK ──────── Hoạt động bình thường (100% tính năng)      │
+│       │                                                           │
+│       ▼ WiFi chết                                                 │
+│                                                                   │
+│  🔶 LỚP 1: 4G Backup ── Router tự chuyển sang SIM 4G            │
+│  │   (Khách + NV không biết, hệ thống vẫn chạy 100%)            │
+│       │                                                           │
+│       ▼ 4G cũng chết                                              │
+│                                                                   │
+│  🟠 LỚP 2: Offline Mode ── POS chuyển chế độ nội bộ              │
+│  │   NV tạo đơn thủ công trên POS → lưu SQLite local             │
+│  │   KDS vẫn hiện đơn (data local) → Pha chế bình thường        │
+│  │   Thu tiền mặt (VietQR tạm ngưng)                             │
+│       │                                                           │
+│       ▼ Có mạng lại                                               │
+│                                                                   │
+│  🟢 TỰ ĐỒNG BỘ ── Toàn bộ đơn offline sync lên Cloud Server    │
+│      Doanh thu, kho, CRM cập nhật đầy đủ, không mất data        │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Lớp 1: Phần cứng — Router WiFi + 4G Backup tự động chuyển
+
+Mỗi chi nhánh trang bị 1 Router WiFi có khe cắm SIM 4G (TP-Link, Tenda, Huawei). Khi WiFi chính từ nhà mạng (VNPT/Viettel) bị đứt, router **tự động chuyển sang 4G trong 5-10 giây** — không cần ai thao tác.
+
+| Trạng thái | Hành vi hệ thống | Người dùng cảm nhận |
+|---|---|---|
+| WiFi OK | Chạy bình thường qua WiFi | Không biết gì |
+| WiFi chết, 4G lên | Chạy qua 4G, tốc độ giảm nhẹ | Không biết gì (chậm hơn 1-2 giây) |
+| WiFi phục hồi | Tự chuyển về WiFi | Không biết gì |
+
+> **Giải quyết 95% trường hợp mất mạng.** WiFi quán thường chỉ mất vài phút đến vài giờ — trong thời gian đó 4G thay thế hoàn toàn.
+
+### Lớp 2: Phần mềm — Offline Mode trên máy POS
+
+Khi **cả WiFi lẫn 4G đều mất** (trường hợp hiếm: mất điện khu vực, sự cố hạ tầng viễn thông), máy POS Sunmi chuyển sang chế độ Offline:
+
+#### Luồng xử lý khi mất mạng hoàn toàn
+
+```
+🔴 Hệ thống phát hiện mất kết nối (ping server thất bại 3 lần liên tiếp)
+     │
+     ▼
+📢 Hiển thị banner: "CHẾ ĐỘ OFFLINE — Đơn hàng lưu tạm trên máy"
+     │
+     ├── MÀN HÌNH NV (15.6" cảm ứng):
+     │   • Hiện form TẠO ĐƠN THỦ CÔNG: NV chọn món từ menu đã cache
+     │   • Mỗi đơn lưu vào SQLite local trên POS
+     │   • KDS vẫn hiện đơn bình thường (đọc từ SQLite local)
+     │   • NV bấm "Hoàn thành" → Đơn di chuyển sang "Đã xong"
+     │
+     ├── MÀN HÌNH KHÁCH (10"):
+     │   • Hiện đơn hàng + tổng tiền (dữ liệu local)
+     │   • VietQR tạm ẩn → Hiện: "Vui lòng thanh toán tiền mặt"
+     │
+     └── QR ORDER KHÁCH:
+         • Khách quét QR → PWA mở menu từ cache (Service Worker)
+         • Đặt món → Hiện: "Hệ thống đang offline, vui lòng đặt tại quầy"
+```
+
+#### Dữ liệu được cache offline trên POS
+
+| Dữ liệu | Lưu ở đâu | Khi nào cache | Dung lượng |
+|---|---|---|---|
+| Menu (tên món, giá, ảnh, công thức) | SQLite + LocalStorage | Mỗi lần menu thay đổi | ~5-20 MB |
+| Đơn hàng tạo offline | SQLite local | Khi NV tạo đơn lúc mất mạng | ~1 KB/đơn |
+| Danh sách bàn + sơ đồ | SQLite local | Mỗi lần cập nhật bàn | ~100 KB |
+| Tồn kho (số lượng) | SQLite local | Mỗi lần kết ca hoặc kiểm kê | ~50 KB |
+
+#### Luồng đồng bộ khi có mạng lại
+
+```
+🟢 Hệ thống phát hiện có mạng lại (ping server thành công)
+     │
+     ▼
+🔄 BẮT ĐẦU ĐỒNG BỘ TỰ ĐỘNG (Background Sync)
+     │
+     ├── 1. Push toàn bộ đơn hàng offline → Server
+     │      (Giữ nguyên thời gian tạo đơn gốc, đánh dấu "offline_order")
+     │
+     ├── 2. Đồng bộ tồn kho (trừ nguyên liệu đã dùng trong đơn offline)
+     │
+     ├── 3. Cập nhật CRM (nếu khách có SĐT trong đơn offline)
+     │
+     ├── 4. Tính lại doanh thu (gộp đơn offline vào báo cáo)
+     │
+     └── 5. Hiện thông báo: "Đã đồng bộ X đơn offline thành công"
+         Banner "OFFLINE" biến mất → Chế độ bình thường
+```
+
+> **Quy tắc xung đột (Conflict Resolution):** Nếu cùng 1 món bị "Báo hết" trên server (từ quán khác hoặc từ Admin) trong khi quán đang offline vẫn bán món đó → Khi sync, hệ thống **cảnh báo Quản lý** để xử lý, không tự động ghi đè.
+
+### Lớp 3: PWA Service Worker — Khách vẫn xem menu khi mất mạng
+
+PWA (Progressive Web App) của khách hàng có cơ chế cache thông minh:
+
+| Tính năng | Có mạng | Mất mạng |
+|---|---|---|
+| Mở menu QR | Tải dữ liệu mới nhất từ server | Hiện menu từ cache (lần truy cập gần nhất) |
+| Xem chi tiết món | Ảnh + giá + mô tả đầy đủ | Ảnh + giá từ cache (có thể thiếu ảnh mới thêm) |
+| Đặt món | Gửi lên server, KDS nhận ngay | Hiện: "Vui lòng đặt tại quầy" |
+| AI Chatbot | Hoạt động bình thường | Hiện: "Chatbot tạm offline" |
+| Xem lịch sử đơn | Tải từ server | Hiện đơn đã cache trước đó |
+
+#### Chiến lược cache PWA (Service Worker)
+
+```javascript
+// Cache Strategy: Network First, Cache Fallback
+// 1. Menu data, ảnh món: Cache khi load lần đầu, cập nhật mỗi lần mở
+// 2. App shell (HTML, CSS, JS): Pre-cache khi cài PWA
+// 3. API response: Cache 30 phút, fallback khi offline
+```
+
+| Loại tài nguyên | Chiến lược cache | Thời gian hết hạn |
+|---|---|---|
+| App Shell (HTML/CSS/JS) | Pre-cache (cài sẵn) | Cập nhật khi có phiên bản mới |
+| Menu data (JSON) | Network First → Cache Fallback | 30 phút |
+| Ảnh món | Cache First → Network Update | 7 ngày |
+| API đặt món | Network Only (không cache) | — |
+
+### Tổng kết: Tính năng nào hoạt động khi offline?
+
+| Tính năng | WiFi OK | Chỉ 4G | Offline hoàn toàn |
+|---|---|---|---|
+| QR Order (Khách tự đặt) | ✅ | ✅ | ❌ → Đặt tại quầy |
+| KDS hiện đơn | ✅ | ✅ | ✅ (đơn local) |
+| Tạo đơn trên POS | ✅ | ✅ | ✅ (lưu local) |
+| Công thức pha chế | ✅ | ✅ | ✅ (cache local) |
+| Màn hình khách (đơn + giá) | ✅ | ✅ | ✅ (data local) |
+| VietQR thanh toán | ✅ | ✅ | ❌ → Thu tiền mặt |
+| AI Chatbot | ✅ | ✅ | ❌ → Tạm ngưng |
+| Báo hết món | ✅ | ✅ | ✅ (local, sync sau) |
+| In hóa đơn | ✅ | ✅ | ✅ (máy in nối POS) |
+| Báo cáo doanh thu | ✅ | ✅ | ⏳ (sau khi sync) |
+| Đồng bộ data lên Cloud | ✅ | ✅ | ⏳ (tự động khi có mạng) |
+
+> **Kết luận:** Với 3 lớp bảo vệ, quán **không bao giờ phải dừng phục vụ** vì mất mạng. Lớp 1 (4G) giải quyết 95% trường hợp. Lớp 2 (Offline POS) + Lớp 3 (PWA Cache) giải quyết 5% còn lại — quán vẫn nhận đơn, pha chế, thu tiền mặt bình thường.
+
 ---
 ---
 

@@ -23,10 +23,11 @@ Thiết bị chạy liên tục cả ngày (16-18 tiếng), thiết kế chuyên
 | 2 | Máy in hóa đơn nhiệt 80mm | 2.000.000 | 3 | 6.000.000 | Dùng lại máy in cũ nếu có: 0 đ |
 | 3 | Bảng QR Code Acrylic để bàn | 30.000 | 60 | 1.800.000 | 20 bàn mỗi chi nhánh |
 | 4 | Bảng QR Takeaway tại quầy | 30.000 | 3 | 90.000 | Khách mang đi quét QR đặt món tại quầy |
-| 5 | Lắp đặt, cấu hình & chạy thử | 1.000.000 | 3 | 3.000.000 | Trọn gói 3 chi nhánh |
+| 5 | Router WiFi + 4G Backup | 1.200.000 | 3 | 3.600.000 | Tự chuyển sang 4G khi WiFi chết, không gián đoạn |
+| 6 | Lắp đặt, cấu hình & chạy thử | 1.000.000 | 3 | 3.000.000 | Trọn gói 3 chi nhánh |
 | | | | | | |
-| | **TỔNG THIẾT BỊ** | | | **37.890.000** | |
-| | *Nếu dùng lại máy in cũ* | | | *31.890.000* | *Tiết kiệm 6 triệu* |
+| | **TỔNG THIẾT BỊ** | | | **41.490.000** | |
+| | *Nếu dùng lại máy in cũ* | | | *35.490.000* | *Tiết kiệm 6 triệu* |
 
 ### Máy POS 2 màn hình hoạt động như thế nào?
 
@@ -50,9 +51,10 @@ Mặt khách hàng (10 inch hiển thị):
 | 1 | Máy chủ Cloud (Server) | 800.000 | VPS 4 vCPU, 8GB RAM — chạy toàn bộ hệ thống |
 | 2 | Tên miền (.com) | 30.000 | 360.000/năm, chia ra 30.000/tháng |
 | 3 | AI Engine (Chatbot + Thống kê) | 400.000 | Google Gemini Flash API |
-| 4 | Giấy in nhiệt (tiêu hao) | 180.000 | 3 quán x 3 cuộn/tháng x 20.000/cuộn |
+| 4 | SIM 4G Data backup (3 quán) | 450.000 | 3 quán x 150.000/tháng, chỉ dùng khi WiFi chết |
+| 5 | Giấy in nhiệt (tiêu hao) | 180.000 | 3 quán x 3 cuộn/tháng x 20.000/cuộn |
 | | | | |
-| | **TỔNG HÀNG THÁNG** | **1.410.000** | **~470.000/chi nhánh** |
+| | **TỔNG HÀNG THÁNG** | **1.860.000** | **~620.000/chi nhánh** |
 
 ---
 
@@ -88,10 +90,10 @@ Mặt khách hàng (10 inch hiển thị):
 
 | Mốc thời gian | Chi phí | Ghi chú |
 |---|---|---|
-| **Ban đầu (thiết bị)** | **37.890.000** | Thanh toán 1 lần. Dùng lại máy in cũ: 31.890.000 |
-| **Mỗi tháng (vận hành)** | **1.410.000** | Trung bình 470.000/chi nhánh/tháng |
-| **Năm đầu tiên** | **~54.800.000** | Thiết bị + 12 tháng vận hành |
-| **Từ năm thứ 2** | **~16.900.000/năm** | Chỉ còn chi phí vận hành hàng tháng |
+| **Ban đầu (thiết bị)** | **41.490.000** | Thanh toán 1 lần. Dùng lại máy in cũ: 35.490.000 |
+| **Mỗi tháng (vận hành)** | **1.860.000** | Trung bình 620.000/chi nhánh/tháng |
+| **Năm đầu tiên** | **~63.800.000** | Thiết bị + 12 tháng vận hành |
+| **Từ năm thứ 2** | **~22.300.000/năm** | Chỉ còn chi phí vận hành hàng tháng |
 
 ---
 
@@ -102,13 +104,13 @@ Mặt khách hàng (10 inch hiển thị):
 | Lương thu ngân (3 quán x 1 NV) | 21.000.000 | 0 | -21.000.000 |
 | Phí phần mềm/bản quyền POS | 3.000.000 - 6.000.000 | 0 | -3.000.000 ~ -6.000.000 |
 | Hao hụt nguyên liệu (ước tính) | 10 - 15% doanh thu | < 2% doanh thu | Giảm 8 - 13% |
-| Chi phí duy trì hệ thống | 1.000.000 - 1.500.000 | 1.410.000 | Tương đương |
+| Chi phí duy trì hệ thống | 1.000.000 - 1.500.000 | 1.860.000 | Tương đương |
 | | | | |
-| **Tổng ước tính/tháng** | **~35.000.000 - 42.000.000** | **~4.410.000** | **Tiết kiệm ~30 - 37 triệu** |
+| **Tổng ước tính/tháng** | **~35.000.000 - 42.000.000** | **~4.860.000** | **Tiết kiệm ~30 - 37 triệu** |
 
 > Lương thu ngân: Ước tính 6 - 7 triệu/NV (gồm phụ cấp & BHXH), tùy khu vực.  
 > Phí POS cũ: Tùy nhà cung cấp đang dùng (iPOS, KiotViet, CukCuk,...).  
-> **Thời gian hoàn vốn thiết bị:** Khoảng 1 - 1.5 tháng vận hành.
+> **Thời gian hoàn vốn thiết bị:** Khoảng 1.5 - 2 tháng vận hành.
 
 ---
 
@@ -116,8 +118,8 @@ Mặt khách hàng (10 inch hiển thị):
 
 | Đợt | Nội dung | Số tiền | Thời điểm |
 |---|---|---|---|
-| Đợt 1 | Thanh toán thiết bị & lắp đặt | 37.890.000 | Trước khi triển khai |
-| Hàng tháng | Chi phí vận hành hạ tầng | 1.410.000 | Đầu mỗi tháng |
+| Đợt 1 | Thanh toán thiết bị & lắp đặt | 41.490.000 | Trước khi triển khai |
+| Hàng tháng | Chi phí vận hành hạ tầng | 1.860.000 | Đầu mỗi tháng |
 
 ---
 
@@ -126,7 +128,8 @@ Mặt khách hàng (10 inch hiển thị):
 1. Báo giá trên chưa bao gồm thuế VAT (nếu có).
 2. Giá thiết bị có thể thay đổi tùy thời điểm mua & nhà cung cấp.
 3. Chi phí phát sinh (Mục D) chỉ phát sinh khi có nhu cầu thực tế, không bắt buộc.
-4. Hệ thống yêu cầu kết nối Internet ổn định tại mỗi chi nhánh (sử dụng WiFi sẵn có của quán).
+4. Hệ thống có cơ chế dự phòng mất mạng 3 lớp: Router 4G tự chuyển, chế độ Offline trên POS, và PWA cache menu cho khách.
 5. Máy in hóa đơn cũ của cây POS (chuẩn ESC/POS, khổ 80mm) có thể tái sử dụng, giảm 6.000.000 trong tổng chi phí.
 6. Dữ liệu hệ thống (khách hàng, doanh thu, kho) được sao lưu tự động hàng ngày.
 7. Máy POS cảm ứng Sunmi T2s/D2s là thiết bị chuyên dụng F&B, bảo hành chính hãng 12 tháng, tuổi thọ trung bình 3-5 năm sử dụng liên tục.
+8. Khi mất mạng hoàn toàn, quán vẫn hoạt động bình thường: NV tạo đơn trên POS, thu tiền mặt. Khi có mạng lại, dữ liệu tự đồng bộ lên Cloud.
