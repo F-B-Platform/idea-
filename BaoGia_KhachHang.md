@@ -22,15 +22,15 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua tr�
 | AI Engine | Chatbot gợi ý món, thống kê doanh thu, gợi ý combo, dự đoán khách rời |
 | | |
 | **Thời gian phát triển** | **3 - 4 tháng** |
-| **Chi phí trọn gói** | **35.000.000** |
+| **Chi phí trọn gói** | **15.000.000** |
 
 ### Thanh toán theo giai đoạn
 
 | Giai đoạn | Bàn giao | Thanh toán |
 |---|---|---|
-| GĐ 1 (Tháng 1-2) | Backend + QR Order + KDS chạy thử được | 15.000.000 |
-| GĐ 2 (Tháng 2-3) | Quản lý + Admin + VietQR + Offline Mode | 12.000.000 |
-| GĐ 3 (Tháng 3-4) | AI + Testing + Deploy + Đào tạo + Nghiệm thu | 8.000.000 |
+| GĐ 1 (Tháng 1-2) | Backend + QR Order + KDS chạy thử được | 7.000.000 |
+| GĐ 2 (Tháng 2-3) | Quản lý + Admin + VietQR + Offline Mode | 5.000.000 |
+| GĐ 3 (Tháng 3-4) | AI + Testing + Deploy + Đào tạo + Nghiệm thu | 3.000.000 |
 
 ---
 
@@ -42,11 +42,18 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua tr�
 | 2 | Máy in hóa đơn nhiệt 80mm | 2.000.000 | 3 | 6.000.000 | Dùng lại máy in cũ nếu có: 0 đ |
 | 3 | Bảng QR Code Acrylic để bàn | 30.000 | 60 | 1.800.000 | 20 bàn mỗi chi nhánh |
 | 4 | Bảng QR Takeaway tại quầy | 30.000 | 3 | 90.000 | Khách mang đi quét QR đặt món |
-| 5 | Router WiFi + 4G Backup | 1.200.000 | 3 | 3.600.000 | Tự chuyển sang 4G khi WiFi chết |
-| 6 | Lắp đặt, cấu hình & chạy thử | 1.000.000 | 3 | 3.000.000 | Trọn gói 3 chi nhánh |
+| 5 | Lắp đặt, cấu hình & chạy thử | 1.000.000 | 3 | 3.000.000 | Trọn gói 3 chi nhánh |
 | | | | | | |
-| | **TỔNG THIẾT BỊ** | | | **41.490.000** | |
-| | *Nếu dùng lại máy in cũ* | | | *35.490.000* | *Tiết kiệm 6 triệu* |
+| | **TỔNG THIẾT BỊ** | | | **37.890.000** | |
+| | *Dùng lại máy POS cũ* | | | *10.890.000* | *Tiết kiệm 27 triệu* |
+| | *Dùng lại cả máy in cũ* | | | *4.890.000* | *Tiết kiệm thêm 6 triệu* |
+
+### Thiết bị tùy chọn (Thương lượng — có thể cắt giảm)
+
+| STT | Hạng mục | Đơn giá | SL | Thành tiền | Ghi chú |
+|---|---|---|---|---|---|
+| 1 | Router WiFi + 4G Backup | 1.200.000 | 3 | 3.600.000 | Dự phòng mất WiFi. Nếu WiFi quán ổn định, có thể bỏ |
+| | SIM 4G Data hàng tháng | 150.000 | 3 | 450.000/tháng | Chỉ phát sinh nếu lắp Router 4G |
 
 ---
 
@@ -57,10 +64,10 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua tr�
 | 1 | Máy chủ Cloud (Server) | 800.000 | VPS chạy toàn bộ hệ thống |
 | 2 | Tên miền (.com) | 30.000 | 360.000/năm |
 | 3 | AI Engine (Chatbot + Thống kê) | 400.000 | Google Gemini Flash API |
-| 4 | SIM 4G Data backup (3 quán) | 450.000 | 3 quán x 150.000/tháng |
-| 5 | Giấy in nhiệt (tiêu hao) | 180.000 | 3 quán x 3 cuộn/tháng x 20.000/cuộn |
+| 4 | Giấy in nhiệt (tiêu hao) | 180.000 | 3 quán x 3 cuộn/tháng x 20.000/cuộn |
 | | | | |
-| | **TỔNG HÀNG THÁNG** | **1.860.000** | **~620.000/chi nhánh** |
+| | **TỔNG HÀNG THÁNG** | **1.410.000** | **~470.000/chi nhánh** |
+| | *Nếu có Router 4G (tùy chọn)* | *+450.000* | *Thêm SIM 4G 3 quán* |
 
 ---
 
@@ -105,66 +112,62 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua tr�
 
 ## G. TỔNG HỢP CHI PHÍ ĐẦU TƯ
 
-### Phương án 1: Triển khai thí điểm 1 chi nhánh trước
+### Phương án 1: Triển khai thí điểm 1 chi nhánh (Khuyến nghị)
 
-| Hạng mục | Chi phí |
-|---|---|
-| Phát triển phần mềm (trọn gói, dùng chung cho mọi chi nhánh) | 35.000.000 |
-| Thiết bị 1 chi nhánh (POS + Máy in + QR 20 bàn + Router 4G + Lắp đặt) | 13.890.000 |
-| **TỔNG BAN ĐẦU (1 CHI NHÁNH)** | **48.890.000** |
-| *Dùng lại máy in cũ* | *46.890.000* |
+| Hạng mục | Mua mới | Dùng lại POS cũ |
+|---|---|---|
+| Phát triển phần mềm | 15.000.000 | 15.000.000 |
+| Thiết bị 1 chi nhánh | 12.630.000 | 1.630.000 |
+| **TỔNG BAN ĐẦU** | **27.630.000** | **16.630.000** |
 
 | Hạng mục | Chi phí/tháng |
 |---|---|
-| Vận hành (Server + Domain + AI + SIM 4G + Giấy in) | 1.440.000 |
+| Vận hành (Server + Domain + AI + Giấy in) | 1.270.000 |
 | Bảo trì phần mềm (gói cơ bản) | 2.000.000 |
-| **TỔNG HÀNG THÁNG (1 CHI NHÁNH)** | **3.440.000** |
+| **TỔNG HÀNG THÁNG** | **3.270.000** |
 
 Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 
-| Hạng mục | Chi phí/chi nhánh |
-|---|---|
-| Thiết bị (POS + Máy in + QR + Router + Lắp đặt) | 13.890.000 |
-| Vận hành thêm hàng tháng (SIM 4G + Giấy in) | 210.000 |
-| Phần mềm | 0 (đã phát triển, dùng chung) |
+| Hạng mục | Mua mới | Dùng lại POS cũ |
+|---|---|---|
+| Thiết bị (POS + Máy in + QR + Lắp đặt) | 12.630.000 | 1.630.000 |
+| Vận hành thêm hàng tháng (Giấy in) | 60.000 | 60.000 |
+| Phần mềm | 0 (dùng chung) | 0 (dùng chung) |
 
 ---
 
 ### Phương án 2: Triển khai đồng loạt 3 chi nhánh
 
-| Hạng mục | Chi phí |
-|---|---|
-| Phát triển phần mềm | 35.000.000 |
-| Thiết bị phần cứng (3 chi nhánh) | 41.490.000 |
-| **TỔNG BAN ĐẦU (3 CHI NHÁNH)** | **76.490.000** |
-| *Dùng lại máy in cũ* | *70.490.000* |
+| Hạng mục | Mua mới | Dùng lại POS cũ |
+|---|---|---|
+| Phát triển phần mềm | 15.000.000 | 15.000.000 |
+| Thiết bị 3 chi nhánh | 37.890.000 | 4.890.000 |
+| **TỔNG BAN ĐẦU** | **52.890.000** | **19.890.000** |
 
 | Hạng mục | Chi phí/tháng |
 |---|---|
-| Vận hành hạ tầng | 1.860.000 |
+| Vận hành hạ tầng | 1.410.000 |
 | Bảo trì phần mềm (gói cơ bản) | 2.000.000 |
-| **TỔNG HÀNG THÁNG (3 CHI NHÁNH)** | **3.860.000** |
+| **TỔNG HÀNG THÁNG** | **3.410.000** |
 
 ---
 
-### So sánh 2 phương án
+### So sánh các phương án
 
-| Tiêu chí | 1 chi nhánh thí điểm | 3 chi nhánh đồng loạt |
-|---|---|---|
-| Đầu tư ban đầu | **48.890.000** | **76.490.000** |
-| Hàng tháng | 3.440.000 | 3.860.000 |
-| Rủi ro | Thấp — thử trước, mở rộng sau | Trung bình — triển khai cùng lúc |
-| Hoàn vốn | ~2 tháng (tiết kiệm lương 1 thu ngân) | ~2-3 tháng (tiết kiệm lương 3 thu ngân) |
-| Thời gian mở rộng | Thêm chi nhánh bất kỳ lúc nào | Không cần — đã triển khai đủ |
+| Tiêu chí | 1 chi nhánh (mua mới) | 1 chi nhánh (POS cũ) | 3 chi nhánh (mua mới) | 3 chi nhánh (POS cũ) |
+|---|---|---|---|---|
+| **Đầu tư ban đầu** | **27.630.000** | **16.630.000** | **52.890.000** | **19.890.000** |
+| Hàng tháng | 3.270.000 | 3.270.000 | 3.410.000 | 3.410.000 |
+| Hoàn vốn | ~1 tháng | < 1 tháng | ~2 tháng | < 1 tháng |
 
-### Tổng theo thời gian (Phương án 1 chi nhánh)
+### Tổng theo thời gian (1 chi nhánh, dùng lại POS cũ — chi phí thấp nhất)
 
 | Mốc thời gian | Chi phí | Ghi chú |
 |---|---|---|
-| **Ban đầu** | **48.890.000** | Phần mềm + thiết bị 1 quán |
-| **Mỗi tháng** | **3.440.000** | Vận hành + bảo trì |
-| **Năm đầu tiên** | **~79.850.000** | Ban đầu + 9 tháng (3 tháng BH miễn phí) |
-| **Mở rộng thêm 1 quán** | **+13.890.000** | Chỉ mua thiết bị, phần mềm dùng chung |
+| **Ban đầu** | **16.630.000** | Phần mềm + thiết bị phụ |
+| **Mỗi tháng** | **3.270.000** | Vận hành + bảo trì |
+| **Năm đầu tiên** | **~46.060.000** | Ban đầu + 9 tháng (3 tháng BH miễn phí) |
+| **Mở rộng thêm 1 quán** | **+1.630.000** | Chỉ QR + lắp đặt, phần mềm dùng chung |
 
 ---
 
@@ -175,13 +178,13 @@ Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 | Lương thu ngân (3 quán x 1 NV) | 21.000.000 | 0 | -21.000.000 |
 | Phí phần mềm/bản quyền POS | 3.000.000 - 6.000.000 | 0 | -3.000.000 ~ -6.000.000 |
 | Hao hụt nguyên liệu (ước tính) | 10 - 15% doanh thu | < 2% doanh thu | Giảm 8 - 13% |
-| Chi phí vận hành + bảo trì | 1.000.000 - 1.500.000 | 3.860.000 | +2.360.000 |
+| Chi phí vận hành + bảo trì | 1.000.000 - 1.500.000 | 3.410.000 | +1.910.000 |
 | | | | |
-| **Tổng ước tính/tháng** | **~35.000.000 - 42.000.000** | **~6.860.000** | **Tiết kiệm ~28 - 35 triệu** |
+| **Tổng ước tính/tháng** | **~35.000.000 - 42.000.000** | **~6.410.000** | **Tiết kiệm ~29 - 36 triệu** |
 
-> Tiết kiệm ròng: Khoảng **28 - 35 triệu/tháng**.  
-> **Thời gian hoàn vốn toàn bộ:** Khoảng **2 - 3 tháng** vận hành.  
-> Từ tháng thứ 4 trở đi, toàn bộ khoản tiết kiệm là lợi nhuận ròng.
+> Tiết kiệm ròng: Khoảng **29 - 36 triệu/tháng**.  
+> **Thời gian hoàn vốn** (dùng POS cũ, 3 quán): **Chưa đến 1 tháng**.  
+> Từ tháng thứ 2 trở đi, toàn bộ khoản tiết kiệm là lợi nhuận ròng.
 
 ---
 
@@ -191,19 +194,19 @@ Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 
 | Đợt | Nội dung | Số tiền | Thời điểm |
 |---|---|---|---|
-| Đợt 1 | Ký hợp đồng + Khởi động phát triển | 15.000.000 | Ngày ký |
-| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị 1 quán | 12.000.000 + 13.890.000 | Sau 2 tháng |
-| Đợt 3 | Nghiệm thu + Golive | 8.000.000 | Sau 3-4 tháng |
-| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.440.000 | Từ tháng thứ 7 |
+| Đợt 1 | Ký hợp đồng + Khởi động phát triển | 7.000.000 | Ngày ký |
+| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị 1 quán | 5.000.000 + thiết bị | Sau 2 tháng |
+| Đợt 3 | Nghiệm thu + Golive | 3.000.000 | Sau 3-4 tháng |
+| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.270.000 | Từ tháng thứ 7 |
 
 ### Thanh toán Phương án 2 (3 chi nhánh đồng loạt)
 
 | Đợt | Nội dung | Số tiền | Thời điểm |
 |---|---|---|---|
-| Đợt 1 | Ký hợp đồng + Khởi động phát triển | 15.000.000 | Ngày ký |
-| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị 3 quán | 12.000.000 + 41.490.000 | Sau 2 tháng |
-| Đợt 3 | Nghiệm thu + Golive | 8.000.000 | Sau 3-4 tháng |
-| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.860.000 | Từ tháng thứ 7 |
+| Đợt 1 | Ký hợp đồng + Khởi động phát triển | 7.000.000 | Ngày ký |
+| Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị 3 quán | 5.000.000 + thiết bị | Sau 2 tháng |
+| Đợt 3 | Nghiệm thu + Golive | 3.000.000 | Sau 3-4 tháng |
+| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.410.000 | Từ tháng thứ 7 |
 
 ---
 
@@ -213,8 +216,8 @@ Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 2. Phần mềm thuộc sở hữu 100% của khách hàng sau khi thanh toán đầy đủ, bao gồm toàn bộ mã nguồn.
 3. Toàn bộ giao diện Quản lý và Admin là Web, truy cập trên điện thoại hoặc máy tính, không cần cài app.
 4. Bảo hành phần mềm miễn phí 3 tháng sau nghiệm thu.
-5. Hệ thống có cơ chế dự phòng mất mạng 3 lớp: Router 4G, Offline Mode trên POS, và PWA cache menu.
-6. Máy in cũ của cây POS (chuẩn ESC/POS, khổ 80mm) có thể tái sử dụng, giảm 6 triệu chi phí thiết bị.
+5. Hệ thống có chế độ Offline Mode trên POS và PWA cache menu. Router 4G là tùy chọn thêm nếu cần.
+6. Nếu quán đã có máy POS cũ (Android, cảm ứng), có thể tái sử dụng — tiết kiệm đến 27 triệu. Máy in cũ ESC/POS cũng tái sử dụng được.
 7. Dữ liệu hệ thống được sao lưu tự động hàng ngày.
-8. Khi mất mạng hoàn toàn, quán vẫn hoạt động: NV tạo đơn trên POS, thu tiền mặt, dữ liệu tự đồng bộ khi có mạng.
+8. Khi mất mạng, quán vẫn hoạt động: NV tạo đơn trên POS, thu tiền mặt, dữ liệu tự đồng bộ khi có mạng.
 9. Chi phí phát sinh (Mục F) chỉ phát sinh khi có nhu cầu thực tế, không bắt buộc.
