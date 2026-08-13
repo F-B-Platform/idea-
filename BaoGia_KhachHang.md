@@ -78,8 +78,8 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua tr�
 
 | Gói | Chi phí/tháng | Nội dung |
 |---|---|---|
-| Cơ bản | 2.000.000 | Sửa lỗi, cập nhật bảo mật, giám sát server, hỗ trợ qua Zalo giờ hành chính |
-| Nâng cao | 4.000.000 | Gói cơ bản + phát triển tính năng mới nhỏ, tối ưu hiệu năng, hỗ trợ ngoài giờ |
+| Cơ bản | 1.000.000 | Sửa lỗi, cập nhật bảo mật, giám sát server, hỗ trợ qua Zalo giờ hành chính |
+| Nâng cao | Thương lượng | Gói cơ bản + phát triển tính năng mới, tối ưu hiệu năng, hỗ trợ ngoài giờ |
 | Không ký bảo trì | Tính theo lần | Sửa lỗi/hỗ trợ: 300.000 - 1.000.000/lần tùy mức độ |
 
 ---
@@ -123,8 +123,8 @@ Toàn bộ hệ thống phát triển trên nền tảng Web, truy cập qua tr�
 | Hạng mục | Chi phí/tháng |
 |---|---|
 | Vận hành (Server + Domain + AI + Giấy in) | 1.270.000 |
-| Bảo trì phần mềm (gói cơ bản) | 2.000.000 |
-| **TỔNG HÀNG THÁNG** | **3.270.000** |
+| Bảo trì phần mềm (gói cơ bản) | 1.000.000 |
+| **TỔNG HÀNG THÁNG** | **2.270.000** |
 
 Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 
@@ -147,8 +147,8 @@ Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 | Hạng mục | Chi phí/tháng |
 |---|---|
 | Vận hành hạ tầng | 1.410.000 |
-| Bảo trì phần mềm (gói cơ bản) | 2.000.000 |
-| **TỔNG HÀNG THÁNG** | **3.410.000** |
+| Bảo trì phần mềm (gói cơ bản) | 1.000.000 |
+| **TỔNG HÀNG THÁNG** | **2.410.000** |
 
 ---
 
@@ -157,16 +157,16 @@ Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 | Tiêu chí | 1 chi nhánh (mua mới) | 1 chi nhánh (POS cũ) | 3 chi nhánh (mua mới) | 3 chi nhánh (POS cũ) |
 |---|---|---|---|---|
 | **Đầu tư ban đầu** | **27.630.000** | **16.630.000** | **52.890.000** | **19.890.000** |
-| Hàng tháng | 3.270.000 | 3.270.000 | 3.410.000 | 3.410.000 |
-| Hoàn vốn | ~1 tháng | < 1 tháng | ~2 tháng | < 1 tháng |
+| Hàng tháng | 2.270.000 | 2.270.000 | 2.410.000 | 2.410.000 |
+| Hoàn vốn | < 1 tháng | < 1 tháng | ~2 tháng | < 1 tháng |
 
 ### Tổng theo thời gian (1 chi nhánh, dùng lại POS cũ — chi phí thấp nhất)
 
 | Mốc thời gian | Chi phí | Ghi chú |
 |---|---|---|
 | **Ban đầu** | **16.630.000** | Phần mềm + thiết bị phụ |
-| **Mỗi tháng** | **3.270.000** | Vận hành + bảo trì |
-| **Năm đầu tiên** | **~46.060.000** | Ban đầu + 9 tháng (3 tháng BH miễn phí) |
+| **Mỗi tháng** | **2.270.000** | Vận hành + bảo trì |
+| **Năm đầu tiên** | **~37.060.000** | Ban đầu + 9 tháng (3 tháng BH miễn phí) |
 | **Mở rộng thêm 1 quán** | **+1.630.000** | Chỉ QR + lắp đặt, phần mềm dùng chung |
 
 ---
@@ -178,11 +178,11 @@ Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 | Lương thu ngân (3 quán x 1 NV) | 21.000.000 | 0 | -21.000.000 |
 | Phí phần mềm/bản quyền POS | 3.000.000 - 6.000.000 | 0 | -3.000.000 ~ -6.000.000 |
 | Hao hụt nguyên liệu (ước tính) | 10 - 15% doanh thu | < 2% doanh thu | Giảm 8 - 13% |
-| Chi phí vận hành + bảo trì | 1.000.000 - 1.500.000 | 3.410.000 | +1.910.000 |
+| Chi phí vận hành + bảo trì | 1.000.000 - 1.500.000 | 2.410.000 | +910.000 |
 | | | | |
-| **Tổng ước tính/tháng** | **~35.000.000 - 42.000.000** | **~6.410.000** | **Tiết kiệm ~29 - 36 triệu** |
+| **Tổng ước tính/tháng** | **~35.000.000 - 42.000.000** | **~5.410.000** | **Tiết kiệm ~30 - 37 triệu** |
 
-> Tiết kiệm ròng: Khoảng **29 - 36 triệu/tháng**.  
+> Tiết kiệm ròng: Khoảng **30 - 37 triệu/tháng**.  
 > **Thời gian hoàn vốn** (dùng POS cũ, 3 quán): **Chưa đến 1 tháng**.  
 > Từ tháng thứ 2 trở đi, toàn bộ khoản tiết kiệm là lợi nhuận ròng.
 
@@ -197,7 +197,7 @@ Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 | Đợt 1 | Ký hợp đồng + Khởi động phát triển | 7.000.000 | Ngày ký |
 | Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị 1 quán | 5.000.000 + thiết bị | Sau 2 tháng |
 | Đợt 3 | Nghiệm thu + Golive | 3.000.000 | Sau 3-4 tháng |
-| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.270.000 | Từ tháng thứ 7 |
+| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 2.270.000 | Từ tháng thứ 7 |
 
 ### Thanh toán Phương án 2 (3 chi nhánh đồng loạt)
 
@@ -206,7 +206,7 @@ Chi phí mở rộng thêm mỗi chi nhánh sau thí điểm:
 | Đợt 1 | Ký hợp đồng + Khởi động phát triển | 7.000.000 | Ngày ký |
 | Đợt 2 | Bàn giao GĐ 1 + Mua thiết bị 3 quán | 5.000.000 + thiết bị | Sau 2 tháng |
 | Đợt 3 | Nghiệm thu + Golive | 3.000.000 | Sau 3-4 tháng |
-| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 3.410.000 | Từ tháng thứ 7 |
+| Hàng tháng | Vận hành + Bảo trì (sau 3 tháng BH miễn phí) | 2.410.000 | Từ tháng thứ 7 |
 
 ---
 
