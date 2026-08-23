@@ -26,20 +26,23 @@
 │ 1. CHI PHÍ PHÁT TRIỂN (CAPEX)        │ 2. CHI PHÍ VẬN HÀNH (OPEX)     │ 3. DỊCH VỤ BẢO TRÌ (SLA)       │
 │ • Phát triển trọn gói 10 module      │ • Máy chủ VPS, Tên miền, AI,   │ • 03 Tháng đầu tiên:           │
 │ • Bàn giao 100% mã nguồn bản quyền   │   Vật tư giấy in nhiệt 3 quán  │   👉 MIỄN PHÍ 100%             │
-│ • 0 VNĐ phí bản quyền phần mềm       │ • Kịch bản VPS Việt Nam tối ưu │ • Từ tháng thứ 4:              │
+│ • 0 VNĐ phí bản quyền phần mềm       │ • Kịch bản VPS Việt Nam tối ưu │ • Từ tháng thứ 4 trở đi:       │
 │                                      │                                │   👉 1.000.000 VNĐ / tháng     │
 │ 💰 **15.000.000 VNĐ (TRẢ 1 LẦN)**    │ 💰 **940.000 VNĐ / THÁNG**     │ 💰 **GÓI TIÊU CHUẨN (3 QUÁN)** │
 │    *(Sở hữu hệ thống vĩnh viễn)*     │    *(Chỉ ~313.000 đ/quán/tháng)*│    *(Chỉ ~333.000 đ/quán/tháng)*│
 └──────────────────────────────────────┴────────────────────────────────┴────────────────────────────────┘
 ```
 
-### Bảng Tổng Hợp Dòng Tiền Theo Giai Đoạn Vận Hành (Chuỗi 03 Chi Nhánh)
+### Bảng Tổng Hợp Chi Phí Dự Án (Chuỗi 03 Chi Nhánh)
 
-| Giai Đoạn Vận Hành | Chi Phí Phát Triển (CAPEX) | Chi Phí Vận Hành (OPEX) | Chi Phí Bảo Trì (SLA) | Tổng Chi Phí (Cả 3 Quán) | Bình Quân / Quán / Tháng |
-|---|:---:|:---:|:---:|:---:|:---:|
-| **NĂM THỨ NHẤT (NĂM 1)** | **15.000.000 VNĐ** *(1 lần)* | **11.280.000 VNĐ** *(12 tháng x 940k)* | **9.000.000 VNĐ** *(3T free + 9T x 1tr)* | **35.280.000 VNĐ** | **~980.000 VNĐ / quán** |
-| **TỪ NĂM THỨ 2 TRỞ ĐI** | **0 VNĐ** | **11.280.000 VNĐ / năm** | **12.000.000 VNĐ / năm** | **23.280.000 VNĐ / năm** | **~646.000 VNĐ / quán** *(~21.500đ/ngày)* |
-| **⚡ THỜI GIAN THU HỒI VỐN** | **Dựa trên lợi ích tiết kiệm ròng** | | | **0.45 THÁNG (~14 NGÀY)** | **Hoàn 100% vốn sau 2 tuần!** |
+| Hạng Mục Ngân Sách | Tính Chất Chi Phí | Chi Phí Cho Cả 3 Quán | Bình Quân / Quán / Tháng | Ghi Chú & Quyền Lợi |
+|---|:---:|:---:|:---:|---|
+| **A. Phát Triển Phần Mềm (CAPEX)** | Trả 01 lần duy nhất | **15.000.000 VNĐ** | *Phân bổ tài sản* | Bàn giao trọn gói 100% mã nguồn (0đ License) |
+| **B. Vận Hành Hàng Tháng (OPEX)** | Định kỳ hàng tháng | **940.000 VNĐ / tháng** | **~313.000 VNĐ / quán** | Cloud VPS, Tên miền, AI Gemini, Giấy in K80 |
+| **C. Bảo Trì Kỹ Thuật (SLA)** | Định kỳ từ tháng thứ 4 | **1.000.000 VNĐ / tháng** | **~333.000 VNĐ / quán** | 03 tháng đầu tiên bảo hành miễn phí 100% |
+| **D. Thiết Bị Tại Điểm Bán** | Tự trang bị / có sẵn | **0 VNĐ** | *Tận dụng thiết bị cũ* | Web-First chạy trên Smart TV, Laptop, Tablet |
+| | | | | |
+| ⚡ **THỜI GIAN THU HỒI VỐN (ROI)** | **Dựa trên lợi ích tiết kiệm ròng** | **0.45 THÁNG (~14 NGÀY)** | | **Hoàn vốn 100% sau chưa đầy nửa tháng!** |
 
 ---
 
@@ -84,6 +87,18 @@ Chi phí vận hành được tối ưu hóa tối đa theo **Kịch bản Cloud
 | | | | | | | |
 | 🏆 | **TỔNG CHI PHÍ VẬN HÀNH (OPEX)** | **Áp dụng trọn gói cho toàn bộ chuỗi 03 Chi nhánh** | | | **940.000 VNĐ / tháng** | **Bình quân chỉ ~313.000 VNĐ / quán / tháng** |
 
+### So Sánh Chi Phí Vận Hành Theo Quy Mô Chuỗi
+
+| Khoản Mục Chi Phí (VNĐ / Tháng) | Mô Hình 1 Quán Thí Điểm | Mô Hình 3 Quán (Chuẩn Hiện Tại) | Mô Hình 5 Quán (Mở Rộng Chuỗi) |
+|---|:---:|:---:|:---:|
+| **1. Hạ Tầng Cloud VPS & Tên Miền** | 490.000 | 490.000 | 740.000 *(Nâng cấp VPS 8 vCPU / 16GB)* |
+| **2. Dịch Vụ AI Gemini & API** | 50.000 | 150.000 | 250.000 |
+| **3. Vật Tư Tiêu Hao (Giấy In K80)** | 100.000 | 300.000 | 500.000 |
+| **4. Gói Bảo Trì Kỹ Thuật Tier 1** | 600.000 | 1.000.000 | 1.500.000 |
+| | | | |
+| 📊 **TỔNG CHI PHÍ VẬN HÀNH / THÁNG** | **1.240.000 VNĐ** | **1.940.000 VNĐ** | **2.990.000 VNĐ** |
+| 💰 **BÌNH QUÂN CHI PHÍ / QUÁN / THÁNG** | **1.240.000 VNĐ / quán** | **~646.000 VNĐ / quán** | **~598.000 VNĐ / quán** *(Giảm 51%)* |
+
 ---
 
 # PHẦN 3. DỊCH VỤ BẢO TRÌ & HỖ TRỢ KỸ THUẬT (SLA MAINTENANCE)
@@ -104,42 +119,7 @@ Chi phí vận hành được tối ưu hóa tối đa theo **Kịch bản Cloud
 
 ---
 
-# PHẦN 4. DỰ TOÁN DÒNG TIỀN 12 THÁNG NĂM ĐẦU & SO SÁNH QUY MÔ
-
-### 4.1. Bảng Dự Toán Dòng Tiền Vận Hành 12 Tháng Năm Đầu (Chuỗi 03 Quán)
-
-| Tháng Vận Hành | Chi Phí Hạ Tầng & Tên Miền | Dịch Vụ AI Gemini | Giấy In Nhiệt K80 | Phí Bảo Trì Kỹ Thuật SLA | Tổng Chi Phí Tháng (VNĐ) | Ghi Chú Tiến Độ |
-|:---:|:---:|:---:|:---:|:---:|:---:|---|
-| **Tháng 1** | 490.000 | 150.000 | 300.000 | **0 VNĐ** | **940.000** | Tháng đầu vận hành (Bảo hành miễn phí) |
-| **Tháng 2** | 490.000 | 150.000 | 300.000 | **0 VNĐ** | **940.000** | Bảo hành miễn phí |
-| **Tháng 3** | 490.000 | 150.000 | 300.000 | **0 VNĐ** | **940.000** | Bảo hành miễn phí |
-| **Tháng 4** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Bắt đầu hợp đồng bảo trì Tier 1 |
-| **Tháng 5** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Vận hành ổn định |
-| **Tháng 6** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Vận hành ổn định |
-| **Tháng 7** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Vận hành ổn định |
-| **Tháng 8** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Vận hành ổn định |
-| **Tháng 9** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Vận hành ổn định |
-| **Tháng 10** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Vận hành ổn định |
-| **Tháng 11** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Vận hành ổn định |
-| **Tháng 12** | 490.000 | 150.000 | 300.000 | 1.000.000 | **1.940.000** | Đánh giá & Tối ưu hóa cuối năm |
-| | | | | | | |
-| 🏆 **TỔNG CỘNG OPEX NĂM 1** | **5.880.000** | **1.800.000** | **3.600.000** | **9.000.000** | **20.280.000 VNĐ** | **Bình quân chỉ ~1.690.000 VNĐ / tháng cho cả chuỗi 3 quán** |
-
-### 4.2. Bảng So Sánh Chi Phí Theo Quy Mô Mở Rộng Chuỗi
-
-| Khoản Mục Chi Phí (VNĐ / Tháng) | Mô Hình 1 Quán Thí Điểm | Mô Hình 3 Quán (Chuẩn Hiện Tại) | Mô Hình 5 Quán (Mở Rộng Chuỗi) |
-|---|:---:|:---:|:---:|
-| **1. Hạ Tầng Cloud VPS & Tên Miền** | 490.000 | 490.000 | 740.000 *(Nâng cấp VPS 8 vCPU / 16GB)* |
-| **2. Dịch Vụ AI Gemini & API** | 50.000 | 150.000 | 250.000 |
-| **3. Vật Tư Tiêu Hao (Giấy In K80)** | 100.000 | 300.000 | 500.000 |
-| **4. Gói Bảo Trì Kỹ Thuật Tier 1** | 600.000 | 1.000.000 | 1.500.000 |
-| | | | |
-| 📊 **TỔNG CHI PHÍ VẬN HÀNH / THÁNG** | **1.240.000 VNĐ** | **1.940.000 VNĐ** | **2.990.000 VNĐ** |
-| 💰 **BÌNH QUÂN CHI PHÍ / QUÁN / THÁNG** | **1.240.000 VNĐ / quán** | **~646.000 VNĐ / quán** | **~598.000 VNĐ / quán** *(Giảm 51%)* |
-
----
-
-# PHẦN 5. DANH MỤC THIẾT BỊ PHẦN CỨNG TẠI QUÁN (THAM KHẢO)
+# PHẦN 4. DANH MỤC THIẾT BỊ PHẦN CỨNG TẠI QUÁN (THAM KHẢO)
 
 > [!WARNING]
 > Bảng dưới đây **chỉ mang tính chất liệt kê danh mục phần cứng cần có tại mỗi điểm bán** để quán chủ động chuẩn bị. Chi phí phần cứng này **KHÔNG tính vào ngân sách triển khai phần mềm** của dự án.
@@ -157,9 +137,9 @@ Chi phí vận hành được tối ưu hóa tối đa theo **Kịch bản Cloud
 
 ---
 
-# PHẦN 6. PHÂN TÍCH HIỆU QUẢ ĐẦU TƯ (ROI) & TỰ CÂN ĐỐI DÒNG TIỀN
+# PHẦN 5. PHÂN TÍCH HIỆU QUẢ ĐẦU TƯ (ROI) & TỰ CÂN ĐỐI DÒNG TIỀN
 
-### 6.1. Cơ Chế Tự Cân Đối Chi Phí Vận Hành Từ Phí Ship Delivery 20.000 VNĐ
+### 5.1. Cơ Chế Tự Cân Đối Chi Phí Vận Hành Từ Phí Ship Delivery 20.000 VNĐ
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -176,7 +156,7 @@ Chi phí vận hành được tối ưu hóa tối đa theo **Kịch bản Cloud
 └────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 6.2. Phân Tích Lợi Ích Tiết Kiệm & Thời Gian Hoàn Vốn (Payback Period)
+### 5.2. Phân Tích Lợi Ích Tiết Kiệm & Thời Gian Hoàn Vốn (Payback Period)
 
 1. **Cắt giảm chi phí nhân sự thu ngân:** Tiết kiệm 1 nhân sự/ca nhờ QR Self-Order: `3 quán x 2 ca x 5.000.000đ` = **30.000.000 VNĐ / tháng**.
 2. **Giảm thất thoát nguyên vật liệu nhờ định mức BOM:** Tiết kiệm hao hụt: **~5.000.000 VNĐ / tháng**.
@@ -199,9 +179,9 @@ Chi phí vận hành được tối ưu hóa tối đa theo **Kịch bản Cloud
 
 ---
 
-# PHẦN 7. TIẾN ĐỘ THANH TOÁN & ĐIỀU KHOẢN CHUYỂN GIAO
+# PHẦN 6. TIẾN ĐỘ THANH TOÁN & ĐIỀU KHOẢN CHUYỂN GIAO
 
-### 7.1. Kế Hoạch Phân Kỳ Thanh Toán (Payment Milestones)
+### 6.1. Kế Hoạch Phân Kỳ Thanh Toán (Payment Milestones)
 
 | Đợt Thanh Toán | Tỷ Lệ | Số Tiền (VNĐ) | Điều Kiện & Cột Mốc Kích Hoạt |
 |:---:|:---:|:---:|---|
@@ -211,7 +191,7 @@ Chi phí vận hành được tối ưu hóa tối đa theo **Kịch bản Cloud
 | | | | |
 | 🏆 **TỔNG CỘNG** | **100%** | **15.000.000 VNĐ** | **Thanh toán theo đúng tiến độ bàn giao thực tế** |
 
-### 7.2. Cam Kết Chất Lượng & Hỗ Trợ Kỹ Thuật
+### 6.2. Cam Kết Chất Lượng & Hỗ Trợ Kỹ Thuật
 
 1. **Cam kết không phát sinh chi phí ẩn:** 100% các hạng mục chi phí phát triển, vận hành và bên thứ ba đều được liệt kê minh bạch.
 2. **Sở hữu trọn đời & Không phí bản quyền:** Khách hàng sở hữu vĩnh viễn hệ thống và toàn bộ mã nguồn bàn giao, không phải trả phí bản quyền phần mềm hàng tháng.
