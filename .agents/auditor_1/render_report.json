@@ -1,0 +1,85 @@
+{
+  "total": 13,
+  "passed": 13,
+  "failed": 0,
+  "details": [
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b1.mmd",
+      "status": "PASS",
+      "size": 36980,
+      "timeMs": 2609
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b2.mmd",
+      "status": "PASS",
+      "size": 60817,
+      "timeMs": 2613
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b3.mmd",
+      "status": "PASS",
+      "size": 57286,
+      "timeMs": 2711
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b4.mmd",
+      "status": "PASS",
+      "size": 30288,
+      "timeMs": 2385
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b5.mmd",
+      "status": "PASS",
+      "size": 40965,
+      "timeMs": 2449
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b6.mmd",
+      "status": "PASS",
+      "size": 44355,
+      "timeMs": 2501
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b7.mmd",
+      "status": "PASS",
+      "size": 91753,
+      "timeMs": 2530
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b8.mmd",
+      "status": "PASS",
+      "size": 36882,
+      "timeMs": 2292
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b9.mmd",
+      "status": "PASS",
+      "size": 36526,
+      "timeMs": 2414
+    },
+    {
+      "file": "02_Sequence_Diagrams_b1.mmd",
+      "status": "PASS",
+      "size": 67045,
+      "timeMs": 2538
+    },
+    {
+      "file": "02_Sequence_Diagrams_b2.mmd",
+      "status": "PASS",
+      "size": 62480,
+      "timeMs": 2509
+    },
+    {
+      "file": "02_Sequence_Diagrams_b3.mmd",
+      "status": "PASS",
+      "size": 59981,
+      "timeMs": 2341
+    },
+    {
+      "file": "02_Sequence_Diagrams_b4.mmd",
+      "status": "PASS",
+      "size": 59279,
+      "timeMs": 2439
+    }
+  ]
+}

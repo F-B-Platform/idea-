@@ -1,0 +1,52 @@
+flowchart TD
+    subgraph PUBLIC_INTERNET["🌐 MẠNG INTERNET CÔNG CỘNG"]
+        CLIENT_BROWSER["📱 Safari / Chrome (Khách Hàng PWA)"]
+        STAFF_BROWSER["💻 Tablet / PC Quầy POS & KDS Bếp"]
+        MGR_BROWSER["🏢 Laptop / Desktop Quản Lý & Admin"]
+        EXT_PAYOS_SRV["💳 PayOS Webhook Delivery Server"]
+    end
+
+    subgraph HOST_SERVER["🖥️ PRODUCTION LINUX VPS / CLOUD HOST (UBUNTU 22.04 LTS)"]
+        direction TB
+        
+        subgraph DMZ["🛡️ DMZ INGRESS (Public Ports: 80, 443)"]
+            NGINX_CTR["NGINX Container (Alpine Linux)<br>• Let's Encrypt SSL/TLS Auto-Renewal<br>• Reverse Proxy Router<br>• Rate Limiting & Gzip Engine"]
+        end
+
+        subgraph DOCKER_NET["🔒 ISOLATED DOCKER BRIDGE NETWORK (smartfb_net)"]
+            FE_CTR["Frontend Container (Node.js 20 Alpine)<br>Next.js 14 Standalone SSR Server<br>Internal Port: 3000"]
+            BE_CTR["Backend Container (.NET 8 SDK / ASP.NET Core)<br>Kestrel Web API & SignalR Engine<br>Internal Port: 5000"]
+            REDIS_CTR["Cache Container (Redis 7.2 Alpine)<br>In-Memory Storage & RedLock Engine<br>Internal Port: 6379 (No Host Binding)"]
+            PG_CTR["Database Container (PostgreSQL 16 Alpine)<br>Persistent Relational Storage<br>Internal Port: 5432 (No Host Binding)"]
+        end
+
+        subgraph STORAGE_VOLUMES["💾 PERSISTENT DOCKER VOLUMES"]
+            VOL_DB[("pg_data Volume<br>[PostgreSQL Tables & WAL Files]")]
+            VOL_REDIS[("redis_data Volume<br>[AOF & RDB Snapshots]")]
+            VOL_MEDIA[("media_uploads Volume<br>[Local Cached Assets / Logs]")]
+        end
+    end
+
+    %% Routing
+    CLIENT_BROWSER & STAFF_BROWSER & MGR_BROWSER & EXT_PAYOS_SRV -->|"HTTPS (443) / WSS"| NGINX_CTR
+
+    NGINX_CTR -->|"Proxy Pass / (SSR Pages & Static CDN)"| FE_CTR
+    NGINX_CTR -->|"Proxy Pass /api/v1/* (REST APIs)"| BE_CTR
+    NGINX_CTR -->|"Proxy Pass /hubs/* (Upgrade: WebSocket)"| BE_CTR
+
+    BE_CTR <-->|"Cache-Aside, Locks & Pub/Sub"| REDIS_CTR
+    BE_CTR <-->|"Npgsql Connection Pool (Max=100)"| PG_CTR
+
+    PG_CTR --- VOL_DB
+    REDIS_CTR --- VOL_REDIS
+    BE_CTR --- VOL_MEDIA
+
+    classDef pubStyle fill:#1e293b,stroke:#475569,stroke-width:2px,color:#ffffff;
+    classDef dmzStyle fill:#991b1b,stroke:#ef4444,stroke-width:2px,color:#ffffff;
+    classDef netStyle fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#ffffff;
+    classDef volStyle fill:#701a75,stroke:#ec4899,stroke-width:2px,color:#ffffff;
+
+    class CLIENT_BROWSER,STAFF_BROWSER,MGR_BROWSER,EXT_PAYOS_SRV pubStyle;
+    class NGINX_CTR dmzStyle;
+    class FE_CTR,BE_CTR,REDIS_CTR,PG_CTR netStyle;
+    class VOL_DB,VOL_REDIS,VOL_MEDIA volStyle;

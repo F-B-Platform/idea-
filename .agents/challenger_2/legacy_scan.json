@@ -1,0 +1,74 @@
+[
+  {
+    "file": "01_Kien_Truc_Tong_Quan.md",
+    "line": 17,
+    "pattern": "Flutter",
+    "description": "Flutter mobile app reference",
+    "matched": "Flutter",
+    "context": "> 1. **Web-First Monorepo (Zero Mobile App):** Hợp nhất 100% cổng vận hành (Customer PWA, Staff Web POS, Kitchen KDS TV, Manager Portal, Admin Portal) vào một dự án Next.js 14 duy nhất phân tách qua 5 Route Groups. **LOẠI BỎ TRIỆT ĐỂ** ứng dụng di động riêng cho nhân viên (Flutter/React Native) và thiết bị POS chuyên dụng đắt đỏ."
+  },
+  {
+    "file": "01_Kien_Truc_Tong_Quan.md",
+    "line": 17,
+    "pattern": "React Native",
+    "description": "React Native mobile app reference",
+    "matched": "React Native",
+    "context": "> 1. **Web-First Monorepo (Zero Mobile App):** Hợp nhất 100% cổng vận hành (Customer PWA, Staff Web POS, Kitchen KDS TV, Manager Portal, Admin Portal) vào một dự án Next.js 14 duy nhất phân tách qua 5 Route Groups. **LOẠI BỎ TRIỆT ĐỂ** ứng dụng di động riêng cho nhân viên (Flutter/React Native) và thiết bị POS chuyên dụng đắt đỏ."
+  },
+  {
+    "file": "01_Kien_Truc_Tong_Quan.md",
+    "line": 18,
+    "pattern": "GPS\\s*(?:50m|bán kính|định vị|toạ độ|vị trí)",
+    "description": "GPS location attendance",
+    "matched": "GPS 50m",
+    "context": "> 2. **Chấm Công Khóa Mạng WiFi (WiFi-Locked):** Xóa bỏ hoàn toàn định vị vệ tinh GPS 50m và mã QR động 30s. Chấm công an toàn qua cơ chế Dual-Check: Mạng WiFi chi nhánh (BSSID Access Point / IP Subnet) + Mã số nhân viên."
+  },
+  {
+    "file": "01_Kien_Truc_Tong_Quan.md",
+    "line": 18,
+    "pattern": "QR\\s*(?:động\\s*)?30s",
+    "description": "QR 30s dynamic attendance",
+    "matched": "QR động 30s",
+    "context": "> 2. **Chấm Công Khóa Mạng WiFi (WiFi-Locked):** Xóa bỏ hoàn toàn định vị vệ tinh GPS 50m và mã QR động 30s. Chấm công an toàn qua cơ chế Dual-Check: Mạng WiFi chi nhánh (BSSID Access Point / IP Subnet) + Mã số nhân viên."
+  },
+  {
+    "file": "01_Kien_Truc_Tong_Quan.md",
+    "line": 23,
+    "pattern": "C-23\\b",
+    "description": "C-23 (Social share) feature reference",
+    "matched": "C-23",
+    "context": "> 4. **Loại Bỏ Hoàn Toàn Out-of-Scope Features:** Xóa bỏ triệt để tính năng chia sẻ món mạng xã hội (C-23), Push notification khuyến mãi PWA (C-24), ví voucher riêng lẻ và tra cứu calo tách biệt."
+  },
+  {
+    "file": "01_Kien_Truc_Tong_Quan.md",
+    "line": 23,
+    "pattern": "C-24\\b",
+    "description": "C-24 (PWA push notification) feature reference",
+    "matched": "C-24",
+    "context": "> 4. **Loại Bỏ Hoàn Toàn Out-of-Scope Features:** Xóa bỏ triệt để tính năng chia sẻ món mạng xã hội (C-23), Push notification khuyến mãi PWA (C-24), ví voucher riêng lẻ và tra cứu calo tách biệt."
+  },
+  {
+    "file": "01_Kien_Truc_Tong_Quan.md",
+    "line": 23,
+    "pattern": "Ví voucher",
+    "description": "Voucher wallet",
+    "matched": "ví voucher",
+    "context": "> 4. **Loại Bỏ Hoàn Toàn Out-of-Scope Features:** Xóa bỏ triệt để tính năng chia sẻ món mạng xã hội (C-23), Push notification khuyến mãi PWA (C-24), ví voucher riêng lẻ và tra cứu calo tách biệt."
+  },
+  {
+    "file": "01_Kien_Truc_Tong_Quan.md",
+    "line": 756,
+    "pattern": "Staff Mobile App",
+    "description": "Staff Mobile App reference",
+    "matched": "Staff Mobile App",
+    "context": "| **Ứng Dụng Nhân Viên** | ✅ 100% Web Responsive (KDS & POS) | ❌ XÓA Staff Mobile App | Loại bỏ hoàn toàn App di động. |"
+  },
+  {
+    "file": "02_Sequence_Diagrams.md",
+    "line": 423,
+    "pattern": "GPS\\s*(?:50m|bán kính|định vị|toạ độ|vị trí)",
+    "description": "GPS location attendance",
+    "matched": "GPS 50m",
+    "context": "- **Quy tắc bảo mật bất biến:** Loại bỏ 100% định vị GPS 50m (sai số lớn trong nhà) và mã QR 30 giây."
+  }
+]

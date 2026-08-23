@@ -1,0 +1,3391 @@
+{
+  "Smart_FB_Operating_System.md": {
+    "filename": "Smart_FB_Operating_System.md",
+    "line_count": 556,
+    "check1_c23_c24": [],
+    "check2_placeholders": {
+      "TODO": [],
+      "TBD": [],
+      "rest_of_code": [],
+      "tuong_tu": [],
+      "placeholder_tag": [],
+      "ellipsis": []
+    },
+    "check3_staff_app": [
+      {
+        "line": 117,
+        "content": "│ 5. HỢP NHẤT 100% NỀN TẢNG WEB: Xóa 100% Staff Mobile App → Chạy mượt mà trên Web Responsive/KDS. │"
+      },
+      {
+        "line": 192,
+        "content": "- **Loại bỏ hoàn toàn Staff Mobile App:** Không phát triển, không duy trì ứng dụng di động riêng (Flutter/React Native) cho nhân viên phục vụ. Triệt tiêu hoàn toàn chi phí phát hành App lên Apple App Store / Google Play Store và chi phí bảo trì đa nền tảng."
+      },
+      {
+        "line": 315,
+        "content": "| **Ứng dụng Nhân viên phục vụ** | Bắt buộc cài App di động | Bắt buộc cài App di động | Bắt buộc cài App di động | **✅ 100% Web Responsive (Xóa Staff App)** |"
+      }
+    ],
+    "check4_dinein_payment": {
+      "tien_mat": [
+        {
+          "line": 43,
+          "content": "│ Tiền mặt/chuyển khoản phân tán,│ Barista pha sai công thức,     │ 80% khách vãng lai không lưu   │"
+        },
+        {
+          "line": 57,
+          "content": "- **Giải pháp Smart F&B OS:** Loại bỏ hoàn toàn sự phụ thuộc vào máy POS chuyên dụng (**Tiết kiệm 60% chi phí đầu tư phần cứng ban đầu, tăng 40% tốc độ phục vụ**). Khách hàng ngồi tại bàn tự quét **Table QR**, mở Web PWA tức thì không cần cài App, tự do chọn món tùy biến sâu và lựa chọn 1 trong 2 phương thức thanh toán thuận tiện (VietQR trả trước hoặc Tiền mặt trả sau). Đơn hàng tự động đồng bộ thời gian thực xuống màn hình Web KDS của quầy bar qua SignalR."
+        },
+        {
+          "line": 68,
+          "content": "- **Hiện trạng:** Dòng tiền bị phân mảnh giữa tiền mặt trong két và tiền chuyển khoản rải rác trên nhiều tài khoản ngân hàng cá nhân của chủ/quản lý. Cuối ngày đối soát thủ công không khớp, chủ chuỗi không nắm được bức tranh Lợi nhuận & Lỗ (P&L) thực tế từng ngày theo từng chi nhánh."
+        },
+        {
+          "line": 69,
+          "content": "- **Giải pháp Smart F&B OS:** Tích hợp cổng thanh toán VietQR động (PayOS) tự động khớp giao dịch chính xác 100% theo mã đơn hàng; quy trình mở két - kết ca đếm tiền mặt chặt chẽ với biên bản bàn giao Z-Report; Dashboard báo cáo P&L tự động hợp nhất đa chi nhánh thời gian thực (Doanh thu thuần, Chi phí nguyên vật liệu COGS theo BOM, Lãi gộp)."
+        },
+        {
+          "line": 80,
+          "content": "- **Hiện trạng:** Quản lý cửa hàng mất 30 - 60 phút mỗi tối để cộng dồn hóa đơn giấy, đếm tiền mặt, chụp ảnh gửi số liệu qua Zalo cho chủ chuỗi, tiềm ẩn sai sót số liệu từ 2% - 5% và rủi ro thất thoát doanh thu."
+        },
+        {
+          "line": 81,
+          "content": "- **Giải pháp Smart F&B OS:** Hệ thống tự động tổng hợp số liệu doanh thu theo từng kênh bán hàng (`DineIn`, `TakeAway`, `Delivery`), phân tích cơ cấu thanh toán (Tiền mặt, VietQR), tự động chốt sổ ca (Z-Report) và đồng bộ tức thời lên Dashboard quản trị trung tâm của Chủ chuỗi."
+        },
+        {
+          "line": 113,
+          "content": "│                                Nhánh B Tiền Mặt Trả Sau (Bếp nhận ngay Confirmed, mang món + QR) │"
+        },
+        {
+          "line": 132,
+          "content": "└──► [PHƯƠNG THỨC B: TIỀN MẶT TRẢ SAU] ──► [ĐƠN VÀO BẾP NGAY] ──► [NV bưng món + Bill có QR] ──► [Thu tiền / Khách quét QR]"
+        },
+        {
+          "line": 140,
+          "content": "### 2. Phương Thức B — Tiền Mặt (Thanh toán sau - Post-Payment):"
+        },
+        {
+          "line": 141,
+          "content": "- **Quy trình:** Khách chọn Tiền mặt ➔ **ĐƠN HÀNG VÀO BẾP KDS NGAY LẬP TỨC** với trạng thái `Confirmed` (không bắt buộc thanh toán trước) ➔ Barista pha chế (`Preparing`) ➔ Barista bấm `Ready` trên KDS, kích hoạt lệnh in Hóa đơn tính tiền (Bill) ra máy in nhiệt tại quầy. Trên hóa đơn có in sẵn danh sách món và **Mã VietQR động chứa chính xác số tiền cần thu** ➔ Nhân viên bưng đồ uống ra bàn **KÈM THEO HÓA ĐƠN CÓ IN MÃ VIETQR** ➔ Khách hàng có 2 lựa chọn thanh toán:"
+        },
+        {
+          "line": 142,
+          "content": "- *Lựa chọn 1:* Trả Tiền mặt trực tiếp cho nhân viên ➔ Nhân viên nhận tiền và bấm \"Xác nhận đã thu tiền\" trên Web Staff Portal."
+        },
+        {
+          "line": 157,
+          "content": "- **Phương thức thanh toán bắt buộc:** **100% VietQR trả trước qua cổng PayOS**. Khóa hoàn toàn tùy chọn thanh toán tiền mặt khi nhận hàng (No COD) nhằm bảo vệ quán tuyệt đối trước rủi ro \"boom hàng\" khi đang vận chuyển."
+        },
+        {
+          "line": 174,
+          "content": "- **Tiền mặt:** Thu ngân nhập số tiền khách đưa ➔ Hệ thống tự động tính tiền thối (tiền thừa) và kích hoạt mở két tiền."
+        },
+        {
+          "line": 210,
+          "content": "| **1. QR Bàn** | `Table QR` | Dán cố định trên từng mặt bàn phục vụ | `https://order.smartfb.vn/table/{table_id}?branch={branch_id}&sig={hmac_signature}` | Mở Menu gọi món tại bàn cho khách Dine-in | • Nhánh A: VietQR trả trước<br>• Nhánh B: Tiền mặt trả sau |"
+        },
+        {
+          "line": 218,
+          "content": "| **DineIn** (Tại bàn) | `1` | Khách quét Table QR trên PWA | Khách hàng tự gọi món | Số bàn (`table_id`), Chi nhánh (`branch_id`) | • VietQR trả trước (Bếp nhận khi Paid)<br>• Tiền mặt trả sau (Bếp nhận ngay Confirmed) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 219,
+          "content": "| **TakeAway** (Mang về) | `2` | Web POS Quầy (`(staff)/pos`) | Nhân viên thu ngân thao tác | SĐT khách hàng (`customer_phone`) | Thanh toán SAU khi nhận món (Tiền mặt / VietQR quầy) | **TÍCH 10 LY TẶNG 1 LY MIỄN PHÍ** |"
+        },
+        {
+          "line": 311,
+          "content": "| **Dine-in: VietQR Trả trước & Tiền mặt Trả sau** | ❌ Chỉ thu tiền sau tại quầy | ❌ Chỉ thu tiền sau | ❌ Chỉ thu tiền sau | **✅ Hỗ trợ song song 2 nhánh hoàn chỉnh** |"
+        },
+        {
+          "line": 391,
+          "content": "18. `Payments` — Lịch sử giao dịch thanh toán (VietQR, Tiền mặt, Mã giao dịch PayOS)."
+        },
+        {
+          "line": 434,
+          "content": "| `C-07` | **Dine-In Nhánh B: Tiền Mặt Trả Sau** | Chọn Tiền mặt ➔ Đơn vào bếp ngay (`Confirmed`) ➔ NV bưng món kèm Bill có VietQR ➔ Trả tiền mặt hoặc quét VietQR trên bill. |"
+        },
+        {
+          "line": 457,
+          "content": "| `S-01` | **Màn Hình KDS Nhận Đơn Real-Time** | Nhận đơn hàng mới tức thời qua SignalR WebSocket (Đơn Dine-in VietQR đã Paid, Đơn Tiền mặt Confirmed, Đơn Delivery Paid, Đơn Takeaway Confirmed). |"
+        },
+        {
+          "line": 465,
+          "content": "| `S-09` | **Thu Tiền Sau Cho Đơn Takeaway** | Thu tiền mặt (tự động tính tiền thối) hoặc xuất VietQR quầy thanh toán sau khi khách nhận món mang về. |"
+        },
+        {
+          "line": 469,
+          "content": "| `S-13` | **Xác Nhận Thu Tiền Dine-In Nhánh B** | Nhân viên mang đồ uống ra bàn kèm hóa đơn có in VietQR, thu tiền mặt hoặc xác nhận khách đã quét mã QR trên bill. |"
+        },
+        {
+          "line": 477,
+          "content": "| `M-01` | **Mở Ca Làm Việc Đầu Ngày** | Khởi tạo phiên ca bán hàng mới, đếm và nhập số tiền mặt lẻ ban đầu bàn giao trong két tiền quầy thu ngân. |"
+        },
+        {
+          "line": 478,
+          "content": "| `M-02` | **Kết Ca & Đối Soát Két Tiền Mặt** | Kiểm đếm tiền mặt thực tế theo mệnh giá cuối ca, hệ thống tính toán chênh lệch thừa/thiếu tự động, ký duyệt biên bản Z-Report. |"
+        }
+      ],
+      "vietqr": [
+        {
+          "line": 8,
+          "content": "> **Tech Stack Chuẩn hóa:** Backend .NET 8 Clean Architecture (MediatR CQRS, EF Core 8) | Frontend Next.js 14 App Router Monorepo (TypeScript, Tailwind CSS, Shadcn UI) | PostgreSQL 16 | Redis 7 | SignalR WebSockets | Google Gemini 1.5 Flash SDK | PayOS VietQR Gateway | Docker Compose"
+        },
+        {
+          "line": 57,
+          "content": "- **Giải pháp Smart F&B OS:** Loại bỏ hoàn toàn sự phụ thuộc vào máy POS chuyên dụng (**Tiết kiệm 60% chi phí đầu tư phần cứng ban đầu, tăng 40% tốc độ phục vụ**). Khách hàng ngồi tại bàn tự quét **Table QR**, mở Web PWA tức thì không cần cài App, tự do chọn món tùy biến sâu và lựa chọn 1 trong 2 phương thức thanh toán thuận tiện (VietQR trả trước hoặc Tiền mặt trả sau). Đơn hàng tự động đồng bộ thời gian thực xuống màn hình Web KDS của quầy bar qua SignalR."
+        },
+        {
+          "line": 69,
+          "content": "- **Giải pháp Smart F&B OS:** Tích hợp cổng thanh toán VietQR động (PayOS) tự động khớp giao dịch chính xác 100% theo mã đơn hàng; quy trình mở két - kết ca đếm tiền mặt chặt chẽ với biên bản bàn giao Z-Report; Dashboard báo cáo P&L tự động hợp nhất đa chi nhánh thời gian thực (Doanh thu thuần, Chi phí nguyên vật liệu COGS theo BOM, Lãi gộp)."
+        },
+        {
+          "line": 81,
+          "content": "- **Giải pháp Smart F&B OS:** Hệ thống tự động tổng hợp số liệu doanh thu theo từng kênh bán hàng (`DineIn`, `TakeAway`, `Delivery`), phân tích cơ cấu thanh toán (Tiền mặt, VietQR), tự động chốt sổ ca (Z-Report) và đồng bộ tức thời lên Dashboard quản trị trung tâm của Chủ chuỗi."
+        },
+        {
+          "line": 112,
+          "content": "│ 1. DINE-IN 2 NHÁNH THANH TOÁN: Nhánh A VietQR Trả Trước (Bếp nhận khi Paid)                     │"
+        },
+        {
+          "line": 114,
+          "content": "│ 2. QR DELIVERY GIAO TẬN NƠI:   QR riêng → Nhập SĐT + Địa chỉ → Phí ship 20k → 100% VietQR Trước. │"
+        },
+        {
+          "line": 128,
+          "content": "┌──► [PHƯƠNG THỨC A: VIETQR TRẢ TRƯỚC] ──► [Sinh mã VietQR] ──► [Thanh toán Paid] ──► [BẾP KDS MỚI NHẬN ĐƠN]"
+        },
+        {
+          "line": 135,
+          "content": "### 1. Phương Thức A — VietQR (Thanh toán trước - Pre-Payment):"
+        },
+        {
+          "line": 136,
+          "content": "- **Quy trình:** Khách chọn VietQR ➔ Hệ thống sinh mã VietQR động kèm số tiền và mã đơn hàng (`ORDER_{id}`) ➔ Khách quét chuyển khoản qua ứng dụng Mobile Banking ➔ Cổng PayOS gửi Webhook xác nhận giao dịch thành công ➔ Trạng thái chuyển sang `Paid` ➔ **BẾP KDS MỚI NHẬN ĐƠN QUA SIGNALR** ➔ Barista pha chế (`Preparing`) ➔ Món hoàn thành (`Ready`) ➔ Nhân viên phục vụ ra bàn (`Served`/`Completed`)."
+        },
+        {
+          "line": 141,
+          "content": "- **Quy trình:** Khách chọn Tiền mặt ➔ **ĐƠN HÀNG VÀO BẾP KDS NGAY LẬP TỨC** với trạng thái `Confirmed` (không bắt buộc thanh toán trước) ➔ Barista pha chế (`Preparing`) ➔ Barista bấm `Ready` trên KDS, kích hoạt lệnh in Hóa đơn tính tiền (Bill) ra máy in nhiệt tại quầy. Trên hóa đơn có in sẵn danh sách món và **Mã VietQR động chứa chính xác số tiền cần thu** ➔ Nhân viên bưng đồ uống ra bàn **KÈM THEO HÓA ĐƠN CÓ IN MÃ VIETQR** ➔ Khách hàng có 2 lựa chọn thanh toán:"
+        },
+        {
+          "line": 143,
+          "content": "- *Lựa chọn 2:* Khách dùng Mobile Banking quét mã VietQR in trên tờ hóa đơn ➔ Hệ thống nhận Webhook thanh toán và tự động cập nhật trạng thái sang `Paid`."
+        },
+        {
+          "line": 157,
+          "content": "- **Phương thức thanh toán bắt buộc:** **100% VietQR trả trước qua cổng PayOS**. Khóa hoàn toàn tùy chọn thanh toán tiền mặt khi nhận hàng (No COD) nhằm bảo vệ quán tuyệt đối trước rủi ro \"boom hàng\" khi đang vận chuyển."
+        },
+        {
+          "line": 175,
+          "content": "- **VietQR tại quầy:** Thu ngân xuất mã VietQR trên màn hình phụ hoặc tablet để khách quét chuyển khoản."
+        },
+        {
+          "line": 210,
+          "content": "| **1. QR Bàn** | `Table QR` | Dán cố định trên từng mặt bàn phục vụ | `https://order.smartfb.vn/table/{table_id}?branch={branch_id}&sig={hmac_signature}` | Mở Menu gọi món tại bàn cho khách Dine-in | • Nhánh A: VietQR trả trước<br>• Nhánh B: Tiền mặt trả sau |"
+        },
+        {
+          "line": 211,
+          "content": "| **2. QR Delivery** | `Delivery QR` | In trên poster, standee, tờ rơi, fanpage, mạng xã hội | `https://order.smartfb.vn/delivery?branch={branch_id}` | Mở giao diện đặt hàng giao tận nơi tại nhà | **100% VietQR trả trước** (Cố định phí ship 20.000 VNĐ) |"
+        },
+        {
+          "line": 218,
+          "content": "| **DineIn** (Tại bàn) | `1` | Khách quét Table QR trên PWA | Khách hàng tự gọi món | Số bàn (`table_id`), Chi nhánh (`branch_id`) | • VietQR trả trước (Bếp nhận khi Paid)<br>• Tiền mặt trả sau (Bếp nhận ngay Confirmed) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 219,
+          "content": "| **TakeAway** (Mang về) | `2` | Web POS Quầy (`(staff)/pos`) | Nhân viên thu ngân thao tác | SĐT khách hàng (`customer_phone`) | Thanh toán SAU khi nhận món (Tiền mặt / VietQR quầy) | **TÍCH 10 LY TẶNG 1 LY MIỄN PHÍ** |"
+        },
+        {
+          "line": 220,
+          "content": "| **Delivery** (Giao tận nơi) | `3` | Khách quét Delivery QR trên PWA | Khách hàng tự gọi món | SĐT, Tên, **Địa chỉ giao hàng** (`delivery_address`), Phí ship 20k | **100% VietQR trả trước** (Khóa hoàn toàn COD) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 294,
+          "content": "│ Thất thoát đơn hàng & bùng đơn    │ 1.500.000 - 3.000.000 VNĐ/tháng │ 0 VNĐ (VietQR & Bill QR)   │"
+        },
+        {
+          "line": 311,
+          "content": "| **Dine-in: VietQR Trả trước & Tiền mặt Trả sau** | ❌ Chỉ thu tiền sau tại quầy | ❌ Chỉ thu tiền sau | ❌ Chỉ thu tiền sau | **✅ Hỗ trợ song song 2 nhánh hoàn chỉnh** |"
+        },
+        {
+          "line": 312,
+          "content": "| **QR Delivery tích hợp phí ship 20k** | ❌ Phụ thuộc App ngoài (Grab/Shopee)| ❌ Phụ thuộc App ngoài | ❌ Phụ thuộc App ngoài | **✅ QR Delivery riêng + 100% VietQR** |"
+        },
+        {
+          "line": 329,
+          "content": "P1[\"(customer): PWA Mobile Web (QR Menu, VietQR, AI-1 Chatbot)\"]"
+        },
+        {
+          "line": 348,
+          "content": "SVC3[PayOSWebhookHandler & VietQRService]"
+        },
+        {
+          "line": 356,
+          "content": "EXT1[PayOS VietQR Gateway]"
+        },
+        {
+          "line": 391,
+          "content": "18. `Payments` — Lịch sử giao dịch thanh toán (VietQR, Tiền mặt, Mã giao dịch PayOS)."
+        },
+        {
+          "line": 433,
+          "content": "| `C-06` | **Dine-In Nhánh A: VietQR Trả Trước** | Chọn VietQR ➔ Sinh mã VietQR động ➔ Khách chuyển khoản ➔ PayOS Webhook xác nhận Paid ➔ Bếp KDS mới nhận đơn. |"
+        },
+        {
+          "line": 434,
+          "content": "| `C-07` | **Dine-In Nhánh B: Tiền Mặt Trả Sau** | Chọn Tiền mặt ➔ Đơn vào bếp ngay (`Confirmed`) ➔ NV bưng món kèm Bill có VietQR ➔ Trả tiền mặt hoặc quét VietQR trên bill. |"
+        },
+        {
+          "line": 435,
+          "content": "| `C-08` | **Đặt Hàng QR Delivery** | Quét QR Delivery ➔ Nhập SĐT + Địa chỉ giao hàng bắt buộc ➔ Cố định phí ship 20.000 VNĐ ➔ 100% VietQR trả trước. |"
+        },
+        {
+          "line": 457,
+          "content": "| `S-01` | **Màn Hình KDS Nhận Đơn Real-Time** | Nhận đơn hàng mới tức thời qua SignalR WebSocket (Đơn Dine-in VietQR đã Paid, Đơn Tiền mặt Confirmed, Đơn Delivery Paid, Đơn Takeaway Confirmed). |"
+        },
+        {
+          "line": 465,
+          "content": "| `S-09` | **Thu Tiền Sau Cho Đơn Takeaway** | Thu tiền mặt (tự động tính tiền thối) hoặc xuất VietQR quầy thanh toán sau khi khách nhận món mang về. |"
+        },
+        {
+          "line": 469,
+          "content": "| `S-13` | **Xác Nhận Thu Tiền Dine-In Nhánh B** | Nhân viên mang đồ uống ra bàn kèm hóa đơn có in VietQR, thu tiền mặt hoặc xác nhận khách đã quét mã QR trên bill. |"
+        }
+      ],
+      "tra_truoc": [
+        {
+          "line": 57,
+          "content": "- **Giải pháp Smart F&B OS:** Loại bỏ hoàn toàn sự phụ thuộc vào máy POS chuyên dụng (**Tiết kiệm 60% chi phí đầu tư phần cứng ban đầu, tăng 40% tốc độ phục vụ**). Khách hàng ngồi tại bàn tự quét **Table QR**, mở Web PWA tức thì không cần cài App, tự do chọn món tùy biến sâu và lựa chọn 1 trong 2 phương thức thanh toán thuận tiện (VietQR trả trước hoặc Tiền mặt trả sau). Đơn hàng tự động đồng bộ thời gian thực xuống màn hình Web KDS của quầy bar qua SignalR."
+        },
+        {
+          "line": 112,
+          "content": "│ 1. DINE-IN 2 NHÁNH THANH TOÁN: Nhánh A VietQR Trả Trước (Bếp nhận khi Paid)                     │"
+        },
+        {
+          "line": 128,
+          "content": "┌──► [PHƯƠNG THỨC A: VIETQR TRẢ TRƯỚC] ──► [Sinh mã VietQR] ──► [Thanh toán Paid] ──► [BẾP KDS MỚI NHẬN ĐƠN]"
+        },
+        {
+          "line": 157,
+          "content": "- **Phương thức thanh toán bắt buộc:** **100% VietQR trả trước qua cổng PayOS**. Khóa hoàn toàn tùy chọn thanh toán tiền mặt khi nhận hàng (No COD) nhằm bảo vệ quán tuyệt đối trước rủi ro \"boom hàng\" khi đang vận chuyển."
+        },
+        {
+          "line": 210,
+          "content": "| **1. QR Bàn** | `Table QR` | Dán cố định trên từng mặt bàn phục vụ | `https://order.smartfb.vn/table/{table_id}?branch={branch_id}&sig={hmac_signature}` | Mở Menu gọi món tại bàn cho khách Dine-in | • Nhánh A: VietQR trả trước<br>• Nhánh B: Tiền mặt trả sau |"
+        },
+        {
+          "line": 211,
+          "content": "| **2. QR Delivery** | `Delivery QR` | In trên poster, standee, tờ rơi, fanpage, mạng xã hội | `https://order.smartfb.vn/delivery?branch={branch_id}` | Mở giao diện đặt hàng giao tận nơi tại nhà | **100% VietQR trả trước** (Cố định phí ship 20.000 VNĐ) |"
+        },
+        {
+          "line": 218,
+          "content": "| **DineIn** (Tại bàn) | `1` | Khách quét Table QR trên PWA | Khách hàng tự gọi món | Số bàn (`table_id`), Chi nhánh (`branch_id`) | • VietQR trả trước (Bếp nhận khi Paid)<br>• Tiền mặt trả sau (Bếp nhận ngay Confirmed) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 220,
+          "content": "| **Delivery** (Giao tận nơi) | `3` | Khách quét Delivery QR trên PWA | Khách hàng tự gọi món | SĐT, Tên, **Địa chỉ giao hàng** (`delivery_address`), Phí ship 20k | **100% VietQR trả trước** (Khóa hoàn toàn COD) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 311,
+          "content": "| **Dine-in: VietQR Trả trước & Tiền mặt Trả sau** | ❌ Chỉ thu tiền sau tại quầy | ❌ Chỉ thu tiền sau | ❌ Chỉ thu tiền sau | **✅ Hỗ trợ song song 2 nhánh hoàn chỉnh** |"
+        },
+        {
+          "line": 433,
+          "content": "| `C-06` | **Dine-In Nhánh A: VietQR Trả Trước** | Chọn VietQR ➔ Sinh mã VietQR động ➔ Khách chuyển khoản ➔ PayOS Webhook xác nhận Paid ➔ Bếp KDS mới nhận đơn. |"
+        },
+        {
+          "line": 435,
+          "content": "| `C-08` | **Đặt Hàng QR Delivery** | Quét QR Delivery ➔ Nhập SĐT + Địa chỉ giao hàng bắt buộc ➔ Cố định phí ship 20.000 VNĐ ➔ 100% VietQR trả trước. |"
+        }
+      ],
+      "tra_sau": [
+        {
+          "line": 57,
+          "content": "- **Giải pháp Smart F&B OS:** Loại bỏ hoàn toàn sự phụ thuộc vào máy POS chuyên dụng (**Tiết kiệm 60% chi phí đầu tư phần cứng ban đầu, tăng 40% tốc độ phục vụ**). Khách hàng ngồi tại bàn tự quét **Table QR**, mở Web PWA tức thì không cần cài App, tự do chọn món tùy biến sâu và lựa chọn 1 trong 2 phương thức thanh toán thuận tiện (VietQR trả trước hoặc Tiền mặt trả sau). Đơn hàng tự động đồng bộ thời gian thực xuống màn hình Web KDS của quầy bar qua SignalR."
+        },
+        {
+          "line": 113,
+          "content": "│                                Nhánh B Tiền Mặt Trả Sau (Bếp nhận ngay Confirmed, mang món + QR) │"
+        },
+        {
+          "line": 115,
+          "content": "│ 3. TAKEAWAY STAFF WEB POS:     NV thao tác quầy (Không QR) → Tra CRM → Tích 10 ly → Trả sau.     │"
+        },
+        {
+          "line": 132,
+          "content": "└──► [PHƯƠNG THỨC B: TIỀN MẶT TRẢ SAU] ──► [ĐƠN VÀO BẾP NGAY] ──► [NV bưng món + Bill có QR] ──► [Thu tiền / Khách quét QR]"
+        },
+        {
+          "line": 210,
+          "content": "| **1. QR Bàn** | `Table QR` | Dán cố định trên từng mặt bàn phục vụ | `https://order.smartfb.vn/table/{table_id}?branch={branch_id}&sig={hmac_signature}` | Mở Menu gọi món tại bàn cho khách Dine-in | • Nhánh A: VietQR trả trước<br>• Nhánh B: Tiền mặt trả sau |"
+        },
+        {
+          "line": 218,
+          "content": "| **DineIn** (Tại bàn) | `1` | Khách quét Table QR trên PWA | Khách hàng tự gọi món | Số bàn (`table_id`), Chi nhánh (`branch_id`) | • VietQR trả trước (Bếp nhận khi Paid)<br>• Tiền mặt trả sau (Bếp nhận ngay Confirmed) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 311,
+          "content": "| **Dine-in: VietQR Trả trước & Tiền mặt Trả sau** | ❌ Chỉ thu tiền sau tại quầy | ❌ Chỉ thu tiền sau | ❌ Chỉ thu tiền sau | **✅ Hỗ trợ song song 2 nhánh hoàn chỉnh** |"
+        },
+        {
+          "line": 434,
+          "content": "| `C-07` | **Dine-In Nhánh B: Tiền Mặt Trả Sau** | Chọn Tiền mặt ➔ Đơn vào bếp ngay (`Confirmed`) ➔ NV bưng món kèm Bill có VietQR ➔ Trả tiền mặt hoặc quét VietQR trên bill. |"
+        }
+      ],
+      "kem_hoa_don": [
+        {
+          "line": 141,
+          "content": "- **Quy trình:** Khách chọn Tiền mặt ➔ **ĐƠN HÀNG VÀO BẾP KDS NGAY LẬP TỨC** với trạng thái `Confirmed` (không bắt buộc thanh toán trước) ➔ Barista pha chế (`Preparing`) ➔ Barista bấm `Ready` trên KDS, kích hoạt lệnh in Hóa đơn tính tiền (Bill) ra máy in nhiệt tại quầy. Trên hóa đơn có in sẵn danh sách món và **Mã VietQR động chứa chính xác số tiền cần thu** ➔ Nhân viên bưng đồ uống ra bàn **KÈM THEO HÓA ĐƠN CÓ IN MÃ VIETQR** ➔ Khách hàng có 2 lựa chọn thanh toán:"
+        },
+        {
+          "line": 462,
+          "content": "| `S-06` | **In Hóa Đơn & Tem Dán Ly ESC/POS** | Tự động gửi lệnh in tem dán ly chứa thông tin tùy biến và in hóa đơn tạm tính/bàn giao qua máy in nhiệt LAN/USB. |"
+        },
+        {
+          "line": 469,
+          "content": "| `S-13` | **Xác Nhận Thu Tiền Dine-In Nhánh B** | Nhân viên mang đồ uống ra bàn kèm hóa đơn có in VietQR, thu tiền mặt hoặc xác nhận khách đã quét mã QR trên bill. |"
+        }
+      ],
+      "in_ma_qr": [
+        {
+          "line": 69,
+          "content": "- **Giải pháp Smart F&B OS:** Tích hợp cổng thanh toán VietQR động (PayOS) tự động khớp giao dịch chính xác 100% theo mã đơn hàng; quy trình mở két - kết ca đếm tiền mặt chặt chẽ với biên bản bàn giao Z-Report; Dashboard báo cáo P&L tự động hợp nhất đa chi nhánh thời gian thực (Doanh thu thuần, Chi phí nguyên vật liệu COGS theo BOM, Lãi gộp)."
+        },
+        {
+          "line": 136,
+          "content": "- **Quy trình:** Khách chọn VietQR ➔ Hệ thống sinh mã VietQR động kèm số tiền và mã đơn hàng (`ORDER_{id}`) ➔ Khách quét chuyển khoản qua ứng dụng Mobile Banking ➔ Cổng PayOS gửi Webhook xác nhận giao dịch thành công ➔ Trạng thái chuyển sang `Paid` ➔ **BẾP KDS MỚI NHẬN ĐƠN QUA SIGNALR** ➔ Barista pha chế (`Preparing`) ➔ Món hoàn thành (`Ready`) ➔ Nhân viên phục vụ ra bàn (`Served`/`Completed`)."
+        },
+        {
+          "line": 141,
+          "content": "- **Quy trình:** Khách chọn Tiền mặt ➔ **ĐƠN HÀNG VÀO BẾP KDS NGAY LẬP TỨC** với trạng thái `Confirmed` (không bắt buộc thanh toán trước) ➔ Barista pha chế (`Preparing`) ➔ Barista bấm `Ready` trên KDS, kích hoạt lệnh in Hóa đơn tính tiền (Bill) ra máy in nhiệt tại quầy. Trên hóa đơn có in sẵn danh sách món và **Mã VietQR động chứa chính xác số tiền cần thu** ➔ Nhân viên bưng đồ uống ra bàn **KÈM THEO HÓA ĐƠN CÓ IN MÃ VIETQR** ➔ Khách hàng có 2 lựa chọn thanh toán:"
+        },
+        {
+          "line": 181,
+          "content": "- **Loại bỏ công nghệ cũ:** Xóa bỏ hoàn toàn cơ chế định vị vệ tinh GPS (sai số lớn từ 20 - 50m khi nhân viên đứng trong nhà/tầng hầm) và mã QR động thay đổi mỗi 30 giây (gây phiền toái cho nhân viên)."
+        },
+        {
+          "line": 433,
+          "content": "| `C-06` | **Dine-In Nhánh A: VietQR Trả Trước** | Chọn VietQR ➔ Sinh mã VietQR động ➔ Khách chuyển khoản ➔ PayOS Webhook xác nhận Paid ➔ Bếp KDS mới nhận đơn. |"
+        }
+      ]
+    },
+    "check5_delivery": {
+      "fee_20k": [
+        {
+          "line": 156,
+          "content": "- **Phí giao hàng cố định:** Hệ thống luôn tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) vào tổng giá trị của mọi đơn hàng giao tận nơi."
+        },
+        {
+          "line": 211,
+          "content": "| **2. QR Delivery** | `Delivery QR` | In trên poster, standee, tờ rơi, fanpage, mạng xã hội | `https://order.smartfb.vn/delivery?branch={branch_id}` | Mở giao diện đặt hàng giao tận nơi tại nhà | **100% VietQR trả trước** (Cố định phí ship 20.000 VNĐ) |"
+        },
+        {
+          "line": 435,
+          "content": "| `C-08` | **Đặt Hàng QR Delivery** | Quét QR Delivery ➔ Nhập SĐT + Địa chỉ giao hàng bắt buộc ➔ Cố định phí ship 20.000 VNĐ ➔ 100% VietQR trả trước. |"
+        }
+      ],
+      "dia_chi_giao_hang": [
+        {
+          "line": 155,
+          "content": "3. Địa chỉ giao hàng chi tiết (`delivery_address` — số nhà, ngõ/ngách, tên đường, phường/xã)."
+        },
+        {
+          "line": 220,
+          "content": "| **Delivery** (Giao tận nơi) | `3` | Khách quét Delivery QR trên PWA | Khách hàng tự gọi món | SĐT, Tên, **Địa chỉ giao hàng** (`delivery_address`), Phí ship 20k | **100% VietQR trả trước** (Khóa hoàn toàn COD) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 435,
+          "content": "| `C-08` | **Đặt Hàng QR Delivery** | Quét QR Delivery ➔ Nhập SĐT + Địa chỉ giao hàng bắt buộc ➔ Cố định phí ship 20.000 VNĐ ➔ 100% VietQR trả trước. |"
+        }
+      ],
+      "delivery_fee": [
+        {
+          "line": 156,
+          "content": "- **Phí giao hàng cố định:** Hệ thống luôn tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) vào tổng giá trị của mọi đơn hàng giao tận nơi."
+        },
+        {
+          "line": 158,
+          "content": "- **Cấu trúc Dữ liệu:** Thêm các trường `delivery_address` (VARCHAR 500), `delivery_fee` (DECIMAL 18,2), và `order_type = Delivery (3)` vào thực thể `Orders`."
+        },
+        {
+          "line": 388,
+          "content": "15. `Orders` — Đơn hàng tổng thể (chứa `order_type` enum `DineIn`/`TakeAway`/`Delivery`, `order_status`, `delivery_address`, `delivery_fee`, `total_amount`)."
+        }
+      ],
+      "order_type_delivery": [
+        {
+          "line": 81,
+          "content": "- **Giải pháp Smart F&B OS:** Hệ thống tự động tổng hợp số liệu doanh thu theo từng kênh bán hàng (`DineIn`, `TakeAway`, `Delivery`), phân tích cơ cấu thanh toán (Tiền mặt, VietQR), tự động chốt sổ ca (Z-Report) và đồng bộ tức thời lên Dashboard quản trị trung tâm của Chủ chuỗi."
+        },
+        {
+          "line": 100,
+          "content": "3. **Phục vụ toàn diện 3 kênh bán hàng cốt lõi:** Đặt món tại bàn (`DineIn`), Mua mang về tại quầy (`TakeAway`), và Đặt giao tận nơi (`Delivery`)."
+        },
+        {
+          "line": 114,
+          "content": "│ 2. QR DELIVERY GIAO TẬN NƠI:   QR riêng → Nhập SĐT + Địa chỉ → Phí ship 20k → 100% VietQR Trước. │"
+        },
+        {
+          "line": 149,
+          "content": "## 2.2 TRỤ CỘT 2: ĐẶT HÀNG GIAO TẬN NƠI (QR DELIVERY)"
+        },
+        {
+          "line": 151,
+          "content": "- **Điểm tiếp cận độc lập:** Khách hàng quét mã **QR Delivery** riêng biệt (in trên poster, banner quảng cáo, standee trước quán, fanpage mạng xã hội) hoặc truy cập đường link đặt hàng trực tuyến từ xa."
+        },
+        {
+          "line": 155,
+          "content": "3. Địa chỉ giao hàng chi tiết (`delivery_address` — số nhà, ngõ/ngách, tên đường, phường/xã)."
+        },
+        {
+          "line": 156,
+          "content": "- **Phí giao hàng cố định:** Hệ thống luôn tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) vào tổng giá trị của mọi đơn hàng giao tận nơi."
+        },
+        {
+          "line": 158,
+          "content": "- **Cấu trúc Dữ liệu:** Thêm các trường `delivery_address` (VARCHAR 500), `delivery_fee` (DECIMAL 18,2), và `order_type = Delivery (3)` vào thực thể `Orders`."
+        },
+        {
+          "line": 171,
+          "content": "- **ĐIỀU KIỆN ÁP DỤNG DUY NHẤT:** Chương trình tích lũy 10 ly = tặng 1 ly miễn phí **CHỈ ÁP DỤNG CHO ĐƠN HÀNG TAKEAWAY (MUA MANG VỀ TẠI QUẦY)**. Đơn hàng tại bàn (`DineIn`) và đơn giao hàng (`Delivery`) hoàn toàn KHÔNG tích lũy và KHÔNG đổi ly miễn phí."
+        },
+        {
+          "line": 194,
+          "content": "1. `(customer)` — PWA Mobile Web dành cho Khách hàng (Quét QR Bàn, QR Delivery, Chat AI-1, Đánh giá món)."
+        },
+        {
+          "line": 211,
+          "content": "| **2. QR Delivery** | `Delivery QR` | In trên poster, standee, tờ rơi, fanpage, mạng xã hội | `https://order.smartfb.vn/delivery?branch={branch_id}` | Mở giao diện đặt hàng giao tận nơi tại nhà | **100% VietQR trả trước** (Cố định phí ship 20.000 VNĐ) |"
+        },
+        {
+          "line": 220,
+          "content": "| **Delivery** (Giao tận nơi) | `3` | Khách quét Delivery QR trên PWA | Khách hàng tự gọi món | SĐT, Tên, **Địa chỉ giao hàng** (`delivery_address`), Phí ship 20k | **100% VietQR trả trước** (Khóa hoàn toàn COD) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 312,
+          "content": "| **QR Delivery tích hợp phí ship 20k** | ❌ Phụ thuộc App ngoài (Grab/Shopee)| ❌ Phụ thuộc App ngoài | ❌ Phụ thuộc App ngoài | **✅ QR Delivery riêng + 100% VietQR** |"
+        },
+        {
+          "line": 388,
+          "content": "15. `Orders` — Đơn hàng tổng thể (chứa `order_type` enum `DineIn`/`TakeAway`/`Delivery`, `order_status`, `delivery_address`, `delivery_fee`, `total_amount`)."
+        },
+        {
+          "line": 435,
+          "content": "| `C-08` | **Đặt Hàng QR Delivery** | Quét QR Delivery ➔ Nhập SĐT + Địa chỉ giao hàng bắt buộc ➔ Cố định phí ship 20.000 VNĐ ➔ 100% VietQR trả trước. |"
+        },
+        {
+          "line": 457,
+          "content": "| `S-01` | **Màn Hình KDS Nhận Đơn Real-Time** | Nhận đơn hàng mới tức thời qua SignalR WebSocket (Đơn Dine-in VietQR đã Paid, Đơn Tiền mặt Confirmed, Đơn Delivery Paid, Đơn Takeaway Confirmed). |"
+        },
+        {
+          "line": 486,
+          "content": "| `M-10` | **Dashboard Báo Cáo Vận Hành Ngày** | Theo dõi doanh thu theo giờ, số lượng đơn theo từng kênh (`DineIn`, `TakeAway`, `Delivery`), giá trị đơn trung bình AOV. |"
+        },
+        {
+          "line": 510,
+          "content": "| `A-15` | **Sinh Mã QR Bàn & QR Delivery Hàng Loạt** | Tạo và xuất file in ấn vector (PDF chất lượng cao) mã Table QR cho từng bàn và mã QR Delivery có gắn chữ ký số bảo mật. |"
+        },
+        {
+          "line": 546,
+          "content": "2. **Tích Hợp Đối Tác Vận Chuyển Thứ Ba (Third-party Delivery Dispatch API):**"
+        },
+        {
+          "line": 547,
+          "content": "- Tự động đẩy đơn hàng giao tận nơi (`Delivery`) và điều phối tài xế AhaMove / GrabExpress / Lalamove qua Webhook API, kèm theo dõi vị trí GPS của tài xế thời gian thực trên bản đồ số."
+        }
+      ]
+    },
+    "check6_takeaway_loyalty": {
+      "10_ly": [
+        {
+          "line": 77,
+          "content": "- **Giải pháp Smart F&B OS:** Nhận diện khách hàng tức thì chỉ bằng Số điện thoại (CRM Lookup) trên PWA không cần đăng ký mật khẩu; Áp dụng chính sách **Loyalty Đột Phá: Tích 10 Ly = Tặng 1 Ly Miễn Phí (Áp dụng DUY NHẤT cho Đơn Mua Mang Về - Takeaway)** tạo động lực quay lại cực lớn cho tệp khách văn phòng mua mang đi hàng ngày."
+        },
+        {
+          "line": 115,
+          "content": "│ 3. TAKEAWAY STAFF WEB POS:     NV thao tác quầy (Không QR) → Tra CRM → Tích 10 ly → Trả sau.     │"
+        },
+        {
+          "line": 170,
+          "content": "- **Chính sách Loyalty 10 ly tặng 1 ly miễn phí:**"
+        },
+        {
+          "line": 171,
+          "content": "- **ĐIỀU KIỆN ÁP DỤNG DUY NHẤT:** Chương trình tích lũy 10 ly = tặng 1 ly miễn phí **CHỈ ÁP DỤNG CHO ĐƠN HÀNG TAKEAWAY (MUA MANG VỀ TẠI QUẦY)**. Đơn hàng tại bàn (`DineIn`) và đơn giao hàng (`Delivery`) hoàn toàn KHÔNG tích lũy và KHÔNG đổi ly miễn phí."
+        },
+        {
+          "line": 172,
+          "content": "- Cứ mỗi 10 ly đồ uống tiêu chuẩn tích lũy ➔ Khách hàng được tặng 1 ly đồ uống miễn phí (ly thứ 11 miễn phí, trừ 100% giá trị của 1 ly tiêu chuẩn trong đơn hàng hiện tại)."
+        },
+        {
+          "line": 218,
+          "content": "| **DineIn** (Tại bàn) | `1` | Khách quét Table QR trên PWA | Khách hàng tự gọi món | Số bàn (`table_id`), Chi nhánh (`branch_id`) | • VietQR trả trước (Bếp nhận khi Paid)<br>• Tiền mặt trả sau (Bếp nhận ngay Confirmed) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 219,
+          "content": "| **TakeAway** (Mang về) | `2` | Web POS Quầy (`(staff)/pos`) | Nhân viên thu ngân thao tác | SĐT khách hàng (`customer_phone`) | Thanh toán SAU khi nhận món (Tiền mặt / VietQR quầy) | **TÍCH 10 LY TẶNG 1 LY MIỄN PHÍ** |"
+        },
+        {
+          "line": 220,
+          "content": "| **Delivery** (Giao tận nơi) | `3` | Khách quét Delivery QR trên PWA | Khách hàng tự gọi món | SĐT, Tên, **Địa chỉ giao hàng** (`delivery_address`), Phí ship 20k | **100% VietQR trả trước** (Khóa hoàn toàn COD) | Không áp dụng tích/đổi 10 ly |"
+        },
+        {
+          "line": 313,
+          "content": "| **Takeaway POS & Loyalty 10 Ly Tặng 1** | 🟡 Tích điểm point phức tạp | 🟡 Tích điểm tiền thưởng | 🟡 Tích điểm tiền thưởng | **✅ Web POS Quầy + Tích 10 ly = 1 ly Free** |"
+        },
+        {
+          "line": 464,
+          "content": "| `S-08` | **Tra Cứu CRM & Tích 10 Ly Quầy** | Nhập SĐT khách tại quầy, hiển thị số ly tích lũy (`CupBalance` x/10), áp dụng tặng ly thứ 11 miễn phí (CHỈ áp dụng cho Takeaway). |"
+        },
+        {
+          "line": 503,
+          "content": "| `A-08` | **Cấu Hình Chính Sách Loyalty Toàn Chuỗi** | Cấu hình quy tắc tích lũy 10 ly = tặng 1 ly miễn phí (Takeaway only) và các chính sách tri ân khách hàng thân thiết. |"
+        }
+      ],
+      "tang_1_ly": [
+        {
+          "line": 77,
+          "content": "- **Giải pháp Smart F&B OS:** Nhận diện khách hàng tức thì chỉ bằng Số điện thoại (CRM Lookup) trên PWA không cần đăng ký mật khẩu; Áp dụng chính sách **Loyalty Đột Phá: Tích 10 Ly = Tặng 1 Ly Miễn Phí (Áp dụng DUY NHẤT cho Đơn Mua Mang Về - Takeaway)** tạo động lực quay lại cực lớn cho tệp khách văn phòng mua mang đi hàng ngày."
+        },
+        {
+          "line": 170,
+          "content": "- **Chính sách Loyalty 10 ly tặng 1 ly miễn phí:**"
+        },
+        {
+          "line": 171,
+          "content": "- **ĐIỀU KIỆN ÁP DỤNG DUY NHẤT:** Chương trình tích lũy 10 ly = tặng 1 ly miễn phí **CHỈ ÁP DỤNG CHO ĐƠN HÀNG TAKEAWAY (MUA MANG VỀ TẠI QUẦY)**. Đơn hàng tại bàn (`DineIn`) và đơn giao hàng (`Delivery`) hoàn toàn KHÔNG tích lũy và KHÔNG đổi ly miễn phí."
+        },
+        {
+          "line": 172,
+          "content": "- Cứ mỗi 10 ly đồ uống tiêu chuẩn tích lũy ➔ Khách hàng được tặng 1 ly đồ uống miễn phí (ly thứ 11 miễn phí, trừ 100% giá trị của 1 ly tiêu chuẩn trong đơn hàng hiện tại)."
+        },
+        {
+          "line": 219,
+          "content": "| **TakeAway** (Mang về) | `2` | Web POS Quầy (`(staff)/pos`) | Nhân viên thu ngân thao tác | SĐT khách hàng (`customer_phone`) | Thanh toán SAU khi nhận món (Tiền mặt / VietQR quầy) | **TÍCH 10 LY TẶNG 1 LY MIỄN PHÍ** |"
+        },
+        {
+          "line": 313,
+          "content": "| **Takeaway POS & Loyalty 10 Ly Tặng 1** | 🟡 Tích điểm point phức tạp | 🟡 Tích điểm tiền thưởng | 🟡 Tích điểm tiền thưởng | **✅ Web POS Quầy + Tích 10 ly = 1 ly Free** |"
+        },
+        {
+          "line": 503,
+          "content": "| `A-08` | **Cấu Hình Chính Sách Loyalty Toàn Chuỗi** | Cấu hình quy tắc tích lũy 10 ly = tặng 1 ly miễn phí (Takeaway only) và các chính sách tri ân khách hàng thân thiết. |"
+        }
+      ],
+      "takeaway_only": [
+        {
+          "line": 77,
+          "content": "- **Giải pháp Smart F&B OS:** Nhận diện khách hàng tức thì chỉ bằng Số điện thoại (CRM Lookup) trên PWA không cần đăng ký mật khẩu; Áp dụng chính sách **Loyalty Đột Phá: Tích 10 Ly = Tặng 1 Ly Miễn Phí (Áp dụng DUY NHẤT cho Đơn Mua Mang Về - Takeaway)** tạo động lực quay lại cực lớn cho tệp khách văn phòng mua mang đi hàng ngày."
+        },
+        {
+          "line": 81,
+          "content": "- **Giải pháp Smart F&B OS:** Hệ thống tự động tổng hợp số liệu doanh thu theo từng kênh bán hàng (`DineIn`, `TakeAway`, `Delivery`), phân tích cơ cấu thanh toán (Tiền mặt, VietQR), tự động chốt sổ ca (Z-Report) và đồng bộ tức thời lên Dashboard quản trị trung tâm của Chủ chuỗi."
+        },
+        {
+          "line": 100,
+          "content": "3. **Phục vụ toàn diện 3 kênh bán hàng cốt lõi:** Đặt món tại bàn (`DineIn`), Mua mang về tại quầy (`TakeAway`), và Đặt giao tận nơi (`Delivery`)."
+        },
+        {
+          "line": 115,
+          "content": "│ 3. TAKEAWAY STAFF WEB POS:     NV thao tác quầy (Không QR) → Tra CRM → Tích 10 ly → Trả sau.     │"
+        },
+        {
+          "line": 163,
+          "content": "## 2.3 TRỤ CỘT 3: BÁN HÀNG MANG ĐI TẠI QUẦY (TAKEAWAY STAFF WEB POS)"
+        },
+        {
+          "line": 165,
+          "content": "- **Giao diện thao tác chuyên dụng:** Loại bỏ hoàn toàn mã QR Takeaway cho khách; Nhân viên thu ngân thao tác trực tiếp trên **Giao diện Web POS Quầy** (`(staff)/pos`) trên máy tính bảng hoặc laptop cảm ứng."
+        },
+        {
+          "line": 171,
+          "content": "- **ĐIỀU KIỆN ÁP DỤNG DUY NHẤT:** Chương trình tích lũy 10 ly = tặng 1 ly miễn phí **CHỈ ÁP DỤNG CHO ĐƠN HÀNG TAKEAWAY (MUA MANG VỀ TẠI QUẦY)**. Đơn hàng tại bàn (`DineIn`) và đơn giao hàng (`Delivery`) hoàn toàn KHÔNG tích lũy và KHÔNG đổi ly miễn phí."
+        },
+        {
+          "line": 173,
+          "content": "- **Thanh toán sau khi nhận món (Post-Payment):** Khách hàng nhận túi đồ uống mang về và thanh toán linh hoạt bằng:"
+        },
+        {
+          "line": 219,
+          "content": "| **TakeAway** (Mang về) | `2` | Web POS Quầy (`(staff)/pos`) | Nhân viên thu ngân thao tác | SĐT khách hàng (`customer_phone`) | Thanh toán SAU khi nhận món (Tiền mặt / VietQR quầy) | **TÍCH 10 LY TẶNG 1 LY MIỄN PHÍ** |"
+        },
+        {
+          "line": 313,
+          "content": "| **Takeaway POS & Loyalty 10 Ly Tặng 1** | 🟡 Tích điểm point phức tạp | 🟡 Tích điểm tiền thưởng | 🟡 Tích điểm tiền thưởng | **✅ Web POS Quầy + Tích 10 ly = 1 ly Free** |"
+        },
+        {
+          "line": 388,
+          "content": "15. `Orders` — Đơn hàng tổng thể (chứa `order_type` enum `DineIn`/`TakeAway`/`Delivery`, `order_status`, `delivery_address`, `delivery_fee`, `total_amount`)."
+        },
+        {
+          "line": 392,
+          "content": "19. `Customers` — Hồ sơ khách hàng CRM theo SĐT, `CupBalance` tích lũy Takeaway."
+        },
+        {
+          "line": 438,
+          "content": "| `C-11` | **Nhận Diện Khách Hàng CRM** | Nhập Số điện thoại để hệ thống nhận diện hồ sơ thành viên, lịch sử gọi món và số ly tích lũy Takeaway hiện có. |"
+        },
+        {
+          "line": 457,
+          "content": "| `S-01` | **Màn Hình KDS Nhận Đơn Real-Time** | Nhận đơn hàng mới tức thời qua SignalR WebSocket (Đơn Dine-in VietQR đã Paid, Đơn Tiền mặt Confirmed, Đơn Delivery Paid, Đơn Takeaway Confirmed). |"
+        },
+        {
+          "line": 463,
+          "content": "| `S-07` | **Web POS Quầy Takeaway** | Giao diện cảm ứng cho thu ngân tạo đơn mang về trực tiếp cho khách đến quầy (không dùng mã QR). |"
+        },
+        {
+          "line": 464,
+          "content": "| `S-08` | **Tra Cứu CRM & Tích 10 Ly Quầy** | Nhập SĐT khách tại quầy, hiển thị số ly tích lũy (`CupBalance` x/10), áp dụng tặng ly thứ 11 miễn phí (CHỈ áp dụng cho Takeaway). |"
+        },
+        {
+          "line": 465,
+          "content": "| `S-09` | **Thu Tiền Sau Cho Đơn Takeaway** | Thu tiền mặt (tự động tính tiền thối) hoặc xuất VietQR quầy thanh toán sau khi khách nhận món mang về. |"
+        },
+        {
+          "line": 486,
+          "content": "| `M-10` | **Dashboard Báo Cáo Vận Hành Ngày** | Theo dõi doanh thu theo giờ, số lượng đơn theo từng kênh (`DineIn`, `TakeAway`, `Delivery`), giá trị đơn trung bình AOV. |"
+        },
+        {
+          "line": 503,
+          "content": "| `A-08` | **Cấu Hình Chính Sách Loyalty Toàn Chuỗi** | Cấu hình quy tắc tích lũy 10 ly = tặng 1 ly miễn phí (Takeaway only) và các chính sách tri ân khách hàng thân thiết. |"
+        }
+      ]
+    },
+    "check7_wifi_attendance": {
+      "wifi_locked": [
+        {
+          "line": 61,
+          "content": "- **Giải pháp Smart F&B OS:** **Chấm công Khóa Mạng WiFi (WiFi-Locked Attendance)** — Nhân viên truy cập phân hệ Chấm công trên Web Staff, hệ thống tự động kiểm tra kép: (a) Địa chỉ BSSID của Access Point WiFi quán và dải IP Subnet hợp lệ của chi nhánh, (b) Mã số nhân viên hợp lệ theo ca trực. Loại bỏ 100% gian lận chấm công từ xa mà không tốn thêm 1 đồng mua sắm phần cứng máy chấm công."
+        },
+        {
+          "line": 179,
+          "content": "## 2.4 TRỤ CỘT 4: CHẤM CÔNG KHÓA MẠNG WIFI (WIFI-LOCKED ATTENDANCE)"
+        },
+        {
+          "line": 314,
+          "content": "| **Chấm công Khóa Mạng WiFi (BSSID/IP)** | ❌ Dùng máy vân tay rời | ❌ Dùng máy vân tay rời | ❌ Dùng máy vân tay rời | **✅ WiFi-locked Chống gian lận 100%** |"
+        }
+      ],
+      "bssid": [
+        {
+          "line": 61,
+          "content": "- **Giải pháp Smart F&B OS:** **Chấm công Khóa Mạng WiFi (WiFi-Locked Attendance)** — Nhân viên truy cập phân hệ Chấm công trên Web Staff, hệ thống tự động kiểm tra kép: (a) Địa chỉ BSSID của Access Point WiFi quán và dải IP Subnet hợp lệ của chi nhánh, (b) Mã số nhân viên hợp lệ theo ca trực. Loại bỏ 100% gian lận chấm công từ xa mà không tốn thêm 1 đồng mua sắm phần cứng máy chấm công."
+        },
+        {
+          "line": 116,
+          "content": "│ 4. CHẤM CÔNG KHÓA MẠNG WIFI:   Xác thực WiFi quán (SSID/BSSID/IP) + Mã NV → Bỏ hoàn toàn GPS/QR  │"
+        },
+        {
+          "line": 183,
+          "content": "1. *Lớp mạng (Network Layer):* Kiểm tra địa chỉ BSSID (MAC Address của Access Point phát WiFi quán) hoặc dải IP Subnet của thiết bị gửi yêu cầu có nằm trong danh sách được cấp phép tại bảng `branch_wifi_configs` của chi nhánh hay không."
+        },
+        {
+          "line": 186,
+          "content": "- **Phân quyền Quản lý:** Quản lý chi nhánh được toàn quyền khai báo và cập nhật danh sách BSSID và IP Subnet cho chi nhánh của mình trên Manager Portal."
+        },
+        {
+          "line": 212,
+          "content": "| **3. QR Chấm Công** | `Attendance QR` | Hiển thị trên màn hình Web nội bộ quán | `https://staff.smartfb.vn/attendance/check-in?branch={branch_id}` | Điểm truy cập chấm công cho nhân viên | Không áp dụng (Xác thực WiFi BSSID/IP + Mã NV) |"
+        },
+        {
+          "line": 314,
+          "content": "| **Chấm công Khóa Mạng WiFi (BSSID/IP)** | ❌ Dùng máy vân tay rời | ❌ Dùng máy vân tay rời | ❌ Dùng máy vân tay rời | **✅ WiFi-locked Chống gian lận 100%** |"
+        },
+        {
+          "line": 332,
+          "content": "P4[\"(manager): Portal Quản lý Chi nhánh (Két tiền, Kho BOM, BSSID WiFi)\"]"
+        },
+        {
+          "line": 378,
+          "content": "5. `BranchWifiConfigs` — Cấu hình danh sách BSSID Access Point và IP Subnet chấm công của chi nhánh."
+        },
+        {
+          "line": 468,
+          "content": "| `S-12` | **Chấm Công Khóa Mạng WiFi** | Chấm công vào/ra ca trên Web Staff khi đang kết nối đúng mạng WiFi chi nhánh (xác thực BSSID/IP) + Nhập Mã NV. |"
+        },
+        {
+          "line": 485,
+          "content": "| `M-09` | **Cấu Hình Mạng WiFi Chấm Công** | Khai báo danh sách BSSID Access Point và dải IP Subnet được phép chấm công tại quán trong phần cài đặt chi nhánh. |"
+        }
+      ],
+      "ip_subnet": [
+        {
+          "line": 61,
+          "content": "- **Giải pháp Smart F&B OS:** **Chấm công Khóa Mạng WiFi (WiFi-Locked Attendance)** — Nhân viên truy cập phân hệ Chấm công trên Web Staff, hệ thống tự động kiểm tra kép: (a) Địa chỉ BSSID của Access Point WiFi quán và dải IP Subnet hợp lệ của chi nhánh, (b) Mã số nhân viên hợp lệ theo ca trực. Loại bỏ 100% gian lận chấm công từ xa mà không tốn thêm 1 đồng mua sắm phần cứng máy chấm công."
+        },
+        {
+          "line": 183,
+          "content": "1. *Lớp mạng (Network Layer):* Kiểm tra địa chỉ BSSID (MAC Address của Access Point phát WiFi quán) hoặc dải IP Subnet của thiết bị gửi yêu cầu có nằm trong danh sách được cấp phép tại bảng `branch_wifi_configs` của chi nhánh hay không."
+        },
+        {
+          "line": 186,
+          "content": "- **Phân quyền Quản lý:** Quản lý chi nhánh được toàn quyền khai báo và cập nhật danh sách BSSID và IP Subnet cho chi nhánh của mình trên Manager Portal."
+        },
+        {
+          "line": 378,
+          "content": "5. `BranchWifiConfigs` — Cấu hình danh sách BSSID Access Point và IP Subnet chấm công của chi nhánh."
+        },
+        {
+          "line": 485,
+          "content": "| `M-09` | **Cấu Hình Mạng WiFi Chấm Công** | Khai báo danh sách BSSID Access Point và dải IP Subnet được phép chấm công tại quán trong phần cài đặt chi nhánh. |"
+        }
+      ]
+    }
+  },
+  "Actor_Phan_Quyen_Chuc_Nang.md": {
+    "filename": "Actor_Phan_Quyen_Chuc_Nang.md",
+    "line_count": 844,
+    "check1_c23_c24": [],
+    "check2_placeholders": {
+      "TODO": [],
+      "TBD": [],
+      "rest_of_code": [],
+      "tuong_tu": [],
+      "placeholder_tag": [],
+      "ellipsis": [
+        {
+          "line": 133,
+          "content": "- **Giao Diện & Kênh:** Next.js PWA Mobile Browser (`/order/dine-in?branchId=...&tableId=...`)."
+        },
+        {
+          "line": 142,
+          "content": "- **Giao Diện & Kênh:** Next.js PWA Mobile Browser (`/order/delivery?branchId=...`)."
+        },
+        {
+          "line": 388,
+          "content": "- **Business Rules:** Đơn Takeaway tạo tại quầy được gắn mã số thứ tự lấy đồ (Pickup Ticket Number: #01, #02...)."
+        },
+        {
+          "line": 395,
+          "content": "- **System Flow:** API `/api/v1/crm/lookup?phone=...` truy vấn bảng `Customers` và `LoyaltyCards`. Trả về số ly đã tích lũy hiện tại."
+        }
+      ]
+    },
+    "check3_staff_app": [
+      {
+        "line": 69,
+        "content": "1. **Loại bỏ hoàn toàn Staff Mobile App (100% Web Responsive):** Không duy trì bất kỳ ứng dụng di động native/hybrid nào cho nhân viên phục vụ. Toàn bộ thao tác nghiệp vụ của nhân viên (xem KDS, tạo đơn Takeaway, kiểm tra sơ đồ bàn, nhận chuông gọi phục vụ, xác nhận thanh toán) được vận hành mượt mà trên nền tảng Web Responsive (`(kds)`, `(staff)`)."
+      },
+      {
+        "line": 333,
+        "content": "Toàn bộ nghiệp vụ của nhân viên được thực thi trên giao diện **Web Responsive** tối ưu cho màn hình cảm ứng POS Quầy Thu Ngân và Smart TV / Tablet Bếp KDS (Routes: `(kds)`, `(staff)`). **Loại bỏ hoàn toàn Staff Mobile App**."
+      },
+      {
+        "line": 838,
+        "content": "3. **Loại bỏ Staff Mobile App:** 100% nghiệp vụ nhân viên được mô tả vận hành trên Web Responsive (`(kds)`, `(staff)`)."
+      }
+    ],
+    "check4_dinein_payment": {
+      "tien_mat": [
+        {
+          "line": 41,
+          "content": "|                       | (Route: (customer))              | trước VietQR / trả tiền mặt, chat AI. │"
+        },
+        {
+          "line": 73,
+          "content": "- *Nhánh B (Tiền mặt trả sau):* Khách chọn Tiền mặt ➔ Đơn vào bếp ngay với trạng thái `Confirmed` ➔ Barista pha chế ➔ Nhân viên bưng món ra bàn kèm Hóa đơn có in sẵn mã VietQR ➔ Khách trả tiền mặt HOẶC quét VietQR trên hóa đơn ➔ Nhân viên bấm xác nhận thanh toán trên Web Staff."
+        },
+        {
+          "line": 146,
+          "content": "- **Business Rules:** Đơn Delivery bắt buộc 100% thanh toán trước qua VietQR; không hỗ trợ thanh toán tiền mặt khi nhận hàng."
+        },
+        {
+          "line": 203,
+          "content": "#### C-09: Đặt món & Thanh toán Tiền mặt trả sau tại bàn (Cash Post-payment Path)"
+        },
+        {
+          "line": 204,
+          "content": "- **Mô Tả Nghiệp Vụ:** Áp dụng RIÊNG BIỆT cho đơn Dine-in (Nhánh B). Khách chọn phương thức \"Tiền mặt tại bàn\" và bấm Xác nhận đặt món. Hệ thống lập tức tạo đơn với trạng thái `Confirmed` và bắn ngay vào Bếp KDS qua SignalR để Barista pha chế không cần chờ thanh toán. Nhân viên phục vụ bưng đồ uống ra bàn kèm theo Phiếu tạm tính/Hóa đơn có in sẵn mã VietQR của đơn hàng. Khách có thể trả tiền mặt trực tiếp cho nhân viên HOẶC quét mã VietQR in trên hóa đơn để chuyển khoản. Nhân viên nhận tiền và bấm \"Xác nhận đã thanh toán\" trên Web Staff để kết thúc đơn."
+        },
+        {
+          "line": 209,
+          "content": "- **Business Rules:** Đơn tiền mặt Dine-in được làm món ngay lập tức. Bàn chỉ được giải phóng (`Available`) sau khi nhân viên bấm xác nhận thu tiền hoàn tất."
+        },
+        {
+          "line": 359,
+          "content": "- **System Flow:** KDS kết nối tới SignalR `KitchenHub` phòng `branch_{branchId}_kitchen`. Khi có đơn `Paid` (VietQR) hoặc `Confirmed` (Tiền mặt Dine-in hoặc POS Takeaway), thẻ đơn tự động xuất hiện kèm âm thanh thông báo \"Ting Ting\"."
+        },
+        {
+          "line": 361,
+          "content": "- **Business Rules:** Đơn thanh toán VietQR chỉ hiển thị lên KDS khi đã hoàn tất thanh toán. Đơn tiền mặt Dine-in và Takeaway hiển thị ngay khi tạo."
+        },
+        {
+          "line": 401,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng mua Takeaway thanh toán sau khi đồ uống được pha chế xong hoặc thanh toán ngay tại quầy. Thu ngân chọn hình thức thanh toán: Tiền mặt (nhập tiền khách đưa ➔ hệ thống tự tính tiền thừa trả lại) HOẶC Chuyển khoản VietQR (màn hình hiển thị mã QR PayOS cho khách quét trực tiếp)."
+        },
+        {
+          "line": 403,
+          "content": "- **Input Contract:** `orderId` (Guid), `paymentMethod` (Cash / VietQR), `cashGiven` (Decimal, nếu tiền mặt)."
+        },
+        {
+          "line": 404,
+          "content": "- **System Flow:** Nếu tiền mặt: Cập nhật `Status = \"Paid\"`, ghi nhận doanh thu vào ca thu ngân hiện tại. Nếu VietQR: Hiển thị mã QR PayOS, chờ webhook xác nhận `Paid`."
+        },
+        {
+          "line": 406,
+          "content": "- **Business Rules:** Doanh thu tiền mặt được cộng dồn trực tiếp vào số dư két tiền ca làm việc của thu ngân (`Shift Cash Float`)."
+        },
+        {
+          "line": 409,
+          "content": "#### S-09: Xác nhận thanh toán Tiền mặt & Quét mã VietQR trên hóa đơn Dine-in (Dine-in Cash Payment Confirmation)"
+        },
+        {
+          "line": 410,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khi khách dùng bữa tại bàn yêu cầu thanh toán bằng tiền mặt, nhân viên phục vụ mang Hóa đơn thanh toán ra bàn (trên hóa đơn có in sẵn mã VietQR của đơn hàng). Khách có thể đưa tiền mặt HOẶC quét mã VietQR trên hóa đơn. Sau khi nhận đủ tiền từ khách, nhân viên mở Web Staff trên thiết bị quầy/tablet, chọn Bàn tương ứng và bấm nút \"Xác nhận đã thu tiền\". Đơn hàng chuyển sang trạng thái `Completed`, bàn được giải phóng về trạng thái `Available`."
+        },
+        {
+          "line": 415,
+          "content": "- **Business Rules:** Nhân viên chịu trách nhiệm nộp đủ số tiền mặt đã xác nhận vào két tiền thu ngân của ca làm việc."
+        },
+        {
+          "line": 446,
+          "content": "- **Mô Tả Nghiệp Vụ:** Cuối ca làm việc, nhân viên thu ngân xem bảng tổng kết nhanh số liệu trong ca của mình: Tổng số đơn đã tạo, Tổng số ly đã pha chế, Doanh thu phân theo phương thức (Tiền mặt, VietQR), Số voucher đã áp dụng và Số ly khuyến mãi 10 tặng 1 đã đổi."
+        },
+        {
+          "line": 451,
+          "content": "- **Business Rules:** Nhân viên in phiếu tổng kết ca để kẹp vào phong bì tiền mặt bàn giao cho Quản lý chi nhánh đối soát Z-Report."
+        },
+        {
+          "line": 452,
+          "content": "- **Edge Cases:** Số liệu tiền mặt không khớp với tiền đếm thực tế ➔ ghi nhận phần chênh lệch vào mục giải trình bàn giao ca."
+        },
+        {
+          "line": 462,
+          "content": "#### M-01: Mở ca két tiền & Ghi nhận số dư tiền mặt đầu ngày (Opening Shift Cash Float Declaration)"
+        },
+        {
+          "line": 463,
+          "content": "- **Mô Tả Nghiệp Vụ:** Đầu mỗi ca làm việc hoặc đầu ngày kinh doanh, Quản lý chi nhánh mở ca két tiền trên hệ thống, kiểm đếm số tiền mặt thực tế có trong ngăn kéo thu ngân (Tiền lẻ thối ban đầu) và khai báo số dư đầu ca (`Initial Float Amount`)."
+        },
+        {
+          "line": 472,
+          "content": "- **Mô Tả Nghiệp Vụ:** Kết thúc ca làm việc, Quản lý cùng Thu ngân kiểm đếm toàn bộ tiền mặt thực tế trong két. Hệ thống tự động tính toán Doanh thu lý thuyết = Số dư đầu ca + Tổng tiền mặt thu trong ca - Tiền chi tạm ứng. Quản lý nhập số tiền thực đếm, hệ thống sinh Biên bản đối soát Z-Report và tính toán số tiền Thừa/Thiếu (`Cash Variance`)."
+        },
+        {
+          "line": 478,
+          "content": "- **Edge Cases:** Chênh lệch tiền mặt vượt quá 100.000 VNĐ ➔ hệ thống gắn cờ cảnh báo đỏ và bắt buộc Quản lý cùng Thu ngân ký xác nhận giải trình."
+        },
+        {
+          "line": 840,
+          "content": "5. **Dine-in 2 nhánh & Takeaway 10 ly:** Đặc tả chính xác 2 luồng thanh toán Dine-in (VietQR trả trước vs Tiền mặt trả sau) và quy tắc tích lũy 10 ly tặng 1 ly duy nhất cho đơn Takeaway tại quầy."
+        }
+      ],
+      "vietqr": [
+        {
+          "line": 41,
+          "content": "|                       | (Route: (customer))              | trước VietQR / trả tiền mặt, chat AI. │"
+        },
+        {
+          "line": 72,
+          "content": "- *Nhánh A (VietQR trả trước):* Khách chọn VietQR ➔ Quét mã chuyển khoản ➔ PayOS Webhook xác nhận `Paid` ➔ Bếp KDS mới nhận đơn."
+        },
+        {
+          "line": 73,
+          "content": "- *Nhánh B (Tiền mặt trả sau):* Khách chọn Tiền mặt ➔ Đơn vào bếp ngay với trạng thái `Confirmed` ➔ Barista pha chế ➔ Nhân viên bưng món ra bàn kèm Hóa đơn có in sẵn mã VietQR ➔ Khách trả tiền mặt HOẶC quét VietQR trên hóa đơn ➔ Nhân viên bấm xác nhận thanh toán trên Web Staff."
+        },
+        {
+          "line": 88,
+          "content": "C_Cart -->|Nhanh 1: VietQR| C_Pay1[Thanh toan VietQR Tra Truoc]"
+        },
+        {
+          "line": 98,
+          "content": "S_POS -->|Thu tien sau| S_Cashier[Tien mat / VietQR Quay]"
+        },
+        {
+          "line": 146,
+          "content": "- **Business Rules:** Đơn Delivery bắt buộc 100% thanh toán trước qua VietQR; không hỗ trợ thanh toán tiền mặt khi nhận hàng."
+        },
+        {
+          "line": 194,
+          "content": "#### C-08: Đặt món & Thanh toán chuyển khoản tự động VietQR (VietQR Pre-payment Path)"
+        },
+        {
+          "line": 195,
+          "content": "- **Mô Tả Nghiệp Vụ:** Áp dụng cho cả đơn Dine-in (Nhánh A) và 100% đơn Delivery. Sau khi xác nhận giỏ hàng, hệ thống sinh mã VietQR động chuẩn NAPAS 247 qua PayOS (bao gồm Số tài khoản, Ngân hàng, Số tiền chính xác và Nội dung chuyển khoản mã hóa `FB{OrderId}`). Khách quét mã chuyển tiền qua App Ngân hàng bất kỳ. Khi PayOS bắn Webhook xác nhận thanh toán thành công (`Paid`), đơn hàng mới chính thức chuyển trạng thái `Paid` và tự động bắn vào màn hình KDS Bếp qua SignalR."
+        },
+        {
+          "line": 196,
+          "content": "- **Giao Diện & Kênh:** PWA Payment Screen (`/checkout/vietqr/[orderId]`)."
+        },
+        {
+          "line": 197,
+          "content": "- **Input Contract:** `orderId` (Guid), `amount` (Decimal), `paymentMethod = \"VietQR\"`."
+        },
+        {
+          "line": 200,
+          "content": "- **Business Rules:** Đơn thanh toán VietQR CHỈ được gửi vào Bếp KDS khi trạng thái chuyển sang `Paid`. Sau 10 phút không nhận được tiền, đơn tự động hủy (`Cancelled`) và giải phóng bàn/giỏ hàng."
+        },
+        {
+          "line": 204,
+          "content": "- **Mô Tả Nghiệp Vụ:** Áp dụng RIÊNG BIỆT cho đơn Dine-in (Nhánh B). Khách chọn phương thức \"Tiền mặt tại bàn\" và bấm Xác nhận đặt món. Hệ thống lập tức tạo đơn với trạng thái `Confirmed` và bắn ngay vào Bếp KDS qua SignalR để Barista pha chế không cần chờ thanh toán. Nhân viên phục vụ bưng đồ uống ra bàn kèm theo Phiếu tạm tính/Hóa đơn có in sẵn mã VietQR của đơn hàng. Khách có thể trả tiền mặt trực tiếp cho nhân viên HOẶC quét mã VietQR in trên hóa đơn để chuyển khoản. Nhân viên nhận tiền và bấm \"Xác nhận đã thanh toán\" trên Web Staff để kết thúc đơn."
+        },
+        {
+          "line": 210,
+          "content": "- **Edge Cases:** Khách đổi ý muốn chuyển sang quét VietQR khi nhân viên đem hóa đơn ra bàn ➔ khách dùng app ngân hàng quét mã QR in trên hóa đơn, hệ thống xử lý Webhook và tự động đổi trạng thái đơn thành `Paid`."
+        },
+        {
+          "line": 213,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng đặt đơn Delivery bắt buộc nhập đầy đủ: Số điện thoại người nhận, Tên người nhận, Địa chỉ giao hàng chi tiết và Ghi chú giao hàng. Hệ thống tự động cộng Phí vận chuyển 20.000 VNĐ cố định vào tổng tiền đơn hàng và chuyển sang cổng thanh toán VietQR trả trước bắt buộc."
+        },
+        {
+          "line": 217,
+          "content": "- **Output Contract:** `orderId` (Guid), `totalAmount` (Subtotal + 20000), `vietQrData` (Object)."
+        },
+        {
+          "line": 244,
+          "content": "- **Output Contract:** `precheckBill` (Danh sách món, Thuế VAT, Giảm giá, Tổng tiền, Mã VietQR tạm tính)."
+        },
+        {
+          "line": 276,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng đã đăng nhập có thể xem toàn bộ lịch sử các đơn hàng đã đặt (Dine-in, Delivery) theo thời gian. Bấm vào từng đơn để xem chi tiết hóa đơn điện tử, trạng thái thanh toán, mã giao dịch VietQR và danh sách món ăn đã dùng."
+        },
+        {
+          "line": 359,
+          "content": "- **System Flow:** KDS kết nối tới SignalR `KitchenHub` phòng `branch_{branchId}_kitchen`. Khi có đơn `Paid` (VietQR) hoặc `Confirmed` (Tiền mặt Dine-in hoặc POS Takeaway), thẻ đơn tự động xuất hiện kèm âm thanh thông báo \"Ting Ting\"."
+        },
+        {
+          "line": 361,
+          "content": "- **Business Rules:** Đơn thanh toán VietQR chỉ hiển thị lên KDS khi đã hoàn tất thanh toán. Đơn tiền mặt Dine-in và Takeaway hiển thị ngay khi tạo."
+        },
+        {
+          "line": 400,
+          "content": "#### S-08: Thu tiền & Thanh toán đơn Takeaway tại quầy (Takeaway Post-payment Cash/VietQR POS)"
+        },
+        {
+          "line": 401,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng mua Takeaway thanh toán sau khi đồ uống được pha chế xong hoặc thanh toán ngay tại quầy. Thu ngân chọn hình thức thanh toán: Tiền mặt (nhập tiền khách đưa ➔ hệ thống tự tính tiền thừa trả lại) HOẶC Chuyển khoản VietQR (màn hình hiển thị mã QR PayOS cho khách quét trực tiếp)."
+        },
+        {
+          "line": 403,
+          "content": "- **Input Contract:** `orderId` (Guid), `paymentMethod` (Cash / VietQR), `cashGiven` (Decimal, nếu tiền mặt)."
+        },
+        {
+          "line": 404,
+          "content": "- **System Flow:** Nếu tiền mặt: Cập nhật `Status = \"Paid\"`, ghi nhận doanh thu vào ca thu ngân hiện tại. Nếu VietQR: Hiển thị mã QR PayOS, chờ webhook xác nhận `Paid`."
+        },
+        {
+          "line": 407,
+          "content": "- **Edge Cases:** Khách đưa tiền rách/tiền giả ➔ Thu ngân từ chối và yêu cầu đổi tờ tiền khác hoặc chuyển sang quét mã VietQR."
+        },
+        {
+          "line": 409,
+          "content": "#### S-09: Xác nhận thanh toán Tiền mặt & Quét mã VietQR trên hóa đơn Dine-in (Dine-in Cash Payment Confirmation)"
+        },
+        {
+          "line": 410,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khi khách dùng bữa tại bàn yêu cầu thanh toán bằng tiền mặt, nhân viên phục vụ mang Hóa đơn thanh toán ra bàn (trên hóa đơn có in sẵn mã VietQR của đơn hàng). Khách có thể đưa tiền mặt HOẶC quét mã VietQR trên hóa đơn. Sau khi nhận đủ tiền từ khách, nhân viên mở Web Staff trên thiết bị quầy/tablet, chọn Bàn tương ứng và bấm nút \"Xác nhận đã thu tiền\". Đơn hàng chuyển sang trạng thái `Completed`, bàn được giải phóng về trạng thái `Available`."
+        },
+        {
+          "line": 437,
+          "content": "- **Mô Tả Nghiệp Vụ:** Hệ thống hỗ trợ in tự động hoặc in thủ công qua máy in nhiệt POS 80mm: (1) Phiếu chế biến Bếp/Bar (Kitchen Slip) in ngay khi có đơn mới; (2) Hóa đơn thanh toán / Phiếu tạm tính in kèm mã VietQR chuẩn cho khách thanh toán."
+        },
+        {
+          "line": 442,
+          "content": "- **Business Rules:** Hóa đơn thanh toán phải in đầy đủ: Tên chi nhánh, Địa chỉ, Mã đơn, Tên nhân viên thu ngân, Danh sách món + Topping, Tổng tiền, Chiết khấu, Thuế VAT và Mã VietQR động."
+        },
+        {
+          "line": 446,
+          "content": "- **Mô Tả Nghiệp Vụ:** Cuối ca làm việc, nhân viên thu ngân xem bảng tổng kết nhanh số liệu trong ca của mình: Tổng số đơn đã tạo, Tổng số ly đã pha chế, Doanh thu phân theo phương thức (Tiền mặt, VietQR), Số voucher đã áp dụng và Số ly khuyến mãi 10 tặng 1 đã đổi."
+        },
+        {
+          "line": 450,
+          "content": "- **Output Contract:** `totalOrders` (Int), `totalCups` (Int), `cashRevenue` (Decimal), `vietQrRevenue` (Decimal), `loyaltyFreeCupsRedeemed` (Int)."
+        },
+        {
+          "line": 476,
+          "content": "- **Output Contract:** `zReportId` (Guid), `expectedCash` (Decimal), `actualCash` (Decimal), `variance` (Decimal), `totalVietQrSales` (Decimal), `zReportPdfUrl` (String)."
+        },
+        {
+          "line": 579,
+          "content": "- **Mô Tả Nghiệp Vụ:** Chủ chuỗi thực hiện thêm mới chi nhánh, cấu hình thông tin chi nhánh (Tên, Địa chỉ, Số điện thoại, Tọa độ GPS, Giờ mở/đóng cửa), kích hoạt hoặc tạm dừng hoạt động chi nhánh, cấu hình tài khoản ngân hàng thụ hưởng VietQR PayOS riêng cho từng chi nhánh."
+        },
+        {
+          "line": 759,
+          "content": "| **3. Payment & PayOS Webhook API**<br>`/api/v1/payments/vietqr`<br>`/api/v1/payments/cash-confirm`<br>`/api/v1/payments/payos-webhook` | Create, Read<br>(VietQR QR) | Create, Read<br>(VietQR QR) | Read, Update, X<br>(Cash/VietQR POS) | Read, Update, X<br>(Shift Balance) | **Full CRUD**<br>(All Payments) | **Execute**<br>(PayOS Webhook) |"
+        },
+        {
+          "line": 840,
+          "content": "5. **Dine-in 2 nhánh & Takeaway 10 ly:** Đặc tả chính xác 2 luồng thanh toán Dine-in (VietQR trả trước vs Tiền mặt trả sau) và quy tắc tích lũy 10 ly tặng 1 ly duy nhất cho đơn Takeaway tại quầy."
+        }
+      ],
+      "tra_truoc": [
+        {
+          "line": 72,
+          "content": "- *Nhánh A (VietQR trả trước):* Khách chọn VietQR ➔ Quét mã chuyển khoản ➔ PayOS Webhook xác nhận `Paid` ➔ Bếp KDS mới nhận đơn."
+        },
+        {
+          "line": 213,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng đặt đơn Delivery bắt buộc nhập đầy đủ: Số điện thoại người nhận, Tên người nhận, Địa chỉ giao hàng chi tiết và Ghi chú giao hàng. Hệ thống tự động cộng Phí vận chuyển 20.000 VNĐ cố định vào tổng tiền đơn hàng và chuyển sang cổng thanh toán VietQR trả trước bắt buộc."
+        },
+        {
+          "line": 840,
+          "content": "5. **Dine-in 2 nhánh & Takeaway 10 ly:** Đặc tả chính xác 2 luồng thanh toán Dine-in (VietQR trả trước vs Tiền mặt trả sau) và quy tắc tích lũy 10 ly tặng 1 ly duy nhất cho đơn Takeaway tại quầy."
+        }
+      ],
+      "tra_sau": [
+        {
+          "line": 73,
+          "content": "- *Nhánh B (Tiền mặt trả sau):* Khách chọn Tiền mặt ➔ Đơn vào bếp ngay với trạng thái `Confirmed` ➔ Barista pha chế ➔ Nhân viên bưng món ra bàn kèm Hóa đơn có in sẵn mã VietQR ➔ Khách trả tiền mặt HOẶC quét VietQR trên hóa đơn ➔ Nhân viên bấm xác nhận thanh toán trên Web Staff."
+        },
+        {
+          "line": 203,
+          "content": "#### C-09: Đặt món & Thanh toán Tiền mặt trả sau tại bàn (Cash Post-payment Path)"
+        },
+        {
+          "line": 840,
+          "content": "5. **Dine-in 2 nhánh & Takeaway 10 ly:** Đặc tả chính xác 2 luồng thanh toán Dine-in (VietQR trả trước vs Tiền mặt trả sau) và quy tắc tích lũy 10 ly tặng 1 ly duy nhất cho đơn Takeaway tại quầy."
+        }
+      ],
+      "kem_hoa_don": [
+        {
+          "line": 73,
+          "content": "- *Nhánh B (Tiền mặt trả sau):* Khách chọn Tiền mặt ➔ Đơn vào bếp ngay với trạng thái `Confirmed` ➔ Barista pha chế ➔ Nhân viên bưng món ra bàn kèm Hóa đơn có in sẵn mã VietQR ➔ Khách trả tiền mặt HOẶC quét VietQR trên hóa đơn ➔ Nhân viên bấm xác nhận thanh toán trên Web Staff."
+        },
+        {
+          "line": 204,
+          "content": "- **Mô Tả Nghiệp Vụ:** Áp dụng RIÊNG BIỆT cho đơn Dine-in (Nhánh B). Khách chọn phương thức \"Tiền mặt tại bàn\" và bấm Xác nhận đặt món. Hệ thống lập tức tạo đơn với trạng thái `Confirmed` và bắn ngay vào Bếp KDS qua SignalR để Barista pha chế không cần chờ thanh toán. Nhân viên phục vụ bưng đồ uống ra bàn kèm theo Phiếu tạm tính/Hóa đơn có in sẵn mã VietQR của đơn hàng. Khách có thể trả tiền mặt trực tiếp cho nhân viên HOẶC quét mã VietQR in trên hóa đơn để chuyển khoản. Nhân viên nhận tiền và bấm \"Xác nhận đã thanh toán\" trên Web Staff để kết thúc đơn."
+        },
+        {
+          "line": 398,
+          "content": "- **Edge Cases:** Khách đọc sai SĐT ➔ Thu ngân có thể sửa nhanh số điện thoại trước khi bấm in hóa đơn."
+        },
+        {
+          "line": 405,
+          "content": "- **Output Contract:** `changeAmount` (Tiền thừa trả khách), `paymentStatus = \"Paid\"`, lệnh in hóa đơn POS."
+        },
+        {
+          "line": 436,
+          "content": "#### S-12: In phiếu chế biến bếp & In hóa đơn thanh toán (Kitchen Slip & Receipt Printing)"
+        },
+        {
+          "line": 437,
+          "content": "- **Mô Tả Nghiệp Vụ:** Hệ thống hỗ trợ in tự động hoặc in thủ công qua máy in nhiệt POS 80mm: (1) Phiếu chế biến Bếp/Bar (Kitchen Slip) in ngay khi có đơn mới; (2) Hóa đơn thanh toán / Phiếu tạm tính in kèm mã VietQR chuẩn cho khách thanh toán."
+        }
+      ],
+      "in_ma_qr": [
+        {
+          "line": 70,
+          "content": "2. **Chấm công Khóa Mạng WiFi (WiFi-Locked Attendance):** Xóa bỏ hoàn toàn định vị vệ tinh GPS 50m và mã QR động 30 giây. Nhân viên chỉ có thể chấm công vào ca/ra ca thành công khi: (a) Đang kết nối trực tiếp vào mạng WiFi chi nhánh (kiểm tra BSSID Access Point / IP Gateway Subnet), và (b) Nhập đúng Mã số nhân viên hợp lệ."
+        },
+        {
+          "line": 195,
+          "content": "- **Mô Tả Nghiệp Vụ:** Áp dụng cho cả đơn Dine-in (Nhánh A) và 100% đơn Delivery. Sau khi xác nhận giỏ hàng, hệ thống sinh mã VietQR động chuẩn NAPAS 247 qua PayOS (bao gồm Số tài khoản, Ngân hàng, Số tiền chính xác và Nội dung chuyển khoản mã hóa `FB{OrderId}`). Khách quét mã chuyển tiền qua App Ngân hàng bất kỳ. Khi PayOS bắn Webhook xác nhận thanh toán thành công (`Paid`), đơn hàng mới chính thức chuyển trạng thái `Paid` và tự động bắn vào màn hình KDS Bếp qua SignalR."
+        },
+        {
+          "line": 240,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng dùng bữa xong bấm nút \"Yêu cầu thanh toán\" trên PWA. Màn hình hiển thị chi tiết bảng kê tạm tính gồm các món đã dùng, số lượng, giá tiền, chiết khấu và tổng thanh toán. Hệ thống gửi thông báo tới màn hình Web Staff để nhân viên mang hóa đơn kèm mã QR thanh toán ra bàn."
+        },
+        {
+          "line": 347,
+          "content": "- **Mô Tả Nghiệp Vụ:** Nhân viên thực hiện Check-in đầu ca và Check-out cuối ca trên giao diện Web Staff. Hệ thống bắt buộc kiểm tra thiết bị đang kết nối đúng mạng WiFi nội bộ của chi nhánh (xác thực địa chỉ MAC/BSSID của Access Point hoặc dải IP Gateway Subnet nội bộ đã cấu hình). Không sử dụng GPS 50m hay QR động 30s."
+        },
+        {
+          "line": 442,
+          "content": "- **Business Rules:** Hóa đơn thanh toán phải in đầy đủ: Tên chi nhánh, Địa chỉ, Mã đơn, Tên nhân viên thu ngân, Danh sách món + Topping, Tổng tiền, Chiết khấu, Thuế VAT và Mã VietQR động."
+        },
+        {
+          "line": 521,
+          "content": "- **Output Contract:** Danh sách bàn cập nhật thành công kèm chức năng \"Tải trọn bộ file in mã QR Bàn (PDF)\"."
+        },
+        {
+          "line": 801,
+          "content": "│ 03 │ Satellite GPS & Dynamic QR 30s│ Định vị vệ tinh bán kính 50m kết hợp mã QR động sinh ngẫu  │"
+        }
+      ]
+    },
+    "check5_delivery": {
+      "fee_20k": [
+        {
+          "line": 141,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng quét mã QR trên tờ rơi/bao bì hoặc truy cập trực tiếp đường dẫn đặt hàng từ xa của chi nhánh gần nhất. Chế độ phục vụ tự động chuyển sang `Delivery`, yêu cầu nhập thông tin người nhận và áp dụng biểu phí giao hàng cố định 20.000 VNĐ."
+        },
+        {
+          "line": 145,
+          "content": "- **Output Contract:** `branchInfo` (Object), `deliveryFee` (20000 VNĐ cố định), `menu` (Array)."
+        },
+        {
+          "line": 213,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng đặt đơn Delivery bắt buộc nhập đầy đủ: Số điện thoại người nhận, Tên người nhận, Địa chỉ giao hàng chi tiết và Ghi chú giao hàng. Hệ thống tự động cộng Phí vận chuyển 20.000 VNĐ cố định vào tổng tiền đơn hàng và chuyển sang cổng thanh toán VietQR trả trước bắt buộc."
+        },
+        {
+          "line": 215,
+          "content": "- **Input Contract:** `receiverName` (String), `receiverPhone` (String chuẩn 10 số VN), `deliveryAddress` (String), `deliveryNote` (String), `deliveryFee = 20000`."
+        },
+        {
+          "line": 216,
+          "content": "- **System Flow:** Xác thực Regex SĐT Việt Nam (`^(0[3|5|7|8|9])+([0-9]{8})$`), kiểm tra địa chỉ không rỗng. Tạo đơn `OrderType = \"Delivery\"`, `DeliveryFee = 20000`, `Status = \"PendingPayment\"`."
+        },
+        {
+          "line": 217,
+          "content": "- **Output Contract:** `orderId` (Guid), `totalAmount` (Subtotal + 20000), `vietQrData` (Object)."
+        },
+        {
+          "line": 218,
+          "content": "- **Business Rules:** Phí ship 20.000 VNĐ là cố định toàn hệ thống. Không hỗ trợ đơn giao hàng dưới 50.000 VNĐ giá trị món."
+        }
+      ],
+      "dia_chi_giao_hang": [
+        {
+          "line": 213,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng đặt đơn Delivery bắt buộc nhập đầy đủ: Số điện thoại người nhận, Tên người nhận, Địa chỉ giao hàng chi tiết và Ghi chú giao hàng. Hệ thống tự động cộng Phí vận chuyển 20.000 VNĐ cố định vào tổng tiền đơn hàng và chuyển sang cổng thanh toán VietQR trả trước bắt buộc."
+        },
+        {
+          "line": 284,
+          "content": "#### C-18: Quản lý hồ sơ cá nhân & Sổ địa chỉ giao hàng (Profile & Delivery Address Book)"
+        },
+        {
+          "line": 285,
+          "content": "- **Mô Tả Nghiệp Vụ:** Thành viên CRM có thể cập nhật Họ tên, Email, Ngày sinh (nhận ưu đãi sinh nhật) và lưu danh sách nhiều địa chỉ giao hàng (Nhà riêng, Công ty, Trường học) kèm gắn cờ địa chỉ mặc định."
+        }
+      ],
+      "delivery_fee": [
+        {
+          "line": 141,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng quét mã QR trên tờ rơi/bao bì hoặc truy cập trực tiếp đường dẫn đặt hàng từ xa của chi nhánh gần nhất. Chế độ phục vụ tự động chuyển sang `Delivery`, yêu cầu nhập thông tin người nhận và áp dụng biểu phí giao hàng cố định 20.000 VNĐ."
+        },
+        {
+          "line": 145,
+          "content": "- **Output Contract:** `branchInfo` (Object), `deliveryFee` (20000 VNĐ cố định), `menu` (Array)."
+        },
+        {
+          "line": 213,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng đặt đơn Delivery bắt buộc nhập đầy đủ: Số điện thoại người nhận, Tên người nhận, Địa chỉ giao hàng chi tiết và Ghi chú giao hàng. Hệ thống tự động cộng Phí vận chuyển 20.000 VNĐ cố định vào tổng tiền đơn hàng và chuyển sang cổng thanh toán VietQR trả trước bắt buộc."
+        },
+        {
+          "line": 215,
+          "content": "- **Input Contract:** `receiverName` (String), `receiverPhone` (String chuẩn 10 số VN), `deliveryAddress` (String), `deliveryNote` (String), `deliveryFee = 20000`."
+        },
+        {
+          "line": 216,
+          "content": "- **System Flow:** Xác thực Regex SĐT Việt Nam (`^(0[3|5|7|8|9])+([0-9]{8})$`), kiểm tra địa chỉ không rỗng. Tạo đơn `OrderType = \"Delivery\"`, `DeliveryFee = 20000`, `Status = \"PendingPayment\"`."
+        },
+        {
+          "line": 813,
+          "content": "│ 07 │ Multi-Carrier Auto-Dispatch   │ Tự động đẩy đơn và so sánh cước phí giao hàng theo thời    │"
+        }
+      ],
+      "order_type_delivery": [
+        {
+          "line": 19,
+          "content": "| **PHẦN 3** | [Đặc Tả Chi Tiết Actor 1: Khách Hàng (Customer — 22 Features)](#-phần-3-đặc-tả-chi-tiết-actor-1-khách-hàng-customer--22-features) | Danh mục `C-01` đến `C-22`, 2 nhánh Dine-in, Delivery 20k, AI-1, Review. |"
+        },
+        {
+          "line": 40,
+          "content": "|    (Customer)         | Safari, Chrome trên iOS/Android  | quét QR Delivery đặt tận nhà, trả     |"
+        },
+        {
+          "line": 74,
+          "content": "4. **Takeaway POS qua Nhân viên & Tích 10 Ly chỉ áp dụng Mang Về:** Khách mua mang đi không quét QR. Nhân viên thu ngân thao tác trên Web POS Quầy, tra cứu SĐT CRM. Chương trình ưu đãi **\"Tích lũy 10 ly = Tặng 1 ly miễn phí\" CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY** (Không áp dụng cho Dine-in, không áp dụng cho Delivery). Khách thanh toán sau khi nhận đồ uống."
+        },
+        {
+          "line": 87,
+          "content": "C2[Quet QR Delivery] -->|SDT + Dia chi + Phi 20k| C_Cart"
+        },
+        {
+          "line": 140,
+          "content": "#### C-02: Quét mã QR đặt hàng tận nơi (Delivery QR Scan)"
+        },
+        {
+          "line": 141,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng quét mã QR trên tờ rơi/bao bì hoặc truy cập trực tiếp đường dẫn đặt hàng từ xa của chi nhánh gần nhất. Chế độ phục vụ tự động chuyển sang `Delivery`, yêu cầu nhập thông tin người nhận và áp dụng biểu phí giao hàng cố định 20.000 VNĐ."
+        },
+        {
+          "line": 142,
+          "content": "- **Giao Diện & Kênh:** Next.js PWA Mobile Browser (`/order/delivery?branchId=...`)."
+        },
+        {
+          "line": 144,
+          "content": "- **System Flow:** Kiểm tra chi nhánh có đang mở bán dịch vụ Delivery không (`isDeliveryEnabled == true`). Khởi tạo giỏ hàng Delivery, tải danh mục món hỗ trợ vận chuyển đường dài."
+        },
+        {
+          "line": 145,
+          "content": "- **Output Contract:** `branchInfo` (Object), `deliveryFee` (20000 VNĐ cố định), `menu` (Array)."
+        },
+        {
+          "line": 146,
+          "content": "- **Business Rules:** Đơn Delivery bắt buộc 100% thanh toán trước qua VietQR; không hỗ trợ thanh toán tiền mặt khi nhận hàng."
+        },
+        {
+          "line": 147,
+          "content": "- **Edge Cases:** Chi nhánh tạm ngưng nhận đơn Delivery do quá tải ➔ thông báo khung giờ nhận đơn tiếp theo và gợi ý chuyển sang chi nhánh lân cận."
+        },
+        {
+          "line": 195,
+          "content": "- **Mô Tả Nghiệp Vụ:** Áp dụng cho cả đơn Dine-in (Nhánh A) và 100% đơn Delivery. Sau khi xác nhận giỏ hàng, hệ thống sinh mã VietQR động chuẩn NAPAS 247 qua PayOS (bao gồm Số tài khoản, Ngân hàng, Số tiền chính xác và Nội dung chuyển khoản mã hóa `FB{OrderId}`). Khách quét mã chuyển tiền qua App Ngân hàng bất kỳ. Khi PayOS bắn Webhook xác nhận thanh toán thành công (`Paid`), đơn hàng mới chính thức chuyển trạng thái `Paid` và tự động bắn vào màn hình KDS Bếp qua SignalR."
+        },
+        {
+          "line": 212,
+          "content": "#### C-10: Đặt đơn giao hàng tận nơi với phí ship cố định (Delivery Order Placement)"
+        },
+        {
+          "line": 213,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng đặt đơn Delivery bắt buộc nhập đầy đủ: Số điện thoại người nhận, Tên người nhận, Địa chỉ giao hàng chi tiết và Ghi chú giao hàng. Hệ thống tự động cộng Phí vận chuyển 20.000 VNĐ cố định vào tổng tiền đơn hàng và chuyển sang cổng thanh toán VietQR trả trước bắt buộc."
+        },
+        {
+          "line": 214,
+          "content": "- **Giao Diện & Kênh:** PWA Delivery Checkout (`/checkout/delivery`)."
+        },
+        {
+          "line": 215,
+          "content": "- **Input Contract:** `receiverName` (String), `receiverPhone` (String chuẩn 10 số VN), `deliveryAddress` (String), `deliveryNote` (String), `deliveryFee = 20000`."
+        },
+        {
+          "line": 216,
+          "content": "- **System Flow:** Xác thực Regex SĐT Việt Nam (`^(0[3|5|7|8|9])+([0-9]{8})$`), kiểm tra địa chỉ không rỗng. Tạo đơn `OrderType = \"Delivery\"`, `DeliveryFee = 20000`, `Status = \"PendingPayment\"`."
+        },
+        {
+          "line": 218,
+          "content": "- **Business Rules:** Phí ship 20.000 VNĐ là cố định toàn hệ thống. Không hỗ trợ đơn giao hàng dưới 50.000 VNĐ giá trị món."
+        },
+        {
+          "line": 276,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng đã đăng nhập có thể xem toàn bộ lịch sử các đơn hàng đã đặt (Dine-in, Delivery) theo thời gian. Bấm vào từng đơn để xem chi tiết hóa đơn điện tử, trạng thái thanh toán, mã giao dịch VietQR và danh sách món ăn đã dùng."
+        },
+        {
+          "line": 284,
+          "content": "#### C-18: Quản lý hồ sơ cá nhân & Sổ địa chỉ giao hàng (Profile & Delivery Address Book)"
+        },
+        {
+          "line": 360,
+          "content": "- **Output Contract:** Danh sách thẻ đơn: Mã đơn, Loại đơn (Dine-in / Takeaway / Delivery), Tên bàn, Danh sách món + Tùy biến chi tiết (Size, Đường, Đá, Topping), Đồng hồ đếm thời gian thực."
+        },
+        {
+          "line": 397,
+          "content": "- **Business Rules:** Quy tắc 10 ly đổi 1 ly CHỈ áp dụng cho món đồ uống có giá trị thấp nhất hoặc bằng giá trung bình trong đơn Takeaway. KHÔNG áp dụng cho đơn Dine-in và Delivery."
+        },
+        {
+          "line": 510,
+          "content": "- **Input Contract:** `branchId` (Guid), `requiredDeliveryDate` (Date), `requisitionItems` (Array of { rawMaterialId, requestQuantity, unit, note })."
+        },
+        {
+          "line": 562,
+          "content": "- **Mô Tả Nghiệp Vụ:** Bảng điều khiển thời gian thực hiển thị toàn diện bức tranh vận hành chi nhánh trong ngày: Doanh thu thực tế theo giờ, Số lượng đơn hàng (Dine-in, Takeaway, Delivery), Tỷ lệ hoàn thành đơn đúng hạn, Thời gian pha chế trung bình mỗi món, Top 5 món bán chạy nhất chi nhánh và Tỷ lệ đánh giá hài lòng của khách."
+        },
+        {
+          "line": 775,
+          "content": "1. **Third-Party Delivery Driver / Shipper Platform (Tài Xế Giao Hàng & Nền Tảng Đối Tác):**"
+        },
+        {
+          "line": 777,
+          "content": "- *Giao diện tương lai:* Mobile App Shipper hoặc Web Driver Portal cho phép nhận đơn, cập nhật trạng thái di chuyển thời gian thực và ký nhận điện tử (e-Proof of Delivery)."
+        }
+      ]
+    },
+    "check6_takeaway_loyalty": {
+      "10_ly": [
+        {
+          "line": 20,
+          "content": "| **PHẦN 4** | [Đặc Tả Chi Tiết Actor 2: Nhân Viên Vận Hành Quầy (Staff / Barista — 13 Features)](#-phần-4-đặc-tả-chi-tiết-actor-2-nhân-viên-vận-hành-quầy-staff--barista--13-features) | Danh mục `S-01` đến `S-13`, KDS SignalR, Web POS Takeaway, CRM 10 ly, WiFi. |"
+        },
+        {
+          "line": 45,
+          "content": "|                       | (Routes: (kds), (staff))         | CRM 10 ly tặng 1, thu tiền, chấm công.|"
+        },
+        {
+          "line": 74,
+          "content": "4. **Takeaway POS qua Nhân viên & Tích 10 Ly chỉ áp dụng Mang Về:** Khách mua mang đi không quét QR. Nhân viên thu ngân thao tác trên Web POS Quầy, tra cứu SĐT CRM. Chương trình ưu đãi **\"Tích lũy 10 ly = Tặng 1 ly miễn phí\" CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY** (Không áp dụng cho Dine-in, không áp dụng cho Delivery). Khách thanh toán sau khi nhận đồ uống."
+        },
+        {
+          "line": 97,
+          "content": "S_POS[Web POS Quay Takeaway] -->|Tra cuu SDT CRM| S_Loyalty[Tich 10 Ly Tang 1 Mang Ve]"
+        },
+        {
+          "line": 391,
+          "content": "#### S-07: Tra cứu khách hàng CRM qua SĐT & Tích lũy 10 ly tặng 1 (CRM Phone Lookup & 10-Cup Loyalty)"
+        },
+        {
+          "line": 392,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khi tạo đơn Takeaway tại quầy, thu ngân hỏi SĐT của khách và nhập vào ô tra cứu CRM. Hệ thống kiểm tra số ly tích lũy hiện có của khách. Chương trình **\"Tích lũy 10 ly = Tặng 1 ly miễn phí\" CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY TẠI QUẦY**. Nếu khách đã tích đủ 10 ly, Web POS hiển thị nút \"Đổi 01 Ly Miễn Phí (Trừ 10 ly tích lũy)\". Nếu khách chưa có hồ sơ CRM, thu ngân bấm \"Tạo nhanh thành viên\" chỉ với SĐT và Họ tên."
+        },
+        {
+          "line": 396,
+          "content": "- **Output Contract:** `customerName` (String), `currentCupCount` (Int: ví dụ 9/10 ly), `eligibleFreeCups` (Int), `loyaltyTier` (Silver/Gold/Diamond)."
+        },
+        {
+          "line": 397,
+          "content": "- **Business Rules:** Quy tắc 10 ly đổi 1 ly CHỈ áp dụng cho món đồ uống có giá trị thấp nhất hoặc bằng giá trung bình trong đơn Takeaway. KHÔNG áp dụng cho đơn Dine-in và Delivery."
+        },
+        {
+          "line": 705,
+          "content": "- **Mô Tả Nghiệp Vụ:** Chủ chuỗi định nghĩa quy chế thành viên CRM toàn diện: Thiết lập tỷ lệ tích điểm tiêu chuẩn, Cấu hình các hạng thành viên (Bạc, Vàng, Kim Cương), Ngưỡng chi tiêu thăng hạng, Đặc quyền của từng hạng thành viên (Chiết khấu sinh nhật, Tặng voucher định kỳ), và Duy trì quy tắc cốt lõi **\"Tích lũy 10 ly = Tặng 1 ly miễn phí cho đơn Takeaway tại quầy\"**."
+        },
+        {
+          "line": 710,
+          "content": "- **Business Rules:** Quy chế tích điểm áp dụng nhất quán toàn chuỗi; quy tắc 10 ly tặng 1 ly chỉ kích hoạt trên đơn Takeaway."
+        },
+        {
+          "line": 840,
+          "content": "5. **Dine-in 2 nhánh & Takeaway 10 ly:** Đặc tả chính xác 2 luồng thanh toán Dine-in (VietQR trả trước vs Tiền mặt trả sau) và quy tắc tích lũy 10 ly tặng 1 ly duy nhất cho đơn Takeaway tại quầy."
+        }
+      ],
+      "tang_1_ly": [
+        {
+          "line": 45,
+          "content": "|                       | (Routes: (kds), (staff))         | CRM 10 ly tặng 1, thu tiền, chấm công.|"
+        },
+        {
+          "line": 74,
+          "content": "4. **Takeaway POS qua Nhân viên & Tích 10 Ly chỉ áp dụng Mang Về:** Khách mua mang đi không quét QR. Nhân viên thu ngân thao tác trên Web POS Quầy, tra cứu SĐT CRM. Chương trình ưu đãi **\"Tích lũy 10 ly = Tặng 1 ly miễn phí\" CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY** (Không áp dụng cho Dine-in, không áp dụng cho Delivery). Khách thanh toán sau khi nhận đồ uống."
+        },
+        {
+          "line": 391,
+          "content": "#### S-07: Tra cứu khách hàng CRM qua SĐT & Tích lũy 10 ly tặng 1 (CRM Phone Lookup & 10-Cup Loyalty)"
+        },
+        {
+          "line": 392,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khi tạo đơn Takeaway tại quầy, thu ngân hỏi SĐT của khách và nhập vào ô tra cứu CRM. Hệ thống kiểm tra số ly tích lũy hiện có của khách. Chương trình **\"Tích lũy 10 ly = Tặng 1 ly miễn phí\" CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY TẠI QUẦY**. Nếu khách đã tích đủ 10 ly, Web POS hiển thị nút \"Đổi 01 Ly Miễn Phí (Trừ 10 ly tích lũy)\". Nếu khách chưa có hồ sơ CRM, thu ngân bấm \"Tạo nhanh thành viên\" chỉ với SĐT và Họ tên."
+        },
+        {
+          "line": 446,
+          "content": "- **Mô Tả Nghiệp Vụ:** Cuối ca làm việc, nhân viên thu ngân xem bảng tổng kết nhanh số liệu trong ca của mình: Tổng số đơn đã tạo, Tổng số ly đã pha chế, Doanh thu phân theo phương thức (Tiền mặt, VietQR), Số voucher đã áp dụng và Số ly khuyến mãi 10 tặng 1 đã đổi."
+        },
+        {
+          "line": 705,
+          "content": "- **Mô Tả Nghiệp Vụ:** Chủ chuỗi định nghĩa quy chế thành viên CRM toàn diện: Thiết lập tỷ lệ tích điểm tiêu chuẩn, Cấu hình các hạng thành viên (Bạc, Vàng, Kim Cương), Ngưỡng chi tiêu thăng hạng, Đặc quyền của từng hạng thành viên (Chiết khấu sinh nhật, Tặng voucher định kỳ), và Duy trì quy tắc cốt lõi **\"Tích lũy 10 ly = Tặng 1 ly miễn phí cho đơn Takeaway tại quầy\"**."
+        },
+        {
+          "line": 710,
+          "content": "- **Business Rules:** Quy chế tích điểm áp dụng nhất quán toàn chuỗi; quy tắc 10 ly tặng 1 ly chỉ kích hoạt trên đơn Takeaway."
+        },
+        {
+          "line": 840,
+          "content": "5. **Dine-in 2 nhánh & Takeaway 10 ly:** Đặc tả chính xác 2 luồng thanh toán Dine-in (VietQR trả trước vs Tiền mặt trả sau) và quy tắc tích lũy 10 ly tặng 1 ly duy nhất cho đơn Takeaway tại quầy."
+        }
+      ],
+      "takeaway_only": [
+        {
+          "line": 20,
+          "content": "| **PHẦN 4** | [Đặc Tả Chi Tiết Actor 2: Nhân Viên Vận Hành Quầy (Staff / Barista — 13 Features)](#-phần-4-đặc-tả-chi-tiết-actor-2-nhân-viên-vận-hành-quầy-staff--barista--13-features) | Danh mục `S-01` đến `S-13`, KDS SignalR, Web POS Takeaway, CRM 10 ly, WiFi. |"
+        },
+        {
+          "line": 44,
+          "content": "|    (Staff / Barista)  | PC / Tablet Cảm ứng Quầy Thu ngân| theo BOM, thao tác POS Takeaway, tra  |"
+        },
+        {
+          "line": 69,
+          "content": "1. **Loại bỏ hoàn toàn Staff Mobile App (100% Web Responsive):** Không duy trì bất kỳ ứng dụng di động native/hybrid nào cho nhân viên phục vụ. Toàn bộ thao tác nghiệp vụ của nhân viên (xem KDS, tạo đơn Takeaway, kiểm tra sơ đồ bàn, nhận chuông gọi phục vụ, xác nhận thanh toán) được vận hành mượt mà trên nền tảng Web Responsive (`(kds)`, `(staff)`)."
+        },
+        {
+          "line": 74,
+          "content": "4. **Takeaway POS qua Nhân viên & Tích 10 Ly chỉ áp dụng Mang Về:** Khách mua mang đi không quét QR. Nhân viên thu ngân thao tác trên Web POS Quầy, tra cứu SĐT CRM. Chương trình ưu đãi **\"Tích lũy 10 ly = Tặng 1 ly miễn phí\" CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY** (Không áp dụng cho Dine-in, không áp dụng cho Delivery). Khách thanh toán sau khi nhận đồ uống."
+        },
+        {
+          "line": 97,
+          "content": "S_POS[Web POS Quay Takeaway] -->|Tra cuu SDT CRM| S_Loyalty[Tich 10 Ly Tang 1 Mang Ve]"
+        },
+        {
+          "line": 359,
+          "content": "- **System Flow:** KDS kết nối tới SignalR `KitchenHub` phòng `branch_{branchId}_kitchen`. Khi có đơn `Paid` (VietQR) hoặc `Confirmed` (Tiền mặt Dine-in hoặc POS Takeaway), thẻ đơn tự động xuất hiện kèm âm thanh thông báo \"Ting Ting\"."
+        },
+        {
+          "line": 360,
+          "content": "- **Output Contract:** Danh sách thẻ đơn: Mã đơn, Loại đơn (Dine-in / Takeaway / Delivery), Tên bàn, Danh sách món + Tùy biến chi tiết (Size, Đường, Đá, Topping), Đồng hồ đếm thời gian thực."
+        },
+        {
+          "line": 361,
+          "content": "- **Business Rules:** Đơn thanh toán VietQR chỉ hiển thị lên KDS khi đã hoàn tất thanh toán. Đơn tiền mặt Dine-in và Takeaway hiển thị ngay khi tạo."
+        },
+        {
+          "line": 382,
+          "content": "#### S-06: Tạo đơn Takeaway tại quầy thu ngân Web POS (Takeaway Order Creation via Web POS)"
+        },
+        {
+          "line": 385,
+          "content": "- **Input Contract:** `branchId` (Guid), `orderItems` (Array), `orderType = \"Takeaway\"`."
+        },
+        {
+          "line": 388,
+          "content": "- **Business Rules:** Đơn Takeaway tạo tại quầy được gắn mã số thứ tự lấy đồ (Pickup Ticket Number: #01, #02...)."
+        },
+        {
+          "line": 392,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khi tạo đơn Takeaway tại quầy, thu ngân hỏi SĐT của khách và nhập vào ô tra cứu CRM. Hệ thống kiểm tra số ly tích lũy hiện có của khách. Chương trình **\"Tích lũy 10 ly = Tặng 1 ly miễn phí\" CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY TẠI QUẦY**. Nếu khách đã tích đủ 10 ly, Web POS hiển thị nút \"Đổi 01 Ly Miễn Phí (Trừ 10 ly tích lũy)\". Nếu khách chưa có hồ sơ CRM, thu ngân bấm \"Tạo nhanh thành viên\" chỉ với SĐT và Họ tên."
+        },
+        {
+          "line": 397,
+          "content": "- **Business Rules:** Quy tắc 10 ly đổi 1 ly CHỈ áp dụng cho món đồ uống có giá trị thấp nhất hoặc bằng giá trung bình trong đơn Takeaway. KHÔNG áp dụng cho đơn Dine-in và Delivery."
+        },
+        {
+          "line": 400,
+          "content": "#### S-08: Thu tiền & Thanh toán đơn Takeaway tại quầy (Takeaway Post-payment Cash/VietQR POS)"
+        },
+        {
+          "line": 401,
+          "content": "- **Mô Tả Nghiệp Vụ:** Khách hàng mua Takeaway thanh toán sau khi đồ uống được pha chế xong hoặc thanh toán ngay tại quầy. Thu ngân chọn hình thức thanh toán: Tiền mặt (nhập tiền khách đưa ➔ hệ thống tự tính tiền thừa trả lại) HOẶC Chuyển khoản VietQR (màn hình hiển thị mã QR PayOS cho khách quét trực tiếp)."
+        },
+        {
+          "line": 562,
+          "content": "- **Mô Tả Nghiệp Vụ:** Bảng điều khiển thời gian thực hiển thị toàn diện bức tranh vận hành chi nhánh trong ngày: Doanh thu thực tế theo giờ, Số lượng đơn hàng (Dine-in, Takeaway, Delivery), Tỷ lệ hoàn thành đơn đúng hạn, Thời gian pha chế trung bình mỗi món, Top 5 món bán chạy nhất chi nhánh và Tỷ lệ đánh giá hài lòng của khách."
+        },
+        {
+          "line": 705,
+          "content": "- **Mô Tả Nghiệp Vụ:** Chủ chuỗi định nghĩa quy chế thành viên CRM toàn diện: Thiết lập tỷ lệ tích điểm tiêu chuẩn, Cấu hình các hạng thành viên (Bạc, Vàng, Kim Cương), Ngưỡng chi tiêu thăng hạng, Đặc quyền của từng hạng thành viên (Chiết khấu sinh nhật, Tặng voucher định kỳ), và Duy trì quy tắc cốt lõi **\"Tích lũy 10 ly = Tặng 1 ly miễn phí cho đơn Takeaway tại quầy\"**."
+        },
+        {
+          "line": 707,
+          "content": "- **Input Contract:** `pointsConversionRate` (1000 VNĐ = 1 Điểm), `tierThresholds` (Silver: 0, Gold: 2.000.000 VNĐ, Diamond: 5.000.000 VNĐ), `takeawayLoyaltyRule` (CupsRequired: 10, RewardCupValue: \"LowestItemPrice\")."
+        },
+        {
+          "line": 710,
+          "content": "- **Business Rules:** Quy chế tích điểm áp dụng nhất quán toàn chuỗi; quy tắc 10 ly tặng 1 ly chỉ kích hoạt trên đơn Takeaway."
+        },
+        {
+          "line": 840,
+          "content": "5. **Dine-in 2 nhánh & Takeaway 10 ly:** Đặc tả chính xác 2 luồng thanh toán Dine-in (VietQR trả trước vs Tiền mặt trả sau) và quy tắc tích lũy 10 ly tặng 1 ly duy nhất cho đơn Takeaway tại quầy."
+        }
+      ]
+    },
+    "check7_wifi_attendance": {
+      "wifi_locked": [
+        {
+          "line": 70,
+          "content": "2. **Chấm công Khóa Mạng WiFi (WiFi-Locked Attendance):** Xóa bỏ hoàn toàn định vị vệ tinh GPS 50m và mã QR động 30 giây. Nhân viên chỉ có thể chấm công vào ca/ra ca thành công khi: (a) Đang kết nối trực tiếp vào mạng WiFi chi nhánh (kiểm tra BSSID Access Point / IP Gateway Subnet), và (b) Nhập đúng Mã số nhân viên hợp lệ."
+        },
+        {
+          "line": 346,
+          "content": "#### S-02: Chấm công vào/ra ca khóa mạng WiFi chi nhánh (WiFi-Locked Attendance Check-in/out)"
+        }
+      ],
+      "bssid": [
+        {
+          "line": 70,
+          "content": "2. **Chấm công Khóa Mạng WiFi (WiFi-Locked Attendance):** Xóa bỏ hoàn toàn định vị vệ tinh GPS 50m và mã QR động 30 giây. Nhân viên chỉ có thể chấm công vào ca/ra ca thành công khi: (a) Đang kết nối trực tiếp vào mạng WiFi chi nhánh (kiểm tra BSSID Access Point / IP Gateway Subnet), và (b) Nhập đúng Mã số nhân viên hợp lệ."
+        },
+        {
+          "line": 99,
+          "content": "S_Attend[Cham cong Khoa WiFi] -->|Xac thuc BSSID/IP + Ma NV| S_AttRec[Ban Ghi Cham Cong Ca]"
+        },
+        {
+          "line": 105,
+          "content": "M_WiFi[Cau Hinh BSSID/IP WiFi Cham Cong] --> S_Attend"
+        },
+        {
+          "line": 347,
+          "content": "- **Mô Tả Nghiệp Vụ:** Nhân viên thực hiện Check-in đầu ca và Check-out cuối ca trên giao diện Web Staff. Hệ thống bắt buộc kiểm tra thiết bị đang kết nối đúng mạng WiFi nội bộ của chi nhánh (xác thực địa chỉ MAC/BSSID của Access Point hoặc dải IP Gateway Subnet nội bộ đã cấu hình). Không sử dụng GPS 50m hay QR động 30s."
+        },
+        {
+          "line": 350,
+          "content": "- **System Flow:** API `/api/v1/attendance/verify-wifi` so sánh BSSID/IP gửi lên với bảng `BranchWifiConfigs` của chi nhánh. Nếu khớp, ghi nhận bản ghi chấm công vào bảng `AttendanceRecords`."
+        },
+        {
+          "line": 534,
+          "content": "#### M-09: Cấu hình thông số WiFi chấm công chi nhánh (Branch Attendance WiFi BSSID/IP Config)"
+        },
+        {
+          "line": 535,
+          "content": "- **Mô Tả Nghiệp Vụ:** Quản lý khai báo và cập nhật danh sách các Access Point WiFi hợp lệ tại chi nhánh dùng cho việc chấm công: Tên mạng SSID, Địa chỉ vật lý BSSID (MAC Address của router) và Dải địa chỉ IP Gateway nội bộ."
+        },
+        {
+          "line": 537,
+          "content": "- **Input Contract:** `branchId` (Guid), `wifiList` (Array of { ssid, bssid, ipGateway, subnetMask, locationDesc })."
+        },
+        {
+          "line": 540,
+          "content": "- **Business Rules:** Bắt buộc phải có tối thiểu 01 BSSID WiFi chính xác để nhân viên có thể thực hiện chấm công vào ca."
+        },
+        {
+          "line": 541,
+          "content": "- **Edge Cases:** Chi nhánh thay đổi nhà mạng hoặc đổi Router WiFi mới ➔ Quản lý cập nhật BSSID mới và kích hoạt áp dụng ngay lập tức."
+        },
+        {
+          "line": 839,
+          "content": "4. **Chấm công chuẩn hóa:** 100% cơ chế chấm công được chuẩn hóa bằng Khóa mạng WiFi chi nhánh (BSSID / IP Gateway)."
+        }
+      ],
+      "ip_subnet": [
+        {
+          "line": 70,
+          "content": "2. **Chấm công Khóa Mạng WiFi (WiFi-Locked Attendance):** Xóa bỏ hoàn toàn định vị vệ tinh GPS 50m và mã QR động 30 giây. Nhân viên chỉ có thể chấm công vào ca/ra ca thành công khi: (a) Đang kết nối trực tiếp vào mạng WiFi chi nhánh (kiểm tra BSSID Access Point / IP Gateway Subnet), và (b) Nhập đúng Mã số nhân viên hợp lệ."
+        },
+        {
+          "line": 347,
+          "content": "- **Mô Tả Nghiệp Vụ:** Nhân viên thực hiện Check-in đầu ca và Check-out cuối ca trên giao diện Web Staff. Hệ thống bắt buộc kiểm tra thiết bị đang kết nối đúng mạng WiFi nội bộ của chi nhánh (xác thực địa chỉ MAC/BSSID của Access Point hoặc dải IP Gateway Subnet nội bộ đã cấu hình). Không sử dụng GPS 50m hay QR động 30s."
+        },
+        {
+          "line": 537,
+          "content": "- **Input Contract:** `branchId` (Guid), `wifiList` (Array of { ssid, bssid, ipGateway, subnetMask, locationDesc })."
+        }
+      ]
+    }
+  },
+  "Workflow_Quy_Trinh_Nghiep_Vu.md": {
+    "filename": "Workflow_Quy_Trinh_Nghiep_Vu.md",
+    "line_count": 1648,
+    "check1_c23_c24": [
+      {
+        "line": 11,
+        "match": "C-23",
+        "content": "> 2. **Đã loại bỏ vĩnh viễn:** C-23 (Chia sẻ món ăn MXH) và C-24 (Push Notification khuyến mãi PWA)."
+      },
+      {
+        "line": 11,
+        "match": "C-24",
+        "content": "> 2. **Đã loại bỏ vĩnh viễn:** C-23 (Chia sẻ món ăn MXH) và C-24 (Push Notification khuyến mãi PWA)."
+      }
+    ],
+    "check2_placeholders": {
+      "TODO": [
+        {
+          "line": 15,
+          "content": "> 6. **Zero Placeholders:** 100% nội dung hoàn chỉnh, không có `TODO`, `TBD`, hay mã giả rút gọn."
+        }
+      ],
+      "TBD": [
+        {
+          "line": 15,
+          "content": "> 6. **Zero Placeholders:** 100% nội dung hoàn chỉnh, không có `TODO`, `TBD`, hay mã giả rút gọn."
+        }
+      ],
+      "rest_of_code": [],
+      "tuong_tu": [],
+      "placeholder_tag": [],
+      "ellipsis": [
+        {
+          "line": 133,
+          "content": "\"session_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\","
+        },
+        {
+          "line": 179,
+          "content": "BE->>DB: INSERT INTO Customers (PhoneNumber, FullName, CupBalance) VALUES (...)"
+        },
+        {
+          "line": 288,
+          "content": "HUB->>FE: PWA cập nhật: \"Bếp đang pha chế...\""
+        },
+        {
+          "line": 673,
+          "content": "DB-->>BE: WifiConfig { allowed_subnets: [\"192.168.1.0/24\"], allowed_bssids: [...] }"
+        },
+        {
+          "line": 684,
+          "content": "BE->>DB: INSERT INTO Attendances (EmployeeId, BranchId, CheckInTime, Method, Status) VALUES (...)"
+        },
+        {
+          "line": 773,
+          "content": "- **Ngoại lệ 1 (Mất kết nối WebSocket):** KDS Client tự động Reconnect với chiến lược lũy thừa giãn cách (Exponential Backoff: 2s, 4s, 8s...) và tự động đồng bộ lại danh sách đơn chờ."
+        },
+        {
+          "line": 848,
+          "content": "Cho phép khách hàng đang ngồi tại bàn bấm chuông phát tín hiệu hỗ trợ kèm nhu cầu cụ thể (Lấy nước lọc, Dọn bàn, Khăn giấy...). Hệ thống phát cảnh báo âm thanh và hiển thị banner nhấp nháy trên Web Staff POS và Web KDS của nhân viên cho đến khi được xử lý."
+        },
+        {
+          "line": 958,
+          "content": "PWA->>BE: POST /api/v1/feedbacks { order_id, rating: 1, comment, photos: [...], is_anonymous: true }"
+        },
+        {
+          "line": 959,
+          "content": "BE->>DB: INSERT INTO Feedbacks (Rating: 1, Comment: \"...\", IsAnonymous: TRUE, Status: 'Escalated')"
+        },
+        {
+          "line": 962,
+          "content": "BE->>HUB: Broadcast Urgent Event \"CriticalLowRatingAlert\" (branch_id, { order_id, rating: 1, table: \"Bàn 02\", comment: \"...\" })"
+        },
+        {
+          "line": 1013,
+          "content": "3. **Bước 3 — Kết Ca Cuối Ngày:** Thu ngân mở form \"Kết Ca\", kiểm đếm tiền mặt thực tế theo từng mệnh giá (500k, 200k, 100k, 50k...)."
+        },
+        {
+          "line": 1037,
+          "content": "CS->>FE: Mở form Kết Ca & Nhập bảng đếm tiền thực tế (10 tờ 500k, 20 tờ 200k...)"
+        },
+        {
+          "line": 1038,
+          "content": "FE->>BE: POST /api/v1/shifts/{id}/close { cash_denominations: [...], actual_cash: 10500000 }"
+        },
+        {
+          "line": 1186,
+          "content": "BE->>DB: INSERT INTO Products (...) RETURNING id"
+        },
+        {
+          "line": 1187,
+          "content": "BE->>DB: INSERT INTO ProductSizes (...)"
+        },
+        {
+          "line": 1188,
+          "content": "BE->>DB: INSERT INTO ProductBoms (...)"
+        },
+        {
+          "line": 1260,
+          "content": "BE->>DB: INSERT INTO Products (IsCombo: true, Price: DiscountedPrice, Items: [...])"
+        },
+        {
+          "line": 1324,
+          "content": "BE->>DB: INSERT INTO SeasonalMenus (...)"
+        },
+        {
+          "line": 1389,
+          "content": "FE->>BE: PUT /api/v1/admin/pricing-groups/{id}/items { price_overrides: [...] }"
+        },
+        {
+          "line": 1446,
+          "content": "FE->>BE: POST /api/v1/ai/chatbot/query { query: \"...\", branch_id, customer_id }"
+        },
+        {
+          "line": 1453,
+          "content": "BE-->>FE: HTTP 200 OK { response_text, recommended_products: [...] }"
+        }
+      ]
+    },
+    "check3_staff_app": [
+      {
+        "line": 10,
+        "content": "> 1. **KHÔNG CÓ Staff Mobile App:** 100% nhân viên vận hành trên Web Responsive và Web KDS Full-screen."
+      }
+    ],
+    "check4_dinein_payment": {
+      "tien_mat": [
+        {
+          "line": 13,
+          "content": "> 4. **Tách biệt 2 nhánh Dine-In:** VietQR trả trước (Bếp nhận sau khi thanh toán) và Tiền mặt trả sau (Bếp nhận ngay, bưng kèm Hóa đơn VietQR)."
+        },
+        {
+          "line": 25,
+          "content": "- [WF-01B: Đặt Món Tại Bàn (Dine-In) — Tiền Mặt Trả Sau & Hóa Đơn In VietQR](#wf-01b-đặt-món-tại-bàn-dine-in--tiền-mặt-trả-sau--hóa-đơn-in-vietqr)"
+        },
+        {
+          "line": 33,
+          "content": "- [WF-09: Mở/Kết Ca Bán Hàng & Đối Soát Két Tiền Mặt (Z-Report Cash Reconciliation)](#wf-09-mởkết-ca-bán-hàng--đối-soát-két-tiền-mặt-z-report-cash-reconciliation)"
+        },
+        {
+          "line": 60,
+          "content": "C_Cart -->|Nhánh 2: Tiền Mặt| C_PayPost[Tạo Đơn Pha Chế Trả Sau]"
+        },
+        {
+          "line": 70,
+          "content": "S_POS -->|Thu tiền sau| S_Cashier[Thu Tiền Mặt / VietQR Quầy]"
+        },
+        {
+          "line": 309,
+          "content": "## 🔄 WF-01B: ĐẶT MÓN TẠI BÀN (DINE-IN) — TIỀN MẶT TRẢ SAU & HÓA ĐƠN IN VIETQR"
+        },
+        {
+          "line": 313,
+          "content": "- **Tên quy trình:** Đặt món Tại Bàn (Dine-In) — Nhánh Tiền Mặt Trả Sau & Hóa Đơn In Mã VietQR (Dine-In Cash Post-Payment Flow)."
+        },
+        {
+          "line": 316,
+          "content": "Quy trình phục vụ khách hàng ngồi tại bàn muốn thanh toán sau bằng tiền mặt hoặc chuyển khoản linh hoạt sau khi nhận món. **Quy tắc cốt lõi:** Đơn hàng chuyển thẳng xuống KDS bếp ngay lập tức (`Confirmed`), nhân viên pha chế và bưng món ra bàn **KÈM THEO HÓA ĐƠN CÓ IN SẴN MÃ VIETQR ĐỘNG**, khách có thể trả tiền mặt trực tiếp hoặc quét mã VietQR in trên tờ hóa đơn."
+        },
+        {
+          "line": 321,
+          "content": "- **Nhân Viên Phục Vụ / Thu Ngân:** Bưng nước kèm hóa đơn, nhận tiền mặt hoặc hỗ trợ quét VietQR."
+        },
+        {
+          "line": 333,
+          "content": "1. **Bước 1 — Chọn Món & Chọn Tiền Mặt:** Khách duyệt menu trên PWA, chọn món và chọn \"Thanh toán Tiền mặt (Trả sau khi nhận món)\"."
+        },
+        {
+          "line": 340,
+          "content": "- **Cách 1 (Trả tiền mặt):** Khách đưa tiền mặt cho nhân viên. Nhân viên cầm tiền về quầy thu ngân, bấm \"Xác nhận thu tiền mặt\" trên Web Staff Portal."
+        },
+        {
+          "line": 358,
+          "content": "C->>FE: Chọn món & Chọn \"Tiền mặt (Trả sau tại bàn)\""
+        },
+        {
+          "line": 378,
+          "content": "alt Khách Trả Bằng Tiền Mặt"
+        },
+        {
+          "line": 379,
+          "content": "C->>ST: Giao tiền mặt cho nhân viên"
+        },
+        {
+          "line": 392,
+          "content": "- **Ngoại lệ 1 (Khách không đủ tiền mặt):** Nhân viên hướng dẫn khách dùng Mobile Banking quét mã VietQR có sẵn trên tờ hóa đơn để chuyển khoản mà không cần đổi trạng thái đơn thủ công."
+        },
+        {
+          "line": 394,
+          "content": "- **Điều kiện hoàn tất:** Đơn hàng được phục vụ trọn vẹn, tiền mặt hoặc chuyển khoản được đối soát đầy đủ vào két ca làm việc."
+        },
+        {
+          "line": 405,
+          "content": "Quy trình cho phép khách hàng đặt đồ uống giao tận nhà thông qua việc quét mã QR Delivery trên poster, fanpage, standee hoặc truy cập đường link giao hàng. **Quy tắc cốt lõi:** Bắt buộc nhập Số điện thoại và Địa chỉ giao hàng; Tự động cộng **Phí ship cố định 20.000 VNĐ**; **100% Thanh toán trước qua VietQR** (Tuyệt đối không áp dụng tiền mặt/COD); Bếp nhận đơn có huy hiệu nổi bật `[DELIVERY]`."
+        },
+        {
+          "line": 493,
+          "content": "- **Ngoại lệ 2 (Khách yêu cầu trả tiền mặt khi nhận hàng):** Hệ thống chặn ngay từ giao diện và backend, thông báo rõ: *\"Dịch vụ Delivery chỉ chấp nhận thanh toán trước qua VietQR để bảo đảm quyền lợi giao nhận\"*."
+        },
+        {
+          "line": 505,
+          "content": "Quy trình phục vụ khách mua mang đi trực tiếp tại quầy thu ngân. **Quy tắc cốt lõi:** Khách **KHÔNG QUÉT QR**; Nhân viên thu ngân thao tác 100% trên giao diện **Web POS Quầy** `(staff)/pos`; Tra cứu CRM bằng SĐT để tích lũy; **Chương trình Loyalty 10 ly = tặng 1 ly miễn phí CHỈ áp dụng cho đơn Takeaway**; Khách nhận đồ uống và **Thanh toán SAU khi nhận** (Tiền mặt tự tính tiền thối hoặc VietQR quầy)."
+        },
+        {
+          "line": 530,
+          "content": "- *Trả Tiền mặt:* Thu ngân nhập số tiền khách đưa (ví dụ: Đơn 75k, khách đưa 100k). Hệ thống hiển thị tiền thối 25k và mở két tiền."
+        },
+        {
+          "line": 569,
+          "content": "alt Khách Trả Tiền Mặt"
+        },
+        {
+          "line": 570,
+          "content": "C->>CS: Đưa tiền mặt cho Thu ngân"
+        },
+        {
+          "line": 572,
+          "content": "CS->>POS: Bấm \"Xác nhận thu tiền mặt\""
+        },
+        {
+          "line": 979,
+          "content": "## 🔄 WF-09: MỞ/KẾT CA BÁN HÀNG & ĐỐI SOÁT KÉT TIỀN MẶT (Z-REPORT CASH RECONCILIATION)"
+        },
+        {
+          "line": 983,
+          "content": "- **Tên quy trình:** Mở/Kết Ca Bán Hàng & Đối Soát Két Tiền Mặt Cuối Ca (Shift Opening, Closing & Z-Report Cash Reconciliation Flow)."
+        },
+        {
+          "line": 986,
+          "content": "Đảm bảo tính chính xác và minh bạch tuyệt đối của dòng tiền mặt tại quầy. Đầu ca mở ca nhập tiền lẻ; cuối ca kiểm đếm toàn bộ tiền mặt thực tế theo từng mệnh giá, hệ thống tự động so khớp với doanh thu phần mềm, phát hiện chênh lệch thừa/thiếu, yêu cầu giải trình và xuất báo cáo Z-Report."
+        },
+        {
+          "line": 1011,
+          "content": "1. **Bước 1 — Mở Ca Đầu Ngày:** Thu ngân mở két, đếm số tiền mặt lẻ ban đầu (ví dụ: `1.500.000 VNĐ`), nhập vào form `(manager)/shifts/open` và bấm \"Mở Ca\"."
+        },
+        {
+          "line": 1012,
+          "content": "2. **Bước 2 — Vận Hành Bán Hàng:** Trong ca, hệ thống tự động cộng dồn doanh thu tiền mặt từ các đơn Takeaway và Dine-in trả sau vào số dư lý thuyết của két ca."
+        },
+        {
+          "line": 1013,
+          "content": "3. **Bước 3 — Kết Ca Cuối Ngày:** Thu ngân mở form \"Kết Ca\", kiểm đếm tiền mặt thực tế theo từng mệnh giá (500k, 200k, 100k, 50k...)."
+        },
+        {
+          "line": 1034,
+          "content": "Note over CS,DB: GIAI ĐOẠN 2: BÁN HÀNG TRONG CA (Tự động cộng dồn tiền mặt thu từ đơn hàng)"
+        },
+        {
+          "line": 1043,
+          "content": "FE-->>CS: Yêu cầu nhập lý do giải trình chênh lệch tiền mặt"
+        },
+        {
+          "line": 1053,
+          "content": "- **Điều kiện hoàn tất:** Ca làm việc được khóa sổ an toàn, toàn bộ doanh thu tiền mặt được chốt khớp với biên bản Z-Report."
+        },
+        {
+          "line": 1534,
+          "content": "2. KÊNH 2 — DINE-IN TIỀN MẶT TRẢ SAU (WF-01B):"
+        },
+        {
+          "line": 1535,
+          "content": "[Confirmed] ──(Barista Prep)──► [Preparing] ──(Barista Ready)──► [Ready] ──(Staff Serve + In Bill QR)──► [Served] ──(Chờ Thu Tiền)──► [PendingPayment] ──(Staff Thu Tiền Mặt / Quét QR)──► [Paid/Completed]"
+        },
+        {
+          "line": 1541,
+          "content": "[Confirmed] ──(Barista Prep)──► [Preparing] ──(Barista Ready)──► [Ready] ──(Khách Nhận & Thu Tiền Mặt/QR)──► [Paid/Completed]"
+        },
+        {
+          "line": 1557,
+          "content": "| `Served (Cash)` | `Paid` | Dine-in Cash | Thu Ngân / PayOS | Nhận đủ tiền mặt (Thu ngân bấm xác nhận) HOẶC khách quét mã VietQR in trên tờ hóa đơn. |"
+        },
+        {
+          "line": 1569,
+          "content": "| **3** | `WF-01B` (Dine-in Cash) | Khách chọn thanh toán tiền mặt trả sau nhưng khi nhân viên bưng nước ra bàn thì khách đổi ý muốn chuyển khoản ngân hàng. | Nhân viên không cần thao tác hủy đơn; trên tờ Hóa đơn tạm tính bưng ra bàn đã in sẵn mã VietQR động. Khách chỉ cần mở App Ngân hàng quét mã trên hóa đơn, hệ thống tự khớp tiền và chuyển sang `Paid`. |"
+        },
+        {
+          "line": 1612,
+          "content": "| 2 | Bán Hàng Tại Bàn | `WF-01B` | Dine-In Tiền Mặt Trả Sau | `branch_id`, `table_id`, `items[]`, `payment_method: \"Cash\"` | Đơn `Confirmed` ngay, KDS nhận ngay, Bill in kèm VietQR | Khách không đủ tiền mặt ➔ Chuyển quét VietQR trên bill. | `Smart_FB_OS_Revised_4members.docx` (p.18, 35) |"
+        },
+        {
+          "line": 1620,
+          "content": "| 10 | Quản Trị Tài Chính | `WF-09` | Mở/Kết Ca & Đối Soát Két | `initial_cash`, `actual_cash_denominations[]` | Báo cáo chênh lệch tiền mặt, Biên bản Z-Report | Chênh lệch > 50k bắt buộc nhập giải trình và Quản lý ký duyệt. | `Smart_FB_OS_Revised_4members.docx` (p.54) |"
+        }
+      ],
+      "vietqr": [
+        {
+          "line": 8,
+          "content": "> **Tech Stack nền tảng:** .NET 8 Clean Architecture (Backend) + Next.js 14 App Router (Frontend PWA & Web POS/KDS) + PostgreSQL 16 + Redis 7 + SignalR WebSockets + PayOS VietQR Gateway + Google Gemini 1.5 Flash."
+        },
+        {
+          "line": 13,
+          "content": "> 4. **Tách biệt 2 nhánh Dine-In:** VietQR trả trước (Bếp nhận sau khi thanh toán) và Tiền mặt trả sau (Bếp nhận ngay, bưng kèm Hóa đơn VietQR)."
+        },
+        {
+          "line": 24,
+          "content": "- [WF-01A: Đặt Món Tại Bàn (Dine-In) — VietQR Trả Trước Bắt Buộc](#wf-01a-đặt-món-tại-bàn-dine-in--vietqr-trả-trước-bắt-buộc)"
+        },
+        {
+          "line": 25,
+          "content": "- [WF-01B: Đặt Món Tại Bàn (Dine-In) — Tiền Mặt Trả Sau & Hóa Đơn In VietQR](#wf-01b-đặt-món-tại-bàn-dine-in--tiền-mặt-trả-sau--hóa-đơn-in-vietqr)"
+        },
+        {
+          "line": 26,
+          "content": "- [WF-02: Đặt Hàng Giao Tận Nơi (QR Delivery) — Phí Ship Cố Định 20k & VietQR 100%](#wf-02-đặt-hàng-giao-tận-nơi-qr-delivery--phí-ship-cố-định-20k--vietqr-100)"
+        },
+        {
+          "line": 59,
+          "content": "C_Cart -->|Nhánh 1: VietQR| C_PayPre[Thanh Toán VietQR Trả Trước]"
+        },
+        {
+          "line": 70,
+          "content": "S_POS -->|Thu tiền sau| S_Cashier[Thu Tiền Mặt / VietQR Quầy]"
+        },
+        {
+          "line": 91,
+          "content": "S_Ready ==>|In Bill VietQR & Bưng món| C_PayPost"
+        },
+        {
+          "line": 196,
+          "content": "## 🔄 WF-01A: ĐẶT MÓN TẠI BÀN (DINE-IN) — VIETQR TRẢ TRƯỚC BẮT BUỘC"
+        },
+        {
+          "line": 200,
+          "content": "- **Tên quy trình:** Đặt món Tại Bàn (Dine-In) — Nhánh Thanh toán VietQR Trả Trước Bắt Buộc (Dine-In VietQR Pre-Payment Flow)."
+        },
+        {
+          "line": 203,
+          "content": "Quy trình phục vụ khách hàng ngồi tại bàn chọn phương thức thanh toán trực tuyến qua VietQR. **Quy tắc bất biến:** Đơn hàng chỉ được xác nhận và chuyển xuống màn hình KDS của quầy bar khi hệ thống nhận được Webhook thanh toán thành công từ cổng thanh toán PayOS."
+        },
+        {
+          "line": 207,
+          "content": "- **Client PWA Khách Hàng:** Quản lý giỏ hàng và hiển thị mã VietQR động."
+        },
+        {
+          "line": 209,
+          "content": "- **Cổng Thanh Toán PayOS (VietQR Gateway):** Xử lý giao dịch ngân hàng và gửi Webhook."
+        },
+        {
+          "line": 219,
+          "content": "- **Dữ liệu đầu vào (Tạo đơn VietQR):**"
+        },
+        {
+          "line": 225,
+          "content": "\"payment_method\": \"VietQR\","
+        },
+        {
+          "line": 244,
+          "content": "2. **Bước 2 — Chọn Phương Thức VietQR:** Tại trang Thanh toán, khách chọn \"Thanh toán Chuyển khoản VietQR (Bếp nhận đơn sau thanh toán)\"."
+        },
+        {
+          "line": 245,
+          "content": "3. **Bước 3 — Khởi Tạo Đơn Hàng:** PWA gửi `POST /api/v1/orders`. Backend tạo bản ghi đơn hàng với `OrderStatus = \"PendingPayment\"`, gọi PayOS API sinh mã VietQR động với `amount = TotalAmount` và nội dung chuyển khoản `memo = ORDER_{order_id}`."
+        },
+        {
+          "line": 246,
+          "content": "4. **Bước 4 — Hiển Thị Mã VietQR:** PWA hiển thị mã QR kèm bộ đếm ngược 10 phút và nút mở sâu ứng dụng ngân hàng (Banking App Deep Link)."
+        },
+        {
+          "line": 247,
+          "content": "5. **Bước 5 — Khách Chuyển Khoản:** Khách dùng App Ngân hàng quét VietQR và xác nhận chuyển tiền."
+        },
+        {
+          "line": 262,
+          "content": "participant PAY as Cổng PayOS VietQR"
+        },
+        {
+          "line": 268,
+          "content": "C->>FE: Chọn món & Bấm \"Thanh toán VietQR\""
+        },
+        {
+          "line": 269,
+          "content": "FE->>BE: POST /api/v1/orders { branch_id, table_id, items, payment_method: \"VietQR\" }"
+        },
+        {
+          "line": 274,
+          "content": "FE-->>C: Hiển thị mã VietQR & Đồng hồ đếm ngược 10 phút"
+        },
+        {
+          "line": 309,
+          "content": "## 🔄 WF-01B: ĐẶT MÓN TẠI BÀN (DINE-IN) — TIỀN MẶT TRẢ SAU & HÓA ĐƠN IN VIETQR"
+        },
+        {
+          "line": 313,
+          "content": "- **Tên quy trình:** Đặt món Tại Bàn (Dine-In) — Nhánh Tiền Mặt Trả Sau & Hóa Đơn In Mã VietQR (Dine-In Cash Post-Payment Flow)."
+        },
+        {
+          "line": 316,
+          "content": "Quy trình phục vụ khách hàng ngồi tại bàn muốn thanh toán sau bằng tiền mặt hoặc chuyển khoản linh hoạt sau khi nhận món. **Quy tắc cốt lõi:** Đơn hàng chuyển thẳng xuống KDS bếp ngay lập tức (`Confirmed`), nhân viên pha chế và bưng món ra bàn **KÈM THEO HÓA ĐƠN CÓ IN SẴN MÃ VIETQR ĐỘNG**, khách có thể trả tiền mặt trực tiếp hoặc quét mã VietQR in trên tờ hóa đơn."
+        },
+        {
+          "line": 321,
+          "content": "- **Nhân Viên Phục Vụ / Thu Ngân:** Bưng nước kèm hóa đơn, nhận tiền mặt hoặc hỗ trợ quét VietQR."
+        },
+        {
+          "line": 337,
+          "content": "5. **Bước 5 — In Hóa Đơn Tạm Tính Kèm VietQR:** Khi pha xong, Barista bấm \"Sẵn sàng\" (`Ready`). Hệ thống tự động gửi lệnh in hóa đơn nhiệt ESC/POS tại quầy. Trên hóa đơn in đầy đủ: Danh sách món, Tổng tiền và **Mã VietQR động chứa số tiền chính xác và cú pháp `ORDER_{order_id}`**."
+        },
+        {
+          "line": 338,
+          "content": "6. **Bước 6 — Phục Vụ Kèm Hóa Đơn:** Nhân viên bưng khay đồ uống ra bàn, đặt đồ uống cùng tờ hóa đơn có in mã VietQR lên bàn khách và bấm `Served`. Hệ thống chuyển trạng thái đơn sang `PendingPayment`."
+        },
+        {
+          "line": 341,
+          "content": "- **Cách 2 (Quét VietQR trên Bill):** Khách mở Mobile Banking quét mã VietQR in trên tờ hóa đơn. PayOS xác nhận tiền vào tài khoản và bắn Webhook tự động cập nhật đơn sang `Paid`."
+        },
+        {
+          "line": 371,
+          "content": "KDS->>PRN: Gửi lệnh in Hóa Đơn Tạm Tính (Kèm Mã VietQR In Sẵn)"
+        },
+        {
+          "line": 372,
+          "content": "PRN-->>ST: In ra phiếu hóa đơn có mã VietQR thanh toán"
+        },
+        {
+          "line": 374,
+          "content": "ST->>C: Bưng khay nước + Đặt Hóa Đơn có in VietQR lên bàn"
+        },
+        {
+          "line": 383,
+          "content": "else Khách Quét Mã VietQR In Trên Hóa Đơn"
+        },
+        {
+          "line": 392,
+          "content": "- **Ngoại lệ 1 (Khách không đủ tiền mặt):** Nhân viên hướng dẫn khách dùng Mobile Banking quét mã VietQR có sẵn trên tờ hóa đơn để chuyển khoản mà không cần đổi trạng thái đơn thủ công."
+        },
+        {
+          "line": 393,
+          "content": "- **Ngoại lệ 2 (Kẹt giấy máy in hóa đơn):** Nhân viên có thể mở lại hóa đơn điện tử trên Web Staff Portal và cho khách quét mã VietQR hiển thị trực tiếp trên màn hình máy POS/Tablet."
+        },
+        {
+          "line": 398,
+          "content": "## 🔄 WF-02: ĐẶT HÀNG GIAO TẬN NƠI (QR DELIVERY) — PHÍ SHIP CỐ ĐỊNH 20K & VIETQR 100%"
+        },
+        {
+          "line": 402,
+          "content": "- **Tên quy trình:** Đặt hàng Giao tận nơi (QR Delivery) — Phí Ship Cố Định 20k & 100% VietQR Trả Trước (Delivery Order Workflow)."
+        },
+        {
+          "line": 405,
+          "content": "Quy trình cho phép khách hàng đặt đồ uống giao tận nhà thông qua việc quét mã QR Delivery trên poster, fanpage, standee hoặc truy cập đường link giao hàng. **Quy tắc cốt lõi:** Bắt buộc nhập Số điện thoại và Địa chỉ giao hàng; Tự động cộng **Phí ship cố định 20.000 VNĐ**; **100% Thanh toán trước qua VietQR** (Tuyệt đối không áp dụng tiền mặt/COD); Bếp nhận đơn có huy hiệu nổi bật `[DELIVERY]`."
+        },
+        {
+          "line": 408,
+          "content": "- **Khách Hàng Đặt Tại Nhà:** Nhập địa chỉ, chọn món và chuyển khoản VietQR."
+        },
+        {
+          "line": 415,
+          "content": "- Khách hàng có tài khoản ngân hàng hỗ trợ quét mã VietQR."
+        },
+        {
+          "line": 428,
+          "content": "\"payment_method\": \"VietQR\","
+        },
+        {
+          "line": 441,
+          "content": "4. **Bước 4 — Thanh Toán VietQR 100%:** Khách chọn thanh toán VietQR. Backend tạo đơn `OrderType = \"Delivery\"`, `OrderStatus = \"PendingPayment\"` và sinh mã VietQR PayOS."
+        },
+        {
+          "line": 456,
+          "content": "participant PAY as Cổng PayOS VietQR"
+        },
+        {
+          "line": 465,
+          "content": "C->>FE: Bấm \"Thanh toán VietQR 100%\""
+        },
+        {
+          "line": 472,
+          "content": "FE-->>C: Hiển thị mã VietQR chuyển khoản"
+        },
+        {
+          "line": 474,
+          "content": "C->>PAY: Quét VietQR & Thanh toán thành công"
+        },
+        {
+          "line": 493,
+          "content": "- **Ngoại lệ 2 (Khách yêu cầu trả tiền mặt khi nhận hàng):** Hệ thống chặn ngay từ giao diện và backend, thông báo rõ: *\"Dịch vụ Delivery chỉ chấp nhận thanh toán trước qua VietQR để bảo đảm quyền lợi giao nhận\"*."
+        },
+        {
+          "line": 505,
+          "content": "Quy trình phục vụ khách mua mang đi trực tiếp tại quầy thu ngân. **Quy tắc cốt lõi:** Khách **KHÔNG QUÉT QR**; Nhân viên thu ngân thao tác 100% trên giao diện **Web POS Quầy** `(staff)/pos`; Tra cứu CRM bằng SĐT để tích lũy; **Chương trình Loyalty 10 ly = tặng 1 ly miễn phí CHỈ áp dụng cho đơn Takeaway**; Khách nhận đồ uống và **Thanh toán SAU khi nhận** (Tiền mặt tự tính tiền thối hoặc VietQR quầy)."
+        },
+        {
+          "line": 531,
+          "content": "- *Trả VietQR:* Thu ngân bấm \"Xuất VietQR\", màn hình phụ hiển thị mã QR để khách quét chuyển khoản."
+        },
+        {
+          "line": 573,
+          "content": "else Khách Trả VietQR"
+        },
+        {
+          "line": 574,
+          "content": "CS->>POS: Bấm \"Tạo mã VietQR Quầy\""
+        },
+        {
+          "line": 575,
+          "content": "POS-->>C: Hiển thị mã VietQR trên tablet quầy"
+        },
+        {
+          "line": 737,
+          "content": "1. **Bước 1 — Nhận Đơn Thời Gian Thực:** Khi đơn hàng đủ điều kiện (`Paid` đối với VietQR, `Confirmed` đối với Cash/Takeaway), Backend phát sự kiện `NewKitchenOrder` qua SignalR."
+        },
+        {
+          "line": 1531,
+          "content": "1. KÊNH 1 — DINE-IN VIETQR TRẢ TRƯỚC (WF-01A):"
+        },
+        {
+          "line": 1550,
+          "content": "| `PendingPayment` | `Paid` | Dine-in VietQR, Delivery | PayOS Webhook | Nhận Webhook chuyển khoản khớp số tiền và mã `ORDER_{id}`. Cập nhật `PaidAt = NOW()`. |"
+        },
+        {
+          "line": 1551,
+          "content": "| `PendingPayment` | `Cancelled` | Dine-in VietQR, Delivery | Hangfire Cron Job | Quá 10 phút không thanh toán ➔ Tự động hủy đơn, giải phóng bàn, gửi thông báo hết hạn về PWA. |"
+        },
+        {
+          "line": 1552,
+          "content": "| `Paid` | `Confirmed` | Dine-in VietQR, Delivery | System Auto | Chuyển tiếp tự động tức thời, bắn sự kiện SignalR đẩy thẻ đơn xuống màn hình KDS quầy bar. |"
+        },
+        {
+          "line": 1556,
+          "content": "| `Ready` | `Served` | Dine-in Cash & VietQR | Nhân Viên Phục Vụ | Mang món ra bàn. Đối với đơn Cash: Hệ thống tự động chuyển tiếp sang `PendingPayment` và in bill có QR. |"
+        },
+        {
+          "line": 1557,
+          "content": "| `Served (Cash)` | `Paid` | Dine-in Cash | Thu Ngân / PayOS | Nhận đủ tiền mặt (Thu ngân bấm xác nhận) HOẶC khách quét mã VietQR in trên tờ hóa đơn. |"
+        },
+        {
+          "line": 1567,
+          "content": "| **1** | `WF-01A` (Dine-in VietQR) | Khách đặt đơn VietQR nhưng không quét thanh toán trong 10 phút. | Background Cron Job tự động quét các đơn `PendingPayment` quá 10 phút, chuyển trạng thái sang `Cancelled`, giải phóng bàn và gửi thông báo hết hạn về PWA của khách. |"
+        },
+        {
+          "line": 1568,
+          "content": "| **2** | `WF-01A` (Dine-in VietQR) | Khách chuyển khoản đúng tiền nhưng mạng chập chờn, Webhook PayOS đến chậm hoặc mất gói tin. | Client PWA duy trì cơ chế Polling dự phòng mỗi 3 giây gọi `GET /api/v1/orders/{id}/status`. Backend chủ động đối soát với PayOS API để cập nhật `Paid` ngay khi phát hiện giao dịch thành công. |"
+        },
+        {
+          "line": 1569,
+          "content": "| **3** | `WF-01B` (Dine-in Cash) | Khách chọn thanh toán tiền mặt trả sau nhưng khi nhân viên bưng nước ra bàn thì khách đổi ý muốn chuyển khoản ngân hàng. | Nhân viên không cần thao tác hủy đơn; trên tờ Hóa đơn tạm tính bưng ra bàn đã in sẵn mã VietQR động. Khách chỉ cần mở App Ngân hàng quét mã trên hóa đơn, hệ thống tự khớp tiền và chuyển sang `Paid`. |"
+        },
+        {
+          "line": 1611,
+          "content": "| 1 | Bán Hàng Tại Bàn | `WF-01A` | Dine-In VietQR Trả Trước | `branch_id`, `table_id`, `items[]`, `payment_method: \"VietQR\"` | Mã VietQR động, Đơn `PendingPayment` ➔ `Paid` ➔ KDS | Timeout 10 phút tự hủy đơn; Webhook sai chữ ký bị từ chối 400. | `Smart_FB_OS_Revised_4members.docx` (p.17-18) |"
+        },
+        {
+          "line": 1612,
+          "content": "| 2 | Bán Hàng Tại Bàn | `WF-01B` | Dine-In Tiền Mặt Trả Sau | `branch_id`, `table_id`, `items[]`, `payment_method: \"Cash\"` | Đơn `Confirmed` ngay, KDS nhận ngay, Bill in kèm VietQR | Khách không đủ tiền mặt ➔ Chuyển quét VietQR trên bill. | `Smart_FB_OS_Revised_4members.docx` (p.18, 35) |"
+        },
+        {
+          "line": 1613,
+          "content": "| 3 | Bán Hàng Giao Đi | `WF-02` | QR Delivery Tận Nhà | `recipient_name`, `recipient_phone`, `delivery_address`, Phí ship 20k | Đơn `Delivery`, VietQR 100%, KDS hiển thị nhãn Delivery | Chặn số điện thoại sai định dạng, chặn địa chỉ rỗng, cấm COD. | `Smart_FB_OS_Revised_4members.docx` (p.28, 39) |"
+        }
+      ],
+      "tra_truoc": [
+        {
+          "line": 13,
+          "content": "> 4. **Tách biệt 2 nhánh Dine-In:** VietQR trả trước (Bếp nhận sau khi thanh toán) và Tiền mặt trả sau (Bếp nhận ngay, bưng kèm Hóa đơn VietQR)."
+        },
+        {
+          "line": 24,
+          "content": "- [WF-01A: Đặt Món Tại Bàn (Dine-In) — VietQR Trả Trước Bắt Buộc](#wf-01a-đặt-món-tại-bàn-dine-in--vietqr-trả-trước-bắt-buộc)"
+        },
+        {
+          "line": 59,
+          "content": "C_Cart -->|Nhánh 1: VietQR| C_PayPre[Thanh Toán VietQR Trả Trước]"
+        },
+        {
+          "line": 196,
+          "content": "## 🔄 WF-01A: ĐẶT MÓN TẠI BÀN (DINE-IN) — VIETQR TRẢ TRƯỚC BẮT BUỘC"
+        },
+        {
+          "line": 200,
+          "content": "- **Tên quy trình:** Đặt món Tại Bàn (Dine-In) — Nhánh Thanh toán VietQR Trả Trước Bắt Buộc (Dine-In VietQR Pre-Payment Flow)."
+        },
+        {
+          "line": 402,
+          "content": "- **Tên quy trình:** Đặt hàng Giao tận nơi (QR Delivery) — Phí Ship Cố Định 20k & 100% VietQR Trả Trước (Delivery Order Workflow)."
+        },
+        {
+          "line": 1531,
+          "content": "1. KÊNH 1 — DINE-IN VIETQR TRẢ TRƯỚC (WF-01A):"
+        },
+        {
+          "line": 1611,
+          "content": "| 1 | Bán Hàng Tại Bàn | `WF-01A` | Dine-In VietQR Trả Trước | `branch_id`, `table_id`, `items[]`, `payment_method: \"VietQR\"` | Mã VietQR động, Đơn `PendingPayment` ➔ `Paid` ➔ KDS | Timeout 10 phút tự hủy đơn; Webhook sai chữ ký bị từ chối 400. | `Smart_FB_OS_Revised_4members.docx` (p.17-18) |"
+        }
+      ],
+      "tra_sau": [
+        {
+          "line": 13,
+          "content": "> 4. **Tách biệt 2 nhánh Dine-In:** VietQR trả trước (Bếp nhận sau khi thanh toán) và Tiền mặt trả sau (Bếp nhận ngay, bưng kèm Hóa đơn VietQR)."
+        },
+        {
+          "line": 25,
+          "content": "- [WF-01B: Đặt Món Tại Bàn (Dine-In) — Tiền Mặt Trả Sau & Hóa Đơn In VietQR](#wf-01b-đặt-món-tại-bàn-dine-in--tiền-mặt-trả-sau--hóa-đơn-in-vietqr)"
+        },
+        {
+          "line": 60,
+          "content": "C_Cart -->|Nhánh 2: Tiền Mặt| C_PayPost[Tạo Đơn Pha Chế Trả Sau]"
+        },
+        {
+          "line": 309,
+          "content": "## 🔄 WF-01B: ĐẶT MÓN TẠI BÀN (DINE-IN) — TIỀN MẶT TRẢ SAU & HÓA ĐƠN IN VIETQR"
+        },
+        {
+          "line": 313,
+          "content": "- **Tên quy trình:** Đặt món Tại Bàn (Dine-In) — Nhánh Tiền Mặt Trả Sau & Hóa Đơn In Mã VietQR (Dine-In Cash Post-Payment Flow)."
+        },
+        {
+          "line": 333,
+          "content": "1. **Bước 1 — Chọn Món & Chọn Tiền Mặt:** Khách duyệt menu trên PWA, chọn món và chọn \"Thanh toán Tiền mặt (Trả sau khi nhận món)\"."
+        },
+        {
+          "line": 358,
+          "content": "C->>FE: Chọn món & Chọn \"Tiền mặt (Trả sau tại bàn)\""
+        },
+        {
+          "line": 1012,
+          "content": "2. **Bước 2 — Vận Hành Bán Hàng:** Trong ca, hệ thống tự động cộng dồn doanh thu tiền mặt từ các đơn Takeaway và Dine-in trả sau vào số dư lý thuyết của két ca."
+        },
+        {
+          "line": 1534,
+          "content": "2. KÊNH 2 — DINE-IN TIỀN MẶT TRẢ SAU (WF-01B):"
+        },
+        {
+          "line": 1569,
+          "content": "| **3** | `WF-01B` (Dine-in Cash) | Khách chọn thanh toán tiền mặt trả sau nhưng khi nhân viên bưng nước ra bàn thì khách đổi ý muốn chuyển khoản ngân hàng. | Nhân viên không cần thao tác hủy đơn; trên tờ Hóa đơn tạm tính bưng ra bàn đã in sẵn mã VietQR động. Khách chỉ cần mở App Ngân hàng quét mã trên hóa đơn, hệ thống tự khớp tiền và chuyển sang `Paid`. |"
+        },
+        {
+          "line": 1612,
+          "content": "| 2 | Bán Hàng Tại Bàn | `WF-01B` | Dine-In Tiền Mặt Trả Sau | `branch_id`, `table_id`, `items[]`, `payment_method: \"Cash\"` | Đơn `Confirmed` ngay, KDS nhận ngay, Bill in kèm VietQR | Khách không đủ tiền mặt ➔ Chuyển quét VietQR trên bill. | `Smart_FB_OS_Revised_4members.docx` (p.18, 35) |"
+        }
+      ],
+      "kem_hoa_don": [
+        {
+          "line": 13,
+          "content": "> 4. **Tách biệt 2 nhánh Dine-In:** VietQR trả trước (Bếp nhận sau khi thanh toán) và Tiền mặt trả sau (Bếp nhận ngay, bưng kèm Hóa đơn VietQR)."
+        },
+        {
+          "line": 320,
+          "content": "- **Barista / KDS Bếp & Máy in nhiệt ESC/POS:** Nhận đơn ngay, pha chế và in hóa đơn tạm tính kèm mã QR."
+        },
+        {
+          "line": 321,
+          "content": "- **Nhân Viên Phục Vụ / Thu Ngân:** Bưng nước kèm hóa đơn, nhận tiền mặt hoặc hỗ trợ quét VietQR."
+        },
+        {
+          "line": 326,
+          "content": "- Máy in hóa đơn tại quầy bar đang online và sẵn sàng in lệnh ESC/POS."
+        },
+        {
+          "line": 337,
+          "content": "5. **Bước 5 — In Hóa Đơn Tạm Tính Kèm VietQR:** Khi pha xong, Barista bấm \"Sẵn sàng\" (`Ready`). Hệ thống tự động gửi lệnh in hóa đơn nhiệt ESC/POS tại quầy. Trên hóa đơn in đầy đủ: Danh sách món, Tổng tiền và **Mã VietQR động chứa số tiền chính xác và cú pháp `ORDER_{order_id}`**."
+        },
+        {
+          "line": 338,
+          "content": "6. **Bước 6 — Phục Vụ Kèm Hóa Đơn:** Nhân viên bưng khay đồ uống ra bàn, đặt đồ uống cùng tờ hóa đơn có in mã VietQR lên bàn khách và bấm `Served`. Hệ thống chuyển trạng thái đơn sang `PendingPayment`."
+        },
+        {
+          "line": 355,
+          "content": "participant PRN as Máy In Hóa Đơn Nhiệt"
+        },
+        {
+          "line": 371,
+          "content": "KDS->>PRN: Gửi lệnh in Hóa Đơn Tạm Tính (Kèm Mã VietQR In Sẵn)"
+        },
+        {
+          "line": 393,
+          "content": "- **Ngoại lệ 2 (Kẹt giấy máy in hóa đơn):** Nhân viên có thể mở lại hóa đơn điện tử trên Web Staff Portal và cho khách quét mã VietQR hiển thị trực tiếp trên màn hình máy POS/Tablet."
+        },
+        {
+          "line": 511,
+          "content": "- **Máy In Hóa Đơn POS:** In hóa đơn bán lẻ giao cho khách."
+        },
+        {
+          "line": 532,
+          "content": "7. **Bước 7 — Hoàn Tất & Cập Nhật CRM:** Thu ngân bấm \"Hoàn tất đơn & In hóa đơn\". Đơn hàng chuyển sang `Paid`/`Completed`. Hệ thống tự động cập nhật số ly tích lũy mới vào CRM: `CupBalance = (CupBalance - (Đổi ? 10 : 0) + Số Ly Mua Mới)`."
+        },
+        {
+          "line": 583,
+          "content": "POS->>PRN: Lệnh in hóa đơn thanh toán"
+        },
+        {
+          "line": 1569,
+          "content": "| **3** | `WF-01B` (Dine-in Cash) | Khách chọn thanh toán tiền mặt trả sau nhưng khi nhân viên bưng nước ra bàn thì khách đổi ý muốn chuyển khoản ngân hàng. | Nhân viên không cần thao tác hủy đơn; trên tờ Hóa đơn tạm tính bưng ra bàn đã in sẵn mã VietQR động. Khách chỉ cần mở App Ngân hàng quét mã trên hóa đơn, hệ thống tự khớp tiền và chuyển sang `Paid`. |"
+        }
+      ],
+      "in_ma_qr": [
+        {
+          "line": 207,
+          "content": "- **Client PWA Khách Hàng:** Quản lý giỏ hàng và hiển thị mã VietQR động."
+        },
+        {
+          "line": 245,
+          "content": "3. **Bước 3 — Khởi Tạo Đơn Hàng:** PWA gửi `POST /api/v1/orders`. Backend tạo bản ghi đơn hàng với `OrderStatus = \"PendingPayment\"`, gọi PayOS API sinh mã VietQR động với `amount = TotalAmount` và nội dung chuyển khoản `memo = ORDER_{order_id}`."
+        },
+        {
+          "line": 316,
+          "content": "Quy trình phục vụ khách hàng ngồi tại bàn muốn thanh toán sau bằng tiền mặt hoặc chuyển khoản linh hoạt sau khi nhận món. **Quy tắc cốt lõi:** Đơn hàng chuyển thẳng xuống KDS bếp ngay lập tức (`Confirmed`), nhân viên pha chế và bưng món ra bàn **KÈM THEO HÓA ĐƠN CÓ IN SẴN MÃ VIETQR ĐỘNG**, khách có thể trả tiền mặt trực tiếp hoặc quét mã VietQR in trên tờ hóa đơn."
+        },
+        {
+          "line": 337,
+          "content": "5. **Bước 5 — In Hóa Đơn Tạm Tính Kèm VietQR:** Khi pha xong, Barista bấm \"Sẵn sàng\" (`Ready`). Hệ thống tự động gửi lệnh in hóa đơn nhiệt ESC/POS tại quầy. Trên hóa đơn in đầy đủ: Danh sách món, Tổng tiền và **Mã VietQR động chứa số tiền chính xác và cú pháp `ORDER_{order_id}`**."
+        },
+        {
+          "line": 602,
+          "content": "Quy trình ghi nhận thời gian vào ca/ra ca của nhân viên chi nhánh một cách minh bạch, ngăn chặn gian lận chấm công từ xa. **Quy tắc cốt lõi:** Loại bỏ hoàn toàn định vị GPS 50m (sai số cao trong nhà) và QR động 30 giây; **Xác thực 2 yếu tố bắt buộc:**"
+        },
+        {
+          "line": 1569,
+          "content": "| **3** | `WF-01B` (Dine-in Cash) | Khách chọn thanh toán tiền mặt trả sau nhưng khi nhân viên bưng nước ra bàn thì khách đổi ý muốn chuyển khoản ngân hàng. | Nhân viên không cần thao tác hủy đơn; trên tờ Hóa đơn tạm tính bưng ra bàn đã in sẵn mã VietQR động. Khách chỉ cần mở App Ngân hàng quét mã trên hóa đơn, hệ thống tự khớp tiền và chuyển sang `Paid`. |"
+        },
+        {
+          "line": 1611,
+          "content": "| 1 | Bán Hàng Tại Bàn | `WF-01A` | Dine-In VietQR Trả Trước | `branch_id`, `table_id`, `items[]`, `payment_method: \"VietQR\"` | Mã VietQR động, Đơn `PendingPayment` ➔ `Paid` ➔ KDS | Timeout 10 phút tự hủy đơn; Webhook sai chữ ký bị từ chối 400. | `Smart_FB_OS_Revised_4members.docx` (p.17-18) |"
+        }
+      ]
+    },
+    "check5_delivery": {
+      "fee_20k": [
+        {
+          "line": 405,
+          "content": "Quy trình cho phép khách hàng đặt đồ uống giao tận nhà thông qua việc quét mã QR Delivery trên poster, fanpage, standee hoặc truy cập đường link giao hàng. **Quy tắc cốt lõi:** Bắt buộc nhập Số điện thoại và Địa chỉ giao hàng; Tự động cộng **Phí ship cố định 20.000 VNĐ**; **100% Thanh toán trước qua VietQR** (Tuyệt đối không áp dụng tiền mặt/COD); Bếp nhận đơn có huy hiệu nổi bật `[DELIVERY]`."
+        },
+        {
+          "line": 427,
+          "content": "\"delivery_fee\": 20000,"
+        },
+        {
+          "line": 440,
+          "content": "3. **Bước 3 — Chọn Món & Tự Động Tính Phí Ship:** Khách chọn đồ uống. Hệ thống tự động thêm dòng `Phí giao hàng: 20.000 VNĐ` vào giỏ hàng (`Total = Sum(Items) + 20000`)."
+        },
+        {
+          "line": 464,
+          "content": "FE->>FE: Tự động cộng 20.000 VNĐ Phí Giao Hàng vào Giỏ"
+        },
+        {
+          "line": 466,
+          "content": "FE->>BE: POST /api/v1/orders/delivery { recipient_name, recipient_phone, delivery_address, items, delivery_fee: 20000 }"
+        },
+        {
+          "line": 468,
+          "content": "BE->>DB: INSERT INTO Orders (OrderType: 'Delivery', Status: 'PendingPayment', DeliveryFee: 20000)"
+        },
+        {
+          "line": 1003,
+          "content": "{ \"denomination\": 200000, \"count\": 20 },"
+        }
+      ],
+      "dia_chi_giao_hang": [
+        {
+          "line": 405,
+          "content": "Quy trình cho phép khách hàng đặt đồ uống giao tận nhà thông qua việc quét mã QR Delivery trên poster, fanpage, standee hoặc truy cập đường link giao hàng. **Quy tắc cốt lõi:** Bắt buộc nhập Số điện thoại và Địa chỉ giao hàng; Tự động cộng **Phí ship cố định 20.000 VNĐ**; **100% Thanh toán trước qua VietQR** (Tuyệt đối không áp dụng tiền mặt/COD); Bếp nhận đơn có huy hiệu nổi bật `[DELIVERY]`."
+        },
+        {
+          "line": 414,
+          "content": "- Địa chỉ nhận hàng nằm trong phạm vi giao hàng của chi nhánh (bán kính <= 10km)."
+        },
+        {
+          "line": 439,
+          "content": "2. **Bước 2 — Nhập Thông Tin Giao Hàng:** Form đặt hàng bắt buộc khách nhập: Họ tên người nhận, Số điện thoại (kiểm tra Regex 10 số) và Địa chỉ giao hàng chi tiết."
+        },
+        {
+          "line": 443,
+          "content": "6. **Bước 6 — Đẩy Đơn Sang KDS Với Badge [DELIVERY]:** Backend phát sự kiện SignalR tới KDS quầy bar. Thẻ đơn hiển thị nổi bật với huy hiệu màu xanh lục **[DELIVERY]** kèm số điện thoại và địa chỉ giao hàng."
+        },
+        {
+          "line": 463,
+          "content": "C->>FE: Nhập SĐT, Tên, Địa Chỉ Giao Hàng & Chọn Món"
+        },
+        {
+          "line": 1570,
+          "content": "| **4** | `WF-02` (QR Delivery) | Khách nhập địa chỉ giao hàng quá xa (> 10km) hoặc nhập địa chỉ rỗng/ký tự rác. | Frontend và Backend validate bắt buộc địa chỉ tối thiểu 10 ký tự, tích hợp kiểm tra ranh giới phục vụ chi nhánh. Nếu ngoài phạm vi, báo lỗi: *\"Chi nhánh chỉ nhận giao hàng trong bán kính 10km\"*. |"
+        }
+      ],
+      "delivery_fee": [
+        {
+          "line": 427,
+          "content": "\"delivery_fee\": 20000,"
+        },
+        {
+          "line": 440,
+          "content": "3. **Bước 3 — Chọn Món & Tự Động Tính Phí Ship:** Khách chọn đồ uống. Hệ thống tự động thêm dòng `Phí giao hàng: 20.000 VNĐ` vào giỏ hàng (`Total = Sum(Items) + 20000`)."
+        },
+        {
+          "line": 464,
+          "content": "FE->>FE: Tự động cộng 20.000 VNĐ Phí Giao Hàng vào Giỏ"
+        },
+        {
+          "line": 466,
+          "content": "FE->>BE: POST /api/v1/orders/delivery { recipient_name, recipient_phone, delivery_address, items, delivery_fee: 20000 }"
+        },
+        {
+          "line": 468,
+          "content": "BE->>DB: INSERT INTO Orders (OrderType: 'Delivery', Status: 'PendingPayment', DeliveryFee: 20000)"
+        }
+      ],
+      "order_type_delivery": [
+        {
+          "line": 26,
+          "content": "- [WF-02: Đặt Hàng Giao Tận Nơi (QR Delivery) — Phí Ship Cố Định 20k & VietQR 100%](#wf-02-đặt-hàng-giao-tận-nơi-qr-delivery--phí-ship-cố-định-20k--vietqr-100)"
+        },
+        {
+          "line": 58,
+          "content": "C_QR2[Quét QR Delivery] -->|SĐT + Địa chỉ + Phí Ship 20k| C_Cart"
+        },
+        {
+          "line": 116,
+          "content": "- Khách hàng đã quét mã QR bàn, QR Delivery hoặc truy cập URL chi nhánh."
+        },
+        {
+          "line": 222,
+          "content": "\"order_type\": \"DineIn\","
+        },
+        {
+          "line": 398,
+          "content": "## 🔄 WF-02: ĐẶT HÀNG GIAO TẬN NƠI (QR DELIVERY) — PHÍ SHIP CỐ ĐỊNH 20K & VIETQR 100%"
+        },
+        {
+          "line": 402,
+          "content": "- **Tên quy trình:** Đặt hàng Giao tận nơi (QR Delivery) — Phí Ship Cố Định 20k & 100% VietQR Trả Trước (Delivery Order Workflow)."
+        },
+        {
+          "line": 405,
+          "content": "Quy trình cho phép khách hàng đặt đồ uống giao tận nhà thông qua việc quét mã QR Delivery trên poster, fanpage, standee hoặc truy cập đường link giao hàng. **Quy tắc cốt lõi:** Bắt buộc nhập Số điện thoại và Địa chỉ giao hàng; Tự động cộng **Phí ship cố định 20.000 VNĐ**; **100% Thanh toán trước qua VietQR** (Tuyệt đối không áp dụng tiền mặt/COD); Bếp nhận đơn có huy hiệu nổi bật `[DELIVERY]`."
+        },
+        {
+          "line": 410,
+          "content": "- **Barista / KDS Bếp:** Nhận đơn có nhãn `[DELIVERY]`, pha chế và đóng gói cẩn thận."
+        },
+        {
+          "line": 418,
+          "content": "- **Dữ liệu đầu vào (Tạo đơn Delivery):**"
+        },
+        {
+          "line": 421,
+          "content": "\"order_type\": \"Delivery\","
+        },
+        {
+          "line": 425,
+          "content": "\"delivery_address\": \"Số 123 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, TP.HCM\","
+        },
+        {
+          "line": 426,
+          "content": "\"delivery_notes\": \"Giao trước 11h30 giúp mình, gọi điện trước khi đến\","
+        },
+        {
+          "line": 427,
+          "content": "\"delivery_fee\": 20000,"
+        },
+        {
+          "line": 438,
+          "content": "1. **Bước 1 — Quét QR Delivery:** Khách quét mã QR Delivery từ standee/fanpage hoặc mở đường link delivery."
+        },
+        {
+          "line": 441,
+          "content": "4. **Bước 4 — Thanh Toán VietQR 100%:** Khách chọn thanh toán VietQR. Backend tạo đơn `OrderType = \"Delivery\"`, `OrderStatus = \"PendingPayment\"` và sinh mã VietQR PayOS."
+        },
+        {
+          "line": 443,
+          "content": "6. **Bước 6 — Đẩy Đơn Sang KDS Với Badge [DELIVERY]:** Backend phát sự kiện SignalR tới KDS quầy bar. Thẻ đơn hiển thị nổi bật với huy hiệu màu xanh lục **[DELIVERY]** kèm số điện thoại và địa chỉ giao hàng."
+        },
+        {
+          "line": 454,
+          "content": "participant FE as PWA Delivery Client"
+        },
+        {
+          "line": 462,
+          "content": "C->>FE: Quét QR Delivery & Mở Giao Diện Đặt Hàng"
+        },
+        {
+          "line": 466,
+          "content": "FE->>BE: POST /api/v1/orders/delivery { recipient_name, recipient_phone, delivery_address, items, delivery_fee: 20000 }"
+        },
+        {
+          "line": 468,
+          "content": "BE->>DB: INSERT INTO Orders (OrderType: 'Delivery', Status: 'PendingPayment', DeliveryFee: 20000)"
+        },
+        {
+          "line": 477,
+          "content": "BE->>HUB: Broadcast Event \"OrderPaid\" (branch_id, DeliveryOrderDto)"
+        },
+        {
+          "line": 478,
+          "content": "HUB->>KDS: Hiển thị đơn [DELIVERY] trên KDS kèm SĐT & Địa chỉ giao"
+        },
+        {
+          "line": 485,
+          "content": "SHP->>BE: POST /api/v1/orders/{id}/delivery-complete"
+        },
+        {
+          "line": 493,
+          "content": "- **Ngoại lệ 2 (Khách yêu cầu trả tiền mặt khi nhận hàng):** Hệ thống chặn ngay từ giao diện và backend, thông báo rõ: *\"Dịch vụ Delivery chỉ chấp nhận thanh toán trước qua VietQR để bảo đảm quyền lợi giao nhận\"*."
+        },
+        {
+          "line": 725,
+          "content": "\"order_type\": \"DineIn\","
+        },
+        {
+          "line": 1470,
+          "content": "Tổng hợp toàn diện bức tranh tài chính của từng chi nhánh và toàn chuỗi vào cuối ngày/tháng: Phân rã doanh thu theo 3 kênh (Dine-in, Takeaway, Delivery), tính toán chính xác Giá vốn hàng bán (COGS) dựa trên định lượng BOM của từng ly nước đã bán và giá vốn nguyên liệu nhập, từ đó tính Lợi nhuận gộp (Gross Profit) và xuất báo cáo chuẩn kế toán."
+        },
+        {
+          "line": 1482,
+          "content": "- $\\text{NetRevenue} = \\text{DineInRevenue} + \\text{TakeawayRevenue} + \\text{DeliveryRevenue} - \\text{Discounts}$"
+        },
+        {
+          "line": 1489,
+          "content": "2. **Bước 2 — Phân Loại Doanh Thu Theo Kênh:** Tách bạch doanh thu theo 3 kênh: Tại bàn (Dine-in), Mang về (Takeaway) và Giao hàng (Delivery)."
+        },
+        {
+          "line": 1507,
+          "content": "CRON->>DB: Phân rã Doanh Thu theo Kênh: Dine-In, Takeaway, Delivery"
+        },
+        {
+          "line": 1537,
+          "content": "3. KÊNH 3 — QR DELIVERY GIAO TẬN NƠI (WF-02):"
+        },
+        {
+          "line": 1550,
+          "content": "| `PendingPayment` | `Paid` | Dine-in VietQR, Delivery | PayOS Webhook | Nhận Webhook chuyển khoản khớp số tiền và mã `ORDER_{id}`. Cập nhật `PaidAt = NOW()`. |"
+        },
+        {
+          "line": 1551,
+          "content": "| `PendingPayment` | `Cancelled` | Dine-in VietQR, Delivery | Hangfire Cron Job | Quá 10 phút không thanh toán ➔ Tự động hủy đơn, giải phóng bàn, gửi thông báo hết hạn về PWA. |"
+        },
+        {
+          "line": 1552,
+          "content": "| `Paid` | `Confirmed` | Dine-in VietQR, Delivery | System Auto | Chuyển tiếp tự động tức thời, bắn sự kiện SignalR đẩy thẻ đơn xuống màn hình KDS quầy bar. |"
+        },
+        {
+          "line": 1558,
+          "content": "| `Ready` | `Completed` | Takeaway, Delivery | Thu Ngân / Shipper | Khách nhận túi mang về (Takeaway) hoặc Shipper xác nhận đã giao tận tay khách (Delivery). |"
+        },
+        {
+          "line": 1570,
+          "content": "| **4** | `WF-02` (QR Delivery) | Khách nhập địa chỉ giao hàng quá xa (> 10km) hoặc nhập địa chỉ rỗng/ký tự rác. | Frontend và Backend validate bắt buộc địa chỉ tối thiểu 10 ký tự, tích hợp kiểm tra ranh giới phục vụ chi nhánh. Nếu ngoài phạm vi, báo lỗi: *\"Chi nhánh chỉ nhận giao hàng trong bán kính 10km\"*. |"
+        },
+        {
+          "line": 1613,
+          "content": "| 3 | Bán Hàng Giao Đi | `WF-02` | QR Delivery Tận Nhà | `recipient_name`, `recipient_phone`, `delivery_address`, Phí ship 20k | Đơn `Delivery`, VietQR 100%, KDS hiển thị nhãn Delivery | Chặn số điện thoại sai định dạng, chặn địa chỉ rỗng, cấm COD. | `Smart_FB_OS_Revised_4members.docx` (p.28, 39) |"
+        },
+        {
+          "line": 1641,
+          "content": "4. **WF-FW-04 (Tự Động Điều Phối Tài Xế Giao Hàng Bên Thứ Ba - 3PL Delivery Dispatching):**"
+        },
+        {
+          "line": 1642,
+          "content": "Khi đơn hàng QR Delivery chuyển sang trạng thái `Preparing`, hệ thống tự động gọi Webhook API tích hợp với AhaMove / GrabExpress để tìm tài xế giao hàng gần nhất đến nhận đồ uống và đồng bộ mã vận đơn theo dõi thời gian thực."
+        }
+      ]
+    },
+    "check6_takeaway_loyalty": {
+      "10_ly": [
+        {
+          "line": 14,
+          "content": "> 5. **Loyalty 10 ly tặng 1:** CHỈ áp dụng riêng cho đơn hàng Takeaway tại quầy."
+        },
+        {
+          "line": 27,
+          "content": "- [WF-03: Khách Mua Mang Về Tại Quầy (Takeaway Staff POS) — Tích 10 Ly Tặng 1 & Thu Sau](#wf-03-khách-mua-mang-về-tại-quầy-takeaway-staff-pos--tích-10-ly-tặng-1--thu-sau)"
+        },
+        {
+          "line": 69,
+          "content": "S_POS[Web POS Quầy Takeaway] -->|Tra cứu CRM| S_Loyalty[Tích 10 Ly Tặng 1 Takeaway]"
+        },
+        {
+          "line": 156,
+          "content": "6. **Bước 6 — Lưu Trữ Client:** PWA nhận phản hồi, lưu `session_token` vào `localStorage` (`smartfb_cust_token`) và cập nhật thanh tiêu đề chào mừng: *\"Xin chào, [Tên Khách] | Đã tích lũy: [X]/10 ly\"*."
+        },
+        {
+          "line": 498,
+          "content": "## 🔄 WF-03: KHÁCH MUA MANG VỀ TẠI QUẦY (TAKEAWAY STAFF POS) — TÍCH 10 LY TẶNG 1 & THU SAU"
+        },
+        {
+          "line": 502,
+          "content": "- **Tên quy trình:** Khách Mua Mang Về Tại Quầy (Takeaway Staff POS Flow) — Tích 10 Ly Tặng 1 Ly Miễn Phí & Thu Tiền Sau Khi Nhận Món."
+        },
+        {
+          "line": 505,
+          "content": "Quy trình phục vụ khách mua mang đi trực tiếp tại quầy thu ngân. **Quy tắc cốt lõi:** Khách **KHÔNG QUÉT QR**; Nhân viên thu ngân thao tác 100% trên giao diện **Web POS Quầy** `(staff)/pos`; Tra cứu CRM bằng SĐT để tích lũy; **Chương trình Loyalty 10 ly = tặng 1 ly miễn phí CHỈ áp dụng cho đơn Takeaway**; Khách nhận đồ uống và **Thanh toán SAU khi nhận** (Tiền mặt tự tính tiền thối hoặc VietQR quầy)."
+        },
+        {
+          "line": 524,
+          "content": "- *Khách cũ:* Hiển thị Tên, Hạng thẻ và số ly hiện tại (ví dụ: `10/10 ly`). Nút \"Đổi 1 ly miễn phí\" sáng lên."
+        },
+        {
+          "line": 526,
+          "content": "3. **Bước 3 — Chọn Món & Áp Dụng Ly Miễn Phí:** Thu ngân chọn các món theo yêu cầu. Nếu khách đủ 10 ly và đồng ý đổi thưởng, Thu ngân bấm \"Đổi 1 Ly Free\". Hệ thống trừ 100% giá của 1 ly tiêu chuẩn trong giỏ."
+        },
+        {
+          "line": 554,
+          "content": "POS-->>CS: Hiển thị thông báo: \"Khách đủ 10 ly - Đủ điều kiện nhận 1 ly miễn phí!\""
+        },
+        {
+          "line": 1571,
+          "content": "| **5** | `WF-03` (Takeaway POS) | Khách mua mang về có 10 ly tích lũy muốn đổi ly miễn phí nhưng trong đơn gọi 3 ly với 3 mức giá khác nhau (35k, 45k, 55k). | Hệ thống tự động áp dụng giảm giá 100% cho ly nước tiêu chuẩn có giá trị cao nhất (55k) để tối ưu quyền lợi khách hàng, các topping thêm vẫn tính tiền bình thường. |"
+        },
+        {
+          "line": 1614,
+          "content": "| 4 | Bán Mang Về | `WF-03` | Takeaway Staff POS CRM | `customer_phone`, `items[]`, `redeem_cup: bool` | Đơn Takeaway, Tích 10 ly tặng 1, Thu tiền sau, In Bill | Không áp dụng miễn phí cho Topping; Báo lỗi nếu tiền khách < Bill. | `Smart_FB_OS_Revised_4members.docx` (p.45-46) |"
+        }
+      ],
+      "tang_1_ly": [
+        {
+          "line": 14,
+          "content": "> 5. **Loyalty 10 ly tặng 1:** CHỈ áp dụng riêng cho đơn hàng Takeaway tại quầy."
+        },
+        {
+          "line": 27,
+          "content": "- [WF-03: Khách Mua Mang Về Tại Quầy (Takeaway Staff POS) — Tích 10 Ly Tặng 1 & Thu Sau](#wf-03-khách-mua-mang-về-tại-quầy-takeaway-staff-pos--tích-10-ly-tặng-1--thu-sau)"
+        },
+        {
+          "line": 69,
+          "content": "S_POS[Web POS Quầy Takeaway] -->|Tra cứu CRM| S_Loyalty[Tích 10 Ly Tặng 1 Takeaway]"
+        },
+        {
+          "line": 498,
+          "content": "## 🔄 WF-03: KHÁCH MUA MANG VỀ TẠI QUẦY (TAKEAWAY STAFF POS) — TÍCH 10 LY TẶNG 1 & THU SAU"
+        },
+        {
+          "line": 502,
+          "content": "- **Tên quy trình:** Khách Mua Mang Về Tại Quầy (Takeaway Staff POS Flow) — Tích 10 Ly Tặng 1 Ly Miễn Phí & Thu Tiền Sau Khi Nhận Món."
+        },
+        {
+          "line": 505,
+          "content": "Quy trình phục vụ khách mua mang đi trực tiếp tại quầy thu ngân. **Quy tắc cốt lõi:** Khách **KHÔNG QUÉT QR**; Nhân viên thu ngân thao tác 100% trên giao diện **Web POS Quầy** `(staff)/pos`; Tra cứu CRM bằng SĐT để tích lũy; **Chương trình Loyalty 10 ly = tặng 1 ly miễn phí CHỈ áp dụng cho đơn Takeaway**; Khách nhận đồ uống và **Thanh toán SAU khi nhận** (Tiền mặt tự tính tiền thối hoặc VietQR quầy)."
+        },
+        {
+          "line": 1614,
+          "content": "| 4 | Bán Mang Về | `WF-03` | Takeaway Staff POS CRM | `customer_phone`, `items[]`, `redeem_cup: bool` | Đơn Takeaway, Tích 10 ly tặng 1, Thu tiền sau, In Bill | Không áp dụng miễn phí cho Topping; Báo lỗi nếu tiền khách < Bill. | `Smart_FB_OS_Revised_4members.docx` (p.45-46) |"
+        }
+      ],
+      "takeaway_only": [
+        {
+          "line": 14,
+          "content": "> 5. **Loyalty 10 ly tặng 1:** CHỈ áp dụng riêng cho đơn hàng Takeaway tại quầy."
+        },
+        {
+          "line": 27,
+          "content": "- [WF-03: Khách Mua Mang Về Tại Quầy (Takeaway Staff POS) — Tích 10 Ly Tặng 1 & Thu Sau](#wf-03-khách-mua-mang-về-tại-quầy-takeaway-staff-pos--tích-10-ly-tặng-1--thu-sau)"
+        },
+        {
+          "line": 69,
+          "content": "S_POS[Web POS Quầy Takeaway] -->|Tra cứu CRM| S_Loyalty[Tích 10 Ly Tặng 1 Takeaway]"
+        },
+        {
+          "line": 107,
+          "content": "Nhận diện khách hàng tức thì thông qua Số điện thoại (Phone Number) khi khách mở ứng dụng web PWA mà không bắt buộc tạo tài khoản mật khẩu phức tạp. Hệ thống tự động liên kết lịch sử gọi món, hiển thị số ly tích lũy Takeaway và nạp các voucher giảm giá cá nhân hóa."
+        },
+        {
+          "line": 498,
+          "content": "## 🔄 WF-03: KHÁCH MUA MANG VỀ TẠI QUẦY (TAKEAWAY STAFF POS) — TÍCH 10 LY TẶNG 1 & THU SAU"
+        },
+        {
+          "line": 502,
+          "content": "- **Tên quy trình:** Khách Mua Mang Về Tại Quầy (Takeaway Staff POS Flow) — Tích 10 Ly Tặng 1 Ly Miễn Phí & Thu Tiền Sau Khi Nhận Món."
+        },
+        {
+          "line": 505,
+          "content": "Quy trình phục vụ khách mua mang đi trực tiếp tại quầy thu ngân. **Quy tắc cốt lõi:** Khách **KHÔNG QUÉT QR**; Nhân viên thu ngân thao tác 100% trên giao diện **Web POS Quầy** `(staff)/pos`; Tra cứu CRM bằng SĐT để tích lũy; **Chương trình Loyalty 10 ly = tặng 1 ly miễn phí CHỈ áp dụng cho đơn Takeaway**; Khách nhận đồ uống và **Thanh toán SAU khi nhận** (Tiền mặt tự tính tiền thối hoặc VietQR quầy)."
+        },
+        {
+          "line": 508,
+          "content": "- **Khách Hàng Mua Mang Về:** Đến quầy order trực tiếp."
+        },
+        {
+          "line": 517,
+          "content": "- **Quy tắc Loyalty:** Mỗi ly tiêu chuẩn trong đơn Takeaway cộng +1 vào `CupBalance`. Khi `CupBalance >= 10`, khách có quyền đổi 1 ly miễn phí (giảm 100% giá 1 ly tiêu chuẩn có giá trị cao nhất trong đơn, không miễn phí topping)."
+        },
+        {
+          "line": 527,
+          "content": "4. **Bước 4 — Gửi Đơn Xuống Bếp:** Thu ngân bấm \"Gửi Bếp\". Đơn hàng tạo với `OrderType = \"TakeAway\"`, `OrderStatus = \"Confirmed\"` và đẩy qua SignalR xuống KDS bếp."
+        },
+        {
+          "line": 539,
+          "content": "actor C as Khách Mua Mang Về"
+        },
+        {
+          "line": 559,
+          "content": "POS->>BE: POST /api/v1/orders/takeaway { customer_id, items, redeem_free_cup: true }"
+        },
+        {
+          "line": 560,
+          "content": "BE->>DB: INSERT INTO Orders (OrderType: 'TakeAway', Status: 'Confirmed')"
+        },
+        {
+          "line": 561,
+          "content": "BE->>HUB: Broadcast Event \"OrderConfirmed\" (branch_id, TakeawayOrderDto)"
+        },
+        {
+          "line": 562,
+          "content": "HUB->>KDS: Hiển thị thẻ đơn Takeaway trên màn hình KDS"
+        },
+        {
+          "line": 566,
+          "content": "HUB->>POS: Web POS quầy phát chuông: \"Đơn mang về đã sẵn sàng!\""
+        },
+        {
+          "line": 579,
+          "content": "POS->>BE: POST /api/v1/orders/{id}/complete-takeaway"
+        },
+        {
+          "line": 591,
+          "content": "- **Điều kiện hoàn tất:** Đơn hàng được pha chế, giao túi tận tay, thanh toán đầy đủ và số ly tích lũy Takeaway được cập nhật chính xác trong CRM."
+        },
+        {
+          "line": 737,
+          "content": "1. **Bước 1 — Nhận Đơn Thời Gian Thực:** Khi đơn hàng đủ điều kiện (`Paid` đối với VietQR, `Confirmed` đối với Cash/Takeaway), Backend phát sự kiện `NewKitchenOrder` qua SignalR."
+        },
+        {
+          "line": 739,
+          "content": "3. **Bước 3 — Chế Độ Gom Món Thông Minh (Batching):** Barista chuyển sang tab \"Gom Món\". Hệ thống tự động tổng hợp: *\"Cần pha chế 6 ly Trà Đào Cam Sả (Bàn 2: 2 ly, Bàn 5: 1 ly, Takeaway: 3 ly)\"*."
+        },
+        {
+          "line": 760,
+          "content": "KDS->>KDS: KDS tự gom: \"Cần pha 4 Cà Phê Muối (Bàn 2, Bàn 5, Takeaway)\""
+        },
+        {
+          "line": 1012,
+          "content": "2. **Bước 2 — Vận Hành Bán Hàng:** Trong ca, hệ thống tự động cộng dồn doanh thu tiền mặt từ các đơn Takeaway và Dine-in trả sau vào số dư lý thuyết của két ca."
+        },
+        {
+          "line": 1470,
+          "content": "Tổng hợp toàn diện bức tranh tài chính của từng chi nhánh và toàn chuỗi vào cuối ngày/tháng: Phân rã doanh thu theo 3 kênh (Dine-in, Takeaway, Delivery), tính toán chính xác Giá vốn hàng bán (COGS) dựa trên định lượng BOM của từng ly nước đã bán và giá vốn nguyên liệu nhập, từ đó tính Lợi nhuận gộp (Gross Profit) và xuất báo cáo chuẩn kế toán."
+        },
+        {
+          "line": 1482,
+          "content": "- $\\text{NetRevenue} = \\text{DineInRevenue} + \\text{TakeawayRevenue} + \\text{DeliveryRevenue} - \\text{Discounts}$"
+        },
+        {
+          "line": 1489,
+          "content": "2. **Bước 2 — Phân Loại Doanh Thu Theo Kênh:** Tách bạch doanh thu theo 3 kênh: Tại bàn (Dine-in), Mang về (Takeaway) và Giao hàng (Delivery)."
+        },
+        {
+          "line": 1507,
+          "content": "CRON->>DB: Phân rã Doanh Thu theo Kênh: Dine-In, Takeaway, Delivery"
+        },
+        {
+          "line": 1540,
+          "content": "4. KÊNH 4 — TAKEAWAY TẠI QUẦY (WF-03):"
+        },
+        {
+          "line": 1553,
+          "content": "| `Created (Cash)` | `Confirmed` | Dine-in Cash, Takeaway | Cashier / Customer | Tạo đơn thành công ➔ Đẩy ngay xuống KDS bếp pha chế không cần chờ tiền. |"
+        },
+        {
+          "line": 1558,
+          "content": "| `Ready` | `Completed` | Takeaway, Delivery | Thu Ngân / Shipper | Khách nhận túi mang về (Takeaway) hoặc Shipper xác nhận đã giao tận tay khách (Delivery). |"
+        },
+        {
+          "line": 1571,
+          "content": "| **5** | `WF-03` (Takeaway POS) | Khách mua mang về có 10 ly tích lũy muốn đổi ly miễn phí nhưng trong đơn gọi 3 ly với 3 mức giá khác nhau (35k, 45k, 55k). | Hệ thống tự động áp dụng giảm giá 100% cho ly nước tiêu chuẩn có giá trị cao nhất (55k) để tối ưu quyền lợi khách hàng, các topping thêm vẫn tính tiền bình thường. |"
+        },
+        {
+          "line": 1614,
+          "content": "| 4 | Bán Mang Về | `WF-03` | Takeaway Staff POS CRM | `customer_phone`, `items[]`, `redeem_cup: bool` | Đơn Takeaway, Tích 10 ly tặng 1, Thu tiền sau, In Bill | Không áp dụng miễn phí cho Topping; Báo lỗi nếu tiền khách < Bill. | `Smart_FB_OS_Revised_4members.docx` (p.45-46) |"
+        }
+      ]
+    },
+    "check7_wifi_attendance": {
+      "wifi_locked": [
+        {
+          "line": 28,
+          "content": "- [WF-04: Chấm Công Khóa Mạng WiFi Chi Nhánh (WiFi-Locked Attendance)](#wf-04-chấm-công-khóa-mạng-wifi-chi-nhánh-wifi-locked-attendance)"
+        },
+        {
+          "line": 595,
+          "content": "## 🔄 WF-04: CHẤM CÔNG KHÓA MẠNG WIFI CHI NHÁNH (WIFI-LOCKED ATTENDANCE)"
+        },
+        {
+          "line": 599,
+          "content": "- **Tên quy trình:** Chấm Công Khóa Mạng WiFi Chi Nhánh (WiFi-Locked Attendance Flow)."
+        },
+        {
+          "line": 634,
+          "content": "\"verification_method\": \"WIFI_LOCKED\","
+        },
+        {
+          "line": 650,
+          "content": "- Nếu hợp lệ: Tạo bản ghi mới trong bảng `Attendances` với `Status = \"Success\"`, `Method = \"WIFI_LOCKED\"`, `Timestamp = NOW()`."
+        }
+      ],
+      "bssid": [
+        {
+          "line": 12,
+          "content": "> 3. **Chấm công Khóa WiFi:** Xác thực Subnet IP / BSSID Access Point quán + Mã nhân viên (Loại bỏ GPS 50m và QR 30 giây)."
+        },
+        {
+          "line": 78,
+          "content": "M_WiFi[Cấu Hình Subnet/BSSID WiFi] --> S_Att"
+        },
+        {
+          "line": 603,
+          "content": "1. Thiết bị đang kết nối đúng mạng WiFi của chi nhánh (Kiểm tra Client IP thuộc dải Subnet được cấp phép và BSSID Access Point của quán)."
+        },
+        {
+          "line": 647,
+          "content": "- Đối chiếu xem Client IP có thuộc dải Subnet cho phép (ví dụ: `192.168.1.0/24`) và BSSID Access Point của quán hay không."
+        },
+        {
+          "line": 675,
+          "content": "alt IP/BSSID KHÔNG thuộc mạng WiFi quán (Dùng 4G / WiFi Ngoài)"
+        },
+        {
+          "line": 1615,
+          "content": "| 5 | Quản Trị Nhân Sự | `WF-04` | Chấm Công Khóa WiFi | `employee_code`, Client IP, Network BSSID | Bản ghi Attendance `Success`, giờ vào/ra | Từ chối 403 nếu dùng 4G/WiFi ngoài; 404 nếu sai Mã NV. | `Smart_FB_OS_Revised_4members.docx` (p.52) |"
+        }
+      ],
+      "ip_subnet": [
+        {
+          "line": 12,
+          "content": "> 3. **Chấm công Khóa WiFi:** Xác thực Subnet IP / BSSID Access Point quán + Mã nhân viên (Loại bỏ GPS 50m và QR 30 giây)."
+        },
+        {
+          "line": 78,
+          "content": "M_WiFi[Cấu Hình Subnet/BSSID WiFi] --> S_Att"
+        },
+        {
+          "line": 603,
+          "content": "1. Thiết bị đang kết nối đúng mạng WiFi của chi nhánh (Kiểm tra Client IP thuộc dải Subnet được cấp phép và BSSID Access Point của quán)."
+        },
+        {
+          "line": 612,
+          "content": "- Quản lý chi nhánh đã cấu hình danh sách `AllowedSubnets` và `AllowedBSSIDs` trong bảng `BranchWifiConfigs`."
+        },
+        {
+          "line": 647,
+          "content": "- Đối chiếu xem Client IP có thuộc dải Subnet cho phép (ví dụ: `192.168.1.0/24`) và BSSID Access Point của quán hay không."
+        },
+        {
+          "line": 673,
+          "content": "DB-->>BE: WifiConfig { allowed_subnets: [\"192.168.1.0/24\"], allowed_bssids: [...] }"
+        },
+        {
+          "line": 695,
+          "content": "- **Ngoại lệ 1 (Nhân viên dùng 4G/5G hoặc Fake IP):** Backend kiểm tra IP Gateway không khớp với danh sách Subnet chi nhánh, lập tức trả về HTTP 403 Forbidden và ghi log cảnh báo."
+        },
+        {
+          "line": 696,
+          "content": "- **Ngoại lệ 2 (Router quán bị reset đổi IP):** Quản lý chi nhánh có quyền cập nhật nhanh Subnet mới trên Manager Portal mà không cần khởi động lại server."
+        },
+        {
+          "line": 1572,
+          "content": "| **6** | `WF-04` (WiFi Attendance) | Nhân viên đứng bên ngoài quán bắt sóng 4G/5G hoặc dùng phần mềm Fake IP để chấm công từ xa. | Backend kiểm tra địa chỉ Public IP Gateway của Client và so khớp Subnet. Nếu IP Client không khớp với IP Router chi nhánh đã cấu hình ➔ Lập tức từ chối HTTP 403 và ghi log cảnh báo gian lận. |"
+        }
+      ]
+    }
+  },
+  "Tong_Quan_Kien_Truc_He_Thong.md": {
+    "filename": "Tong_Quan_Kien_Truc_He_Thong.md",
+    "line_count": 939,
+    "check1_c23_c24": [],
+    "check2_placeholders": {
+      "TODO": [],
+      "TBD": [],
+      "rest_of_code": [],
+      "tuong_tu": [],
+      "placeholder_tag": [],
+      "ellipsis": []
+    },
+    "check3_staff_app": [
+      {
+        "line": 12,
+        "content": "> 2. **Loại Bỏ Hoàn Toàn Staff Mobile App:** Không phát triển ứng dụng di động native/hybrid riêng cho nhân viên."
+      },
+      {
+        "line": 65,
+        "content": "- **Loại bỏ 100% Staff Mobile App:** Không phát triển ứng dụng di động riêng cho nhân viên trên App Store hay Google Play. Mọi tác vụ của nhân viên phục vụ, thu ngân, barista được gom vào các Route Groups Next.js 14 Responsive (`(kds)`, `(staff)`), tương thích hoàn hảo trên Smart TV màn hình cảm ứng, iPad, máy tính bảng Android, laptop và smartphone sẵn có."
+      },
+      {
+        "line": 920,
+        "content": "| **Nền tảng ứng dụng nhân viên** | ✅ 100% Web Responsive (KDS & POS) | ❌ XÓA Staff Mobile App | Bỏ hoàn toàn App native. |"
+      }
+    ],
+    "check4_dinein_payment": {
+      "tien_mat": [
+        {
+          "line": 57,
+          "content": "│                                   │ 2 nhánh thanh toán tại bàn (VietQR trả trước vs Tiền mặt sau)│"
+        },
+        {
+          "line": 235,
+          "content": "│   │   │   ├── cart/                 # Giỏ hàng, Áp dụng Voucher, Chọn thanh toán VietQR / Tiền mặt"
+        },
+        {
+          "line": 251,
+          "content": "│   │   │   ├── shifts/               # Mở ca đầu ngày, kết ca kiểm đếm két tiền mặt & ký Z-Report"
+        },
+        {
+          "line": 764,
+          "content": "%% NHANH B: TIỀN MẶT TRẢ SAU"
+        },
+        {
+          "line": 765,
+          "content": "DECISION -->|Phương thức B: Tiền Mặt| B1[Tạo Đơn: Confirmed]"
+        },
+        {
+          "line": 774,
+          "content": "B9 -->|Đưa Tiền Mặt| B10[NV Thu Tiền Mặt & Xác Nhận Trên Web POS]"
+        },
+        {
+          "line": 794,
+          "content": "- **Thanh toán sau (Post-payment):** Thu tiền mặt (hệ thống tự tính tiền thừa) hoặc xuất mã VietQR tại quầy sau khi khách nhận đồ uống."
+        },
+        {
+          "line": 916,
+          "content": "| **Đặt món tại bàn (Dine-In)** | ✅ 2 Nhánh (VietQR trước / Tiền mặt sau) | — | Nghiệp vụ cốt lõi tại quán. |"
+        }
+      ],
+      "vietqr": [
+        {
+          "line": 9,
+          "content": "> **Tech Stack Chuẩn Hóa:** Backend .NET 8 Clean Architecture (C#) | Frontend Next.js 14 App Router Monorepo (TypeScript) | Database PostgreSQL 16 (25 Entities 3NF) | Caching & Locking Redis 7 | Real-Time SignalR WebSockets | Google Gemini 1.5 Flash SDK | Apriori/FP-Growth | PayOS VietQR Webhook"
+        },
+        {
+          "line": 57,
+          "content": "│                                   │ 2 nhánh thanh toán tại bàn (VietQR trả trước vs Tiền mặt sau)│"
+        },
+        {
+          "line": 103,
+          "content": "PAYOS[\"💳 Cổng Thanh Toán VietQR / PayOS<br>[Sinh mã QR động & Webhook thông báo]\"]"
+        },
+        {
+          "line": 109,
+          "content": "CUST -->|\"1. Quét QR Bàn / QR Delivery, Đặt món, VietQR, Chat AI\"| SFBOS"
+        },
+        {
+          "line": 114,
+          "content": "SFBOS -->|\"Khởi tạo giao dịch VietQR\"| PAYOS"
+        },
+        {
+          "line": 171,
+          "content": "EXT_PAY[\"💳 PayOS VietQR Service\"]"
+        },
+        {
+          "line": 235,
+          "content": "│   │   │   ├── cart/                 # Giỏ hàng, Áp dụng Voucher, Chọn thanh toán VietQR / Tiền mặt"
+        },
+        {
+          "line": 303,
+          "content": "PAY[\"PayOS VietQR Service<br>[CreatePaymentLink, ValidateHmacSignature]\"]"
+        },
+        {
+          "line": 350,
+          "content": "Note over PAY,BE: KHI CÓ THANH TOÁN VIETQR KHỚP HOẶC ĐƠN CONFIRMED"
+        },
+        {
+          "line": 734,
+          "content": "│                      │                                │ • Bắt buộc 100% VietQR (Không COD).      │"
+        },
+        {
+          "line": 752,
+          "content": "%% NHANH A: VIETQR TRẢ TRƯỚC"
+        },
+        {
+          "line": 753,
+          "content": "DECISION -->|Phương thức A: VietQR| A1[Sinh Mã VietQR Động]"
+        },
+        {
+          "line": 770,
+          "content": "B5 --> B6[In Hóa Đơn Có In Sẵn Mã QR VietQR]"
+        },
+        {
+          "line": 775,
+          "content": "B9 -->|Quét QR Trên Bill| B11[Khách Quét VietQR Trên Hóa Đơn & PayOS Báo Paid]"
+        },
+        {
+          "line": 794,
+          "content": "- **Thanh toán sau (Post-payment):** Thu tiền mặt (hệ thống tự tính tiền thừa) hoặc xuất mã VietQR tại quầy sau khi khách nhận đồ uống."
+        },
+        {
+          "line": 916,
+          "content": "| **Đặt món tại bàn (Dine-In)** | ✅ 2 Nhánh (VietQR trước / Tiền mặt sau) | — | Nghiệp vụ cốt lõi tại quán. |"
+        },
+        {
+          "line": 917,
+          "content": "| **Đặt hàng giao tận nơi (QR Delivery)** | ✅ SĐT + Địa chỉ, Phí 20k, VietQR 100% | — | Bán hàng online không COD. |"
+        }
+      ],
+      "tra_truoc": [
+        {
+          "line": 57,
+          "content": "│                                   │ 2 nhánh thanh toán tại bàn (VietQR trả trước vs Tiền mặt sau)│"
+        },
+        {
+          "line": 752,
+          "content": "%% NHANH A: VIETQR TRẢ TRƯỚC"
+        }
+      ],
+      "tra_sau": [
+        {
+          "line": 764,
+          "content": "%% NHANH B: TIỀN MẶT TRẢ SAU"
+        }
+      ],
+      "kem_hoa_don": [
+        {
+          "line": 770,
+          "content": "B5 --> B6[In Hóa Đơn Có In Sẵn Mã QR VietQR]"
+        },
+        {
+          "line": 771,
+          "content": "B6 --> B7[NV Bưng Món Ra Bàn KÈM HÓA ĐƠN]"
+        }
+      ],
+      "in_ma_qr": [
+        {
+          "line": 103,
+          "content": "PAYOS[\"💳 Cổng Thanh Toán VietQR / PayOS<br>[Sinh mã QR động & Webhook thông báo]\"]"
+        },
+        {
+          "line": 753,
+          "content": "DECISION -->|Phương thức A: VietQR| A1[Sinh Mã VietQR Động]"
+        }
+      ]
+    },
+    "check5_delivery": {
+      "fee_20k": [
+        {
+          "line": 733,
+          "content": "│                      │                                │ • Tự động cộng cố định phí ship 20.000đ. │"
+        }
+      ],
+      "dia_chi_giao_hang": [],
+      "delivery_fee": [
+        {
+          "line": 574,
+          "content": "decimal delivery_fee"
+        }
+      ],
+      "order_type_delivery": [
+        {
+          "line": 28,
+          "content": "| **PHẦN 7** | [Kiến Trúc Dữ Liệu & Luồng Nghiệp Vụ Đặc Thù](#phần-7-kiến-trúc-dữ-liệu--luồng-nghiệp-vụ-đặc-thù) | 3 Loại QR, Dine-In 2 Nhánh, QR Delivery, Takeaway POS, WiFi-Lock |"
+        },
+        {
+          "line": 56,
+          "content": "│ 5. Dual-Payment & Multi-Channel   │ Hỗ trợ linh hoạt 3 kênh bán (DineIn, TakeAway, Delivery) và  │"
+        },
+        {
+          "line": 109,
+          "content": "CUST -->|\"1. Quét QR Bàn / QR Delivery, Đặt món, VietQR, Chat AI\"| SFBOS"
+        },
+        {
+          "line": 139,
+          "content": "FE_CUST[\"📱 Customer PWA App<br>[Route: (customer)]<br>PWA QR Menu, Delivery, AI Chat\"]"
+        },
+        {
+          "line": 155,
+          "content": "H_ORDER[\"📦 Order & Payment Handlers<br>[DineIn, TakeAway, Delivery Engines]\"]"
+        },
+        {
+          "line": 236,
+          "content": "│   │   │   ├── delivery/             # Form đặt hàng giao tận nơi (SĐT + Địa chỉ + Phí ship 20k)"
+        },
+        {
+          "line": 570,
+          "content": "string order_type"
+        },
+        {
+          "line": 574,
+          "content": "decimal delivery_fee"
+        },
+        {
+          "line": 576,
+          "content": "string delivery_address"
+        },
+        {
+          "line": 579,
+          "content": "string delivery_notes"
+        },
+        {
+          "line": 731,
+          "content": "│ 2. Delivery QR       │ `https://app.domain/delivery`  │ • Mở form đặt hàng giao tận nơi.         │"
+        },
+        {
+          "line": 793,
+          "content": "- **Quy tắc Loyalty 10 ly = tặng 1 ly miễn phí:** **CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY**. Đơn Dine-In và Delivery hoàn toàn không tích ly và không đổi ly miễn phí."
+        },
+        {
+          "line": 917,
+          "content": "| **Đặt hàng giao tận nơi (QR Delivery)** | ✅ SĐT + Địa chỉ, Phí 20k, VietQR 100% | — | Bán hàng online không COD. |"
+        },
+        {
+          "line": 926,
+          "content": "| **Điều phối Ship bên thứ ba** | — | 🔮 AhaMove / GrabExpress | Extension `IDeliveryPartner`. |"
+        },
+        {
+          "line": 935,
+          "content": "4. `IDeliveryDispatchPartner`: Giao diện kết nối API các đơn vị vận chuyển công nghệ (AhaMove, GrabExpress, BeDelivery)."
+        }
+      ]
+    },
+    "check6_takeaway_loyalty": {
+      "10_ly": [
+        {
+          "line": 141,
+          "content": "FE_POS[\"💻 Staff Web POS App<br>[Route: (staff)]<br>Takeaway POS, CRM 10 Ly, WiFi Att\"]"
+        },
+        {
+          "line": 246,
+          "content": "│   │   │   ├── pos/                  # Web POS Quầy: Bán mang về, tra cứu CRM 10 ly, thu tiền sau"
+        },
+        {
+          "line": 262,
+          "content": "│   │       ├── crm-loyalty/          # Quản trị danh bạ khách hàng & Cấu hình chính sách 10 ly"
+        },
+        {
+          "line": 789,
+          "content": "## 7.3. Kiến Trúc Takeaway Web POS & Chương Trình Tích 10 Ly"
+        },
+        {
+          "line": 793,
+          "content": "- **Quy tắc Loyalty 10 ly = tặng 1 ly miễn phí:** **CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY**. Đơn Dine-In và Delivery hoàn toàn không tích ly và không đổi ly miễn phí."
+        },
+        {
+          "line": 918,
+          "content": "| **Bán mang về tại quầy (Takeaway)** | ✅ Web POS, Tích 10 ly, Thu tiền sau | — | Nghiệp vụ thu ngân quầy. |"
+        }
+      ],
+      "tang_1_ly": [
+        {
+          "line": 793,
+          "content": "- **Quy tắc Loyalty 10 ly = tặng 1 ly miễn phí:** **CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY**. Đơn Dine-In và Delivery hoàn toàn không tích ly và không đổi ly miễn phí."
+        }
+      ],
+      "takeaway_only": [
+        {
+          "line": 28,
+          "content": "| **PHẦN 7** | [Kiến Trúc Dữ Liệu & Luồng Nghiệp Vụ Đặc Thù](#phần-7-kiến-trúc-dữ-liệu--luồng-nghiệp-vụ-đặc-thù) | 3 Loại QR, Dine-In 2 Nhánh, QR Delivery, Takeaway POS, WiFi-Lock |"
+        },
+        {
+          "line": 38,
+          "content": "Kiến trúc phần mềm của **Smart F&B OS** được thiết kế nhằm giải quyết bài toán vận hành chuỗi F&B hiện đại: tối ưu chi phí đầu tư ban đầu, loại bỏ hoàn toàn sự phụ thuộc vào phần cứng máy POS chuyên dụng đắt đỏ, và tự động hóa quy trình nghiệp vụ từ đặt món tại bàn, bán mang về, giao tận nhà đến quản lý ca kíp và kho quỹ."
+        },
+        {
+          "line": 56,
+          "content": "│ 5. Dual-Payment & Multi-Channel   │ Hỗ trợ linh hoạt 3 kênh bán (DineIn, TakeAway, Delivery) và  │"
+        },
+        {
+          "line": 110,
+          "content": "STAFF -->|\"2. Nhận đơn KDS, Pha chế, Bán POS Takeaway, Chấm công WiFi\"| SFBOS"
+        },
+        {
+          "line": 141,
+          "content": "FE_POS[\"💻 Staff Web POS App<br>[Route: (staff)]<br>Takeaway POS, CRM 10 Ly, WiFi Att\"]"
+        },
+        {
+          "line": 155,
+          "content": "H_ORDER[\"📦 Order & Payment Handlers<br>[DineIn, TakeAway, Delivery Engines]\"]"
+        },
+        {
+          "line": 157,
+          "content": "H_CRM[\"🎁 CRM & Loyalty Handlers<br>[Takeaway 10-Cup Rule, Vouchers]\"]"
+        },
+        {
+          "line": 246,
+          "content": "│   │   │   ├── pos/                  # Web POS Quầy: Bán mang về, tra cứu CRM 10 ly, thu tiền sau"
+        },
+        {
+          "line": 415,
+          "content": "CUSTOMERS ||--o{ LOYALTY_CUP_TRANSACTIONS : \"accumulates_takeaway\""
+        },
+        {
+          "line": 789,
+          "content": "## 7.3. Kiến Trúc Takeaway Web POS & Chương Trình Tích 10 Ly"
+        },
+        {
+          "line": 793,
+          "content": "- **Quy tắc Loyalty 10 ly = tặng 1 ly miễn phí:** **CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY**. Đơn Dine-In và Delivery hoàn toàn không tích ly và không đổi ly miễn phí."
+        },
+        {
+          "line": 918,
+          "content": "| **Bán mang về tại quầy (Takeaway)** | ✅ Web POS, Tích 10 ly, Thu tiền sau | — | Nghiệp vụ thu ngân quầy. |"
+        }
+      ]
+    },
+    "check7_wifi_attendance": {
+      "wifi_locked": [
+        {
+          "line": 798,
+          "content": "## 7.4. Kiến Trúc Chấm Công Khóa Mạng WiFi (WiFi-Locked Engine)"
+        },
+        {
+          "line": 919,
+          "content": "| **Chấm công nhân viên** | ✅ Khóa Mạng WiFi (BSSID/IP + Mã NV) | 🔮 Sinh trắc học FaceID | WiFi-locked chống gian lận. |"
+        }
+      ],
+      "bssid": [
+        {
+          "line": 59,
+          "content": "│ 6. Dual-Factor WiFi Verification  │ Chấm công an toàn chống gian lận qua BSSID/IP Subnet WiFi    │"
+        },
+        {
+          "line": 158,
+          "content": "H_WIFI[\"📶 WiFi Attendance Handlers<br>[BSSID/IP Subnet Dual Check]\"]"
+        },
+        {
+          "line": 248,
+          "content": "│   │   │   └── attendance/           # Chấm công khóa mạng WiFi chi nhánh (Xác thực IP/BSSID + Mã NV)"
+        },
+        {
+          "line": 254,
+          "content": "│   │   │   ├── wifi-config/          # Khai báo danh sách BSSID Access Point & IP Subnet chấm công"
+        },
+        {
+          "line": 736,
+          "content": "│ 3. Attendance QR     │ `https://staff.domain/checkin` │ • Kiểm tra Client IP/BSSID WiFi quán.    │"
+        },
+        {
+          "line": 802,
+          "content": "1. `Network Check`: So khớp địa chỉ IP Gateway / Subnet của Client hoặc BSSID Access Point với bảng cấu hình `branch_wifi_configs`."
+        },
+        {
+          "line": 896,
+          "content": "│                   │ • Khóa mạng WiFi: So khớp BSSID/Subnet cứng rắn ngăn chặn check-in từ xa.   │"
+        },
+        {
+          "line": 919,
+          "content": "| **Chấm công nhân viên** | ✅ Khóa Mạng WiFi (BSSID/IP + Mã NV) | 🔮 Sinh trắc học FaceID | WiFi-locked chống gian lận. |"
+        }
+      ],
+      "ip_subnet": [
+        {
+          "line": 59,
+          "content": "│ 6. Dual-Factor WiFi Verification  │ Chấm công an toàn chống gian lận qua BSSID/IP Subnet WiFi    │"
+        },
+        {
+          "line": 158,
+          "content": "H_WIFI[\"📶 WiFi Attendance Handlers<br>[BSSID/IP Subnet Dual Check]\"]"
+        },
+        {
+          "line": 254,
+          "content": "│   │   │   ├── wifi-config/          # Khai báo danh sách BSSID Access Point & IP Subnet chấm công"
+        },
+        {
+          "line": 293,
+          "content": "VO[\"Value Objects<br>[Money, Address, PhoneNumber, WifiSubnet]\"]"
+        },
+        {
+          "line": 443,
+          "content": "string allowed_ip_subnets"
+        },
+        {
+          "line": 802,
+          "content": "1. `Network Check`: So khớp địa chỉ IP Gateway / Subnet của Client hoặc BSSID Access Point với bảng cấu hình `branch_wifi_configs`."
+        },
+        {
+          "line": 896,
+          "content": "│                   │ • Khóa mạng WiFi: So khớp BSSID/Subnet cứng rắn ngăn chặn check-in từ xa.   │"
+        }
+      ]
+    }
+  },
+  "Tom_Tat_1_Trang_Executive_Summary.md": {
+    "filename": "Tom_Tat_1_Trang_Executive_Summary.md",
+    "line_count": 96,
+    "check1_c23_c24": [],
+    "check2_placeholders": {
+      "TODO": [],
+      "TBD": [],
+      "rest_of_code": [],
+      "tuong_tu": [],
+      "placeholder_tag": [],
+      "ellipsis": []
+    },
+    "check3_staff_app": [
+      {
+        "line": 19,
+        "content": "│ 5. Mù mờ tài chính & P&L       │ 5. Nền tảng Web-First (Bỏ Staff App)  │ • Realtime: SignalR WebSockets (4 Hubs)      │"
+      },
+      {
+        "line": 56,
+        "content": "5. **Hợp Nhất 100% Nền Tảng Web-First (Loại Bỏ Hoàn Toàn Staff Mobile App):**"
+      }
+    ],
+    "check4_dinein_payment": {
+      "tien_mat": [
+        {
+          "line": 15,
+          "content": "│ 1. Máy POS đắt đỏ (8 - 25 triệu)│ 1. Dine-In 2 nhánh (VietQR / Tiền mặt)│ • Backend: .NET 8 Clean Architecture (CQRS)  │"
+        },
+        {
+          "line": 45,
+          "content": "- **Nhánh B (Tiền mặt Trả sau):** Khách quét QR bàn ➔ Chọn Tiền mặt ➔ **Đơn vào bếp KDS ngay lập tức** (`Confirmed`) ➔ Pha chế ➔ Nhân viên mang món ra bàn **kèm Hóa đơn có in sẵn mã VietQR** ➔ Khách linh hoạt trả tiền mặt hoặc quét VietQR trên bill ➔ Nhân viên xác nhận hoàn tất. *(Phù hợp khách quen và người lớn tuổi).*"
+        },
+        {
+          "line": 52,
+          "content": "- Khách nhận món và **Thanh toán sau khi nhận**: Thu ngân chọn Tiền mặt (tính tiền thối tự động) hoặc xuất VietQR quầy."
+        }
+      ],
+      "vietqr": [
+        {
+          "line": 15,
+          "content": "│ 1. Máy POS đắt đỏ (8 - 25 triệu)│ 1. Dine-In 2 nhánh (VietQR / Tiền mặt)│ • Backend: .NET 8 Clean Architecture (CQRS)  │"
+        },
+        {
+          "line": 16,
+          "content": "│ 2. Xếp hàng nghẽn quầy giờ cao điểm│ 2. QR Delivery (Phí 20k, 100% VietQR)│ • Frontend: Next.js 14 App Router Monorepo   │"
+        },
+        {
+          "line": 20,
+          "content": "│ 6. Lệch vị pha chế & thiếu data│ 6. Admin Full CRUD & Menu mùa lên lịch│ • Payment: Cổng PayOS VietQR (HMAC-SHA256)   │"
+        },
+        {
+          "line": 37,
+          "content": "- **Triệt tiêu 0%** rủi ro thất thoát doanh thu và bùng đơn thông qua cổng VietQR động khớp lệnh tự động."
+        },
+        {
+          "line": 44,
+          "content": "- **Nhánh A (VietQR Trả trước):** Khách quét QR bàn ➔ Chọn món ➔ Thanh toán VietQR động ➔ Cổng PayOS xác nhận `Paid` ➔ **Bếp KDS mới nhận đơn** qua SignalR ➔ Pha chế ➔ Phục vụ. *(Triệt tiêu 100% rủi ro bùng đơn).*"
+        },
+        {
+          "line": 45,
+          "content": "- **Nhánh B (Tiền mặt Trả sau):** Khách quét QR bàn ➔ Chọn Tiền mặt ➔ **Đơn vào bếp KDS ngay lập tức** (`Confirmed`) ➔ Pha chế ➔ Nhân viên mang món ra bàn **kèm Hóa đơn có in sẵn mã VietQR** ➔ Khách linh hoạt trả tiền mặt hoặc quét VietQR trên bill ➔ Nhân viên xác nhận hoàn tất. *(Phù hợp khách quen và người lớn tuổi).*"
+        },
+        {
+          "line": 47,
+          "content": "- Khách quét mã QR Delivery (trên poster, fanpage, standee) ➔ Mở PWA ➔ Bắt buộc nhập Số điện thoại + **Địa chỉ giao hàng** (`delivery_address`) ➔ Hệ thống tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) ➔ **100% Thanh toán VietQR trả trước** (Khóa hoàn toàn COD để chống bùng hàng) ➔ Bếp KDS nhận đơn điều phối giao tận nhà."
+        },
+        {
+          "line": 52,
+          "content": "- Khách nhận món và **Thanh toán sau khi nhận**: Thu ngân chọn Tiền mặt (tính tiền thối tự động) hoặc xuất VietQR quầy."
+        },
+        {
+          "line": 79,
+          "content": "| **Cổng Thanh Toán** | **PayOS / VietQR Gateway** | Sinh mã VietQR động, đối soát giao dịch thời gian thực qua Webhook HMAC-SHA256. |"
+        },
+        {
+          "line": 86,
+          "content": "- **Triệt tiêu thất thoát:** Giảm 80% thất thoát nguyên liệu nhờ định mức BOM tự động trừ kho trên KDS và 0% bùng đơn ở kênh Delivery & Dine-In VietQR."
+        }
+      ],
+      "tra_truoc": [
+        {
+          "line": 44,
+          "content": "- **Nhánh A (VietQR Trả trước):** Khách quét QR bàn ➔ Chọn món ➔ Thanh toán VietQR động ➔ Cổng PayOS xác nhận `Paid` ➔ **Bếp KDS mới nhận đơn** qua SignalR ➔ Pha chế ➔ Phục vụ. *(Triệt tiêu 100% rủi ro bùng đơn).*"
+        },
+        {
+          "line": 47,
+          "content": "- Khách quét mã QR Delivery (trên poster, fanpage, standee) ➔ Mở PWA ➔ Bắt buộc nhập Số điện thoại + **Địa chỉ giao hàng** (`delivery_address`) ➔ Hệ thống tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) ➔ **100% Thanh toán VietQR trả trước** (Khóa hoàn toàn COD để chống bùng hàng) ➔ Bếp KDS nhận đơn điều phối giao tận nhà."
+        }
+      ],
+      "tra_sau": [
+        {
+          "line": 17,
+          "content": "│ 3. Gian lận chấm công 5 - 10%  │ 3. Takeaway POS (Tích 10 ly, Trả sau) │ • Database: PostgreSQL 16 (25 thực thể 3NF)  │"
+        },
+        {
+          "line": 45,
+          "content": "- **Nhánh B (Tiền mặt Trả sau):** Khách quét QR bàn ➔ Chọn Tiền mặt ➔ **Đơn vào bếp KDS ngay lập tức** (`Confirmed`) ➔ Pha chế ➔ Nhân viên mang món ra bàn **kèm Hóa đơn có in sẵn mã VietQR** ➔ Khách linh hoạt trả tiền mặt hoặc quét VietQR trên bill ➔ Nhân viên xác nhận hoàn tất. *(Phù hợp khách quen và người lớn tuổi).*"
+        }
+      ],
+      "kem_hoa_don": [
+        {
+          "line": 45,
+          "content": "- **Nhánh B (Tiền mặt Trả sau):** Khách quét QR bàn ➔ Chọn Tiền mặt ➔ **Đơn vào bếp KDS ngay lập tức** (`Confirmed`) ➔ Pha chế ➔ Nhân viên mang món ra bàn **kèm Hóa đơn có in sẵn mã VietQR** ➔ Khách linh hoạt trả tiền mặt hoặc quét VietQR trên bill ➔ Nhân viên xác nhận hoàn tất. *(Phù hợp khách quen và người lớn tuổi).*"
+        }
+      ],
+      "in_ma_qr": [
+        {
+          "line": 37,
+          "content": "- **Triệt tiêu 0%** rủi ro thất thoát doanh thu và bùng đơn thông qua cổng VietQR động khớp lệnh tự động."
+        },
+        {
+          "line": 44,
+          "content": "- **Nhánh A (VietQR Trả trước):** Khách quét QR bàn ➔ Chọn món ➔ Thanh toán VietQR động ➔ Cổng PayOS xác nhận `Paid` ➔ **Bếp KDS mới nhận đơn** qua SignalR ➔ Pha chế ➔ Phục vụ. *(Triệt tiêu 100% rủi ro bùng đơn).*"
+        },
+        {
+          "line": 79,
+          "content": "| **Cổng Thanh Toán** | **PayOS / VietQR Gateway** | Sinh mã VietQR động, đối soát giao dịch thời gian thực qua Webhook HMAC-SHA256. |"
+        }
+      ]
+    },
+    "check5_delivery": {
+      "fee_20k": [
+        {
+          "line": 46,
+          "content": "2. **Đặt Hàng Giao Tận Nơi (QR Delivery) — Phí Ship Cố Định 20.000 VNĐ:**"
+        },
+        {
+          "line": 47,
+          "content": "- Khách quét mã QR Delivery (trên poster, fanpage, standee) ➔ Mở PWA ➔ Bắt buộc nhập Số điện thoại + **Địa chỉ giao hàng** (`delivery_address`) ➔ Hệ thống tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) ➔ **100% Thanh toán VietQR trả trước** (Khóa hoàn toàn COD để chống bùng hàng) ➔ Bếp KDS nhận đơn điều phối giao tận nhà."
+        }
+      ],
+      "dia_chi_giao_hang": [
+        {
+          "line": 47,
+          "content": "- Khách quét mã QR Delivery (trên poster, fanpage, standee) ➔ Mở PWA ➔ Bắt buộc nhập Số điện thoại + **Địa chỉ giao hàng** (`delivery_address`) ➔ Hệ thống tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) ➔ **100% Thanh toán VietQR trả trước** (Khóa hoàn toàn COD để chống bùng hàng) ➔ Bếp KDS nhận đơn điều phối giao tận nhà."
+        }
+      ],
+      "delivery_fee": [
+        {
+          "line": 47,
+          "content": "- Khách quét mã QR Delivery (trên poster, fanpage, standee) ➔ Mở PWA ➔ Bắt buộc nhập Số điện thoại + **Địa chỉ giao hàng** (`delivery_address`) ➔ Hệ thống tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) ➔ **100% Thanh toán VietQR trả trước** (Khóa hoàn toàn COD để chống bùng hàng) ➔ Bếp KDS nhận đơn điều phối giao tận nhà."
+        }
+      ],
+      "order_type_delivery": [
+        {
+          "line": 16,
+          "content": "│ 2. Xếp hàng nghẽn quầy giờ cao điểm│ 2. QR Delivery (Phí 20k, 100% VietQR)│ • Frontend: Next.js 14 App Router Monorepo   │"
+        },
+        {
+          "line": 46,
+          "content": "2. **Đặt Hàng Giao Tận Nơi (QR Delivery) — Phí Ship Cố Định 20.000 VNĐ:**"
+        },
+        {
+          "line": 47,
+          "content": "- Khách quét mã QR Delivery (trên poster, fanpage, standee) ➔ Mở PWA ➔ Bắt buộc nhập Số điện thoại + **Địa chỉ giao hàng** (`delivery_address`) ➔ Hệ thống tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) ➔ **100% Thanh toán VietQR trả trước** (Khóa hoàn toàn COD để chống bùng hàng) ➔ Bếp KDS nhận đơn điều phối giao tận nhà."
+        },
+        {
+          "line": 51,
+          "content": "- **Chính sách Loyalty 10 ly = 1 ly miễn phí:** **CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY** (Không áp dụng Dine-In và Delivery). Đủ 10 ly được tặng 1 ly miễn phí thứ 11."
+        },
+        {
+          "line": 86,
+          "content": "- **Triệt tiêu thất thoát:** Giảm 80% thất thoát nguyên liệu nhờ định mức BOM tự động trừ kho trên KDS và 0% bùng đơn ở kênh Delivery & Dine-In VietQR."
+        }
+      ]
+    },
+    "check6_takeaway_loyalty": {
+      "10_ly": [
+        {
+          "line": 17,
+          "content": "│ 3. Gian lận chấm công 5 - 10%  │ 3. Takeaway POS (Tích 10 ly, Trả sau) │ • Database: PostgreSQL 16 (25 thực thể 3NF)  │"
+        },
+        {
+          "line": 48,
+          "content": "3. **Bán Mang Đi Tại Quầy (Takeaway Staff POS) — Tích 10 Ly Tặng 1 & Thu Sau:**"
+        },
+        {
+          "line": 51,
+          "content": "- **Chính sách Loyalty 10 ly = 1 ly miễn phí:** **CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY** (Không áp dụng Dine-In và Delivery). Đủ 10 ly được tặng 1 ly miễn phí thứ 11."
+        }
+      ],
+      "tang_1_ly": [
+        {
+          "line": 48,
+          "content": "3. **Bán Mang Đi Tại Quầy (Takeaway Staff POS) — Tích 10 Ly Tặng 1 & Thu Sau:**"
+        },
+        {
+          "line": 51,
+          "content": "- **Chính sách Loyalty 10 ly = 1 ly miễn phí:** **CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY** (Không áp dụng Dine-In và Delivery). Đủ 10 ly được tặng 1 ly miễn phí thứ 11."
+        }
+      ],
+      "takeaway_only": [
+        {
+          "line": 17,
+          "content": "│ 3. Gian lận chấm công 5 - 10%  │ 3. Takeaway POS (Tích 10 ly, Trả sau) │ • Database: PostgreSQL 16 (25 thực thể 3NF)  │"
+        },
+        {
+          "line": 48,
+          "content": "3. **Bán Mang Đi Tại Quầy (Takeaway Staff POS) — Tích 10 Ly Tặng 1 & Thu Sau:**"
+        },
+        {
+          "line": 51,
+          "content": "- **Chính sách Loyalty 10 ly = 1 ly miễn phí:** **CHỈ ÁP DỤNG DUY NHẤT CHO ĐƠN TAKEAWAY** (Không áp dụng Dine-In và Delivery). Đủ 10 ly được tặng 1 ly miễn phí thứ 11."
+        }
+      ]
+    },
+    "check7_wifi_attendance": {
+      "wifi_locked": [
+        {
+          "line": 53,
+          "content": "4. **Chấm Công Khóa Mạng WiFi (WiFi-Locked Attendance):**"
+        }
+      ],
+      "bssid": [
+        {
+          "line": 18,
+          "content": "│ 4. Thất thoát nguyên liệu kho  │ 4. Chấm công Khóa WiFi (BSSID / IP)   │ • Cache & Lock: Redis 7 (Cache-aside, PubSub)│"
+        },
+        {
+          "line": 55,
+          "content": "- Nhân viên kết nối mạng WiFi của quán ➔ Mở Web chấm công ➔ Quét mã QR chấm công tĩnh + Nhập Mã NV ➔ Hệ thống xác thực kép: (a) Đúng địa chỉ BSSID Access Point / IP Subnet của chi nhánh?, (b) Đúng Mã số nhân viên hợp lệ? ➔ Hợp lệ ghi nhận vào ca/ra ca; Sai WiFi từ chối tức thì."
+        }
+      ],
+      "ip_subnet": [
+        {
+          "line": 55,
+          "content": "- Nhân viên kết nối mạng WiFi của quán ➔ Mở Web chấm công ➔ Quét mã QR chấm công tĩnh + Nhập Mã NV ➔ Hệ thống xác thực kép: (a) Đúng địa chỉ BSSID Access Point / IP Subnet của chi nhánh?, (b) Đúng Mã số nhân viên hợp lệ? ➔ Hợp lệ ghi nhận vào ca/ra ca; Sai WiFi từ chối tức thì."
+        }
+      ]
+    }
+  }
+}

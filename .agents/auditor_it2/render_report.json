@@ -1,0 +1,205 @@
+{
+  "total": 22,
+  "passed": 22,
+  "failed": 0,
+  "results": [
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b01.mmd",
+      "firstLine": "flowchart TD",
+      "lineCount": 49,
+      "status": "PASS",
+      "svgSize": 36980,
+      "durationMs": 2127,
+      "errorMsg": null
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b02.mmd",
+      "firstLine": "flowchart TB",
+      "lineCount": 88,
+      "status": "PASS",
+      "svgSize": 60817,
+      "durationMs": 2186,
+      "errorMsg": null
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b03.mmd",
+      "firstLine": "flowchart TD",
+      "lineCount": 66,
+      "status": "PASS",
+      "svgSize": 57286,
+      "durationMs": 2071,
+      "errorMsg": null
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b04.mmd",
+      "firstLine": "flowchart TD",
+      "lineCount": 26,
+      "status": "PASS",
+      "svgSize": 30288,
+      "durationMs": 2134,
+      "errorMsg": null
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b05.mmd",
+      "firstLine": "flowchart TD",
+      "lineCount": 30,
+      "status": "PASS",
+      "svgSize": 40965,
+      "durationMs": 2170,
+      "errorMsg": null
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b06.mmd",
+      "firstLine": "flowchart TD",
+      "lineCount": 59,
+      "status": "PASS",
+      "svgSize": 44355,
+      "durationMs": 2211,
+      "errorMsg": null
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b07.mmd",
+      "firstLine": "flowchart TD",
+      "lineCount": 36,
+      "status": "PASS",
+      "svgSize": 91787,
+      "durationMs": 2218,
+      "errorMsg": null
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b08.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 31,
+      "status": "PASS",
+      "svgSize": 36882,
+      "durationMs": 2146,
+      "errorMsg": null
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan_b09.mmd",
+      "firstLine": "flowchart TD",
+      "lineCount": 52,
+      "status": "PASS",
+      "svgSize": 36526,
+      "durationMs": 2150,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b01.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 148,
+      "status": "PASS",
+      "svgSize": 94907,
+      "durationMs": 2158,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b02.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 91,
+      "status": "PASS",
+      "svgSize": 69526,
+      "durationMs": 2178,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b03.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 130,
+      "status": "PASS",
+      "svgSize": 88562,
+      "durationMs": 2159,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b04.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 79,
+      "status": "PASS",
+      "svgSize": 60057,
+      "durationMs": 2064,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b05.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 52,
+      "status": "PASS",
+      "svgSize": 45899,
+      "durationMs": 2060,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b06.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 63,
+      "status": "PASS",
+      "svgSize": 53049,
+      "durationMs": 2081,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b07.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 50,
+      "status": "PASS",
+      "svgSize": 44744,
+      "durationMs": 2141,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b08.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 50,
+      "status": "PASS",
+      "svgSize": 45564,
+      "durationMs": 2125,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b09.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 67,
+      "status": "PASS",
+      "svgSize": 50987,
+      "durationMs": 2062,
+      "errorMsg": null
+    },
+    {
+      "file": "02_Sequence_Diagrams_b10.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 71,
+      "status": "PASS",
+      "svgSize": 57200,
+      "durationMs": 2108,
+      "errorMsg": null
+    },
+    {
+      "file": "03_ERD_Database_Diagram_b01.mmd",
+      "firstLine": "erDiagram",
+      "lineCount": 478,
+      "status": "PASS",
+      "svgSize": 975444,
+      "durationMs": 2619,
+      "errorMsg": null
+    },
+    {
+      "file": "04_Deployment_Diagram_b01.mmd",
+      "firstLine": "graph TB",
+      "lineCount": 117,
+      "status": "PASS",
+      "svgSize": 73178,
+      "durationMs": 2245,
+      "errorMsg": null
+    },
+    {
+      "file": "04_Deployment_Diagram_b02.mmd",
+      "firstLine": "sequenceDiagram",
+      "lineCount": 38,
+      "status": "PASS",
+      "svgSize": 39878,
+      "durationMs": 2128,
+      "errorMsg": null
+    }
+  ]
+}

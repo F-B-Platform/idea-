@@ -1,0 +1,6 @@
+# ? SMART F&B OPERATING SYSTEM
+`mermaid
+graph TD
+A[Kh?ch h?ng] -->|Qu?t QR| B(PWA Menu)
+`
+Ti?ng Vi?t 100% chu?n x?c kh?ng l?i.

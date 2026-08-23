@@ -1,0 +1,26 @@
+flowchart TD
+    subgraph HUBS["⚡ 4 ASP.NET CORE SIGNALR HUBS"]
+        H1["1. OrderHub<br>Endpoint: /hubs/orders<br>Mục đích: Cập nhật tiến trình đơn cho Khách & POS"]
+        H2["2. KitchenHub<br>Endpoint: /hubs/kitchen<br>Mục đích: Đẩy vé đơn vào Bếp KDS & đồng bộ 86-Toggle"]
+        H3["3. PaymentHub<br>Endpoint: /hubs/payments<br>Mục đích: Bắn tín hiệu thanh toán VietQR từ PayOS Webhook"]
+        H4["4. NotificationHub<br>Endpoint: /hubs/notifications<br>Mục đích: Chuông gọi bàn, Alert Review đỏ <= 2 sao, Lệch két tiền"]
+    end
+
+    subgraph REDIS_BACKPLANE["⚡ REDIS 7 PUB/SUB MESSAGE BUS BACKPLANE"]
+        R_PUB["Kênh Pub/Sub phân tán: smartfb:signalr:*<br>Đồng bộ tức thì mọi sự kiện giữa các cụm Server Web API"]
+    end
+
+    subgraph CLIENT_GROUPS["📱 CLIENT CONNECTION GROUPS"]
+        G_CUST["Customer PWA<br>Groups: Order_{orderId}, Customer_{phone}"]
+        G_KDS["Kitchen KDS TV<br>Group: Branch_{branchId}_Kitchen"]
+        G_STAFF["Staff Web POS<br>Group: Branch_{branchId}_Staff"]
+        G_MGR["Manager Portal<br>Group: Branch_{branchId}_Manager"]
+        G_ADM["Admin Portal<br>Group: Chain_Admin"]
+    end
+
+    H1 & H2 & H3 & H4 <--> R_PUB
+
+    H1 -->|OrderStatusUpdated, OrderReady, EstimatedTimeAdjusted| G_CUST & G_STAFF
+    H2 -->|NewPaidOrder, OrderConfirmedCash, Item86Toggled| G_KDS
+    H3 -->|PaymentSucceeded, PaymentFailed, PaymentExpired| G_CUST & G_STAFF
+    H4 -->|ServiceRequested, LowRatingAlert, CashVarianceAlert, InventoryShortageAlert| G_STAFF & G_MGR & G_ADM

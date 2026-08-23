@@ -1,881 +1,554 @@
 # ☕ SMART F&B OPERATING SYSTEM
 ## Nền Tảng Quản Lý & Vận Hành Quán Cà Phê Thông Minh — Thay Thế Hoàn Toàn Hệ Thống POS Truyền Thống
 
-> **Tên dự án:** Smart F&B OS — AI-Powered QR Order & Management Platform
->
-> **Slogan:** *"Không cần máy POS, không cần thu ngân gõ đơn — Khách scan QR, tự chọn món, tự thanh toán."*
->
-> **Công nghệ lõi:** QR Self-Ordering + Web/Mobile App + AI Analytics + Cloud
+> [!NOTE]
+> **Tên dự án:** Smart F&B OS — AI-Powered QR Order & Management Platform  
+> **Slogan:** *"Không cần máy POS cồng kềnh, không cần thu ngân gõ đơn — Khách scan QR tự gọi món & thanh toán linh hoạt; Nhân viên vận hành mượt mà 100% trên Web."*  
+> **Phiên bản:** v2.5.0-Production-Ready (Bản đặc tả kỹ thuật chính thức — Đồ án Capstone 16 tuần / 4 thành viên)  
+> **Nguồn sự thật tối thượng (Source of Truth):** `Smart_FB_OS_Revised_4members.docx` (và biên bản chốt nghiệp vụ `ORIGINAL_REQUEST.md`)  
+> **Tech Stack Chuẩn hóa:** Backend .NET 8 Clean Architecture (MediatR CQRS, EF Core 8) | Frontend Next.js 14 App Router Monorepo (TypeScript, Tailwind CSS, Shadcn UI) | PostgreSQL 16 | Redis 7 | SignalR WebSockets | Google Gemini 1.5 Flash SDK | PayOS VietQR Gateway | Docker Compose  
 
 ---
----
 
-# 📚 MỤC LỤC
+# 📚 MỤC LỤC TOÀN DIỆN
 
-| Phần | Nội Dung |
+| Phần | Tiêu Đề Nội Dung |
 |---|---|
-| **PHẦN 0** | 8 Bất Cập Thực Tế Của Quán Cà Phê Hiện Nay |
-| **PHẦN I** | Tổng Quan Dự Án & Bài Toán |
-| **PHẦN II** | Hướng Giải Quyết — Hệ Thống Đề Xuất |
-| **PHẦN III** | AI Ứng Dụng — Chi Tiết Kỹ Thuật |
-| **PHẦN IV** | Dự Án Giải Quyết Được Gì Cho Thị Trường? |
-| **PHẦN V** | Điểm Độc Đáo & So Sánh Đối Thủ |
-| **PHẦN VI** | Kiến Trúc Hệ Thống & Công Nghệ |
-| **PHẦN VII** | Tính Năng Hệ Thống Chi Tiết Theo Từng Actor |
+| **PHẦN 0** | [8 Bất Cập Thực Tế Của Quán Cà Phê Hiện Nay & Giải Pháp Tương Ứng](#-phần-0-8-bất-cập-thực-tế-của-quán-cà-phê-hiện-nay) |
+| **PHẦN I** | [Tổng Quan Dự Án, Bối Cảnh & Mục Tiêu Kỹ Thuật](#-phần-i-tổng-quan-dự-án-bối-cảnh--mục-tiêu-kỹ-thuật) |
+| **PHẦN II** | [Hướng Giải Quyết — 5 Trụ Cột Nghiệp Vụ Đột Phá Cốt Lõi](#-phần-ii-hướng-giải-quyết--5-trụ-cột-nghiệp-vụ-đột-phá-cốt-lõi) |
+| **PHẦN III** | [Hệ Thống 3 Loại Mã QR & 3 Loại Đơn Hàng Chuẩn Hóa](#-phần-iii-hệ-thống-3-loại-mã-qr--3-loại-đơn-hàng-chuẩn-hóa) |
+| **PHẦN IV** | [Phân Rã & Định Hình Các Module Trí Tuệ Nhân Tạo (AI Modules)](#-phần-iv-phân-rã--định-hình-các-module-trí-tuệ-nhân-tạo-ai-modules) |
+| **PHẦN V** | [Giá Trị Kinh Tế, Bài Toán Hiệu Quả & Phân Tích ROI Doanh Nghiệp](#-phần-v-giá-trị-kinh-tế-bài-toán-hiệu-quả--phân-tích-roi) |
+| **PHẦN VI** | [Điểm Độc Đáo Khác Biệt & Bảng So Sánh Đối Thủ Thị Trường](#-phần-vi-điểm-độc-đáo-khác-biệt--bảng-so-sánh-đối-thủ) |
+| **PHẦN VII** | [Kiến Trúc Kỹ Thuật, Công Nghệ & Luồng Dữ Liệu Thời Gian Thực](#-phần-vii-kiến-trúc-kỹ-thuật-công-nghệ--luồng-dữ-liệu) |
+| **PHẦN VIII** | [Danh Mục 62 Tính Năng Cốt Lõi Phân Theo 4 Nhóm Actor](#-phần-viii-danh-mục-62-tính-năng-cốt-lõi-phân-theo-4-nhóm-actor) |
+| **PHẦN IX** | [Yêu Cầu Phi Chức Năng (NFRs) & Tiêu Chuẩn Vận Hành Tin Cậy](#-phần-ix-yêu-cầu-phi-chức-năng-nfrs--tiêu-chuẩn-vận-hành) |
+| **PHẦN X** | [Định Hướng Mở Rộng & Kiến Trúc Tương Lai (Scale Up / Future Work)](#-phần-x-định-hướng-mở-rộng--kiến-trúc-tương-lai-scale-up--future-work) |
 
----
 ---
 
 # 📝 PHẦN 0: 8 BẤT CẬP THỰC TẾ CỦA QUÁN CÀ PHÊ HIỆN NAY
 
-## 0.1 🔴 Bất Cập Về HỆ THỐNG POS LỖI THỜI & QUY TRÌNH ĐẶT MÓN THỦ CÔNG
-
-### Hiện trạng:
-- **Khách phải xếp hàng tại quầy để gọi món:** Giờ cao điểm (8-9h sáng, 14-16h chiều) hàng dài 5-10 người → **khách bỏ đi** vì không muốn chờ.
-- **Thu ngân phải gõ tay từng đơn vào máy POS:** Mỗi đơn mất 30-60 giây → tốc độ phục vụ bị giới hạn bởi **tốc độ gõ của 1 người thu ngân**. Muốn nhanh hơn → phải thuê thêm thu ngân → **tăng chi phí nhân sự**.
-- **Sai đơn do giao tiếp:** Khách nói "ít đường", thu ngân ghi "không đường" hoặc quên ghi → **pha sai, phải pha lại, lãng phí nguyên liệu + mất uy tín**.
-- **Máy POS đắt tiền:** Máy POS chuyên dụng giá 8-25 triệu VNĐ/bộ, chưa kể phí phần mềm hàng tháng (iPOS: 500K-2 triệu/tháng, KiotViet: 250K-1.5 triệu/tháng).
-- **POS chỉ ghi nhận, không tối ưu:** POS truyền thống chỉ là "máy tính tiền" — ghi lại đơn hàng, in bill. **Không có AI**, không dự báo, không gợi ý, không chăm sóc khách hàng.
-
-### Hậu quả thực tế:
-| Vấn đề | Thiệt hại |
-|---|---|
-| Khách bỏ đi vì xếp hàng lâu (giờ cao điểm) | Mất 10-20 đơn/ngày × 50K = 500K-1 triệu/ngày |
-| Sai đơn do giao tiếp | 3-5 ly pha lại/ngày × 40K = 120-200K/ngày |
-| Chi phí máy POS + phần mềm | 8-25 triệu/máy + 500K-2 triệu/tháng phí phần mềm |
-| Thuê 2 thu ngân thay vì 1 | Thêm 6-8 triệu lương/tháng |
-
----
-
-## 0.2 📋 Bất Cập Về CHẤM CÔNG & QUẢN LÝ NHÂN SỰ
-
-### Hiện trạng:
-- **Chấm công bằng sổ tay hoặc máy độc lập:** Chấm công giấy dễ nhờ chấm hộ, hoặc dùng máy chấm công rời rạc không tự động đồng bộ dữ liệu với phần mềm quản lý → **gian lận 5-10% quỹ lương/tháng** và tốn công đối soát.
-- **Xếp ca theo cảm tính:** Quản lý xếp ca giống nhau mọi ngày (4 NV sáng, 4 NV tối) mà không biết Thứ 2 vắng khách (chỉ cần 2 NV), Thứ 7 đông gấp đôi (cần 6 NV) → **lãng phí 20-30% chi phí nhân công**.
-- **Tính lương cuối tháng mất 2-3 ngày:** Quản lý phải lật sổ chấm công, tính tay từng ca, cộng phụ cấp, trừ nghỉ → **sai sót thường xuyên, nhân viên khiếu nại**.
-
-### Hậu quả thực tế:
-| Vấn đề | Thiệt hại |
-|---|---|
-| Gian lận chấm công | 5-10% quỹ lương/tháng (~3-8 triệu/quán) |
-| Xếp ca không theo data | Lãng phí 20-30% nhân công giờ vắng |
-| Tính lương thủ công | Mất 2-3 ngày/tháng + sai sót |
-
----
-
-## 0.3 📦 Bất Cập Về KIỂM KÊ HÀNG HÓA & NGUYÊN LIỆU
-
-### Hiện trạng:
-- **Không biết nguyên liệu đi đâu:** Cà phê hạt, sữa tươi, syrup — mua về kho nhưng cuối tuần đếm lại thì **thiếu 5-15%** mà không biết mất ở đâu (barista lấy dư? Nhân viên mang về? Hết hạn đổ bỏ không ghi?).
-- **Kiểm kê bằng sổ tay hoặc Excel:** Quản lý phải đếm tay từng loại nguyên liệu, ghi vào sổ → **mất 1-2 tiếng mỗi lần kiểm kê**, dễ sai, không real-time.
-- **Hết hàng giữa ca:** Đang giờ cao điểm mà hết sữa/hết cà phê → **không bán được sản phẩm chính**, mất doanh thu.
-
-### Hậu quả thực tế:
-| Vấn đề | Thiệt hại |
-|---|---|
-| Thất thoát 5-15% nguyên liệu | 10-30 triệu VNĐ/tháng (tùy quy mô) |
-| Hết hàng giữa ca | Mất 20-50 đơn × 50K = 1-2.5 triệu/lần |
-
----
-
-## 0.4 💰 Bất Cập Về QUẢN LÝ TÀI CHÍNH
-
-### Hiện trạng:
-- **Doanh thu, chi phí nằm rải rác:** Tiền mặt trong két, tiền chuyển khoản trong app ngân hàng, tiền MoMo trong ví MoMo → **không ai biết tổng doanh thu thật là bao nhiêu** cho đến cuối ngày đếm lại.
-- **Không biết lợi nhuận thật:** Doanh thu 300 triệu/tháng nhưng trừ hết chi phí (nguyên liệu, lương, thuê mặt bằng, điện nước) → **lãi hay lỗ?** Nhiều chủ quán không biết chính xác.
-- **Quản lý chuỗi mù mờ:** Chủ có 3 quán nhưng không biết quán nào lãi, quán nào đang "nuôi" → **giữ quán lỗ quá lâu**, không cắt lỗ kịp thời.
-
-### Hậu quả thực tế:
-| Vấn đề | Thiệt hại |
-|---|---|
-| Không biết P&L (Profit & Loss) từng ngày | Ra quyết định sai, nuôi quán lỗ hàng tháng |
-| Tiền mặt chênh lệch không truy vết được | Mất 200K-1 triệu/tháng do thất thoát két tiền |
-
----
-
-## 0.5 🍵 Bất Cập Về CHẤT LƯỢNG SẢN PHẨM & THIẾU PHẢN HỒI KHÁCH HÀNG
-
-### Hiện trạng:
-- **Phụ thuộc tay nghề barista:** Cùng 1 công thức Latte, barista A pha ngon, barista B pha nhạt — vì không có hệ thống hiển thị công thức chuẩn.
-- **Quán Q1 khác quán Q3:** Khách quen uống ở quán trung tâm, đến quán ngoại thành thấy "khác vị" → mất niềm tin vào thương hiệu.
-- **Không thu thập được feedback khách hàng:** Không biết ly nào khách khen, ly nào bị trả lại → **cải tiến menu bằng cảm tính**.
-
-### Giải pháp trong hệ thống:
-- **Màn hình KDS hiện công thức chuẩn** cho từng ly (bao nhiêu ml sữa, bao nhiêu shot espresso, nhiệt độ bao nhiêu).
-- **QR Code Feedback tại bàn:** Khách scan → đánh giá 1-5 sao + ghi chú. Đánh giá ≤ 2 sao → quản lý nhận thông báo tức thì xử lý ngay.
-
-### Hậu quả thực tế:
-| Vấn đề | Thiệt hại |
-|---|---|
-| Chất lượng không đồng nhất giữa chi nhánh | Mất 10-20% khách trung thành |
-| Không có data feedback | Cải tiến menu bằng cảm tính, bỏ lỡ vấn đề |
-
----
-
-## 0.6 👤 Bất Cập Về QUẢN LÝ KHÁCH HÀNG & LOYALTY
-
-### Hiện trạng:
-- **Không biết khách hàng là ai:** 80% khách mua xong ra về → quán **không có SĐT, không có lịch sử mua**, không thể chăm sóc.
-- **Thẻ tích điểm giấy:** Dễ mất, dễ giả mạo, khách không mang theo → **tỷ lệ sử dụng < 10%**.
-- **Không biết khách nào sắp bỏ đi:** Khách quen đột ngột biến mất 2-3 tháng, quán không biết → **mất khách vĩnh viễn** mà tìm khách mới tốn gấp 5-7 lần.
-
-### Hậu quả thực tế:
-| Vấn đề | Thiệt hại |
-|---|---|
-| Không có data khách hàng | Không target được marketing → chi phí quảng cáo lãng phí |
-| Khách bỏ đi không quay lại | Chi phí tìm khách mới đắt gấp 5-7 lần giữ khách cũ |
-
----
-
-## 0.7 📋 Bất Cập Về BÁO CÁO CUỐI NGÀY (EOD Report) Thủ Công
-
-### Hiện trạng:
-- **Tổng hợp doanh thu cuối ca bằng tay:** Quản lý phải đếm tiền mặt, đối chiếu sổ, cộng chuyển khoản → **mất 30-60 phút mỗi tối**.
-- **Gửi báo cáo qua Zalo:** Chụp sổ hoặc gõ tay số liệu → **dễ sai số**, chủ chuỗi nhận 5-10 tin Zalo mỗi tối, **không tổng hợp được**.
-- **Chủ chuỗi không có dashboard real-time:** Muốn biết "hôm nay doanh thu bao nhiêu?" → phải đợi sáng hôm sau.
-
-### Hậu quả thực tế:
-| Vấn đề | Thiệt hại |
-|---|---|
-| Tổng hợp báo cáo thủ công mỗi tối | Quản lý mất 30-60 phút/ngày = ~15-30 giờ/tháng |
-| Số liệu sai sót | Chênh lệch 2-5% doanh thu báo cáo vs thực tế |
-| Không có dashboard real-time | Ra quyết định chậm 12-24 tiếng |
-
----
-
-## 0.8 🧠 Bất Cập Về THIẾU DATA ĐỂ RA QUYẾT ĐỊNH MENU & THỊ TRƯỜNG
-
-### Hiện trạng:
-- **Thêm/bỏ món theo cảm tính:** Thấy quán bạn bán Matcha chạy → bắt chước mà **không biết khách mình có thích không**.
-- **Không biết món nào đang lên/xuống:** 40 món trên menu nhưng không biết top 5 bán chạy đang tăng hay giảm.
-- **Khuyến mãi sai thời điểm:** Push khuyến mãi lúc quán đã đông (lãng phí margin) thay vì lúc vắng (kéo khách).
-
-### Hậu quả thực tế:
-| Vấn đề | Thiệt hại |
-|---|---|
-| Thêm món không phù hợp | Tốn chi phí nguyên liệu + đào tạo, bán 2-3 ly/ngày rồi bỏ |
-| Giữ 10-15 món bán chậm trên menu | Chiếm chỗ, lãng phí nguyên liệu |
-| Khuyến mãi sai thời điểm | Giảm margin khi không cần, không kéo khách khi cần |
-
----
----
-
-# 📝 PHẦN I: TỔNG QUAN VÀ BÀI TOÁN
-
-## 1. 🎯 Mô Tả Dự Án
-
-### Tên dự án: Smart F&B Operating System
-
-**Bài toán cốt lõi:** Các quán cà phê tại Việt Nam đang vận hành bằng **hệ thống POS lỗi thời** (iPOS, KiotViet, CukCuk) — chỉ đóng vai trò "máy tính tiền", không có AI, không tự đặt món, không phân tích dữ liệu. Trong khi đó, khách hàng ngày càng quen với việc **tự đặt món bằng điện thoại** (GrabFood, ShopeeFood) nhưng khi vào quán vẫn phải **xếp hàng gọi bằng miệng**.
-
-**Giải pháp:** Xây dựng hệ thống vận hành F&B toàn diện với **QR Self-Ordering** làm trung tâm — khách scan QR tại bàn → tự chọn món → tự thanh toán → đơn bay thẳng vào bếp. **Thay thế hoàn toàn máy POS truyền thống**, tích hợp quản lý kho, nhân sự, tài chính, khách hàng và AI phân tích.
-
-## 2. 🔴 CÁC VẤN ĐỀ NGHIÊM TRỌNG CẦN GIẢI QUYẾT (Tóm Tắt 8 Bất Cập)
-
-| # | Vấn Đề | Phạm Vi | Thiệt Hại Ước Tính |
-|---|---|---|---|
-| **V1** | POS lỗi thời, khách xếp hàng, sai đơn, máy đắt tiền | Đặt món | Mất 500K-1 triệu/ngày + 8-25 triệu/máy POS |
-| **V2** | Chấm công gian lận, xếp ca cảm tính | HRM | 5-10% quỹ lương + 20-30% nhân công lãng phí |
-| **V3** | Kiểm kê thủ công, thất thoát nguyên liệu | Kho | 5-15% nguyên liệu thất thoát (10-30 triệu/tháng) |
-| **V4** | Không biết lợi nhuận thật, quản lý tài chính rời rạc | Tài chính | Ra quyết định sai, nuôi quán lỗ |
-| **V5** | Chất lượng không đồng nhất, thiếu feedback | Sản phẩm | Mất 10-20% khách trung thành |
-| **V6** | Không quản lý được khách hàng, không giữ chân | CRM | Chi phí tìm khách mới đắt gấp 5-7 lần |
-| **V7** | Báo cáo cuối ngày thủ công 30-60 phút | Báo cáo | Sai sót 2-5% số liệu, chậm ra quyết định |
-| **V8** | Thiếu data phân tích menu & thị trường | Menu/KD | Thêm/bỏ món theo cảm tính |
-
----
----
-
-# 📝 PHẦN II: HƯỚNG GIẢI QUYẾT — HỆ THỐNG ĐỀ XUẤT
-
-## 3. ✅ GIẢI PHÁP TRUNG TÂM: QR SELF-ORDER — THAY THẾ HOÀN TOÀN MÁY POS
-
-### 3.1 Luồng Đặt Món Mới (QR Order)
+Ngành F&B (đặc biệt là mô hình chuỗi quán cà phê và trà sữa tại Việt Nam) đang đối mặt với 8 điểm nghẽn nghiêm trọng làm suy giảm trải nghiệm khách hàng, thất thoát dòng tiền và tăng vọt chi phí vận hành:
 
 ```
-╔══════════════════════════════════════════════════════════════════════╗
-║                    LUỒNG ĐẶT MÓN QR SELF-ORDER                     ║
-╠══════════════════════════════════════════════════════════════════════╣
-║                                                                      ║
-║  BƯỚC 1: KHÁCH VÀO QUÁN                                            ║
-║  ┌──────────────────────────────────────────────────────────┐       ║
-║  │  📱 Khách ngồi bàn → Quét mã QR trên bàn bằng điện thoại │       ║
-║  │  (Không cần tải app — mở bằng trình duyệt)               │       ║
-║  └──────────────────────────┬───────────────────────────────┘       ║
-║                              │                                       ║
-║  BƯỚC 2: XEM MENU & CHỌN MÓN                                       ║
-║  ┌──────────────────────────▼───────────────────────────────┐       ║
-║  │  📋 Menu hiện trên điện thoại khách:                      │       ║
-║  │  ├─ Phân loại: Cà phê | Trà | Đá xay | Bánh | Topping   │       ║
-║  │  ├─ Ảnh món + Giá + Mô tả                                │       ║
-║  │  ├─ Tùy chỉnh: Size (S/M/L), Đường (0-100%), Đá, Topping│       ║
-║  │  └─ Ghi chú đặc biệt: "Ít đá, thêm shot espresso"       │       ║
-║  └──────────────────────────┬───────────────────────────────┘       ║
-║                              │                                       ║
-║  BƯỚC 3: YÊU CẦU THANH TOÁN (Nhân viên xác nhận)                    ║
-║  ┌──────────────────────────▼───────────────────────────────┐       ║
-║  │  💳 Khách bấm "Yêu cầu bill":                            │       ║
-║  │  ├─ 🔔 NV nhận alert → In bill → Mang ra bàn             │       ║
-║  │  ├─ 💵 Tiền mặt (NV thu tại bàn hoặc khách ra quầy)     │       ║
-║  │  ├─ 📲 Chuyển khoản VietQR (NV xuất mã QR cho khách)    │       ║
-║  │  └─ ✅ NV xác nhận thanh toán → Dashboard cập nhật       │       ║
-║  └──────────────────────────┬───────────────────────────────┘       ║
-║                              │                                       ║
-║  BƯỚC 4: ĐƠN HÀNG BAY VÀO BẾP                                     ║
-║  ┌──────────────────────────▼───────────────────────────────┐       ║
-║  │  📺 Đơn hàng TỰ ĐỘNG hiện trên MÀN HÌNH KDS (Bếp/Pha chế)│     ║
-║  │  ├─ Hiện: Món + Size + Đường + Đá + Ghi chú + Số bàn     │       ║
-║  │  ├─ Hiện: CÔNG THỨC PHA CHẾ CHUẨN cho từng ly            │       ║
-║  │  └─ Barista pha xong → Bấm "HOÀN THÀNH"                  │       ║
-║  └──────────────────────────┬───────────────────────────────┘       ║
-║                              │                                       ║
-║  BƯỚC 5: KHÁCH NHẬN MÓN                                            ║
-║  ┌──────────────────────────▼───────────────────────────────┐       ║
-║  │  🔔 Điện thoại khách nhận thông báo: "Món đã sẵn sàng!"  │       ║
-║  │  Hoặc: Nhân viên mang ra bàn theo số bàn                 │       ║
-║  └──────────────────────────────────────────────────────────┘       ║
-╚══════════════════════════════════════════════════════════════════════╝
-```
-
-### 3.2 So Sánh: Cách Cũ vs. QR Self-Order
-
-| Tiêu Chí | ❌ POS Truyền Thống (Cách cũ) | ✅ QR Self-Order (F&B OS) |
-|---|---|---|
-| **Đặt món** | Khách xếp hàng → nói cho thu ngân → thu ngân gõ vào POS | Khách scan QR → **tự chọn trên điện thoại** → gửi |
-| **Tốc độ** | 30-60 giây/đơn (phụ thuộc thu ngân) | **10-15 giây/đơn** (khách tự chọn, không phụ thuộc ai) |
-| **Sai đơn** | Thường xuyên (nói "ít đường" ghi "không đường") | **Gần 0%** (khách tự chọn chính xác trên màn hình) |
-| **Giờ cao điểm** | Xếp hàng 5-10 người, khách bỏ đi | **Không xếp hàng** — 50 khách đặt cùng lúc được |
-| **Nhân sự thu ngân** | Cần 1-2 thu ngân mỗi ca | **Không cần thu ngân** (hoặc giảm xuống 1 người hỗ trợ) |
-| **Chi phí máy POS** | 8-25 triệu/máy + phí hàng tháng | **0 đồng** — chỉ cần in QR Code dán bàn |
-| **Thanh toán** | Thu ngân nhận tiền mặt, quét mã thử công | **Yêu cầu bill:** Khách bấm "Yêu cầu thanh toán" → NV mang bill ra bàn hoặc thu tại quầy. Xác nhận → cập nhật real-time lên Admin/Manager |
-| **Data khách hàng** | Không thu thập được | **Tự động:** SĐT khi thanh toán → CRM Loyalty |
-
-### 3.3 Mã QR Tại Quán — Hoạt Động Thế Nào?
-
-```
-┌───────────────────────────────────────────────────────┐
-│                                                       │
-│   Mỗi BÀN trong quán có 1 mã QR duy nhất:            │
-│                                                       │
-│   ┌─────────┐  ┌─────────┐  ┌─────────┐              │
-│   │ QR BÀN 1│  │ QR BÀN 2│  │ QR BÀN 3│  ...         │
-│   │ ██████  │  │ ██████  │  │ ██████  │              │
-│   │ ██  ██  │  │ ██  ██  │  │ ██  ██  │              │
-│   │ ██████  │  │ ██████  │  │ ██████  │              │
-│   └─────────┘  └─────────┘  └─────────┘              │
-│                                                       │
-│   Khách scan → Hệ thống TỰ BIẾT khách ngồi bàn nào   │
-│   → Đơn hàng gắn với số bàn → Nhân viên mang đúng bàn │
-│                                                       │
-│   ⚡ KHÔNG cần tải app — Mở bằng trình duyệt Safari    │
-│      hoặc Chrome trên bất kỳ điện thoại nào            │
-│                                                       │
-│   ⚡ Khách takeaway (mang đi): Scan QR tại quầy/cửa    │
-│      → Chọn "Mang đi" → Thanh toán → Nhận đồ          │
-└───────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                             8 ĐIỂM NGHẼN CỐT LÕI CỦA QUÁN CÀ PHÊ HIỆN NAY                        │
+├────────────────────────────────┬────────────────────────────────┬────────────────────────────────┤
+│ 1. POS LỖI THỜI & NGHẼN QUẦY   │ 2. CHẤM CÔNG GIAN LẬN          │ 3. THẤT THOÁT NGUYÊN LIỆU      │
+│ Khách xếp hàng lâu, sai đơn,   │ Gian lận 5-10% quỹ lương,      │ Thất thoát 5-15% kho, kiểm kê  │
+│ chi phí máy POS 8-25 triệu.    │ máy vân tay/sổ sách lỗi thời.  │ sổ sách thủ công mất thời gian.│
+├────────────────────────────────┼────────────────────────────────┼────────────────────────────────┤
+│ 4. TÀI CHÍNH RỜI RẠC & MÙ MỜ   │ 5. CHẤT LƯỢNG LỆCH & THIẾU FB  │ 6. KHÔNG CÓ DATA KHÁCH HÀNG    │
+│ Tiền mặt/chuyển khoản phân tán,│ Barista pha sai công thức,     │ 80% khách vãng lai không lưu   │
+│ không tính được P&L từng ngày. │ thiếu kênh phản hồi trực tiếp. │ SĐT, mất khách không hay biết. │
+├────────────────────────────────┴────────────────────────────────┼────────────────────────────────┤
+│ 7. BÁO CÁO CUỐI NGÀY THỦ CÔNG (EOD REPORT)                     │ 8. THIẾU DATA RA QUYẾT ĐỊNH    │
+│ Quản lý mất 30-60p mỗi tối cộng sổ, gửi Zalo dễ sai lệch số.    │ Thêm/bỏ món theo cảm tính,     │
+│                                                                │ tạo combo không dựa trên data. │
+└────────────────────────────────────────────────────────────────┴────────────────────────────────┘
 ```
 
 ---
 
-## 4. ✅ Giải Quyết V2 (Chấm Công) → Đa Phương Thức (QR + GPS Lock hoặc Máy Chấm Công Sinh Trắc Học)
+## 0.1 🔴 Bất Cập 1: HỆ THỐNG POS LỖI THỜI, ĐẮT ĐỎ & NGHẼN QUẦY GIỜ CAO ĐIỂM
+- **Hiện trạng:** Khách hàng phải xếp hàng dài chờ đợi tại quầy thu ngân trong giờ cao điểm (8-9h sáng, 14-16h chiều, tối cuối tuần). Thu ngân phải gõ tay từng món vào máy POS chuyên dụng (mất trung bình 45 - 60 giây/đơn). Việc truyền đạt khẩu vị phức tạp ("ít ngọt 30%", "nhiều đá", "không kem cheese", "thêm trân chú trắng") qua giao tiếp bằng lời thường xuyên bị nhầm lẫn, dẫn đến barista pha sai món, lãng phí nguyên liệu và tạo trải nghiệm ức chế cho khách hàng.
+- **Chi phí thiết bị nặng nề:** Một bộ máy POS phần cứng chuyên dụng có giá từ **8.000.000 – 25.000.000 VNĐ/bộ**, cộng thêm phí thuê bao phần mềm định kỳ **300.000 – 1.500.000 VNĐ/tháng/chi nhánh**, máy in nhiệt, đầu đọc thẻ, màn hình phụ. Khi mở rộng chuỗi 5 - 10 cửa hàng, chi phí đầu tư thiết bị (CAPEX) trở thành rào cản lớn.
+- **Giải pháp Smart F&B OS:** Loại bỏ hoàn toàn sự phụ thuộc vào máy POS chuyên dụng (**Tiết kiệm 60% chi phí đầu tư phần cứng ban đầu, tăng 40% tốc độ phục vụ**). Khách hàng ngồi tại bàn tự quét **Table QR**, mở Web PWA tức thì không cần cài App, tự do chọn món tùy biến sâu và lựa chọn 1 trong 2 phương thức thanh toán thuận tiện (VietQR trả trước hoặc Tiền mặt trả sau). Đơn hàng tự động đồng bộ thời gian thực xuống màn hình Web KDS của quầy bar qua SignalR.
 
-| Trước (Thủ công / Rời rạc) | Sau (Hệ thống F&B OS) |
-|---|---|
-| Chấm công sổ tay / máy rời rạc — dễ gian lận, mất công tổng hợp | **Option 1 (App):** QR Code động (đổi 30s) + GPS Lock (bán kính 50m quán)<br>**Option 2 (Phần cứng):** Tích hợp máy chấm công sinh trắc học (vân tay / Face ID) tự động đồng bộ API |
-| Không biết ai đi muộn | Ghi nhận chính xác giờ vào/ra **từng phút**, tự động cảnh báo đi muộn/về sớm |
-| Cuối tháng tính lương 2-3 ngày | Hệ thống **tự tính lương** theo giờ thực tế + phụ cấp ca làm |
+## 0.2 📋 Bất Cập 2: CHẤM CÔNG GIAN LẬN & QUẢN LÝ NHÂN SỰ CẢM TÍNH
+- **Hiện trạng:** Sử dụng máy chấm công vân tay độc lập (dễ hỏng mắt đọc do dầu mỡ, ẩm ướt ở quầy pha chế) hoặc sổ ký tên thủ công. Nhân viên thường xuyên chấm công hộ, đi muộn về sớm gây thất thoát 5% - 10% quỹ lương. Cuối tháng, Quản lý chi nhánh mất 2 - 3 ngày tổng hợp dữ liệu công thô vào bảng tính Excel, dễ xảy ra sai lệch và khiếu nại.
+- **Giải pháp Smart F&B OS:** **Chấm công Khóa Mạng WiFi (WiFi-Locked Attendance)** — Nhân viên truy cập phân hệ Chấm công trên Web Staff, hệ thống tự động kiểm tra kép: (a) Địa chỉ BSSID của Access Point WiFi quán và dải IP Subnet hợp lệ của chi nhánh, (b) Mã số nhân viên hợp lệ theo ca trực. Loại bỏ 100% gian lận chấm công từ xa mà không tốn thêm 1 đồng mua sắm phần cứng máy chấm công.
 
-**Kết quả:** Gian lận → 0%. Tiết kiệm 2-3 ngày tính lương/tháng.
+## 0.3 📦 Bất Cập 3: KIỂM KÊ NGUYÊN LIỆU THỦ CÔNG & THẤT THOÁT KHO
+- **Hiện trạng:** Tỷ lệ thất thoát nguyên liệu (cà phê hạt, sữa tươi, sữa đặc, syrup, bao bì ly/nắp) dao động từ **5% - 15%** tổng chi phí nhập hàng do barista đong đếm theo cảm tính hoặc thất thoát không giải trình được. Kiểm kê kho định kỳ thực hiện bằng sổ ghi chép, không đối chiếu được với lượng xuất bán lý thuyết.
+- **Giải pháp Smart F&B OS:** Tự động trừ tồn kho theo công thức định mức pha chế chuẩn (**Bill of Materials - BOM**) đến từng ml/gam ngay khi món hoàn tất trên Web KDS; quản lý phiếu xuất kho quầy bar và quy trình kiểm kê định kỳ với tính năng tự động tính toán tỷ lệ chênh lệch hao hụt so với định mức thực tế.
 
----
+## 0.4 💰 Bất Cập 4: QUẢN LÝ TÀI CHÍNH RỜI RẠC & MÙ MỜ LỢI NHUẬN THỰC TẾ
+- **Hiện trạng:** Dòng tiền bị phân mảnh giữa tiền mặt trong két và tiền chuyển khoản rải rác trên nhiều tài khoản ngân hàng cá nhân của chủ/quản lý. Cuối ngày đối soát thủ công không khớp, chủ chuỗi không nắm được bức tranh Lợi nhuận & Lỗ (P&L) thực tế từng ngày theo từng chi nhánh.
+- **Giải pháp Smart F&B OS:** Tích hợp cổng thanh toán VietQR động (PayOS) tự động khớp giao dịch chính xác 100% theo mã đơn hàng; quy trình mở két - kết ca đếm tiền mặt chặt chẽ với biên bản bàn giao Z-Report; Dashboard báo cáo P&L tự động hợp nhất đa chi nhánh thời gian thực (Doanh thu thuần, Chi phí nguyên vật liệu COGS theo BOM, Lãi gộp).
 
-## 5. ✅ Giải Quyết V3 (Kho) → Quản Lý Xuất Kho Quầy + AI Đề Xuất Nhập
+## 0.5 🍵 Bất Cập 5: CHẤT LƯỢNG PHA CHẾ LỆCH VỊ & THIẾU KÊNH PHẢN HỒI
+- **Hiện trạng:** Chất lượng đồ uống phụ thuộc vào tay nghề và trí nhớ của từng nhân viên, gây tình trạng "mỗi ca một vị" hoặc lệch vị giữa các chi nhánh. Khi khách hàng không hài lòng về chất lượng đồ uống hoặc thái độ phục vụ, 90% khách âm thầm rời bỏ quán mà không để lại phản hồi, khiến chủ quán không biết nguyên nhân để cải thiện.
+- **Giải pháp Smart F&B OS:** Màn hình Web KDS hiển thị chi tiết công thức BOM định lượng (ml sữa, gam đường, shot espresso) cho từng kích cỡ món; Hệ thống QR Feedback trực tiếp trên PWA cho phép khách chấm điểm 1-5 sao, đính kèm 1-3 hình ảnh thực tế và tự động kích hoạt cảnh báo khẩn cấp (Alert đỏ) tới Quản lý chi nhánh khi đánh giá <= 2 sao để xử lý khiếu nại tại bàn trong vòng 3 phút.
 
-| Trước (Đếm tay) | Sau (F&B OS) |
-|---|---|
-| Không biết nguyên liệu đi đâu | **Xuất kho quầy (Requisition):** Ghi nhận chính xác lấy bao nhiêu kg/lít từ Kho lên Quầy |
-| Kiểm kê bằng sổ, sai số liệu | **Kiểm kê trên App:** Nhập số thực đếm → hệ thống tự tính chênh lệch |
-| Hết hàng giữa ca | **AI đề xuất nhập hàng:** "CF hạt còn 2kg, dự kiến hết trong 2 ngày — đặt NCC trước Thứ 4" |
+## 0.6 👤 Bất Cập 6: 80% KHÁCH HÀNG VÃNG LAI KHÔNG LƯU ĐƯỢC DATA & LOYALTY PHỨC TẠP
+- **Hiện trạng:** 80% khách hàng đến quán rồi ra về mà quán không thu thập được số điện thoại hay lịch sử sở thích. Các chương trình thẻ thành viên vật lý hoặc tích điểm quy đổi tiền phức tạp khiến khách hàng e ngại cung cấp thông tin, tỷ lệ quay lại sử dụng thẻ < 10%.
+- **Giải pháp Smart F&B OS:** Nhận diện khách hàng tức thì chỉ bằng Số điện thoại (CRM Lookup) trên PWA không cần đăng ký mật khẩu; Áp dụng chính sách **Loyalty Đột Phá: Tích 10 Ly = Tặng 1 Ly Miễn Phí (Áp dụng DUY NHẤT cho Đơn Mua Mang Về - Takeaway)** tạo động lực quay lại cực lớn cho tệp khách văn phòng mua mang đi hàng ngày.
 
-**Kết quả:** Thất thoát < 2%. Không hết hàng giữa ca.
+## 0.7 📋 Bất Cập 7: BÁO CÁO CUỐI NGÀY (EOD REPORT) THỦ CÔNG TỐN THỜI GIAN
+- **Hiện trạng:** Quản lý cửa hàng mất 30 - 60 phút mỗi tối để cộng dồn hóa đơn giấy, đếm tiền mặt, chụp ảnh gửi số liệu qua Zalo cho chủ chuỗi, tiềm ẩn sai sót số liệu từ 2% - 5% và rủi ro thất thoát doanh thu.
+- **Giải pháp Smart F&B OS:** Hệ thống tự động tổng hợp số liệu doanh thu theo từng kênh bán hàng (`DineIn`, `TakeAway`, `Delivery`), phân tích cơ cấu thanh toán (Tiền mặt, VietQR), tự động chốt sổ ca (Z-Report) và đồng bộ tức thời lên Dashboard quản trị trung tâm của Chủ chuỗi.
 
----
-
-## 6. ✅ Giải Quyết V4 (Tài Chính) → Dashboard Real-time + P&L Tự Động
-
-| Trước (Rời rạc) | Sau (F&B OS) |
-|---|---|
-| Tiền mặt + chuyển khoản + MoMo nằm rải rác | **Tổng hợp real-time:** 1 dashboard duy nhất hiện tổng doanh thu từ mọi nguồn |
-| Không biết lãi/lỗ | **P&L tự động:** Doanh thu − Chi phí (nguyên liệu + lương + thuê + điện) = Lợi nhuận ròng |
-| Chủ chuỗi mù mờ | **So sánh chi nhánh:** Quán nào lãi nhiều? Quán nào đang "nuôi"? |
-
-**Kết quả:** Biết chính xác lãi/lỗ từng quán mỗi ngày. Cắt lỗ kịp thời.
-
----
-
-## 7. ✅ Giải Quyết V5 (Chất Lượng) → KDS Công Thức Chuẩn + QR Feedback
-
-| Trước (Phụ thuộc barista) | Sau (F&B OS) |
-|---|---|
-| Barista tự nhớ công thức → pha khác nhau | **KDS hiện công thức chuẩn** cho từng ly: "Espresso 2 shot, Sữa 200ml, Đá 150g" |
-| Quán Q1 khác vị quán Q3 | **Công thức đồng bộ** cả chuỗi → chuẩn vị 95%+ |
-| Không biết khách nghĩ gì | **QR Feedback tại bàn:** Khách scan → đánh giá 1-5 sao → ≤ 2 sao: QL nhận alert xử lý ngay |
-
-**Kết quả:** Đồng nhất 95%+ chất lượng. Thu thập 100% feedback khách hàng.
+## 0.8 🧠 Bất Cập 8: THIẾU DỮ LIỆU THỰC TẾ ĐỂ RA QUYẾT ĐỊNH KINH DOANH
+- **Hiện trạng:** Việc thêm món mới, loại bỏ món ế ẩm hay tạo combo giảm giá hoàn toàn dựa trên cảm tính chủ quan của chủ quán hoặc sao chép đối thủ, dẫn đến tồn đọng nguyên liệu và chiến dịch khuyến mãi không đạt hiệu quả.
+- **Giải pháp Smart F&B OS:** Tích hợp **AI-2 Combo Discovery Engine** ứng dụng thuật toán khai phá luật kết hợp Apriori/FP-Growth phân tích ma trận giỏ hàng lịch sử, tự động phát hiện các cặp món thường xuyên mua kèm và đề xuất combo tối ưu kèm cơ chế phê duyệt Human-in-the-loop cho Chủ chuỗi.
 
 ---
 
-## 8. ✅ Giải Quyết V6 (Khách Hàng) → CRM Tự Động Từ QR Order + AI Churn
+# 📝 PHẦN I: TỔNG QUAN DỰ ÁN, BỐI CẢNH & MỤC TIÊU KỸ THUẬT
 
-| Trước (Không biết khách là ai) | Sau (F&B OS) |
-|---|---|
-| 80% khách vô danh | **QR Order tự động thu thập:** SĐT khi thanh toán → tạo hồ sơ khách hàng |
-| Thẻ tích điểm giấy (< 10% sử dụng) | **Loyalty số:** Tích điểm tự động mỗi lần đặt qua QR, nhận voucher qua Zalo |
-| Không biết khách nào sắp bỏ đi | **AI Churn Prediction:** "Khách A: 45 ngày chưa quay lại → 78% risk → auto gửi voucher 30%" |
+### 1.1 Thông tin Dự án
+- **Tên dự án:** Smart F&B OS — AI-Powered QR Order & Management Platform.
+- **Mục tiêu sứ mệnh:** Xây dựng một nền tảng Web-First hợp nhất, vận hành toàn diện chuỗi quán cà phê và trà sữa, loại bỏ 100% chi phí phần cứng máy POS chuyên dụng, tối ưu hóa quy trình bán hàng đa kênh, tự động hóa kiểm soát dòng tiền và kho vận, đồng thời tích hợp Trí tuệ Nhân tạo (AI) gia tăng giá trị đơn hàng trung bình (AOV).
+- **Quy mô thực thi:** Đồ án Capstone 16 tuần (08 Sprints) dành cho nhóm 4 kỹ sư phần mềm (2 Backend Developers + 2 Frontend Developers).
 
-**Kết quả:** Giữ chân thêm 15-25% khách. Tăng 20% doanh thu từ khách quay lại.
-
----
-
-## 9. ✅ Giải Quyết V7 (Báo Cáo) → Auto EOD Report + Dashboard Chuỗi
-
-| Trước (Thủ công) | Sau (F&B OS) |
-|---|---|
-| QL đếm két, gõ tay gửi Zalo 30-60 phút | **Auto EOD Report:** Hệ thống tự tổng hợp → gửi Zalo/Email cho chủ |
-| Chủ chuỗi nhận 5-10 tin Zalo mỗi tối | **1 Dashboard duy nhất:** Xem doanh thu, đơn hàng, so sánh chi nhánh real-time |
-| Chênh lệch tiền mặt phát hiện trễ | **Đối soát két cuối ca:** Nhập thực đếm → cảnh báo ngay nếu chênh > 50K |
-
-**Kết quả:** Tiết kiệm 30-60 phút/tối. Biết doanh thu real-time 24/7.
+### 1.2 Bối cảnh & Đối tượng Áp dụng
+Hệ thống được thiết kế tối ưu cho các mô hình kinh doanh đồ uống hiện đại:
+1. **Quán cà phê / Trà sữa độc lập quy mô vừa và lớn:** Mặt bằng từ 20 – 50 bàn, công suất 300 – 1.200 đơn hàng/ngày.
+2. **Chuỗi F&B nhiều chi nhánh (Multi-Branch Chains):** Quản lý tập trung từ 3 – 10+ chi nhánh với bảng giá linh hoạt theo vùng, thực đơn mùa và báo cáo tài chính P&L hợp nhất.
+3. **Phục vụ toàn diện 3 kênh bán hàng cốt lõi:** Đặt món tại bàn (`DineIn`), Mua mang về tại quầy (`TakeAway`), và Đặt giao tận nơi (`Delivery`).
 
 ---
 
-## 10. ✅ Giải Quyết V8 (Menu) → AI Menu Intelligence
+# 📝 PHẦN II: HƯỚNG GIẢI QUYẾT — 5 TRỤ CỘT NGHIỆP VỤ ĐỘT PHÁ CỐT LÕI
 
-| Trước (Cảm tính) | Sau (F&B OS) |
-|---|---|
-| Thêm/bỏ món theo trend bên ngoài | **AI phân tích doanh số từng món:** "Matcha +35% 4 tuần → tạo thêm biến thể" |
-| Giữ món bán chậm | **AI gợi ý loại:** "Smoothie Dâu: 2 ly/ngày → đề xuất loại bỏ" |
-| Khuyến mãi sai thời điểm | **AI Smart Promotion:** "14h-16h vắng nhất → push combo giảm 20% qua Zalo" |
+Hệ thống Smart F&B OS được xây dựng vững chắc trên **5 trụ cột nghiệp vụ đột phá** đã được đóng băng và thống nhất tuyệt đối:
 
-**Kết quả:** Tăng 10-15% doanh thu. Loại bỏ món kém hiệu quả.
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                               5 TRỤ CỘT NGHIỆP VỤ ĐỘT PHÁ CỐT LÕI                                │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ 1. DINE-IN 2 NHÁNH THANH TOÁN: Nhánh A VietQR Trả Trước (Bếp nhận khi Paid)                     │
+│                                Nhánh B Tiền Mặt Trả Sau (Bếp nhận ngay Confirmed, mang món + QR) │
+│ 2. QR DELIVERY GIAO TẬN NƠI:   QR riêng → Nhập SĐT + Địa chỉ → Phí ship 20k → 100% VietQR Trước. │
+│ 3. TAKEAWAY STAFF WEB POS:     NV thao tác quầy (Không QR) → Tra CRM → Tích 10 ly → Trả sau.     │
+│ 4. CHẤM CÔNG KHÓA MẠNG WIFI:   Xác thực WiFi quán (SSID/BSSID/IP) + Mã NV → Bỏ hoàn toàn GPS/QR  │
+│ 5. HỢP NHẤT 100% NỀN TẢNG WEB: Xóa 100% Staff Mobile App → Chạy mượt mà trên Web Responsive/KDS. │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
+
+## 2.1 TRỤ CỘT 1: ĐẶT MÓN TẠI BÀN (DINE-IN) — 2 PHƯƠNG THỨC THANH TOÁN LINH HOẠT
+
+Khách hàng quét mã **Table QR** tại bàn, duyệt menu, tùy biến món (Size, Đường, Đá, Topping, Ghi chú) và tiến hành đặt hàng với quyền lựa chọn 1 trong 2 phương thức thanh toán:
+
+```
+                                      ┌──► [PHƯƠNG THỨC A: VIETQR TRẢ TRƯỚC] ──► [Sinh mã VietQR] ──► [Thanh toán Paid] ──► [BẾP KDS MỚI NHẬN ĐƠN]
+                                      │
+[Khách quét Table QR] ➔ [Chọn món] ───┤
+                                      │
+                                      └──► [PHƯƠNG THỨC B: TIỀN MẶT TRẢ SAU] ──► [ĐƠN VÀO BẾP NGAY] ──► [NV bưng món + Bill có QR] ──► [Thu tiền / Khách quét QR]
+```
+
+### 1. Phương Thức A — VietQR (Thanh toán trước - Pre-Payment):
+- **Quy trình:** Khách chọn VietQR ➔ Hệ thống sinh mã VietQR động kèm số tiền và mã đơn hàng (`ORDER_{id}`) ➔ Khách quét chuyển khoản qua ứng dụng Mobile Banking ➔ Cổng PayOS gửi Webhook xác nhận giao dịch thành công ➔ Trạng thái chuyển sang `Paid` ➔ **BẾP KDS MỚI NHẬN ĐƠN QUA SIGNALR** ➔ Barista pha chế (`Preparing`) ➔ Món hoàn thành (`Ready`) ➔ Nhân viên phục vụ ra bàn (`Served`/`Completed`).
+- **Order Status Flow:** `PendingPayment (0)` ➔ `Paid (1)` ➔ `Confirmed (2)` ➔ `Preparing (3)` ➔ `Ready (4)` ➔ `Served (5)`.
+- **Ưu điểm vượt trội:** Triệt tiêu hoàn toàn rủi ro bùng đơn, giảm thiểu 100% thao tác in bill và thu tiền của nhân viên trong giờ cao điểm.
+
+### 2. Phương Thức B — Tiền Mặt (Thanh toán sau - Post-Payment):
+- **Quy trình:** Khách chọn Tiền mặt ➔ **ĐƠN HÀNG VÀO BẾP KDS NGAY LẬP TỨC** với trạng thái `Confirmed` (không bắt buộc thanh toán trước) ➔ Barista pha chế (`Preparing`) ➔ Barista bấm `Ready` trên KDS, kích hoạt lệnh in Hóa đơn tính tiền (Bill) ra máy in nhiệt tại quầy. Trên hóa đơn có in sẵn danh sách món và **Mã VietQR động chứa chính xác số tiền cần thu** ➔ Nhân viên bưng đồ uống ra bàn **KÈM THEO HÓA ĐƠN CÓ IN MÃ VIETQR** ➔ Khách hàng có 2 lựa chọn thanh toán:
+  - *Lựa chọn 1:* Trả Tiền mặt trực tiếp cho nhân viên ➔ Nhân viên nhận tiền và bấm "Xác nhận đã thu tiền" trên Web Staff Portal.
+  - *Lựa chọn 2:* Khách dùng Mobile Banking quét mã VietQR in trên tờ hóa đơn ➔ Hệ thống nhận Webhook thanh toán và tự động cập nhật trạng thái sang `Paid`.
+- **Order Status Flow:** `Confirmed (2)` ➔ `Preparing (3)` ➔ `Ready (4)` ➔ `Served (5)` ➔ `PendingPayment (0)` ➔ `Paid (1)`.
+- **Ưu điểm vượt trội:** Phục vụ chu đáo nhóm khách hàng lớn tuổi, khách đi theo nhóm đông người muốn kiểm tra đồ uống trước khi trả tiền, hoặc khách hàng chưa sẵn sàng chuyển khoản trực tuyến ngay lúc gọi món.
+
 ---
 
-# 📝 PHẦN III: AI ỨNG DỤNG — CHI TIẾT KỸ THUẬT
+## 2.2 TRỤ CỘT 2: ĐẶT HÀNG GIAO TẬN NƠI (QR DELIVERY)
 
-## 11. 🤖 Tổng Hợp 5 Tính Năng AI
+- **Điểm tiếp cận độc lập:** Khách hàng quét mã **QR Delivery** riêng biệt (in trên poster, banner quảng cáo, standee trước quán, fanpage mạng xã hội) hoặc truy cập đường link đặt hàng trực tuyến từ xa.
+- **Dữ liệu bắt buộc:** Khách hàng bắt buộc phải nhập đầy đủ:
+  1. Tên người nhận (`recipient_name`).
+  2. Số điện thoại nhận hàng (`recipient_phone` — kiểm tra regex chuẩn 10 chữ số Việt Nam).
+  3. Địa chỉ giao hàng chi tiết (`delivery_address` — số nhà, ngõ/ngách, tên đường, phường/xã).
+- **Phí giao hàng cố định:** Hệ thống luôn tự động cộng **Phí ship cố định 20.000 VNĐ** (`delivery_fee = 20000`) vào tổng giá trị của mọi đơn hàng giao tận nơi.
+- **Phương thức thanh toán bắt buộc:** **100% VietQR trả trước qua cổng PayOS**. Khóa hoàn toàn tùy chọn thanh toán tiền mặt khi nhận hàng (No COD) nhằm bảo vệ quán tuyệt đối trước rủi ro "boom hàng" khi đang vận chuyển.
+- **Cấu trúc Dữ liệu:** Thêm các trường `delivery_address` (VARCHAR 500), `delivery_fee` (DECIMAL 18,2), và `order_type = Delivery (3)` vào thực thể `Orders`.
+- **Order Status Flow:** `PendingPayment (0)` ➔ `Paid (1)` ➔ `Confirmed (2)` ➔ `Preparing (3)` ➔ `Ready (4)` ➔ `Delivering (6)` ➔ `Completed (5)`.
 
-| # | Tên AI Feature | Bài Toán Giải Quyết | Ai Sử Dụng | Model / Thuật Toán | Ví Dụ Kết Quả |
+---
+
+## 2.3 TRỤ CỘT 3: BÁN HÀNG MANG ĐI TẠI QUẦY (TAKEAWAY STAFF WEB POS)
+
+- **Giao diện thao tác chuyên dụng:** Loại bỏ hoàn toàn mã QR Takeaway cho khách; Nhân viên thu ngân thao tác trực tiếp trên **Giao diện Web POS Quầy** (`(staff)/pos`) trên máy tính bảng hoặc laptop cảm ứng.
+- **Tra cứu CRM & Khởi tạo hồ sơ khách hàng tức thì:**
+  - Thu ngân hỏi và nhập Số điện thoại của khách hàng vào thanh tìm kiếm CRM.
+  - *Khách hàng mới:* Thu ngân nhập nhanh Tên khách hàng ➔ Hệ thống tự động tạo bản ghi CRM mới với `CupBalance = 0`.
+  - *Khách hàng cũ:* Hệ thống hiển thị Tên, Lịch sử mua hàng gần nhất và số ly đã tích lũy (`CupBalance`).
+- **Chính sách Loyalty 10 ly tặng 1 ly miễn phí:**
+  - **ĐIỀU KIỆN ÁP DỤNG DUY NHẤT:** Chương trình tích lũy 10 ly = tặng 1 ly miễn phí **CHỈ ÁP DỤNG CHO ĐƠN HÀNG TAKEAWAY (MUA MANG VỀ TẠI QUẦY)**. Đơn hàng tại bàn (`DineIn`) và đơn giao hàng (`Delivery`) hoàn toàn KHÔNG tích lũy và KHÔNG đổi ly miễn phí.
+  - Cứ mỗi 10 ly đồ uống tiêu chuẩn tích lũy ➔ Khách hàng được tặng 1 ly đồ uống miễn phí (ly thứ 11 miễn phí, trừ 100% giá trị của 1 ly tiêu chuẩn trong đơn hàng hiện tại).
+- **Thanh toán sau khi nhận món (Post-Payment):** Khách hàng nhận túi đồ uống mang về và thanh toán linh hoạt bằng:
+  - **Tiền mặt:** Thu ngân nhập số tiền khách đưa ➔ Hệ thống tự động tính tiền thối (tiền thừa) và kích hoạt mở két tiền.
+  - **VietQR tại quầy:** Thu ngân xuất mã VietQR trên màn hình phụ hoặc tablet để khách quét chuyển khoản.
+
+---
+
+## 2.4 TRỤ CỘT 4: CHẤM CÔNG KHÓA MẠNG WIFI (WIFI-LOCKED ATTENDANCE)
+
+- **Loại bỏ công nghệ cũ:** Xóa bỏ hoàn toàn cơ chế định vị vệ tinh GPS (sai số lớn từ 20 - 50m khi nhân viên đứng trong nhà/tầng hầm) và mã QR động thay đổi mỗi 30 giây (gây phiền toái cho nhân viên).
+- **Cơ chế xác thực kép 2 lớp (Dual Network & Identity Verification):**
+  1. *Lớp mạng (Network Layer):* Kiểm tra địa chỉ BSSID (MAC Address của Access Point phát WiFi quán) hoặc dải IP Subnet của thiết bị gửi yêu cầu có nằm trong danh sách được cấp phép tại bảng `branch_wifi_configs` của chi nhánh hay không.
+  2. *Lớp định danh (Identity Layer):* Kiểm tra Mã số nhân viên (`EmployeeCode`), ca làm việc đã được phân công và mã PIN cá nhân.
+- **Quy trình vận hành:** Nhân viên kết nối vào mạng WiFi của quán ➔ Mở phân hệ Chấm công trên Web Staff (`(staff)/attendance`) ➔ Nhập Mã NV và bấm "Vào ca / Ra ca" ➔ Hệ thống kiểm tra: Đúng WiFi quán + Đúng Mã NV ➔ Ghi nhận chấm công thành công. Nếu nhân viên bật 4G hoặc kết nối WiFi quán cà phê bên cạnh ➔ Hệ thống từ chối chấm công ngay lập tức kèm cảnh báo sai lệch mạng.
+- **Phân quyền Quản lý:** Quản lý chi nhánh được toàn quyền khai báo và cập nhật danh sách BSSID và IP Subnet cho chi nhánh của mình trên Manager Portal.
+
+---
+
+## 2.5 TRỤ CỘT 5: HỢP NHẤT TOÀN BỘ VẬN HÀNH TRÊN NỀN TẢNG WEB RESPONSIVE
+
+- **Loại bỏ hoàn toàn Staff Mobile App:** Không phát triển, không duy trì ứng dụng di động riêng (Flutter/React Native) cho nhân viên phục vụ. Triệt tiêu hoàn toàn chi phí phát hành App lên Apple App Store / Google Play Store và chi phí bảo trì đa nền tảng.
+- **Hợp nhất trên Next.js 14 App Router Monorepo:** Mọi tác nhân trong hệ thống đều truy cập qua trình duyệt Web hiện đại với giao diện được tối ưu hóa chuẩn xác theo từng thiết bị:
+  1. `(customer)` — PWA Mobile Web dành cho Khách hàng (Quét QR Bàn, QR Delivery, Chat AI-1, Đánh giá món).
+  2. `(kds)` — Giao diện Web KDS Full-screen dành cho Barista/Bếp (Màn hình Smart TV, iPad, Tablet chống nước quầy pha chế).
+  3. `(staff)` — Giao diện Web POS Quầy dành cho Thu ngân, Quản lý Sơ đồ bàn, Tiếp nhận chuông gọi phục vụ và Chấm công WiFi.
+  4. `(manager)` — Cổng Web Quản lý Chi nhánh (Mở/kết ca két tiền, Quản lý kho BOM, Phân ca, Cấu hình WiFi, Alert Review).
+  5. `(admin)` — Cổng Web Điều hành Chuỗi Trung tâm dành cho Chủ chuỗi (Full CRUD Menu/BOM/Combo/Giá/Ảnh, Dashboard P&L hợp nhất).
+
+---
+
+# 📝 PHẦN III: HỆ THỐNG 3 LOẠI MÃ QR & 3 LOẠI ĐƠN HÀNG CHUẨN HÓA
+
+Để đảm bảo luồng dữ liệu chính xác và trải nghiệm người dùng liền mạch, hệ thống phân định rõ ràng **3 loại mã QR** và **3 loại đơn hàng**:
+
+### 3.1 Bảng Ma Trận 3 Loại Mã QR
+
+| Loại Mã QR | Tên Tiếng Anh | Vị Trí Triển Khai | Định Dạng URL & Dữ Liệu Chứa | Mục Đích Sử Dụng | Phương Thức Thanh Toán Hỗ Trợ |
 |---|---|---|---|---|---|
-| AI-1 | **Thống kê & So sánh doanh thu bằng AI** | So sánh doanh thu theo tuần/tháng/quý giữa các quán. Hỏi đáp bằng ngôn ngữ tự nhiên | 👑 Admin + 🏪 Manager | Prophet / LSTM time-series + RAG (LLM) | Admin: "So sánh Q1 vs Q3 tháng 8" → AI trả lời kèm biểu đồ. QL: "Hôm nay doanh thu bao nhiêu?" → "18.5 triệu, tăng 8% so với hôm qua" |
-| AI-2 | **Gợi ý combo bán chạy** | Phân tích món nào hay mua cùng nhau → tạo combo tăng doanh thu | ⚙️ Hệ thống tự động | Association Rules (Apriori) + Collaborative Filtering | "68% khách mua Latte cũng mua Croissant → Combo 75K" |
-| AI-3 | **Churn Prediction khách hàng** | Phát hiện khách sắp bỏ đi → tự động gửi voucher kéo lại | ⚙️ Tự động | Random Forest / XGBoost classification | "Khách Nguyễn A: 78% churn risk → auto gửi voucher 30% off" |
-| AI-4 | **Menu Intelligence & Smart Promotion** | Phân tích món bán chạy/chậm, gợi ý giá, khuyến mãi đúng thời điểm | 👑 Admin | Time-series + Clustering + Elasticity regression | "Matcha +35% → thêm biến thể. Smoothie Dâu 2 ly/ngày → loại. 14-16h vắng → push combo" |
-| AI-5 | **Chatbot Gợi Ý Món Cho Khách Hàng** | Khách hỏi chatbot trên QR Order → AI gợi ý món theo khẩu vị, thời tiết, dị ứng, trend | 👤 Khách hàng | RAG + Recommendation Engine + Content-based Filtering | Khách: "Tôi thích vị đắng, ít ngọt" → "Americano hoặc Cappuccino đường 25%". "Hôm nay nóng quá" → "Trà Đào Cam Sả đá" |
+| **1. QR Bàn** | `Table QR` | Dán cố định trên từng mặt bàn phục vụ | `https://order.smartfb.vn/table/{table_id}?branch={branch_id}&sig={hmac_signature}` | Mở Menu gọi món tại bàn cho khách Dine-in | • Nhánh A: VietQR trả trước<br>• Nhánh B: Tiền mặt trả sau |
+| **2. QR Delivery** | `Delivery QR` | In trên poster, standee, tờ rơi, fanpage, mạng xã hội | `https://order.smartfb.vn/delivery?branch={branch_id}` | Mở giao diện đặt hàng giao tận nơi tại nhà | **100% VietQR trả trước** (Cố định phí ship 20.000 VNĐ) |
+| **3. QR Chấm Công** | `Attendance QR` | Hiển thị trên màn hình Web nội bộ quán | `https://staff.smartfb.vn/attendance/check-in?branch={branch_id}` | Điểm truy cập chấm công cho nhân viên | Không áp dụng (Xác thực WiFi BSSID/IP + Mã NV) |
 
-> **Lưu ý:** Nhân viên pha chế (Barista) **không cần chatbot hỏi công thức** — vì mỗi đơn hàng trên KDS đã hiển thị **công thức pha chi tiết** kèm theo (xem S-02). AI-1 (Thống kê) phục vụ cho Admin xem toàn chuỗi và Manager xem quán mình.
+### 3.2 Bảng Ma Trận 3 Loại Đơn Hàng (`OrderType` Enum)
 
-### Chi Tiết AI-5: Chatbot Gợi Ý Món Cho Khách Hàng
-
-Khi khách scan QR xem menu, có nút **"🤖 Gợi ý cho tôi"** — khách bấm vào để chat với AI:
-
-| Khách Hỏi | AI Trả Lời | Logic |
-|---|---|---|
-| "Tôi thích vị đắng nhẹ, ít ngọt" | "Gợi ý: Americano (0% đường) hoặc Cappuccino (đường 25%)" | Content-based filtering: tag vị đắng → filter menu |
-| "Hôm nay nóng quá, gợi ý đi" | "Trà Đào Cam Sả đá ❄️ — bán chạy nhất hôm nay!" | Thời tiết API + data bán hàng real-time |
-| "Món bán chạy nhất ở đây là gì?" | "Top 3 hôm nay: 1. Bạc Xỉu (42 ly) 2. Latte (38 ly) 3. Trà Đào (29 ly)" | Query trực tiếp từ data đơn hàng trong ngày |
-| "Tôi bị dị ứng sữa" | Lọc menu → chỉ hiện: Americano, Trà Đào, Nước ép... (ẩn tất cả món có sữa) | Tag nguyên liệu trong menu + allergen filter |
-| "Lần trước tôi uống gì?" | "Lần trước (12/07) bạn đặt Latte L + Croissant. Đặt lại nhé?" | Lịch sử đơn hàng CRM (nếu khách đã có SĐT) |
-| "Combo nào tiết kiệm nhất?" | "Combo Latte + Bánh Flan: 75K (tiết kiệm 15K so với mua lẻ)" | Combo engine + price comparison |
+| Loại Đơn Hàng | Giá Trị Enum | Kênh Tạo Đơn | Đối Tượng Thao Tác | Thông Tin Bắt Buộc | Quy Tắc Thanh Toán | Chính Sách Loyalty Áp Dụng |
+|---|:---:|---|---|---|---|---|
+| **DineIn** (Tại bàn) | `1` | Khách quét Table QR trên PWA | Khách hàng tự gọi món | Số bàn (`table_id`), Chi nhánh (`branch_id`) | • VietQR trả trước (Bếp nhận khi Paid)<br>• Tiền mặt trả sau (Bếp nhận ngay Confirmed) | Không áp dụng tích/đổi 10 ly |
+| **TakeAway** (Mang về) | `2` | Web POS Quầy (`(staff)/pos`) | Nhân viên thu ngân thao tác | SĐT khách hàng (`customer_phone`) | Thanh toán SAU khi nhận món (Tiền mặt / VietQR quầy) | **TÍCH 10 LY TẶNG 1 LY MIỄN PHÍ** |
+| **Delivery** (Giao tận nơi) | `3` | Khách quét Delivery QR trên PWA | Khách hàng tự gọi món | SĐT, Tên, **Địa chỉ giao hàng** (`delivery_address`), Phí ship 20k | **100% VietQR trả trước** (Khóa hoàn toàn COD) | Không áp dụng tích/đổi 10 ly |
 
 ---
----
 
-# 📝 PHẦN IV: DỰ ÁN GIẢI QUYẾT ĐƯỢC GÌ CHO THỊ TRƯỜNG?
+# 📝 PHẦN IV: PHÂN RÃ & ĐỊNH HÌNH CÁC MODULE TRÍ TUỆ NHÂN TẠO (AI MODULES)
 
-## 12. 🏪 Đối Với Chủ Quán Cà Phê / Chuỗi F&B
-
-| Giá Trị | Chi Tiết |
-|---|---|
-| **Cắt giảm chi phí nhân sự** | Không cần thu ngân (hoặc giảm từ 2 → 0-1 người) → tiết kiệm 6-16 triệu/quán/tháng |
-| **Cắt giảm chi phí POS** | Không cần mua máy POS 8-25 triệu → thay bằng QR Code (gần 0 đồng) |
-| **Tăng tốc phục vụ** | Khách tự đặt 10-15 giây/đơn → phục vụ gấp 3-4 lần so với POS thủ công |
-| **Giảm sai đơn về gần 0%** | Khách tự chọn trên điện thoại → không sai do giao tiếp |
-| **Chống thất thoát** | Chấm công GPS + Kiểm kê cảnh báo → gian lận & thất thoát < 2% |
-| **Ra quyết định bằng data** | Dashboard real-time + AI phân tích → không đoán mò |
-| **Tăng doanh thu** | AI combo + Loyalty tự động + Churn prediction → +15-25% doanh thu |
-
-## 13. 👤 Đối Với Khách Hàng
-
-| Giá Trị | Chi Tiết |
-|---|---|
-| **Không xếp hàng** | Scan QR tại bàn → đặt món ngay → không cần đứng chờ |
-| **Đặt đúng ý** | Tự chọn Size, Đường, Đá, Topping trên điện thoại → không sợ bị ghi sai |
-| **Biết chờ bao lâu** | Hiển thị thời gian chờ ước tính (~8 phút) → không bất an, không phải hỏi nhân viên |
-| **AI gợi ý món** | Hỏi chatbot "tôi thích vị đắng" → AI gợi ý ngay món phù hợp + allergen filter |
-| **Gọi thêm dễ dàng** | Muốn order thêm → bấm "Gọi thêm" từ điện thoại — không cần lên quầy |
-| **Thanh toán tiện lợi** | Yêu cầu bill từ điện thoại → NV mang ra bàn. Hoặc tự ra quầy thanh toán. Tiền mặt / VietQR — tùy ý |
-| **Tích điểm tự động** | Không cần thẻ giấy, không cần tải app → tích điểm ngay khi đặt qua QR |
-| **Nhận ưu đãi** | Voucher sinh nhật, ưu đãi loyalty gửi qua Zalo tự động |
-
----
----
-
-# 📝 PHẦN V: ĐIỂM ĐỘC ĐÁO & SO SÁNH ĐỐI THỦ
-
-## 14. 🏆 So Sánh Với Các Giải Pháp Hiện Tại
-
-| Tiêu Chí | iPOS / KiotViet / CukCuk | GrabFood / ShopeeFood | **F&B OS (Dự án này)** |
-|---|---|---|---|
-| **Đặt món** | Thu ngân gõ vào POS | Khách đặt online (giao tận nơi) | **Khách scan QR tại quán → tự đặt** |
-| **Cần máy POS?** | ✅ Cần (8-25 triệu/máy) | ❌ Không | **❌ Không cần** |
-| **Cần thu ngân?** | ✅ Cần (1-2 người/ca) | ❌ Không | **❌ Không cần** (hoặc 1 người hỗ trợ) |
-| **Phí hàng tháng** | 250K-2 triệu/tháng | 20-30% chiết khấu/đơn | **Tự sở hữu — 0 đồng chiết khấu** |
-| **AI phân tích** | ❌ Không có | ❌ Không có | **✅ 5 tính năng AI** |
-| **AI gợi ý cho khách** | ❌ Không | ❌ Không | **✅ Chatbot gợi ý món theo khẩu vị** |
-| **AI thống kê doanh thu** | ❌ Không | ❌ Không | **✅ AI hỏi đáp doanh thu cho Admin & Manager** |
-| **CRM & Loyalty** | Cơ bản (thẻ giấy) | Không (data thuộc Grab) | **✅ CRM đầy đủ + AI Churn Prediction** |
-| **Quản lý kho** | Cơ bản | ❌ Không | **✅ Xuất kho quầy + AI đề xuất nhập** |
-| **KDS Bếp** | Có (một số) | ❌ Không | **✅ Có + Công thức chuẩn từng ly (kèm mỗi đơn)** |
-| **Data thuộc ai?** | Thuộc nền tảng | Thuộc Grab/Shopee | **Thuộc 100% chủ quán** |
-
-## 15. 🎯 Điểm Khác Biệt Cốt Lõi (Unique Selling Points)
-
-| # | Điểm Độc Đáo | Tại Sao Quan Trọng |
-|---|---|---|
-| 1 | **QR Self-Order thay thế hoàn toàn POS** | Cắt giảm chi phí máy POS (8-25 triệu) + lương thu ngân (6-16 triệu/tháng) |
-| 2 | **AI Chatbot gợi ý món cho khách** | Khách hỏi "tôi thích vị đắng" → AI gợi ý Americano. Tăng trải nghiệm + tăng giá trị đơn hàng |
-| 3 | **AI Thống Kê & Hỏi Đáp Doanh Thu** | Admin/Manager hỏi AI: "So sánh Q1 vs Q3 tháng này" → có câu trả lời trong 5 giây |
-| 4 | **QR Feedback + AI Menu Intelligence** | Thu thập data thật từ khách → AI phân tích → đề xuất menu tối ưu (không cảm tính) |
-| 5 | **0 đồng chiết khấu** (khác Grab 20-30%) | Đơn hàng tại quán 100% doanh thu về chủ quán, không chia cho nền tảng |
-
----
----
-
-# 📝 PHẦN VI: KIẾN TRÚC HỆ THỐNG & CÔNG NGHỆ
-
-## 16. 🏗️ Kiến Trúc Tổng Thể
+Nhằm đảm bảo tính khả thi cao nhất cho đồ án Capstone 16 tuần, các module AI được phân rã thành **2 Module Triển khai Chính thức (Active MVP)** và **3 Module Định hướng Tương lai (Scale Up / Future Work)**:
 
 ```
-╔══════════════════════════════════════════════════════════════════════╗
-║  TẦNG 1: KHÁCH HÀNG & NHÂN VIÊN (Frontend)                         ║
-║                                                                      ║
-║  📱 QR Order Web     📺 KDS Bếp      📱 Manager App    💻 Admin Web ║
-║  (Khách scan QR      (Barista xem     (QL quán:         (Chủ chuỗi: ║
-║   → menu → đặt       đơn + công      mở/kết ca,        dashboard,  ║
-║   → thanh toán)      thức pha)        kho, kiểm kê)    tài chính)  ║
-║                                                                      ║
-╠══════════════════════════════════════════════════════════════════════╣
-║  TẦNG 2: API & BACKEND                                              ║
-║                                                                      ║
-║  ┌─────────────┐  ┌──────────┐  ┌──────────┐  ┌──────────────────┐ ║
-║  │ REST API    │  │ WebSocket│  │ Auth &   │  │ Payment Gateway │ ║
-║  │ (CRUD)      │  │ (Real-   │  │ RBAC     │  │ (VietQR, NV    │ ║
-║  │             │  │  time)   │  │          │  │  xác nhận)     │ ║
-║  └─────────────┘  └──────────┘  └──────────┘  └──────────────────┘ ║
-║                                                                      ║
-╠══════════════════════════════════════════════════════════════════════╣
-║  TẦNG 3: AI ENGINE                                                   ║
-║                                                                      ║
-║  ┌──────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐          ║
-║  │ AI-1         │ │ AI-2     │ │ AI-3     │ │ AI-4     │          ║
-║  │ Thống kê     │ │ Combo    │ │ Churn    │ │ Menu     │          ║
-║  │ Doanh thu    │ │ Suggest  │ │ Predict  │ │ Intel    │          ║
-║  │ (Admin + QL) │ │          │ │          │ │          │          ║
-║  └──────────────┘ └──────────┘ └──────────┘ └──────────┘          ║
-║  ┌──────────────────────────────────────────────────┐              ║
-║  │ AI-5: Chatbot Gợi Ý Món Cho Khách Hàng          │              ║
-║  │ (Khẩu vị, thời tiết, dị ứng, trend)             │              ║
-║  └──────────────────────────────────────────────────┘              ║
-║                                                                      ║
-╠══════════════════════════════════════════════════════════════════════╣
-║  TẦNG 4: DATABASE & INFRASTRUCTURE                                   ║
-║                                                                      ║
-║  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐              ║
-║  │ PostgreSQL   │  │ Redis Cache  │  │ Cloud Storage│              ║
-║  │ (Data chính) │  │ (Real-time)  │  │ (Ảnh menu)   │              ║
-║  └──────────────┘  └──────────────┘  └──────────────┘              ║
-║                                                                      ║
-║  Deploy: Docker + Cloud (AWS / GCP / VPS Việt Nam)                   ║
-╚══════════════════════════════════════════════════════════════════════╝
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                             PHÂN RÃ 5 MODULE TRÍ TUỆ NHÂN TẠO (AI)                               │
+├─────────────────────────────────────────────────────────────────┬────────────────────────────────┤
+│           ✅ PHẠM VI TRIỂN KHAI CHÍNH THỨC (ACTIVE MVP)          │   🔮 MỞ RỘNG TƯƠNG LAI (SCALE) │
+├─────────────────────────────────────────────────────────────────┼────────────────────────────────┤
+│ 1. AI-1: Chatbot Tư Vấn Khẩu Vị RAG (Recommendation Chatbot)    │ 3. AI-3: NLQ Business Analytics│
+│    • Google Gemini 1.5 Flash + Hybrid Recommendation Engine.    │ 4. AI-4: Customer Churn (RFM)  │
+│    • Đánh giá khoa học: Precision@K, Recall@K, NDCG, Latency.   │ 5. AI-5: Menu Demand Forecast  │
+│ 2. AI-2: Khai Phá & Đề Xuất Combo Món Tự Động (Apriori/FP-Growth│                                │
+│    • Market Basket Analysis (Support, Confidence, Lift > 1.2).  │                                │
+│    • Human-in-the-loop: Chủ chuỗi phê duyệt trước khi áp dụng.  │                                │
+└─────────────────────────────────────────────────────────────────┴────────────────────────────────┘
 ```
-
-## 17. 🛠️ Tech Stack
-
-| Thành Phần | Công Nghệ |
-|---|---|
-| **QR Order (Khách)** | Progressive Web App (PWA) — React/Next.js — Responsive Mobile-first |
-| **KDS Bếp** | Web App — React — Full-screen TV mode |
-| **Manager App** | Flutter (iOS + Android) hoặc React Native |
-| **Admin Dashboard** | Next.js — Web Dashboard |
-| **Backend API** | Node.js (NestJS) hoặc Python (FastAPI) |
-| **Database** | PostgreSQL + Redis (cache & real-time) |
-| **Real-time** | WebSocket (Socket.IO) — đơn hàng hiện tức thì trên KDS |
-| **Thanh toán** | VietQR API (VNPay/Vietcombank) — NV xác nhận thủ công, không dùng cổng thanh toán tự động |
-| **AI Engine** | Python (scikit-learn, Prophet, LangChain) |
-| **Chatbot (Khách hàng)** | RAG (LangChain + Vector DB + LLM API) |
-| **Notification** | Zalo OA API + Email (SendGrid) |
-| **Deploy** | Docker + Cloud (AWS/GCP/VPS) |
-
-## 18. 🔌 Cơ Chế Hoạt Động Khi Mất Mạng (Offline Resilience)
-
-> **Vấn đề:** Hệ thống Smart F&B OS phụ thuộc Internet để vận hành (QR Order, KDS real-time, VietQR, AI). Nếu mất mạng mà không có cơ chế dự phòng, toàn bộ quán sẽ dừng phục vụ.
->
-> **Giải pháp:** Áp dụng kiến trúc **3 lớp bảo vệ** — đảm bảo quán vẫn hoạt động bình thường trong mọi tình huống mất mạng.
-
-### Sơ đồ 3 lớp bảo vệ
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    TRẠNG THÁI MẠNG                               │
-│                                                                   │
-│  ✅ WiFi OK ──────── Hoạt động bình thường (100% tính năng)      │
-│       │                                                           │
-│       ▼ WiFi chết                                                 │
-│                                                                   │
-│  🔶 LỚP 1: 4G Backup ── Router tự chuyển sang SIM 4G            │
-│  │   (Khách + NV không biết, hệ thống vẫn chạy 100%)            │
-│       │                                                           │
-│       ▼ 4G cũng chết                                              │
-│                                                                   │
-│  🟠 LỚP 2: Offline Mode ── POS chuyển chế độ nội bộ              │
-│  │   NV tạo đơn thủ công trên POS → lưu SQLite local             │
-│  │   KDS vẫn hiện đơn (data local) → Pha chế bình thường        │
-│  │   Thu tiền mặt (VietQR tạm ngưng)                             │
-│       │                                                           │
-│       ▼ Có mạng lại                                               │
-│                                                                   │
-│  🟢 TỰ ĐỒNG BỘ ── Toàn bộ đơn offline sync lên Cloud Server    │
-│      Doanh thu, kho, CRM cập nhật đầy đủ, không mất data        │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### Lớp 1: Phần cứng — Router WiFi + 4G Backup tự động chuyển
-
-Mỗi chi nhánh trang bị 1 Router WiFi có khe cắm SIM 4G (TP-Link, Tenda, Huawei). Khi WiFi chính từ nhà mạng (VNPT/Viettel) bị đứt, router **tự động chuyển sang 4G trong 5-10 giây** — không cần ai thao tác.
-
-| Trạng thái | Hành vi hệ thống | Người dùng cảm nhận |
-|---|---|---|
-| WiFi OK | Chạy bình thường qua WiFi | Không biết gì |
-| WiFi chết, 4G lên | Chạy qua 4G, tốc độ giảm nhẹ | Không biết gì (chậm hơn 1-2 giây) |
-| WiFi phục hồi | Tự chuyển về WiFi | Không biết gì |
-
-> **Giải quyết 95% trường hợp mất mạng.** WiFi quán thường chỉ mất vài phút đến vài giờ — trong thời gian đó 4G thay thế hoàn toàn.
-
-### Lớp 2: Phần mềm — Offline Mode trên máy POS
-
-Khi **cả WiFi lẫn 4G đều mất** (trường hợp hiếm: mất điện khu vực, sự cố hạ tầng viễn thông), máy POS Sunmi chuyển sang chế độ Offline:
-
-#### Luồng xử lý khi mất mạng hoàn toàn
-
-```
-🔴 Hệ thống phát hiện mất kết nối (ping server thất bại 3 lần liên tiếp)
-     │
-     ▼
-📢 Hiển thị banner: "CHẾ ĐỘ OFFLINE — Đơn hàng lưu tạm trên máy"
-     │
-     ├── MÀN HÌNH NV (15.6" cảm ứng):
-     │   • Hiện form TẠO ĐƠN THỦ CÔNG: NV chọn món từ menu đã cache
-     │   • Mỗi đơn lưu vào SQLite local trên POS
-     │   • KDS vẫn hiện đơn bình thường (đọc từ SQLite local)
-     │   • NV bấm "Hoàn thành" → Đơn di chuyển sang "Đã xong"
-     │
-     ├── MÀN HÌNH KHÁCH (10"):
-     │   • Hiện đơn hàng + tổng tiền (dữ liệu local)
-     │   • VietQR tạm ẩn → Hiện: "Vui lòng thanh toán tiền mặt"
-     │
-     └── QR ORDER KHÁCH:
-         • Khách quét QR → PWA mở menu từ cache (Service Worker)
-         • Đặt món → Hiện: "Hệ thống đang offline, vui lòng đặt tại quầy"
-```
-
-#### Dữ liệu được cache offline trên POS
-
-| Dữ liệu | Lưu ở đâu | Khi nào cache | Dung lượng |
-|---|---|---|---|
-| Menu (tên món, giá, ảnh, công thức) | SQLite + LocalStorage | Mỗi lần menu thay đổi | ~5-20 MB |
-| Đơn hàng tạo offline | SQLite local | Khi NV tạo đơn lúc mất mạng | ~1 KB/đơn |
-| Danh sách bàn + sơ đồ | SQLite local | Mỗi lần cập nhật bàn | ~100 KB |
-| Tồn kho (số lượng) | SQLite local | Mỗi lần kết ca hoặc kiểm kê | ~50 KB |
-
-#### Luồng đồng bộ khi có mạng lại
-
-```
-🟢 Hệ thống phát hiện có mạng lại (ping server thành công)
-     │
-     ▼
-🔄 BẮT ĐẦU ĐỒNG BỘ TỰ ĐỘNG (Background Sync)
-     │
-     ├── 1. Push toàn bộ đơn hàng offline → Server
-     │      (Giữ nguyên thời gian tạo đơn gốc, đánh dấu "offline_order")
-     │
-     ├── 2. Đồng bộ tồn kho (trừ nguyên liệu đã dùng trong đơn offline)
-     │
-     ├── 3. Cập nhật CRM (nếu khách có SĐT trong đơn offline)
-     │
-     ├── 4. Tính lại doanh thu (gộp đơn offline vào báo cáo)
-     │
-     └── 5. Hiện thông báo: "Đã đồng bộ X đơn offline thành công"
-         Banner "OFFLINE" biến mất → Chế độ bình thường
-```
-
-> **Quy tắc xung đột (Conflict Resolution):** Nếu cùng 1 món bị "Báo hết" trên server (từ quán khác hoặc từ Admin) trong khi quán đang offline vẫn bán món đó → Khi sync, hệ thống **cảnh báo Quản lý** để xử lý, không tự động ghi đè.
-
-### Lớp 3: PWA Service Worker — Khách vẫn xem menu khi mất mạng
-
-PWA (Progressive Web App) của khách hàng có cơ chế cache thông minh:
-
-| Tính năng | Có mạng | Mất mạng |
-|---|---|---|
-| Mở menu QR | Tải dữ liệu mới nhất từ server | Hiện menu từ cache (lần truy cập gần nhất) |
-| Xem chi tiết món | Ảnh + giá + mô tả đầy đủ | Ảnh + giá từ cache (có thể thiếu ảnh mới thêm) |
-| Đặt món | Gửi lên server, KDS nhận ngay | Hiện: "Vui lòng đặt tại quầy" |
-| AI Chatbot | Hoạt động bình thường | Hiện: "Chatbot tạm offline" |
-| Xem lịch sử đơn | Tải từ server | Hiện đơn đã cache trước đó |
-
-#### Chiến lược cache PWA (Service Worker)
-
-```javascript
-// Cache Strategy: Network First, Cache Fallback
-// 1. Menu data, ảnh món: Cache khi load lần đầu, cập nhật mỗi lần mở
-// 2. App shell (HTML, CSS, JS): Pre-cache khi cài PWA
-// 3. API response: Cache 30 phút, fallback khi offline
-```
-
-| Loại tài nguyên | Chiến lược cache | Thời gian hết hạn |
-|---|---|---|
-| App Shell (HTML/CSS/JS) | Pre-cache (cài sẵn) | Cập nhật khi có phiên bản mới |
-| Menu data (JSON) | Network First → Cache Fallback | 30 phút |
-| Ảnh món | Cache First → Network Update | 7 ngày |
-| API đặt món | Network Only (không cache) | — |
-
-### Tổng kết: Tính năng nào hoạt động khi offline?
-
-| Tính năng | WiFi OK | Chỉ 4G | Offline hoàn toàn |
-|---|---|---|---|
-| QR Order (Khách tự đặt) | ✅ | ✅ | ❌ → Đặt tại quầy |
-| KDS hiện đơn | ✅ | ✅ | ✅ (đơn local) |
-| Tạo đơn trên POS | ✅ | ✅ | ✅ (lưu local) |
-| Công thức pha chế | ✅ | ✅ | ✅ (cache local) |
-| Màn hình khách (đơn + giá) | ✅ | ✅ | ✅ (data local) |
-| VietQR thanh toán | ✅ | ✅ | ❌ → Thu tiền mặt |
-| AI Chatbot | ✅ | ✅ | ❌ → Tạm ngưng |
-| Báo hết món | ✅ | ✅ | ✅ (local, sync sau) |
-| In hóa đơn | ✅ | ✅ | ✅ (máy in nối POS) |
-| Báo cáo doanh thu | ✅ | ✅ | ⏳ (sau khi sync) |
-| Đồng bộ data lên Cloud | ✅ | ✅ | ⏳ (tự động khi có mạng) |
-
-> **Kết luận:** Với 3 lớp bảo vệ, quán **không bao giờ phải dừng phục vụ** vì mất mạng. Lớp 1 (4G) giải quyết 95% trường hợp. Lớp 2 (Offline POS) + Lớp 3 (PWA Cache) giải quyết 5% còn lại — quán vẫn nhận đơn, pha chế, thu tiền mặt bình thường.
-
----
----
-
-# 📝 PHẦN VII: TÍNH NĂNG HỆ THỐNG CHI TIẾT THEO TỪNG ACTOR
-
-### Tổng Quan 4 Actor
-
-| Actor | Giao Diện | Số Tính Năng | Highlight Chính |
-|---|---|---|---|
-| 👤 **Khách hàng** | QR Order Web (PWA) | 24 tính năng | Order, Thanh toán, AI gợi ý, CRM SĐT, Loyalty |
-| 🧋 **Barista / Pha chế** | KDS (TV/Tablet) | 11 tính năng | Real-time order, Công thức chuẩn kèm đơn, Báo hết món, Sơ đồ bàn |
-| 🏪 **Quản lý chi nhánh** | App Mobile + Web | 13 tính năng | Ca làm việc, Nhập/Xuất kho, Báo cáo, AI thống kê |
-| 👑 **Chủ chuỗi / Admin** | Web Dashboard | 22 tính năng | Dashboard, P&L, Menu, RBAC, AI thống kê, Audit Log, Export |
 
 ---
 
-## 18. 👤 ACTOR 1: KHÁCH HÀNG (Customer)
+## 4.1 Hai Module AI Triển Khai Chính Thức (Active MVP)
 
-> **Giao diện:** QR Order Web (PWA) — mở bằng trình duyệt điện thoại, KHÔNG cần tải app
+### 1. AI-1: Recommendation Chatbot (RAG + Google Gemini 1.5 Flash SDK)
+- **Ý nghĩa nghiên cứu:** Đề tài nghiên cứu khoa học trọng tâm của đồ án Capstone, giải quyết bài toán tư vấn cá nhân hóa theo ngữ cảnh thời gian thực cho ngành F&B.
+- **Kiến trúc luồng xử lý (RAG Pipeline):**
+  1. Khách hàng nhập câu hỏi tự nhiên trên PWA (ví dụ: *"Trời chiều nay mưa lạnh, mình muốn uống món gì ngọt béo ấm áp, không dùng trà xanh và dị ứng đậu phộng"*).
+  2. Backend .NET 8 xây dựng Context động (Context Builder) tích hợp:
+     - Dữ liệu thời tiết hiện tại của chi nhánh (OpenWeatherMap API: Nhiệt độ, độ ẩm, thời tiết mưa/nắng).
+     - Dữ liệu định lượng, calo và thành phần dị ứng từ bảng `Products` và `ProductBOMs`.
+     - Lịch sử tiêu dùng gần nhất của khách hàng từ bảng `Customers` (CRM Profile).
+  3. Gửi prompt có cấu trúc nghiêm ngặt tới Google Gemini 1.5 Flash API với System Instructions định dạng JSON.
+  4. Trả về câu trả lời tự nhiên kèm danh sách 2 – 3 sản phẩm phù hợp nhất và nút **"Thêm vào giỏ hàng ngay"** với 1 chạm.
+- **Tiêu chuẩn đánh giá định lượng:**
+  - Độ chính xác: Precision@K, Recall@K (K=3, K=5).
+  - Chất lượng xếp hạng: NDCG@K (Normalized Discounted Cumulative Gain).
+  - Độ bao phủ danh mục: Catalog Coverage >= 75%.
+  - Tốc độ phản hồi: Response Latency <= 1.5 giây. So sánh trực tiếp với Popularity Baseline và Random Baseline.
 
-### 18.1 Tính Năng Nhận Diện & Đặt Món (QR Order)
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| C-00 | **Nhận diện khách hàng qua SĐT** | Sau khi scan QR, hệ thống hiện popup nhập số điện thoại.<br>**Lần đầu:** Yêu cầu nhập thêm Tên → tạo hồ sơ khách mới trong CRM.<br>**Đã có số:** Tự động nhận diện → hiện tên khách, điểm loyalty, lịch sử đơn trước. |
-| C-01 | **Scan QR xem menu** | Quét mã QR tại bàn/quầy → mở trang menu trên trình duyệt. Hệ thống tự nhận diện số bàn + chi nhánh |
-| C-02 | **Menu trực quan** | Hiển thị menu phân loại (Cà phê / Trà / Đá xay / Bánh / Topping) kèm ảnh, giá, mô tả từng món |
-| C-03 | **Tùy chỉnh món** | Chọn Size (S/M/L), mức đường (0-25-50-75-100%), mức đá (không/ít/nhiều), thêm Topping |
-| C-04 | **Ghi chú đặc biệt** | Ghi chú tự do: "Ít đá, thêm shot espresso, để riêng đường" |
-| C-05 | **Giỏ hàng** | Thêm nhiều món vào giỏ, chỉnh số lượng, xóa món trước khi gửi đơn |
-| C-06 | **Chọn Mang đi / Tại quán** | Khách chọn "Tại bàn" (gắn số bàn) hoặc "Mang đi" (Takeaway) |
-
-### 18.2 Tính Năng Thanh Toán
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| C-07 | **Yêu cầu in bill** | Khách bấm "💳 Yêu cầu thanh toán" trên QR Menu → hệ thống gửi thông báo cho nhân viên: “Bàn 5 cần đưa bill” → NV in hóa đơn và mang ra bàn |
-| C-08 | **Thanh toán tại bàn** | NV đưa bill ra bàn → khách chọn: **Tiền mặt** (NV thu) hoặc **Chuyển khoản VietQR** (NV xuất mã QR) → NV xác nhận thanh toán |
-| C-09 | **Thanh toán tại quầy** | Khách tự ra quầy thanh toán trước khi về → NV quầy xuất bill, thu tiền mặt hoặc nhận chuyển khoản → xác nhận |
-| C-10 | **Áp mã giảm giá / Voucher** | Khách báo mã voucher cho NV khi thanh toán → NV nhập mã vào hệ thống → giảm tự động vào tổng tiền |
-| C-11 | **Cập nhật doanh thu real-time** | Mỗi đơn được xác nhận thanh toán → doanh thu cập nhật tực thì lên Dashboard Admin và Manager |
-
-> **Lưu ý:** Khách không tự thanh toán online. Việc xác nhận thanh toán do nhân viên thực hiện — đảm bảo kiểm soát dòng tiền chặt chẽ và tránh phát sinh sai sót thanh toán.
-
-### 18.3 Tính Năng Trải Nghiệm & AI
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| C-12 | **🤖 Chatbot gợi ý món** | Bấm "Gợi ý cho tôi" → chat với AI: hỏi theo khẩu vị, thời tiết, dị ứng, trend → AI gợi ý món phù hợp |
-| C-13 | **Xem món bán chạy** | Hiển thị tag "Best Seller", "Mới", "Hot" trên menu dựa trên data bán hàng thật |
-| C-14 | **Theo dõi trạng thái đơn real-time** | Sau khi đặt → thanh tiến trình: "Đã xác nhận → Đang pha chế... → Sẵn sàng! 🔔" |
-| C-15 | **Thời gian chờ ước tính** | Hiển thị: "Đơn của bạn dự kiến xong sau ~8 phút" — tính từ số đơn đang chờ trên KDS |
-| C-16 | **Thông báo khi món xong** | Push notification trên trình duyệt hoặc hiện trên màn hình đặt món |
-| C-17 | **Gọi nhân viên** | Nút "Gọi nhân viên 🔔" trên màn hình QR → nhân viên nhận thông báo trên App: "Bàn 5 cần hỗ trợ" |
-| C-18 | **QR Feedback & Review công khai** | Scan QR/uống xong → đánh giá 1-5 sao **từng món** + **tải ảnh thực tế** + ghi chú.<br>• **Ẩn danh:** Khách có thể chọn ẩn danh hoặc hiện tên CRM.<br>• **Publish công khai:** Feedback hiển thị trực tiếp trên trang QR Menu cho các khách sau xem đánh giá thực tế.<br>• **Alert cảnh báo:** Đánh giá ≤ 2 sao tự động gửi alert đến App Quản lý để xử lý khẩn cấp |
-| C-19 | **Tích điểm Loyalty tự động** | Mỗi đơn hoàn tất → hệ thống tự động cộng điểm vào số điện thoại (không cần thẻ giấy, không cần app riêng) |
-| C-20 | **Lưu lịch sử uống & CRM** | Mỗi lần khách order → ghi lại vào hồ sơ CRM: món đã gọi, số lần ghé, ngày cuối ghé, tổng chi tiêu. Dùng cho AI Churn Prediction & gửi Voucher |
-| C-21 | **Nhận voucher qua Zalo** | Voucher sinh nhật, ưu đãi loyalty, voucher "lâu ngày chưa ghé" — gửi tự động qua Zalo OA kèm liên kết vào QR Order |
-
-### 18.4 Tính Năng Nâng Cao (UX+)
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| C-21 | **Gọi thêm món (Add to order)** | Sau khi đặt xong, khách muốn thêm 1 ly nữa → bấm "Gọi thêm" → thêm vào đơn đang chạy, không tạo đơn mới |
-| C-22 | **Allergen & Calories** | Mỗi món hiển thị: thành phần dị ứng (sữa, gluten, đậu phộng) + calories ước tính → khách sức khỏe yên tâm |
-| C-23 | **Món yêu thích / Quick Reorder** | Khách lưu món hay gọi (dựa CRM) → lần sau vào QR menu hiện ngay “Món của bạn” → order 1 click |
+### 2. AI-2: Combo Discovery Engine (Market Basket Analysis - Apriori / FP-Growth)
+- **Mục tiêu kinh doanh:** Khai phá giỏ hàng lịch sử để tìm ra các nhóm sản phẩm thường xuyên được mua kèm nhau (ví dụ: *Cà phê muối + Bánh Croissant bơ tỏi*), giúp gia tăng giá trị trung bình trên mỗi đơn hàng (AOV).
+- **Thuật toán & Chỉ số thống kê:**
+  - Chạy ngầm định kỳ (Background Job) phân tích toàn bộ hóa đơn bán hàng chi nhánh.
+  - $\text{Support}(X \rightarrow Y) = \frac{\text{Số đơn chứa cả } X \text{ và } Y}{\text{Tổng số đơn hàng}} \ge \text{Min\_Support (0.02)}$.
+  - $\text{Confidence}(X \rightarrow Y) = \frac{\text{Support}(X \cup Y)}{\text{Support}(X)} \ge \text{Min\_Confidence (0.4)}$.
+  - $\text{Lift}(X \rightarrow Y) = \frac{\text{Confidence}(X \rightarrow Y)}{\text{Support}(Y)} > 1.2$ (Chứng minh mối tương quan thuận mạnh mẽ giữa hai món).
+- **Cơ chế Human-in-the-loop (Chủ chuỗi kiểm soát):** Hệ thống sinh danh sách các cặp món tiềm năng kèm giá vốn BOM và biên lợi nhuận dự kiến. Chủ chuỗi xem xét trên Admin Dashboard, điều chỉnh mức giảm giá combo (%) và bấm **"Phê duyệt phát hành"** để combo chính thức xuất hiện trên Menu PWA.
 
 ---
 
-## 19. 🧋 ACTOR 2: BARISTA / PHỤC VỤ (Staff)
-
-> **Giao diện:** 
-> 1. Màn hình KDS (Kitchen Display System) — hiển thị trên TV/Tablet tại quầy pha chế
-> 2. **App Nội Bộ Nhân Viên (Staff Mobile App)** — chạy trên điện thoại nhân viên phục vụ / pha chế
-
-### 19.1 Quản Lý Đơn Hàng
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| S-01 | **Xem đơn hàng real-time** | Đơn từ QR Order hiện TỨC THÌ trên KDS — không cần chờ thu ngân gõ |
-| S-02 | **Hiện công thức chuẩn** | Mỗi đơn kèm công thức pha chi tiết: "Espresso 2 shot + Sữa tươi 200ml + Đá 150g + Đường 25%" |
-| S-03 | **Ưu tiên đơn chờ lâu** | Đơn chờ > 3 phút → đổi màu vàng. Chờ > 5 phút → đổi màu đỏ → pha trước |
-| S-04 | **Bấm "Hoàn thành"** | Pha xong → bấm nút → đơn biến mất khỏi KDS → khách nhận thông báo "Món đã sẵn sàng" |
-| S-05 | **Xem ghi chú khách** | Hiện rõ ghi chú: "Ít đá", "Không đường", "Thêm shot" → không cần hỏi lại |
-| S-06 | **Xem đơn gom theo bàn** | Chế độ "Bàn View": xem tất cả món bàn 5 đã order (kể cả nhiều lần) → mang 1 chuyến đủ |
-
-### 19.2 Hỗ Trợ Vận Hành
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| S-07 | **Báo Hết Món (Out of Stock)** | Barista bấm "Hết" trên KDS → món **tự ẩn ngay lập tức** trên QR Order của khách — không cần nhờ Admin |
-| S-08 | **In Bill / Receipt** | Kết nối máy in nhiệt → in hóa đơn khi khách yêu cầu (tên món, giá, tổng tiền, mã đơn) |
-| S-09 | **Sơ đồ bàn (Floor Map)** | Xem trực quan bàn nào đang có khách (xanh/đỏ), bàn nào trống → ưu tiên phục vụ đúng bàn |
-| S-10 | **Nhận thông báo gọi nhân viên** | Khi khách bấm "Gọi nhân viên" từ QR → nhân viên nhận chuông thông báo: "Bàn 5 cần hỗ trợ" |
-| S-11 | **Chấm công đa phương thức** | **Tùy chọn 1 (App):** Scan QR Code động (đổi 30s) + GPS Lock (bán kính 50m).<br>**Tùy chọn 2 (Mở rộng phần cứng):** Tích hợp máy chấm công sinh trắc học (vân tay / Face ID) giúp triệt tiêu gian lận tuyệt đối |
-| S-12 | **App Nội Bộ Nhân Viên (Staff App)** | Ung dụng di động cho nhân viên phục vụ / barista:<br>• Rung/Phát chuông alert khi khách bấm "Gọi nhân viên 🔔" hoặc "Yêu cầu bill 💳"<br>• Xác nhận thanh toán tại bàn / xuất mã VietQR di động<br>• Báo hết món trực tiếp từ điện thoại<br>• Xem sơ đồ bàn di động & nhận thông báo món pha xong từ KDS |
-
-> **Lưu ý:** Barista **không cần chatbot hỏi công thức** — vì công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn hàng trên KDS (xem S-02).
+## 4.2 Ba Module AI Định Hướng Tương Lai (Scale Up / Future Work)
+*(Được thiết kế sẵn các Interface Extension Points trong kiến trúc Domain/Application, không triển khai code trong 16 tuần)*:
+1. **AI-3: Natural Language Business Analytics (Text-to-SQL — `ITextToSqlEngine`):** Cho phép Chủ chuỗi gõ câu hỏi tự nhiên tiếng Việt để hệ thống tự động sinh câu lệnh SQL và vẽ biểu đồ doanh thu P&L tức thời.
+2. **AI-4: Customer Churn Prediction (RFM XGBoost — `IChurnPredictor`):** Mô hình học máy phân loại khách hàng dựa trên tần suất ghé quán và giá trị đơn hàng (Recency, Frequency, Monetary) để phát hiện sớm khách hàng có nguy cơ rời bỏ.
+3. **AI-5: Dynamic Menu Intelligence & Demand Forecasting (`IDemandForecaster`):** Dự báo nhu cầu nguyên vật liệu và đề xuất điều chỉnh giá bán theo ngày trong tuần và sự kiện thời tiết.
 
 ---
 
-## 20. 🏪 ACTOR 3: QUẢN LÝ CHI NHÁNH (Branch Manager)
+# 📝 PHẦN V: GIÁ TRỊ KINH TẾ, BÀI TOÁN HIỆU QUẢ & PHÂN TÍCH ROI
 
-> **Giao diện:** App Manager (Mobile) + Web (giới hạn quyền — chỉ xem quán mình)
+Bảng tính toán hiệu quả kinh tế cho 1 quán cà phê tiêu chuẩn (mặt bằng 30 bàn, doanh thu trung bình 250.000.000 VNĐ/tháng, 400 đơn/ngày):
 
-### 20.1 Quản Lý Ca Làm Việc
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| M-01 | **Mở ca / Kết ca** | Bấm "Mở Ca" đầu ngày → nhập tiền mặt đầu két. "Kết Ca" cuối ngày → nhập tiền thực đếm |
-| M-02 | **Đối soát két tiền** | Hệ thống so sánh: Tiền mặt hệ thống ghi vs Thực đếm → cảnh báo nếu chênh > 50K |
-| M-03 | **Duyệt lịch ca** | Xem bảng ca tuần → duyệt / đổi ca / thêm NV thay thế |
-| M-04 | **Xem chấm công NV** | Danh sách NV đã check-in/check-out → ai đi muộn, ai làm overtime |
-
-### 20.2 Quản Lý Kho & Nguyên Liệu
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| M-05 | **Xuất kho quầy** | Tạo phiếu xuất: "Xuất 2kg CF hạt + 5 hộp sữa từ Kho → Quầy" → hệ thống trừ kho tổng |
-| M-06 | **Kiểm kê** | Nhập số thực đếm từng loại nguyên liệu → hệ thống tính chênh lệch tự động |
-| M-07 | **Nhận cảnh báo kho** | "CF hạt còn 1.2kg — dự kiến hết trong 1 ngày" → nhập hàng kịp thời |
-
-### 20.3 Xem Báo Cáo & AI
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| M-08 | **Xem doanh thu ca/ngày** | Doanh thu, số đơn, trung bình/đơn, top món bán chạy — **chỉ của quán mình** |
-| M-09 | **Biểu đồ doanh thu theo giờ** | Chart hiển thị giờ nào đông (đơn nhiều), giờ nào vắng → QL xếp ca đúng người đúng lúc |
-| M-10 | **Nhận báo cáo EOD tự động** | Cuối ca → hệ thống tự gửi báo cáo qua Zalo/Email → không cần gõ tay |
-| M-11 | **🤖 AI Thống kê doanh thu (AI-1)** | Hỏi AI bằng ngôn ngữ tự nhiên: "Hôm nay doanh thu bao nhiêu?" "Hao hụt tháng này?" → AI trả lời tức thì (chỉ xem data quán mình) |
-
-### 20.4 Quản Lý Kho Nâng Cao
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| M-12 | **Nhập kho từ NCC (Goods Receipt)** | Khi NCC giao hàng: QL nhập phiếu "Nhận 10kg CF hạt + 50 hộp sữa" → kho tổng cộng số thêm. Đối chiếu với đơn đặt hàng |
-| M-13 | **Quản lý Sơ Đồ Bàn** | Cấu hình bàn của quán (bàn 1-20, khu vực: Trong/Ngoài/VIP) → dùng cho KDS Floor Map và QR Order theo bàn |
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                           BẢNG TÍNH TOÁN HIỆU QUẢ KINH TẾ & ROI (1 CHI NHÁNH)                    │
+├───────────────────────────────────┬─────────────────────────────────┬────────────────────────────┤
+│ Hạng Mục Tối Ưu                   │ Giải Pháp Truyền Thống          │ Smart F&B OS               │
+├───────────────────────────────────┼─────────────────────────────────┼────────────────────────────┤
+│ Chi phí phần cứng máy POS đầu tư  │ 12.000.000 - 25.000.000 VNĐ     │ 0 VNĐ (Dùng Tablet/TV sẵn) │
+│ Chi phí nhân sự thu ngân quầy     │ 14.000.000 VNĐ/tháng (2 NV)     │ 7.000.000 VNĐ/tháng (1 NV) │
+│ Thất thoát đơn hàng & bùng đơn    │ 1.500.000 - 3.000.000 VNĐ/tháng │ 0 VNĐ (VietQR & Bill QR)   │
+│ Thất thoát nguyên liệu pha chế    │ 3.000.000 - 6.000.000 VNĐ/tháng │ Giảm 80% (Trừ BOM KDS)     │
+│ Doanh thu tăng thêm từ AI Combo   │ 0 VNĐ                           │ + 10% - 15% tổng AOV       │
+├───────────────────────────────────┴─────────────────────────────────┴────────────────────────────┤
+│ 💰 TỔNG TIẾT KIỆM & TĂNG THU: 15.000.000 - 22.000.000 VNĐ/tháng (~180 - 260 triệu VNĐ/năm/quán) │
+│ 🚀 TỶ SUẤT HOÀN VỐN (ROI): Thu hồi 100% chi phí triển khai chỉ sau 1 – 2 tháng đầu vận hành.     │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 21. 👑 ACTOR 4: CHỦ CHUỖI / ADMIN (Owner)
+# 📝 PHẦN VI: ĐIỂM ĐỘC ĐÁO KHÁC BIỆT & BẢNG SO SÁNH ĐỐI THỦ
 
-> **Giao diện:** Web Dashboard (Desktop/Laptop) — toàn quyền xem và quản lý cả chuỗi
-
-### 21.1 Dashboard Tổng Quan (Real-time)
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| A-01 | **Dashboard 3 quán** | Xem doanh thu, số đơn, nhân viên, cảnh báo — tất cả 3 quán trên 1 màn hình |
-| A-02 | **So sánh chi nhánh** | Biểu đồ so sánh: Quán nào doanh thu cao nhất? Quán nào chi phí cao bất thường? |
-| A-03 | **P&L (Lãi/Lỗ) tự động** | Doanh thu − Chi phí (nguyên liệu + lương + thuê + điện) = Lợi nhuận ròng từng quán |
-| A-04 | **Cảnh báo real-time** | NV vắng không báo, két chênh lệch, kho sắp hết, feedback ≤ 2 sao → thông báo tức thì |
-
-### 21.2 Quản Lý Menu & Giá
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| A-05 | **Tạo / Sửa / Xóa menu** | Tạo món mới kèm ảnh, giá, mô tả, công thức pha → đồng bộ cả chuỗi |
-| A-06 | **Giá theo chi nhánh** | Latte Quán Q1 (trung tâm): 55K. Quán Thủ Đức: 45K — tùy chỉnh riêng |
-| A-07 | **Bật/Tắt món tức thì** | Hết sữa → tắt tất cả món có sữa ngay lập tức trên QR Order |
-| A-08 | **Menu mùa / Giới hạn** | Tạo menu "Mùa hè 2026" → tự bật/tắt theo ngày đã đặt |
-| A-09 | **Quản lý Combo** | Tạo combo: Latte + Croissant = 75K (tiết kiệm 15K) → hiện trên QR Order |
-
-### 21.3 Quản Lý Nhân Sự & CRM
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| A-10 | **Quản lý NV toàn chuỗi** | Thêm/sửa/xóa nhân viên, phân quyền, xem chấm công 3 quán |
-| A-11 | **Quản lý Loyalty** | Cấu hình chương trình tích điểm, tạo voucher, thiết lập hạng thành viên |
-| A-12 | **Quản lý Promotion** | Tạo khuyến mãi: giảm 20% khung 14-16h, Buy 1 Get 1, voucher sinh nhật |
-
-### 21.4 AI & Phân Tích
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| A-13 | **🤖 AI Thống kê doanh thu (AI-1)** | Hỏi AI bằng ngôn ngữ tự nhiên: "So sánh Q1 vs Q3 tháng 8" "Quán nào lãi nhất?" → AI trả lời kèm biểu đồ (xem toàn chuỗi) |
-| A-14 | **🤖 AI Menu Intelligence (AI-4)** | AI gợi ý: "Matcha tăng 35% → thêm biến thể", "Smoothie Dâu 2 ly/ngày → loại" |
-| A-15 | **🤖 AI Churn Prediction (AI-3)** | Danh sách khách có nguy cơ bỏ đi + hệ thống tự gửi voucher kéo lại |
-| A-16 | **🤖 AI Combo Suggest (AI-2)** | AI phân tích: "68% khách mua Latte cũng mua Croissant → tạo combo 75K" |
-
-### 21.5 Quản Trị & Bảo Mật Hệ Thống
-
-| # | Tính Năng | Mô Tả Chi Tiết |
-|---|---|---|
-| A-18 | **Export Báo Cáo (Excel / PDF)** | Xuất báo cáo doanh thu, lương, kho theo tháng/quý → file Excel/PDF gửi kế toán |
-| A-19 | **Audit Log (Nhật Ký Thao Tác)** | Ghi lại mọi thao tác: ai sửa giá, ai xóa đơn, ai đổi menu — lúc nào, IP nào → chống gian lận nội bộ |
-| A-20 | **Giờ Hoạt Động (Business Hours)** | Cài giờ mở/đóng cửa từng quán → QR Order tự hiện thông báo "Quán đã đóng cửa" ngoài giờ hoạt động |
-| A-21 | **RBAC — Phân Quyền Chi Tiết** | Cấu hình quyền theo chức năng: QL chỉ xem kho + doanh thu quán mình, không thấy lương toàn chuỗi |
-| A-22 | **Broadcast Notification** | Gửi thông báo đến tất cả nhân viên/quản lý cùng lúc: "Hôm nay đóng cửa sớm 8h — Kiểm kê tháng" |
+| Tiêu Chí So Sánh Kỹ Thuật & Vận Hành | iPOS.vn | KiotViet | CukCuk | **Smart F&B OS (Đề Xuất)** |
+|---|:---:|:---:|:---:|:---:|
+| **Mô hình kiến trúc cốt lõi** | POS phần cứng tại quầy | POS bán lẻ tổng hợp | POS nhà hàng truyền thống | **QR Self-Order Web-First & AI-Powered** |
+| **Yêu cầu máy POS chuyên dụng** | Bắt buộc (8 – 25 triệu/máy) | Bắt buộc (6 – 15 triệu/máy) | Bắt buộc (8 – 20 triệu/máy) | **0 VNĐ (Tiết kiệm 60% CAPEX phần cứng)** |
+| **Dine-in: VietQR Trả trước & Tiền mặt Trả sau** | ❌ Chỉ thu tiền sau tại quầy | ❌ Chỉ thu tiền sau | ❌ Chỉ thu tiền sau | **✅ Hỗ trợ song song 2 nhánh hoàn chỉnh** |
+| **QR Delivery tích hợp phí ship 20k** | ❌ Phụ thuộc App ngoài (Grab/Shopee)| ❌ Phụ thuộc App ngoài | ❌ Phụ thuộc App ngoài | **✅ QR Delivery riêng + 100% VietQR** |
+| **Takeaway POS & Loyalty 10 Ly Tặng 1** | 🟡 Tích điểm point phức tạp | 🟡 Tích điểm tiền thưởng | 🟡 Tích điểm tiền thưởng | **✅ Web POS Quầy + Tích 10 ly = 1 ly Free** |
+| **Chấm công Khóa Mạng WiFi (BSSID/IP)** | ❌ Dùng máy vân tay rời | ❌ Dùng máy vân tay rời | ❌ Dùng máy vân tay rời | **✅ WiFi-locked Chống gian lận 100%** |
+| **Ứng dụng Nhân viên phục vụ** | Bắt buộc cài App di động | Bắt buộc cài App di động | Bắt buộc cài App di động | **✅ 100% Web Responsive (Xóa Staff App)** |
+| **AI Tư vấn món theo khẩu vị RAG (AI-1)** | ❌ Không có | ❌ Không có | ❌ Không có | **✅ Gemini 1.5 Flash + Context RAG** |
+| **AI Khai phá Combo tự động (AI-2)** | ❌ Không có | ❌ Không có | ❌ Không có | **✅ Thuật toán Apriori/FP-Growth** |
+| **Phí phần mềm duy trì hàng tháng** | 300K – 1.5M/tháng/quán | 250K – 800K/tháng/quán | 300K – 900K/tháng/quán | **Tự chủ mã nguồn mở / Không phí định kỳ** |
 
 ---
 
-## 22. 📊 BẢNG TỔNG HỢP: VẤN ĐỀ → GIẢI PHÁP → CÔNG NGHỆ → KẾT QUẢ
+# 📝 PHẦN VII: KIẾN TRÚC KỸ THUẬT, CÔNG NGHỆ & LUỒNG DỮ LIỆU
 
-| Vấn Đề | Giải Pháp | Công Nghệ | Kết Quả |
-|---|---|---|---|
-| POS lỗi thời, xếp hàng, sai đơn | **QR Self-Order** — khách scan QR tự đặt món | PWA + WebSocket + VietQR | Không cần máy POS, không cần thu ngân, sai đơn → 0% |
-| Khách không biết chọn gì | **AI Chatbot gợi ý** theo khẩu vị, thời tiết, dị ứng | RAG + Recommendation Engine | Tăng trải nghiệm + tăng giá trị đơn hàng |
-| Chấm công gian lận | **QR động + GPS Lock** hoặc **Tích hợp Máy chấm công sinh trắc học** (vân tay/Face ID) | Geolocation API / Biometric Hardware SDK | Gian lận → 0%, tự động tính lương ca |
-| Thất thoát nguyên liệu 5-15% | Xuất kho quầy + Kiểm kê + AI cảnh báo | Inventory module | Thất thoát < 2%, không hết hàng giữa ca |
-| Không biết lợi nhuận thật | Dashboard tài chính real-time + P&L | Analytics + Dashboard | Biết lãi/lỗ từng quán mỗi ngày |
-| Chất lượng không đồng nhất | KDS công thức chuẩn + QR Feedback | KDS Web App + Feedback module | 95%+ chuẩn vị, thu thập 100% feedback |
-| Khách bỏ đi không biết | CRM tự động từ QR Order + AI Churn | CRM + XGBoost | Giữ thêm 15-25% khách |
-| Báo cáo cuối ngày thủ công | Auto EOD Report + Dashboard chuỗi | Auto aggregation + Push Zalo | Tiết kiệm 30-60 phút/tối |
-| Thêm/bỏ món theo cảm tính | AI Menu Intelligence + Smart Promotion | Time-series + Clustering | Tăng 10-15% doanh thu, loại món kém |
+### 7.1 Mô Hình Kiến Trúc 4 Tầng Tổng Thể (Clean Architecture)
+
+```mermaid
+graph TD
+    subgraph "1. PRESENTATION TIER (Next.js 14 App Router Monorepo)"
+        P1["(customer): PWA Mobile Web (QR Menu, VietQR, AI-1 Chatbot)"]
+        P2["(kds): Web KDS Bếp/Bar Full-screen (BOM, Batching, 86-Toggle)"]
+        P3["(staff): Web POS Quầy, Sơ đồ bàn, Chuông gọi phục vụ, Chấm công WiFi"]
+        P4["(manager): Portal Quản lý Chi nhánh (Két tiền, Kho BOM, BSSID WiFi)"]
+        P5["(admin): Executive Portal Chủ chuỗi (Full CRUD Menu, AI-2 Combo, P&L)"]
+    end
+
+    subgraph "2. API GATEWAY & REAL-TIME TIER (.NET 8 Web API)"
+        GW[NGINX Reverse Proxy / SSL Termination]
+        HUB1[OrderHub SignalR]
+        HUB2[KitchenHub SignalR]
+        HUB3[PaymentHub SignalR]
+        HUB4[NotificationHub SignalR]
+    end
+
+    subgraph "3. APPLICATION & DOMAIN CORE (.NET 8 Clean Architecture)"
+        MED[MediatR CQRS Pipeline & FluentValidation]
+        SVC1[OrderProcessingService & StateMachineEngine]
+        SVC2[InventoryBOMService & AutoDeduction]
+        SVC3[PayOSWebhookHandler & VietQRService]
+        SVC4[WiFiAttendanceValidator]
+        AI_ENG[GeminiFlashRAGClient & AprioriMiningEngine]
+    end
+
+    subgraph "4. DATA & INFRASTRUCTURE TIER"
+        PG[(PostgreSQL 16: 25 Entities, ACID, Audit Logs)]
+        RD[(Redis 7: Menu Cache-aside, Distributed Locks, SignalR Backplane)]
+        EXT1[PayOS VietQR Gateway]
+        EXT2[OpenWeatherMap API]
+        EXT3[Cloud Object Storage WebP]
+    end
+
+    P1 & P2 & P3 & P4 & P5 --> GW
+    GW --> HUB1 & HUB2 & HUB3 & HUB4
+    GW --> MED
+    MED --> SVC1 & SVC2 & SVC3 & SVC4 & AI_ENG
+    SVC1 & SVC2 & SVC3 & SVC4 --> PG & RD
+    SVC3 <--> EXT1
+    AI_ENG <--> EXT2
+    AI_ENG --> EXT3
+    HUB1 & HUB2 & HUB3 & HUB4 <--> RD
+```
+
+### 7.2 Danh Mục 25 Thực Thể Cơ Sở Dữ Liệu Chuẩn Hóa (PostgreSQL 16)
+
+1. `Branches` — Chi nhánh trong chuỗi kinh doanh F&B (Mã, Tên, Địa chỉ, Số điện thoại, Trạng thái hoạt động).
+2. `BranchWifiConfigs` — Cấu hình bảo mật chấm công chi nhánh (Danh sách BSSID Access Point, Dải IP Subnet được cấp phép).
+3. `Users` — Tài khoản người dùng nội bộ (Admin, Manager, Staff / Barista).
+4. `Roles` — Danh mục vai trò và quyền hạn trong hệ thống RBAC.
+5. `UserRoles` — Bảng liên kết gán vai trò người dùng đa quyền.
+6. `AuditLogs` — Nhật ký kiểm toán bất biến ghi vết các thao tác nhạy cảm của hệ thống.
+7. `Categories` — Danh mục phân loại sản phẩm và thứ tự hiển thị trên menu.
+8. `Products` — Danh mục món ăn, đồ uống (Tên, Mô tả, Giá cơ bản, Ảnh WebP, Trạng thái bán, Best-seller).
+9. `ProductSizes` — Danh mục kích cỡ (Size S/M/L) và mức chênh lệch giá theo từng món.
+10. `ProductBranchPrices` — Bảng ghi đè giá bán riêng và trạng thái khóa món (86-Toggle) theo từng chi nhánh.
+11. `Modifiers` — Danh mục nhóm tùy chọn bổ trợ (Đường, Đá, Topping trân châu, thạch, pudding).
+12. `ProductModifiers` — Bảng liên kết cấu hình nhóm modifier cho phép áp dụng trên từng sản phẩm.
+13. `Ingredients` — Danh mục nguyên vật liệu pha chế (Tên, Đơn vị tính: ml, gram, cái, Tồn kho, Ngưỡng tối thiểu, Đơn giá).
+14. `RecipesBOM` — Công thức định lượng tiêu hao nguyên liệu chuẩn (BOM) theo từng kích cỡ món.
+15. `Tables` — Danh mục bàn phục vụ tại quán kèm mã QR động dán bàn và trạng thái phục vụ.
+16. `Orders` — Đơn hàng tổng thể đa kênh (Dine-In Trả trước/Trả sau, Delivery, Takeaway POS, Phí ship, Tổng tiền).
+17. `OrderItems` — Chi tiết từng món trong đơn hàng (Kích cỡ, Số lượng, Đơn giá, Ghi chú pha chế, Trạng thái KDS).
+18. `OrderItemModifiers` — Chi tiết các tùy chọn modifier/topping đính kèm cho từng món trong đơn.
+19. `Payments` — Lịch sử giao dịch thanh toán (VietQR PayOS Webhook, Tiền mặt, Mã giao dịch, Trạng thái).
+20. `Customers` — Hồ sơ khách hàng CRM theo SĐT, hạng thành viên, số ly tích lũy Takeaway (`CupBalance`).
+21. `LoyaltyCupTransactions` — Lịch sử giao dịch tích lũy và đổi ly miễn phí (Chương trình Loyalty 10 ly tặng 1 cho Takeaway).
+22. `Vouchers` — Mã voucher giảm giá (% hoặc số tiền cố định, Điều kiện tối thiểu, Hạn dùng, Ngân sách).
+23. `CustomerReviews` — Đánh giá trải nghiệm 1-5 sao, nhận xét, đính kèm ảnh thực tế và tùy chọn ẩn danh.
+24. `Shifts` — Phiên ca làm việc thu ngân, đối soát tiền két đầu ca và kết ca (Biên bản Z-Report).
+25. `Attendances` — Nhật ký chấm công vào/ra ca đã xác thực mạng WiFi chi nhánh (Chống gian lận).
 
 ---
 
-> **Tóm lại:** Smart F&B Operating System **thay thế hoàn toàn hệ thống POS truyền thống** bằng **QR Self-Order** — khách tự đặt món trên điện thoại, tự thanh toán, đơn bay thẳng vào bếp. Tích hợp **5 AI features**: chatbot gợi ý món cho khách theo khẩu vị, AI thống kê doanh thu cho Admin & Manager, gợi ý combo, dự đoán khách sắp bỏ đi, và tối ưu menu tự động. Barista không cần chatbot — công thức pha chi tiết đã hiển thị tự động kèm mỗi đơn trên KDS. Hệ thống phục vụ **4 nhóm người dùng** với tổng cộng **71 tính năng** — Khách hàng (24), Barista/Phục vụ (12 - KDS + Staff Mobile App nội bộ), Quản lý (13), Chủ chuỗi (22). Không cần máy POS đắt tiền, không cần thu ngân, không chiết khấu 20-30% như Grab — **100% doanh thu về chủ quán**.
+# 📝 PHẦN VIII: DANH MỤC 62 TÍNH NĂNG CỐT LÕI PHÂN THEO 4 NHÓM ACTOR
 
+Hệ thống phục vụ **4 nhóm Actor** với tổng cộng **62 tính năng cốt lõi (Core MVP Features)**:
 
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                             MA TRẬN PHÂN BỔ 62 TÍNH NĂNG THEO 4 ACTORS                           │
+├───────────────────────┬──────────────────────────────────────────┬───────────────────────────────┤
+│ Actor                 │ Giao Diện Sử Dụng                        │ Số Lượng Tính Năng            │
+├───────────────────────┼──────────────────────────────────────────┼───────────────────────────────┤
+│ 👤 Customer           │ Mobile Browser PWA (`(customer)`)        │ 20 Tính năng (`C-01` ~ `C-20`)|
+│ 🧋 Staff / Barista    │ Web KDS & Staff Web POS (`(kds)/(staff)`)| 13 Tính năng (`S-01` ~ `S-13`)|
+│ 🏪 Branch Manager     │ Manager Web Portal (`(manager)`)         │ 12 Tính năng (`M-01` ~ `M-12`)|
+│ 👑 Chain Admin/Owner  │ Admin Executive Portal (`(admin)`)       │ 17 Tính năng (`A-01` ~ `A-17`)|
+├───────────────────────┴──────────────────────────────────────────┴───────────────────────────────┤
+│ 📊 TỔNG CỘNG: 62 Tính năng Core (Kèm 2 Active AI Modules: AI-1 Chatbot & AI-2 Combo)             │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 8.1 Actor 1: Khách Hàng (Customer — PWA Mobile Web: 20 Tính Năng `C-01` ~ `C-20`)
+
+| Mã | Tên Tính Năng | Mô Tả Nghiệp Vụ Chi Tiết |
+|:---:|---|---|
+| `C-01` | **Quét QR Bàn Tự Động** | Quét Table QR dán tại bàn, tự động nhận diện `branch_id`, `table_id` và xác thực chữ ký mã hóa URL `signature`. |
+| `C-02` | **Duyệt Menu Đa Dạng** | Xem danh mục món ăn/đồ uống, hình ảnh WebP tối ưu, mô tả, nhãn Best-Seller và giá bán riêng của chi nhánh. |
+| `C-03` | **Tùy Biến Món Sâu** | Tùy chọn Size (S/M/L), Mức đường (0%, 30%, 50%, 70%, 100%), Mức đá (0%, 50%, 100%) và danh sách Toppings phong phú. |
+| `C-04` | **Ghi Chú Đơn Hàng** | Nhập ghi chú tự do cho Barista pha chế (tối đa 200 ký tự, hỗ trợ lọc từ ngữ không phù hợp). |
+| `C-05` | **Quản Lý Giỏ Hàng** | Xem giỏ hàng, tăng/giảm số lượng từng món, xóa món, tính tổng giá trị đơn hàng tức thời. |
+| `C-06` | **Dine-In Nhánh A: VietQR Trả Trước** | Chọn VietQR ➔ Sinh mã VietQR động ➔ Khách chuyển khoản ➔ PayOS Webhook xác nhận Paid ➔ Bếp KDS mới nhận đơn. |
+| `C-07` | **Dine-In Nhánh B: Tiền Mặt Trả Sau** | Chọn Tiền mặt ➔ Đơn vào bếp ngay (`Confirmed`) ➔ NV bưng món kèm Bill có VietQR ➔ Trả tiền mặt hoặc quét VietQR trên bill. |
+| `C-08` | **Đặt Hàng QR Delivery** | Quét QR Delivery ➔ Nhập SĐT + Địa chỉ giao hàng bắt buộc ➔ Cố định phí ship 20.000 VNĐ ➔ 100% VietQR trả trước. |
+| `C-09` | **Theo Dõi Tiến Độ Đơn Hàng SignalR** | Theo dõi trạng thái đơn hàng thời gian thực trên PWA (`PendingPayment` ➔ `Paid` ➔ `Confirmed` ➔ `Preparing` ➔ `Ready` ➔ `Served`). |
+| `C-10` | **Đếm Ngược Thời Gian Pha Chế** | Đồng hồ đếm ngược ước tính thời gian chờ dựa trên số lượng ly đang xếp hàng trong Web KDS của quầy bar. |
+| `C-11` | **Nhận Diện Khách Hàng CRM** | Nhập Số điện thoại để hệ thống nhận diện hồ sơ thành viên, lịch sử gọi món và số ly tích lũy Takeaway hiện có. |
+| `C-12` | **AI-1: Chatbot Tư Vấn RAG Gemini** | Chat bằng ngôn ngữ tự nhiên, AI tư vấn món ăn cá nhân hóa dựa trên thời tiết, calo, dị ứng và lịch sử tiêu dùng CRM. |
+| `C-13` | **Xem Danh Sách Best-Seller & Món Mới** | Xem danh mục các món bán chạy nhất trong 7 ngày gần nhất và các món mới phát hành theo mùa. |
+| `C-14` | **Gọi Phục Vụ Tại Bàn** | Bấm chuông phát tín hiệu hỗ trợ tới Web Staff/KDS kèm lý do cụ thể (Lấy thêm nước, Dọn bàn, Khăn giấy, Khác). |
+| `C-15` | **Đánh Giá Trải Nghiệm 1 - 5 Sao** | Chấm điểm sao và viết nhận xét chi tiết cho từng món ăn và dịch vụ của quán sau khi hoàn tất đơn hàng. |
+| `C-16` | **Tải Ảnh Đánh Giá Thực Tế** | Tải 1 – 3 hình ảnh chụp thực tế món ăn từ điện thoại (JPEG/PNG/WebP, dung lượng <= 5MB/ảnh) đính kèm bài đánh giá. |
+| `C-17` | **Tùy Chọn Đánh Giá Ẩn Danh** | Tùy chọn ẩn danh tính khi gửi nhận xét để bảo vệ quyền riêng tư cá nhân của khách hàng. |
+| `C-18` | **Đặt Lại Nhanh Món Yêu Thích** | Xem lịch sử đơn hàng cũ và bấm 1 chạm để thêm lại toàn bộ món và tùy biến cũ vào giỏ hàng (Quick Reorder). |
+| `C-19` | **Xem Hóa Đơn Điện Tử VAT** | Xem bản số hóa của hóa đơn bán hàng có mã tra cứu điện tử và chi tiết tiền thuế. |
+| `C-20` | **Nhận Thông Báo Món Sẵn Sàng** | PWA tự cập nhật trạng thái "Sẵn sàng" trên màn hình khi Barista bấm `Ready` trên KDS. |
+
+---
+
+## 8.2 Actor 2: Nhân Viên Vận Hành Quầy / Barista (Staff: 13 Tính Năng `S-01` ~ `S-13`)
+
+| Mã | Tên Tính Năng | Mô Tả Nghiệp Vụ Chi Tiết |
+|:---:|---|---|
+| `S-01` | **Màn Hình KDS Nhận Đơn Real-Time** | Nhận đơn hàng mới tức thời qua SignalR WebSocket (Đơn Dine-in VietQR đã Paid, Đơn Tiền mặt Confirmed, Đơn Delivery Paid, Đơn Takeaway Confirmed). |
+| `S-02` | **Hiển Thị Chi Tiết & Công Thức BOM** | Hiển thị size, mức đường, đá, topping, ghi chú và định lượng nguyên liệu chuẩn (ml sữa, gam đường, shot espresso) theo BOM. |
+| `S-03` | **Cập Nhật Trạng Thái Pha Chế** | Barista chuyển trạng thái đơn hàng 1 chạm (`Preparing` ➔ `Ready` ➔ `Served`/`Completed`), tự động đồng bộ tới PWA khách. |
+| `S-04` | **Phân Loại & Gom Đơn (Batching)** | Chế độ gom các món cùng loại của nhiều đơn hàng đang chờ (ví dụ: "5 Cà phê muối cần làm ngay") để pha chế đồng loạt tối ưu thời gian. |
+| `S-05` | **Khóa Hết Món Tức Thì (86-Toggle)** | Barista bật/tắt trạng thái hết hàng của món ngay tại quầy bar khi cạn nguyên liệu, đồng bộ tức thời khóa món trên QR Menu. |
+| `S-06` | **In Hóa Đơn & Tem Dán Ly ESC/POS** | Tự động gửi lệnh in tem dán ly chứa thông tin tùy biến và in hóa đơn tạm tính/bàn giao qua máy in nhiệt LAN/USB. |
+| `S-07` | **Web POS Quầy Takeaway** | Giao diện cảm ứng cho thu ngân tạo đơn mang về trực tiếp cho khách đến quầy (không dùng mã QR). |
+| `S-08` | **Tra Cứu CRM & Tích 10 Ly Quầy** | Nhập SĐT khách tại quầy, hiển thị số ly tích lũy (`CupBalance` x/10), áp dụng tặng ly thứ 11 miễn phí (CHỈ áp dụng cho Takeaway). |
+| `S-09` | **Thu Tiền Sau Cho Đơn Takeaway** | Thu tiền mặt (tự động tính tiền thối) hoặc xuất VietQR quầy thanh toán sau khi khách nhận món mang về. |
+| `S-10` | **Quản Lý Sơ Đồ Bàn Trực Quan** | Xem sơ đồ mặt bằng chi nhánh thời gian thực (Bàn trống - Xanh, Đang có khách - Vàng, Cần dọn dẹp - Đỏ) trên Web Staff. |
+| `S-11` | **Tiếp Nhận Chuông Báo Gọi Phục Vụ** | Nhận pop-up và âm thanh chuông khi khách bấm gọi từ bàn; bấm "Đã xử lý" để tắt chuông và giải phóng cảnh báo. |
+| `S-12` | **Chấm Công Khóa Mạng WiFi** | Chấm công vào/ra ca trên Web Staff khi đang kết nối đúng mạng WiFi chi nhánh (xác thực BSSID/IP) + Nhập Mã NV. |
+| `S-13` | **Xác Nhận Thu Tiền Dine-In Nhánh B** | Nhân viên mang đồ uống ra bàn kèm hóa đơn có in VietQR, thu tiền mặt hoặc xác nhận khách đã quét mã QR trên bill. |
+
+---
+
+## 8.3 Actor 3: Quản Lý Chi Nhánh (Branch Manager: 12 Tính Năng `M-01` ~ `M-12`)
+
+| Mã | Tên Tính Năng | Mô Tả Nghiệp Vụ Chi Tiết |
+|:---:|---|---|
+| `M-01` | **Mở Ca Làm Việc Đầu Ngày** | Khởi tạo phiên ca bán hàng mới, đếm và nhập số tiền mặt lẻ ban đầu bàn giao trong két tiền quầy thu ngân. |
+| `M-02` | **Kết Ca & Đối Soát Két Tiền Mặt** | Kiểm đếm tiền mặt thực tế theo mệnh giá cuối ca, hệ thống tính toán chênh lệch thừa/thiếu tự động, ký duyệt biên bản Z-Report. |
+| `M-03` | **Lập Lịch Phân Ca & Duyệt Đổi Ca** | Xếp lịch trực tuần cho nhân viên (Barista, Thu ngân) theo vị trí và phê duyệt các yêu cầu xin đổi ca làm việc. |
+| `M-04` | **Giám Sát Bảng Chấm Công WiFi** | Xem nhật ký chấm công vào/ra thời gian thực, quản lý đi trễ, về sớm, duyệt giải trình công bù của nhân viên chi nhánh. |
+| `M-05` | **Lập Phiếu Xuất Kho Quầy Bar** | Xuất nguyên vật liệu từ kho lưu trữ ra quầy pha chế, hệ thống tự động trừ kho tổng và tăng kho khả dụng tại quầy bar. |
+| `M-06` | **Nhập Kho Từ Nhà Cung Cấp** | Nhập nguyên liệu mua từ NCC, kiểm đếm số lượng thực nhận vs đơn mua hàng, chụp ảnh hóa đơn đính kèm lên hệ thống. |
+| `M-07` | **Kiểm Kê Kho & Xử Lý Hao Hụt** | Kiểm kê định kỳ tồn kho thực tế, đối chiếu số dư phần mềm BOM, lập biên bản ghi nhận tỷ lệ hao hụt nguyên liệu. |
+| `M-08` | **Cấu Hình Sơ Đồ Bàn & Giá Chi Nhánh** | Bật/tắt bàn phục vụ, sắp xếp vị trí bàn trên sơ đồ mặt bằng, điều chỉnh giá bán đặc thù được Admin phân quyền cho chi nhánh. |
+| `M-09` | **Cấu Hình Mạng WiFi Chấm Công** | Khai báo danh sách BSSID Access Point và dải IP Subnet được phép chấm công tại quán trong phần cài đặt chi nhánh. |
+| `M-10` | **Dashboard Báo Cáo Vận Hành Ngày** | Theo dõi doanh thu theo giờ, số lượng đơn theo từng kênh (`DineIn`, `TakeAway`, `Delivery`), giá trị đơn trung bình AOV. |
+| `M-11` | **Tiếp Nhận Alert Review Khẩn Cấp (<= 2 Sao)** | Nhận thông báo đẩy tức thời khi có đánh giá <= 2 sao kèm số bàn/SĐT để trực tiếp gặp khách xử lý khiếu nại trong 3 phút. |
+| `M-12` | **Kiểm Duyệt Hình Ảnh Đánh Giá Khách** | Xem và phê duyệt hình ảnh chụp thực tế do khách tải lên trước khi cho phép xuất bản công khai trên trang menu PWA. |
+
+---
+
+## 8.4 Actor 4: Chủ Chuỗi / Quản Trị Viên (Chain Admin / Owner: 17 Tính Năng `A-01` ~ `A-17`)
+
+| Mã | Tên Tính Năng | Mô Tả Nghiệp Vụ Chi Tiết |
+|:---:|---|---|
+| `A-01` | **Quản Trị Chi Nhánh & Phân Quyền RBAC** | Tạo mới chi nhánh, thông tin liên hệ, sơ đồ kho và cấp tài khoản Quản lý chi nhánh theo ma trận phân quyền RBAC. |
+| `A-02` | **Admin Full CRUD: Món Ăn & BOM Chuẩn** | Toàn quyền Tạo mới, Sửa, Xóa mềm (Soft Delete), **Thay thế món (Replace Product)** trên menu và định nghĩa công thức BOM chi tiết. |
+| `A-03` | **Quản Lý Danh Mục & Thứ Tự Menu** | Tạo/sửa/xóa danh mục món, kéo thả sắp xếp thứ tự hiển thị của các nhóm sản phẩm trên giao diện PWA khách hàng. |
+| `A-04` | **Quản Lý Menu Mùa & Lên Lịch Tự Động** | Tạo thực đơn theo mùa vụ (Tết, Giáng Sinh, Mùa Hè), cài đặt ngày giờ tự động xuất hiện/ẩn trên hệ thống toàn chuỗi. |
+| `A-05` | **Quản Lý Nhóm Giá & Bảng Giá Chi Nhánh** | Thiết lập chính sách giá bán khác nhau theo từng khu vực địa lý (ví dụ: Bảng giá Sân Bay vs Bảng giá Trung Tâm). |
+| `A-06` | **AI-2: Quản Trị & Duyệt Combo Apriori** | Xem gợi ý combo do thuật toán Apriori/FP-Growth khai phá từ giỏ hàng, điều chỉnh mức chiết khấu giá và duyệt phát hành lên menu. |
+| `A-07` | **Quản Lý Chiến Dịch Khuyến Mãi & Voucher** | Tạo mã voucher giảm giá (%, số tiền cố định, freeship), giới hạn lượt dùng, ngân sách chiến dịch và thời hạn áp dụng. |
+| `A-08` | **Cấu Hình Chính Sách Loyalty Toàn Chuỗi** | Cấu hình quy tắc tích lũy 10 ly = tặng 1 ly miễn phí (Takeaway only) và các chính sách tri ân khách hàng thân thiết. |
+| `A-09` | **Dashboard Báo Cáo P&L Hợp Nhất Đa Chi Nhánh** | Báo cáo Lợi Nhuận & Lỗ (P&L) hợp nhất toàn chuỗi thời gian thực (Doanh thu thuần, COGS chi phí nguyên liệu theo BOM, Lãi gộp). |
+| `A-10` | **Báo Cáo Phân Tích So Sánh Đa Chi Nhánh** | Biểu đồ radar và bảng xếp hạng so sánh doanh thu, số đơn, AOV và tốc độ tăng trưởng giữa các chi nhánh trong chuỗi. |
+| `A-11` | **Phân Tích Biên Lợi Nhuận (Menu Engineering)** | Ma trận phân loại món ăn thành 4 nhóm (Stars, Plowhorses, Puzzles, Dogs) dựa trên tỷ suất lợi nhuận đóng góp và sản lượng bán. |
+| `A-12` | **Quản Trị Danh Bạ Khách Hàng CRM Toàn Chuỗi** | Quản lý tập khách hàng toàn chuỗi, xem lịch sử mua hàng, phân khúc tiêu dùng (VIP, Khách mới, Khách có nguy cơ rời bỏ). |
+| `A-13` | **Quản Lý Nhân Sự & Tổng Hợp Bảng Lương** | Quản lý hồ sơ nhân viên, hợp đồng, mức lương giờ và tự động tổng hợp bảng lương hàng tháng từ dữ liệu chấm công WiFi. |
+| `A-14` | **Quản Lý Danh Mục Nhà Cung Cấp & Công Nợ** | Quản lý danh bạ NCC, bảng giá nguyên liệu nhập và theo dõi lịch sử công nợ mua hàng của toàn bộ các chi nhánh. |
+| `A-15` | **Sinh Mã QR Bàn & QR Delivery Hàng Loạt** | Tạo và xuất file in ấn vector (PDF chất lượng cao) mã Table QR cho từng bàn và mã QR Delivery có gắn chữ ký số bảo mật. |
+| `A-16` | **Nhật Ký Kiểm Toán Bất Biến (Audit Trail)** | Lưu vết bất biến toàn bộ các thao tác nhạy cảm (thay đổi giá, hủy đơn, điều chỉnh chấm công, xuất kho) ghi rõ User, IP, Thời gian. |
+| `A-17` | **Xuất Báo Cáo Kế Toán Đa Định Dạng** | Xuất toàn bộ dữ liệu tài chính, tồn kho, bán hàng và nhân sự ra các định dạng chuẩn hóa Excel, CSV, PDF phục vụ kế toán và thuế. |
+
+---
+
+# 📝 PHẦN IX: YÊU CẦU PHI CHỨC NĂNG (NFRs) & TIÊU CHUẨN VẬN HÀNH
+
+1. **Hiệu năng Thời gian thực (Real-time Latency & Responsiveness):**
+   - Tốc độ phát và nhận sự kiện đơn hàng giữa PWA, Web POS và Web KDS qua SignalR Hubs **< 500ms**.
+   - Tốc độ tải trang ban đầu (First Contentful Paint) của QR Menu PWA **< 1.2s** trên kết nối 4G/WiFi thông thường.
+2. **Khả năng Mở rộng & Tải cao (Scalability & High Concurrency):**
+   - Hỗ trợ đồng thời từ 1 đến 10+ chi nhánh với hơn **1.000 kết nối WebSocket song song** mà không suy giảm hiệu năng nhờ Redis Backplane và Connection Pooling.
+3. **Bảo mật & Phân quyền Chặt chẽ (Security & RBAC):**
+   - Xác thực người dùng bằng JSON Web Token (JWT) ngắn hạn (Access Token 15 phút, Refresh Token xoay vòng 7 ngày lưu trữ an toàn trong HttpOnly Cookie).
+   - Mã hóa mật khẩu bằng thuật toán BCrypt với Work Factor = 12.
+   - Chống tấn công SQL Injection 100% thông qua EF Core Parameterized Queries; Kiểm soát dữ liệu đầu vào nghiêm ngặt bằng FluentValidation.
+   - Cô lập dữ liệu chi nhánh theo mô hình Multi-Tenant Logical Separation (`BranchId` bắt buộc trong mọi truy vấn nghiệp vụ).
+4. **Bảo vệ Quyền Riêng Tư (Data Privacy):**
+   - Tuyệt đối không để lộ Số điện thoại khách hàng ra giao diện công cộng; Hỗ trợ ẩn danh khi đánh giá review; Chỉ tài khoản quản lý được cấp quyền mới được tra cứu hồ sơ CRM.
+5. **Tính Toàn Vẹn Dữ Liệu & Giao Dịch ACID (Data Integrity):**
+   - Đảm bảo tính toàn vẹn giao dịch ACID tuyệt đối khi trừ tồn kho nguyên liệu theo BOM, ghi nhận đóng/mở két tiền ca và cộng dồn số ly tích lũy.
+   - Quản lý vòng đời trạng thái đơn hàng bằng State Machine xác định, từ chối mọi thao tác chuyển trạng thái không hợp lệ.
+6. **Độ Tin Cậy & Khả Năng Suy Giảm Dịch Vụ An Toàn (Graceful Degradation):**
+   - Khi API AI Gemini hoặc cổng thanh toán ngoài gặp sự cố mạng, hệ thống tự động kích hoạt cơ chế Fallback (gợi ý danh sách món Best-Seller thống kê) mà không gây gián đoạn luồng đặt món cốt lõi.
+
+---
+
+# 📝 PHẦN X: ĐỊNH HƯỚNG MỞ RỘNG & KIẾN TRÚC TƯƠNG LAI (SCALE UP / FUTURE WORK)
+
+Các tính năng nâng cao dưới đây đã được thiết kế sẵn các điểm nối kiến trúc (Extension Points) trong mã nguồn và sẽ được kích hoạt trong các phiên bản mở rộng thương mại sau giai đoạn Capstone MVP:
+
+1. **Phân Hệ Trí Tuệ Nhân Tạo Mở Rộng:**
+   - **AI-3 (NLQ Business Analytics — `ITextToSqlEngine`):** Hệ thống hỏi đáp số liệu kinh doanh thông minh cho Chủ chuỗi bằng ngôn ngữ tự nhiên tiếng Việt (Text-to-SQL).
+   - **AI-4 (Customer Churn Prediction — `IChurnPredictor`):** Mô hình học máy phân loại XGBoost dự báo nguy cơ rời bỏ của khách quen dựa trên biến động tần suất ghé quán RFM.
+   - **AI-5 (Menu Intelligence & Dynamic Demand Forecasting — `IDemandForecaster`):** Dự báo nhu cầu nguyên vật liệu và đề xuất gợi ý điều chỉnh giá động theo cung - cầu thời gian thực.
+2. **Tích Hợp Đối Tác Vận Chuyển Thứ Ba (Third-party Delivery Dispatch API):**
+   - Tự động đẩy đơn hàng giao tận nơi (`Delivery`) và điều phối tài xế AhaMove / GrabExpress / Lalamove qua Webhook API, kèm theo dõi vị trí GPS của tài xế thời gian thực trên bản đồ số.
+3. **Chấm Công Sinh Trắc Học Nhận Diện Khuôn Mặt (Biometric FaceID Attendance):**
+   - Tích hợp nhận diện khuôn mặt qua Camera quầy Web POS hỗ trợ chống gian lận sinh trắc học nâng cao.
+4. **Đồng Bộ Dữ Liệu Ngoại Tuyến Ngang Hàng (Offline P2P Mesh Sync):**
+   - Cơ chế lưu trữ đệm IndexedDB tại trình duyệt và đồng bộ dữ liệu cục bộ giữa máy Web POS và Web KDS khi toàn bộ chi nhánh gặp sự cố mất kết nối Internet.
+5. **Cổng Tự Phục Vụ Dành Cho Nhà Cung Cấp (Supplier Self-Service Portal):**
+   - Cho phép các đối tác cung cấp nguyên liệu tự truy cập để theo dõi đơn đặt hàng, cập nhật bảng giá và đối chiếu công nợ trực tuyến.
+
+---
+*Tài liệu đặc tả kỹ thuật toàn diện Smart F&B Operating System được đóng băng và phát hành chính thức làm căn cứ triển khai cho toàn bộ hệ thống.*

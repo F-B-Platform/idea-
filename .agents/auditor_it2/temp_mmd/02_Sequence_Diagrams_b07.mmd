@@ -1,0 +1,50 @@
+sequenceDiagram
+    autonumber
+    actor C as 👤 Khách Hàng (Tại Bàn 04)
+    participant PWA as 📱 Next.js Customer PWA
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (ServiceCallController)
+    participant RD as ⚡ Redis 7 (Rate Limit Lock)
+    participant HUB as 📡 SignalR (Notification & Staff Hub)
+    actor ST as 🧑‍💼 Nhân Viên Phục Vụ / Thu Ngân
+    participant POS as 💻 Web Staff POS / KDS Portal
+
+    %% Bước 1: Khách bấm chuông gọi hỗ trợ
+    C->>PWA: Chạm icon Chuông 🔔 -> Chọn lý do: "Lấy thêm nước đá" -> Bấm [Gửi Yêu Cầu]
+    PWA->>NGINX: POST /api/v1/tables/T04/service-calls { branchId: "B01", tableNumber: "04", requestType: "EXTRA_ICE", notes: "Cho 2 ly đá thêm" }
+    NGINX->>API: Forward Request
+
+    activate API
+    %% Bước 2: Kiểm tra Rate Limit trên Redis
+    API->>RD: SET lock:ratelimit:call:T04 "1" NX EX 60 (Giới hạn 1 lần / 60s)
+    RD-->>API: Lock Result (true = Hợp lệ, false = Bị Spam)
+
+    alt Khách bấm gọi liên tục dưới 60 giây (Spam)
+        API-->>PWA: HTTP 429 Too Many Requests (RFC 7807: "Yêu cầu đã được gửi, nhân viên đang tới bàn của bạn!")
+        PWA-->>C: Hiển thị thông báo Toast nhắc nhở nhẹ nhàng
+    else Yêu cầu hợp lệ
+        API->>RD: HSET branch:B01:active_service_calls "call-5542" "{ table: '04', type: 'EXTRA_ICE', time: '14:20:05' }"
+        
+        API->>HUB: NotificationHub.Clients.Group("branch_B01_staff").SendAsync("ServiceCallAlert", { callId: "call-5542", tableNumber: "04", requestType: "EXTRA_ICE", reason: "Lấy thêm nước đá", timestamp: "14:20:05" })
+        API-->>PWA: HTTP 201 Created (CallId="call-5542", Message="Đã thông báo tới nhân viên phục vụ")
+    end
+    deactivate API
+
+    par Phản hồi Khách & Chuông Báo Nhân Viên
+        PWA-->>C: Màn hình hiện trạng thái: "Đã gọi phục vụ! Nhân viên sẽ đến trong giây lát."
+        HUB-->>POS: Web Staff POS & KDS phát âm thanh "Ting-Ting" 🔔 + Banner Cam nhấp nháy: "⚠️ BÀN 04: Lấy thêm nước đá (14:20)"
+    end
+
+    %% Bước 3: Nhân viên phục vụ & Tắt cảnh báo
+    ST->>C: Mang 2 ly đá lạnh đến phục vụ Bàn 04
+    ST->>POS: Chạm nút [ĐÃ XỬ LÝ] trên Banner cảnh báo Bàn 04
+    POS->>NGINX: POST /api/v1/service-calls/call-5542/resolve { resolvedBy: "staff-02" }
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>RD: HDEL branch:B01:active_service_calls "call-5542"
+    API->>HUB: NotificationHub.Clients.Group("branch_B01_staff").SendAsync("ServiceCallResolved", { callId: "call-5542" })
+    API-->>POS: HTTP 200 OK (Status="Resolved")
+    deactivate API
+
+    HUB-->>POS: Tắt âm thanh chuông cảnh báo & Ẩn Banner nhấp nháy

@@ -1,0 +1,138 @@
+[
+  {
+    "id": 1,
+    "file": "01_Phan_Tich_Yeu_Cau.md",
+    "startLine": 82,
+    "endLine": 108,
+    "diagramType": "flowchart-v2",
+    "success": true
+  },
+  {
+    "id": 2,
+    "file": "02_Thiet_Ke_Database.md",
+    "startLine": 67,
+    "endLine": 376,
+    "diagramType": "er",
+    "success": true
+  },
+  {
+    "id": 3,
+    "file": "03_Thiet_Ke_API_Contract.md",
+    "startLine": 1156,
+    "endLine": 1182,
+    "diagramType": "flowchart-v2",
+    "success": true
+  },
+  {
+    "id": 4,
+    "file": "03_Thiet_Ke_API_Contract.md",
+    "startLine": 1355,
+    "endLine": 1395,
+    "diagramType": "sequence",
+    "success": true
+  },
+  {
+    "id": 5,
+    "file": "04_Thiet_Ke_UI_UX.md",
+    "startLine": 176,
+    "endLine": 210,
+    "diagramType": "sequence",
+    "success": true
+  },
+  {
+    "id": 6,
+    "file": "04_Thiet_Ke_UI_UX.md",
+    "startLine": 216,
+    "endLine": 235,
+    "diagramType": "sequence",
+    "success": true
+  },
+  {
+    "id": 7,
+    "file": "04_Thiet_Ke_UI_UX.md",
+    "startLine": 241,
+    "endLine": 260,
+    "diagramType": "sequence",
+    "success": true
+  },
+  {
+    "id": 8,
+    "file": "04_Thiet_Ke_UI_UX.md",
+    "startLine": 266,
+    "endLine": 288,
+    "diagramType": "sequence",
+    "success": true
+  },
+  {
+    "id": 9,
+    "file": "04_Thiet_Ke_UI_UX.md",
+    "startLine": 294,
+    "endLine": 320,
+    "diagramType": "sequence",
+    "success": true
+  },
+  {
+    "id": 10,
+    "file": "04_Thiet_Ke_UI_UX.md",
+    "startLine": 326,
+    "endLine": 344,
+    "diagramType": "sequence",
+    "success": true
+  },
+  {
+    "id": 11,
+    "file": "04_Thiet_Ke_UI_UX.md",
+    "startLine": 350,
+    "endLine": 370,
+    "diagramType": "sequence",
+    "success": true
+  },
+  {
+    "id": 12,
+    "file": "05_Quy_Trinh_Backend.md",
+    "startLine": 123,
+    "endLine": 140,
+    "diagramType": "flowchart-v2",
+    "success": true
+  },
+  {
+    "id": 13,
+    "file": "06_Quy_Trinh_Frontend.md",
+    "startLine": 120,
+    "endLine": 139,
+    "diagramType": "flowchart-v2",
+    "success": true
+  },
+  {
+    "id": 14,
+    "file": "07_Ke_Hoach_Kiem_Thu.md",
+    "startLine": 47,
+    "endLine": 59,
+    "diagramType": "flowchart-v2",
+    "success": true
+  },
+  {
+    "id": 15,
+    "file": "07_Ke_Hoach_Kiem_Thu.md",
+    "startLine": 99,
+    "endLine": 108,
+    "diagramType": "flowchart-v2",
+    "success": true
+  },
+  {
+    "id": 16,
+    "file": "08_Trien_Khai_He_Thong.md",
+    "startLine": 47,
+    "endLine": 67,
+    "diagramType": "flowchart-v2",
+    "success": true
+  },
+  {
+    "id": 17,
+    "file": "08_Trien_Khai_He_Thong.md",
+    "startLine": 632,
+    "endLine": 648,
+    "diagramType": "flowchart-v2",
+    "success": true
+  }
+]

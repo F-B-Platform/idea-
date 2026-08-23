@@ -1,0 +1,49 @@
+flowchart TD
+    subgraph ACTORS["👥 NGƯỜI DÙNG HỆ THỐNG (ACTORS)"]
+        direction TB
+        CUST_DINE["👤 Khách Hàng Ăn Tại Bàn (Dine-in Customer)<br>[Thiết bị: Trình duyệt Smartphone cá nhân]<br>Quét QR bàn, gọi món, chọn VietQR/Tiền mặt, Chat AI"]
+        CUST_DELI["🛵 Khách Hàng Đặt Tận Nhà (Delivery Customer)<br>[Thiết bị: Trình duyệt Smartphone cá nhân]<br>Quét QR Delivery, nhập SĐT/Địa chỉ, trả trước VietQR (+20k)"]
+        STAFF_POS["👨‍💼 Thu Ngân / Phục Vụ (Staff / Cashier)<br>[Thiết bị: PC / Laptop / Tablet Quầy]<br>Tạo đơn Takeaway, tra cứu CRM 10 ly, sơ đồ bàn, chấm công WiFi"]
+        STAFF_BAR["👨‍🍳 Pha Chế / Bếp (Barista / Chef)<br>[Thiết bị: Smart TV / Tablet Bếp cảm ứng]<br>Xem đơn KDS thời gian thực, xem định mức BOM, 86-Toggle hết hàng"]
+        MGR["👔 Quản Lý Chi Nhánh (Branch Manager)<br>[Thiết bị: Laptop / Desktop Quản lý]<br>Mở/kết ca két tiền, đối soát Z-Report, quản lý kho, cấu hình WiFi"]
+        ADM["👑 Chủ Chuỗi / Quản Trị Viên (System Admin)<br>[Thiết bị: Desktop / Laptop điều hành]<br>Full CRUD Menu/BOM, giá vùng, duyệt AI Combo, xem P&L, phân quyền"]
+    end
+
+    subgraph SYSTEM["🏛️ SMART F&B OPERATING SYSTEM PLATFORM"]
+        SFBOS["☕ Nền Tảng Quản Trị & Vận Hành Smart F&B OS<br>[Next.js 14 Monorepo + .NET 8 Clean Arch + PostgreSQL 16 + Redis 7 + SignalR]<br>Cung cấp dịch vụ đặt món thông minh, điều phối KDS, quản lý kho quỹ và phân tích AI"]
+    end
+
+    subgraph EXTERNAL["🌐 HỆ THỐNG DỊCH VỤ BÊN NGOÀI (EXTERNAL SERVICES)"]
+        direction TB
+        PAYOS["💳 Cổng Thanh Toán VietQR / PayOS<br>[OpenAPI / Webhook HMAC-SHA256]<br>Sinh mã QR thanh toán động & xác nhận giao dịch ngân hàng"]
+        GEMINI["🤖 Google Gemini 1.5 Flash Cloud<br>[Google AI SDK REST API]<br>Mô hình ngôn ngữ lớn RAG tư vấn khẩu vị & phân tích đánh giá"]
+        WEATHER["⛅ OpenWeatherMap API<br>[REST API JSON]<br>Cung cấp dữ liệu nhiệt độ, thời tiết thời gian thực tại chi nhánh"]
+        STORAGE["📁 AWS S3 / Cloudflare R2 Storage<br>[S3-Compatible Object Storage]<br>Lưu trữ hình ảnh món ăn, ảnh đánh giá thực tế và hóa đơn điện tử"]
+        NOTIFY["📨 Dịch Vụ Thông Báo (SMTP & Telegram Bot)<br>[SMTP Protocol / Telegram Bot API]<br>Gửi OTP xác thực, báo cáo Z-Report và phát cảnh báo đỏ khẩn cấp"]
+    end
+
+    %% Tương tác Actors -> System
+    CUST_DINE -->|"1. Quét QR bàn, xem menu, đặt món, thanh toán VietQR/Tiền mặt, đánh giá"| SFBOS
+    CUST_DELI -->|"2. Quét QR poster, nhập địa chỉ nhận hàng, thanh toán VietQR (Ship 20k)"| SFBOS
+    STAFF_POS -->|"3. Bán POS Takeaway, tích 10 ly CRM, thu tiền sau, chấm công WiFi"| SFBOS
+    STAFF_BAR -->|"4. Nhận vé đơn KDS real-time, đổi trạng thái chế biến, bật/tắt 86-out"| SFBOS
+    MGR -->|"5. Khai báo ca két, kiểm kê hao hụt kho, cấu hình WiFi BSSID, xử lý review xấu"| SFBOS
+    ADM -->|"6. Toàn quyền CRUD thực đơn/BOM, duyệt AI-2 Combo, xem P&L hợp nhất toàn chuỗi"| SFBOS
+
+    %% Tương tác System -> External Services
+    SFBOS -->|"Khởi tạo link thanh toán & nhận Webhook biến động số dư"| PAYOS
+    PAYOS -->|"Webhook xác nhận thanh toán kèm chữ ký số HMAC"| SFBOS
+    SFBOS -->|"Gửi Prompt ngữ cảnh RAG (Menu, Calo, Thời tiết, CRM)"| GEMINI
+    GEMINI -->|"Phản hồi gợi ý món ăn có cấu trúc JSON"| SFBOS
+    SFBOS -->|"Truy vấn thông tin thời tiết định kỳ theo tọa độ chi nhánh"| WEATHER
+    SFBOS -->|"Lưu trữ & truy xuất media tài nguyên số qua Pre-signed URL"| STORAGE
+    SFBOS -->|"Bắn tin nhắn cảnh báo lệch két >50k, review <=2 sao & email báo cáo"| NOTIFY
+
+    %% Styling
+    classDef actorStyle fill:#1e3a8a,stroke:#3b82f6,stroke-width:2px,color:#ffffff;
+    classDef systemStyle fill:#065f46,stroke:#10b981,stroke-width:3px,color:#ffffff;
+    classDef extStyle fill:#374151,stroke:#6b7280,stroke-width:2px,color:#ffffff;
+
+    class CUST_DINE,CUST_DELI,STAFF_POS,STAFF_BAR,MGR,ADM actorStyle;
+    class SFBOS systemStyle;
+    class PAYOS,GEMINI,WEATHER,STORAGE,NOTIFY extStyle;

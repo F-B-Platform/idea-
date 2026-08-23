@@ -1,0 +1,38 @@
+sequenceDiagram
+    autonumber
+    actor Dev as 👨‍💻 Developer
+    participant Git as 🐙 GitHub Repo
+    participant Runner as ⚙️ GitHub Actions CI Runner
+    participant Registry as 📦 GitHub Packages (GHCR)
+    participant VPS as 🐧 Production Host (VPS / AKS)
+    participant Slack as 📢 Telegram / Discord Alert
+
+    Dev->>Git: Push Commit hoặc Merge PR vào nhánh `main`
+    Git->>Runner: Kích hoạt Trigger `.github/workflows/deploy.yml`
+
+    activate Runner
+    Note over Runner: GIAI ĐOẠN 1: QUALITY GATE (CI)
+    Runner->>Runner: 1. Checkout Code & Setup .NET 8 SDK / Node.js 20
+    Runner->>Runner: 2. Restore Dependencies (.NET NuGet & pnpm)
+    Runner->>Runner: 3. Thực thi Backend Unit Tests (dotnet test xUnit)
+    Runner->>Runner: 4. Thực thi Frontend Lint & TypeCheck (pnpm build)
+
+    alt Kiểm thử hoặc Build Thất Bại
+        Runner-->>Slack: 🔴 Báo cáo lỗi Build / Test Fail kèm Commit SHA
+        Runner-->>Dev: Từ chối đóng gói và chặn phát hành
+    else Tất Cả Kiểm Thử Passed (100%)
+        Note over Runner: GIAI ĐOẠN 2: BUILD & PUSH DOCKER IMAGES (CD)
+        Runner->>Runner: 5. Build Multi-stage Image `smartfb-webapi:latest`
+        Runner->>Runner: 6. Build Multi-stage Image `smartfb-frontend:latest`
+        Runner->>Registry: 7. Push Authenticated Images lên GHCR Registry
+
+        Note over Runner,VPS: GIAI ĐOẠN 3: ZERO-DOWNTIME RELEASE QUA SSH
+        Runner->>VPS: 8. SSH Execute: `docker compose pull smartfb-webapi smartfb-frontend`
+        Runner->>VPS: 9. SSH Execute: Chạy DB Migrations `dotnet ef database update`
+        Runner->>VPS: 10. SSH Execute: Khởi động Rolling Update `docker compose up -d --no-deps`
+        Runner->>VPS: 11. Kiểm tra Health Check: `curl -f https://smartfb.vn/healthz/ready`
+        
+        VPS-->>Runner: 🟢 Phản hồi HTTP 200 OK (PostgreSQL & Redis Healthy)
+        Runner-->>Slack: 🚀 Thông báo Release phiên bản mới thành công rực rỡ!
+    end
+    deactivate Runner

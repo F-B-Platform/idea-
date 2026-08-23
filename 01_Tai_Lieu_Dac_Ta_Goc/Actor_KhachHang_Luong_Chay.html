@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Smart F&B OS — Luồng Chạy Chi Tiết Toàn Bộ 4 Nhóm Người Dùng</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'neutral',
+      fontFamily: 'Inter, sans-serif',
+      themeVariables: {
+        primaryColor: '#e0f2fe',
+        primaryTextColor: '#0369a1',
+        primaryBorderColor: '#0284c7',
+        lineColor: '#0284c7',
+        secondaryColor: '#fef3c7',
+        tertiaryColor: '#f1f5f9'
+      }
+    });
+  });
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+  
+  @page {
+    size: A4 portrait;
+    margin: 10mm 11mm 10mm 11mm;
+    @bottom-right {
+      content: counter(page);
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      color: #64748b;
+    }
+    @bottom-left {
+      content: "Smart F&B OS — Hướng Dẫn Luồng Vận Hành 4 Actors";
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      color: #64748b;
+    }
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 9.5px;
+    line-height: 1.45;
+    color: #0f172a;
+    background: #ffffff;
+    padding: 0;
+  }
+  
+  /* Typography */
+  h1 {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f2744;
+    text-align: center;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    letter-spacing: -0.3px;
+  }
+  
+  .doc-subtitle {
+    text-align: center;
+    color: #2563eb;
+    font-size: 11.5px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #0f2744;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #2563eb;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  
+  h3 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  
+  h4 {
+    font-size: 10px;
+    font-weight: 600;
+    color: #334155;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    page-break-after: avoid;
+  }
+  
+  p { margin-bottom: 5px; }
+  
+  /* Callout */
+  .callout {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #2563eb;
+    padding: 6px 10px;
+    margin: 6px 0 8px 0;
+    border-radius: 0 5px 5px 0;
+    font-size: 9px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .callout-warning { background: #fffbeb; border-color: #fef3c7; border-left-color: #f59e0b; }
+  .callout-success { background: #f0fdf4; border-color: #dcfce7; border-left-color: #10b981; }
+  .callout-purple  { background: #faf5ff; border-color: #f3e8ff; border-left-color: #8b5cf6; }
+  .callout-danger  { background: #fef2f2; border-color: #fee2e2; border-left-color: #ef4444; }
+  
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0 10px 0;
+    font-size: 8.5px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  th {
+    background-color: #0f2744;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 5px 7px;
+    border: 1px solid #1e3a8a;
+  }
+  
+  td {
+    padding: 4px 7px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+  
+  tr:nth-child(even) td { background-color: #f8fafc; }
+  
+  /* Grids */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 6px 0 8px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin: 6px 0 8px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 6px;
+    margin: 6px 0 8px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Flow Grid */
+  .flow-container {
+    margin: 6px 0 10px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  .flow-title {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #0f2744;
+    background: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #cbd5e1;
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+    gap: 6px;
+    background: #f8fafc;
+    padding: 7px;
+    border: 1px solid #cbd5e1;
+    border-radius: 0 0 5px 5px;
+  }
+  
+  .flow-step-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-top: 3px solid #2563eb;
+    border-radius: 5px;
+    padding: 6px 7px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .step-badge {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: #2563eb;
+    background: #eff6ff;
+    padding: 1px 4px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 3px;
+    align-self: flex-start;
+  }
+  
+  .step-name {
+    font-size: 9px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  
+  .step-desc {
+    font-size: 8px;
+    color: #475569;
+    line-height: 1.3;
+  }
+  
+  /* Timeline View */
+  .timeline-container {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    padding: 8px 10px;
+    margin: 6px 0 8px 0;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  .timeline-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    position: relative;
+    padding-bottom: 6px;
+  }
+  
+  .timeline-row:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 16px;
+    bottom: 0;
+    width: 2px;
+    background: #cbd5e1;
+  }
+  
+  .timeline-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .timeline-icon.green  { background: #10b981; }
+  .timeline-icon.amber  { background: #f59e0b; }
+  .timeline-icon.purple { background: #8b5cf6; }
+  .timeline-icon.red    { background: #ef4444; }
+  
+  .timeline-content {
+    flex: 1;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 4px 8px;
+  }
+  
+  .timeline-header {
+    font-size: 9px;
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .timeline-body {
+    font-size: 8px;
+    color: #475569;
+    margin-top: 1px;
+    line-height: 1.3;
+  }
+  
+  /* Mockup Card */
+  .mockup-card {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 5px;
+    margin: 6px 0 8px 0;
+    overflow: hidden;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  .mockup-header {
+    background: #0f2744;
+    color: #ffffff;
+    padding: 4px 8px;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mockup-body {
+    padding: 6px 8px;
+    background: #f8fafc;
+    font-size: 8.5px;
+  }
+  
+  /* Status Pills */
+  .pill {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 8px;
+    font-size: 7.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .pill-green  { background: #dcfce7; color: #15803d; }
+  .pill-blue   { background: #dbeafe; color: #1d4ed8; }
+  .pill-amber  { background: #fef3c7; color: #b45309; }
+  .pill-red    { background: #fee2e2; color: #b91c1c; }
+  .pill-purple { background: #f3e8ff; color: #7e22ce; }
+  
+  .actor-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    padding: 6px;
+    border-top: 3px solid #2563eb;
+    page-break-inside: avoid;
+  }
+  .actor-card h4 { color: #0f2744; margin: 0 0 2px 0; font-size: 9.5px; }
+  .actor-device { font-size: 7.5px; font-weight: 600; color: #2563eb; margin-bottom: 3px; }
+  .actor-features { font-size: 8px; color: #475569; line-height: 1.3; }
+  
+  /* Code / Monospace snippet */
+  .code-snippet {
+    font-family: 'JetBrains Mono', monospace;
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 8px;
+    line-height: 1.3;
+    margin: 4px 0;
+    white-space: pre-wrap;
+  }
+  
+  .receipt-box {
+    background: #ffffff;
+    border: 1px dashed #94a3b8;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    line-height: 1.25;
+  }
+  
+  .mermaid-box {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 8px 0;
+    text-align: center;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  hr {
+    border: 0;
+    height: 1px;
+    background: #e2e8f0;
+    margin: 10px 0;
+  }
+  
+  .page-break {
+    page-break-before: always;
+    break-before: page;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER / HEADER -->
+<h1>📋 TỔNG QUAN HỆ THỐNG SMART F&B OS — TÀI LIỆU DÀNH CHO ĐỐI TÁC</h1>
+<div class="doc-subtitle">Luồng Chạy Chi Tiết Toàn Bộ 4 Nhóm Người Dùng (Full Comprehensive Edition)</div>
+
+<div class="callout">
+  <strong>Dự án:</strong> Smart F&B OS — Nền tảng quản lý & vận hành quán cà phê thông minh<br>
+  <strong>Phiên bản:</strong> v2.5.0-Production-Ready | <strong>Đối tượng:</strong> Chủ quán, Đối tác, Hội đồng nghiệm thu Capstone<br>
+  <strong>Điểm nổi bật:</strong> 100% chạy trên trình duyệt — <strong>KHÔNG CẦN CÀI APP — KHÔNG CẦN MÁY POS CỒNG KỀNH</strong>
+</div>
+
+<!-- ========================================== -->
+<!-- PHẦN I: TỔNG QUAN 4 NHÓM NGƯỜI DÙNG -->
+<!-- ========================================== -->
+<h2>I. Tổng Quan Hệ Thống & 4 Nhóm Người Dùng</h2>
+
+<div class="grid-4">
+  <div class="actor-card" style="border-top-color: #2563eb;">
+    <h4>👤 KHÁCH HÀNG (Customer)</h4>
+    <div class="actor-device">📱 Safari / Chrome PWA (Điện thoại)</div>
+    <div class="actor-features">
+      • Quét QR đặt tại bàn (Dine-in)<br>
+      • Quét QR đặt giao tận nơi (Delivery)<br>
+      • Tùy biến món & thanh toán linh hoạt<br>
+      • Chatbot AI-1 tư vấn & Đánh giá kèm ảnh
+    </div>
+  </div>
+  
+  <div class="actor-card" style="border-top-color: #059669;">
+    <h4>👨‍💼 NHÂN VIÊN (Staff / Barista)</h4>
+    <div class="actor-device">📺 Smart TV KDS / Tablet POS</div>
+    <div class="actor-features">
+      • Nhận đơn KDS thời gian thực SignalR<br>
+      • Pha chế theo công thức BOM & Gom đơn<br>
+      • Web POS Takeaway & Tra CRM tích 10 ly<br>
+      • Chấm công khóa mạng WiFi chi nhánh
+    </div>
+  </div>
+  
+  <div class="actor-card" style="border-top-color: #d97706;">
+    <h4>🏪 QUẢN LÝ CN (Branch Manager)</h4>
+    <div class="actor-device">💻 Laptop / Tablet Quản lý</div>
+    <div class="actor-features">
+      • Mở/Kết ca két tiền & Đối soát Z-Report<br>
+      • Phiếu xuất kho bar & Kiểm kê hao hụt<br>
+      • Phân ca nhân viên & Cấu hình WiFi<br>
+      • Xử lý Alert Review ≤ 2 sao trong 3 phút
+    </div>
+  </div>
+  
+  <div class="actor-card" style="border-top-color: #7c3aed;">
+    <h4>👑 CHỦ CHUỖI (Chain Admin)</h4>
+    <div class="actor-device">🖥️ Desktop / Laptop Executive</div>
+    <div class="actor-features">
+      • Full CRUD Menu, BOM & Menu mùa<br>
+      • Bảng giá chi nhánh & Phê duyệt AI-2 Combo<br>
+      • Quản trị CRM, Nhân sự & Phân quyền RBAC<br>
+      • Dashboard báo cáo P&L hợp nhất toàn chuỗi
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- PHẦN II: KHÁCH HÀNG — 3 CÁCH ĐẶT MÓN -->
+<!-- ========================================== -->
+<h2>II. KHÁCH HÀNG — 3 Cách Đặt Món</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 18%;">Kênh Bán</th>
+      <th style="width: 27%;">🪑 DINE-IN (Tại Bàn)</th>
+      <th style="width: 27%;">🏍️ DELIVERY (Giao Tận Nơi)</th>
+      <th style="width: 28%;">🥤 TAKEAWAY (Mang Về)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Đối Tượng Thao Tác</strong></td>
+      <td>Khách <strong>TỰ quét QR tại bàn</strong></td>
+      <td>Khách <strong>TỰ quét QR từ poster/fanpage</strong></td>
+      <td><strong>NHÂN VIÊN</strong> thao tác trên Web POS quầy</td>
+    </tr>
+    <tr>
+      <td><strong>Quy Tắc Thanh Toán</strong></td>
+      <td>
+        • <strong>Nhánh A:</strong> VietQR (Trả trước)<br>
+        • <strong>Nhánh B:</strong> Tiền mặt (Trả sau kèm Bill QR)
+      </td>
+      <td>
+        <strong>100% VietQR trả trước</strong><br>
+        (Khóa hoàn toàn COD chống bùng đơn)
+      </td>
+      <td>
+        <strong>Thanh toán SAU khi nhận món</strong><br>
+        (Tiền mặt tính thối / VietQR quầy)
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Phí Giao Hàng</strong></td>
+      <td>0 VNĐ</td>
+      <td><strong>Cố định 20.000 VNĐ</strong> / đơn</td>
+      <td>0 VNĐ</td>
+    </tr>
+    <tr>
+      <td><strong>Chính Sách Loyalty</strong></td>
+      <td>Không áp dụng tích/đổi ly</td>
+      <td>Không áp dụng tích/đổi ly</td>
+      <td><strong>TÍCH 10 LY = TẶNG 1 LY MIỄN PHÍ ☕</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Thông Tin Bắt Buộc</strong></td>
+      <td>Số bàn (nhận diện qua mã QR bàn)</td>
+      <td>SĐT + Tên + <strong>Địa chỉ giao chi tiết</strong></td>
+      <td>SĐT khách hàng (để tra cứu CRM tích ly)</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- LUỒNG 1: DINE-IN -->
+<h3>Luồng 1: Đặt Món Tại Bàn (DINE-IN)</h3>
+
+<div class="flow-container">
+  <div class="flow-title">
+    <span>1.1. BƯỚC CHUNG CHO CẢ 2 NHÁNH THANH TOÁN (DINE-IN)</span>
+    <span class="pill pill-blue">7 Bước Khởi Tạo</span>
+  </div>
+  <div class="flow-grid">
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 1</span>
+      <div class="step-name">📱 Quét QR tại bàn</div>
+      <div class="step-desc">Khách quét Table QR dán trên bàn hoặc nhập mã bàn 4 số.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 2</span>
+      <div class="step-name">📲 Mở PWA Web</div>
+      <div class="step-desc">Menu mở tức thì trên Safari/Chrome. 0 giây cài đặt, 0 tải app.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 3</span>
+      <div class="step-name">📞 Nhập SĐT</div>
+      <div class="step-desc">Tùy chọn. Nhập SĐT để nạp lịch sử CRM & điểm; hoặc bỏ qua.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 4</span>
+      <div class="step-name">📋 Duyệt Thực Đơn</div>
+      <div class="step-desc">Xem ảnh món WebP, mô tả, Best-Seller, giá riêng chi nhánh.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 5</span>
+      <div class="step-name">🎛️ Tùy Biến Món</div>
+      <div class="step-desc">Chọn Size (S/M/L), Đường (0-100%), Đá, Topping, Ghi chú.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 6</span>
+      <div class="step-name">🛒 Giỏ Hàng & Voucher</div>
+      <div class="step-desc">Kiểm tra tổng tiền, tăng giảm số lượng, nhập mã voucher.</div>
+    </div>
+    <div class="flow-step-card" style="border-top-color: #f59e0b;">
+      <span class="step-badge" style="color: #d97706; background: #fef3c7;">BƯỚC 7</span>
+      <div class="step-name">💳 Chọn Thanh Toán</div>
+      <div class="step-desc">Khách chọn: <strong>Nhánh A (VietQR Trả trước)</strong> hoặc <strong>Nhánh B (Tiền mặt Trả sau)</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <!-- NHANH A -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #1e3a8a;">
+      <span>⚡ NHÁNH A: VIETQR (TRẢ TRƯỚC)</span>
+      <span class="pill pill-green">Triệt tiêu bùng đơn</span>
+    </div>
+    <div class="mockup-body">
+      <div class="timeline-container" style="border: none; padding: 0; margin: 0;">
+        <div class="timeline-row">
+          <div class="timeline-icon">1</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Sinh mã VietQR động</div>
+            <div class="timeline-body">Hiện mã QR VietQR đúng số tiền + mã đơn (Đếm ngược 10p).</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon">2</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Khách quét chuyển khoản</div>
+            <div class="timeline-body">Mở App Mobile Banking bất kỳ quét mã và chuyển tiền.</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon green">3</div>
+          <div class="timeline-content">
+            <div class="timeline-header">PayOS Webhook xác nhận Paid</div>
+            <div class="timeline-body">Tự động 100% trong &lt; 2s. Không cần nhân viên kiểm tra số dư.</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon green">4</div>
+          <div class="timeline-content">
+            <div class="timeline-header">🍳 BẾP KDS MỚI NHẬN ĐƠN</div>
+            <div class="timeline-body">Đơn hiện lên KDS qua SignalR. Barista bắt đầu pha chế (Preparing).</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon">5</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Món sẵn sàng & Phục vụ</div>
+            <div class="timeline-body">KDS bấm Ready ➔ PWA báo khách ➔ NV bưng ra bàn. Khách dùng ngay!</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 4px; font-size: 7.5px; color: #15803d; font-weight: 600;">
+        📊 Trạng thái: PendingPayment ➔ Paid ➔ Confirmed ➔ Preparing ➔ Ready ➔ Served ✅
+      </div>
+    </div>
+  </div>
+
+  <!-- NHANH B -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #0f766e;">
+      <span>💵 NHÁNH B: TIỀN MẶT (TRẢ SAU)</span>
+      <span class="pill pill-amber">Chu đáo linh hoạt</span>
+    </div>
+    <div class="mockup-body">
+      <div class="timeline-container" style="border: none; padding: 0; margin: 0;">
+        <div class="timeline-row">
+          <div class="timeline-icon amber">1</div>
+          <div class="timeline-content">
+            <div class="timeline-header">🍳 ĐƠN VÀO BẾP NGAY (Confirmed)</div>
+            <div class="timeline-body">Không chờ thanh toán. Barista pha chế liền. Khách theo dõi trên PWA.</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon">2</div>
+          <div class="timeline-content">
+            <div class="timeline-header">In Hóa đơn có in mã VietQR</div>
+            <div class="timeline-body">Barista bấm Ready ➔ Máy in xuất bill có sẵn mã VietQR số tiền.</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon">3</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Bưng món ra bàn kèm Bill QR</div>
+            <div class="timeline-body">NV mang đồ uống ra bàn kèm hóa đơn có in mã VietQR.</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon amber">4</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Khách chọn cách thanh toán</div>
+            <div class="timeline-body">
+              • <strong>Cách 1:</strong> Trả Tiền mặt cho NV ➔ NV bấm xác nhận trên Web Staff.<br>
+              • <strong>Cách 2:</strong> Khách quét VietQR trên bill ➔ PayOS tự xác nhận.
+            </div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon green">5</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Đơn hoàn thành & Giải phóng bàn</div>
+            <div class="timeline-body">Trạng thái chuyển sang Paid, giải phóng bàn trên sơ đồ.</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 4px; font-size: 7.5px; color: #0f766e; font-weight: 600;">
+        📊 Trạng thái: Confirmed ➔ Preparing ➔ Ready ➔ Served ➔ PendingPayment ➔ Paid ✅
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LUỒNG 2: DELIVERY -->
+<h3>Luồng 2: Đặt Giao Tận Nơi (DELIVERY)</h3>
+
+<div class="flow-container">
+  <div class="flow-title">
+    <span>QUY TRÌNH ĐẶT GIAO TẬN NHÀ (DELIVERY) — 100% VIETQR TRẢ TRƯỚC + PHÍ SHIP 20K</span>
+    <span class="pill pill-purple">No COD</span>
+  </div>
+  <div class="flow-grid">
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 1</span>
+      <div class="step-name">📱 Quét QR Delivery</div>
+      <div class="step-desc">Quét mã QR Delivery riêng trên poster, standee, fanpage.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 2</span>
+      <div class="step-name">📲 Mở PWA Delivery</div>
+      <div class="step-desc">Tự động nhận diện chế độ giao tận nơi của chi nhánh.</div>
+    </div>
+    <div class="flow-step-card" style="border-top-color: #e11d48;">
+      <span class="step-badge" style="color: #e11d48; background: #ffe4e6;">BƯỚC 3</span>
+      <div class="step-name">📝 Nhập Thông Tin</div>
+      <div class="step-desc"><strong>Bắt buộc:</strong> SĐT + Tên + <strong>Địa chỉ giao chi tiết</strong>.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 4</span>
+      <div class="step-name">📋 Chọn Món & Tùy Biến</div>
+      <div class="step-desc">Duyệt menu, chọn size, mức đường đá, topping.</div>
+    </div>
+    <div class="flow-step-card" style="border-top-color: #f59e0b;">
+      <span class="step-badge" style="color: #d97706; background: #fef3c7;">BƯỚC 5</span>
+      <div class="step-name">🛒 Giỏ Hàng + Phí 20k</div>
+      <div class="step-desc">Tự động cộng <strong>Phí ship cố định 20.000 VNĐ</strong> vào tổng đơn.</div>
+    </div>
+    <div class="flow-step-card" style="border-top-color: #7c3aed;">
+      <span class="step-badge" style="color: #7c3aed; background: #f3e8ff;">BƯỚC 6</span>
+      <div class="step-name">💳 100% VietQR Trước</div>
+      <div class="step-desc">Khách quét VietQR. <strong>Khóa COD</strong> chống boom hàng.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 7</span>
+      <div class="step-name">🍳 KDS Pha Chế & Gói</div>
+      <div class="step-desc">Nhận đơn sau khi Paid, dán tem nhãn Delivery và bao bì ship.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 8</span>
+      <div class="step-name">🏍️ Giao Hàng Tận Nơi</div>
+      <div class="step-desc">Shipper giao đến địa chỉ khách đã nhập (Delivered).</div>
+    </div>
+  </div>
+</div>
+
+<!-- LUỒNG 3: TAKEAWAY -->
+<h3>Luồng 3: Mua Mang Về Tại Quầy (TAKEAWAY)</h3>
+
+<div class="flow-container">
+  <div class="flow-title">
+    <span>QUY TRÌNH BÁN MANG VỀ (TAKEAWAY STAFF POS) — TRA CRM, TÍCH 10 LY & THU SAU</span>
+    <span class="pill pill-green">Loyalty 10 ly = 1 ly Free</span>
+  </div>
+  <div class="flow-grid">
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 1</span>
+      <div class="step-name">🧑 Khách Đến Quầy</div>
+      <div class="step-desc">Khách đến quầy order đồ uống mang đi. Thu ngân mở POS.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 2</span>
+      <div class="step-name">📞 Hỏi & Nhập SĐT</div>
+      <div class="step-desc">Thu ngân nhập SĐT khách vào thanh tìm kiếm CRM trên Web POS.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 3</span>
+      <div class="step-name">📊 Nhận Diện CRM</div>
+      <div class="step-desc">• <strong>Mới:</strong> Nhập tên ➔ Tạo hồ sơ.<br>• <strong>Cũ:</strong> Hiện số ly tích lũy (vd: 9/10 ly).</div>
+    </div>
+    <div class="flow-step-card" style="border-top-color: #f59e0b;">
+      <span class="step-badge" style="color: #d97706; background: #fef3c7;">BƯỚC 4</span>
+      <div class="step-name">🎁 Tích Ly / Đổi Ly</div>
+      <div class="step-desc">Đủ 10 ly ➔ Bấm <strong>"Đổi 1 ly miễn phí"</strong> (Ly 11 free). <em>Chỉ áp dụng Takeaway!</em></div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 5</span>
+      <div class="step-name">📋 Nhập Món Trên POS</div>
+      <div class="step-desc">Thu ngân chọn món, size, topping theo lời khách yêu cầu.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 6</span>
+      <div class="step-name">🍳 KDS Pha Chế Ngay</div>
+      <div class="step-desc">Đơn vào KDS ngay với nhãn "TAKEAWAY". Barista pha chế đóng túi.</div>
+    </div>
+    <div class="flow-step-card">
+      <span class="step-badge">BƯỚC 7</span>
+      <div class="step-name">☕ Khách Nhận Món</div>
+      <div class="step-desc">Thu ngân trao túi đồ uống cho khách kiểm tra.</div>
+    </div>
+    <div class="flow-step-card" style="border-top-color: #10b981;">
+      <span class="step-badge" style="color: #059669; background: #dcfce7;">BƯỚC 8</span>
+      <div class="step-name">💳 Thu Tiền Sau</div>
+      <div class="step-desc">Khách trả tiền mặt (POS tính tiền thối) hoặc quét VietQR quầy.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TÍNH NĂNG THÊM CHO KHÁCH HÀNG -->
+<h3>Tính Năng Phụ Trợ Cho Khách Hàng</h3>
+
+<div class="grid-3">
+  <div class="mockup-card">
+    <div class="mockup-header">🔔 GỌI PHỤC VỤ TẠI BÀN</div>
+    <div class="mockup-body">
+      Khách bấm nút "Gọi nhân viên" trên PWA ➔ Chọn lý do (Lấy thêm nước, Dọn bàn, Khăn giấy...) ➔ Web Staff & KDS nhận popup chuông "Bàn 5 cần hỗ trợ" ➔ Nhân viên đến phục vụ và bấm "Đã xử lý".
+    </div>
+  </div>
+  
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #1e3a8a;">🤖 AI-1: CHATBOT RAG GEMINI</div>
+    <div class="mockup-body">
+      Khách chat tự nhiên: <em>"Trời lạnh, gợi ý món béo ngọt, không trà xanh"</em> ➔ AI kết hợp RAG Menu + Thời tiết OpenWeatherMap + Dị ứng BOM ➔ Gợi ý 2-3 món chuẩn kèm nút <strong>"Thêm vào giỏ 1 chạm"</strong>.
+    </div>
+  </div>
+  
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #059669;">⭐ ĐÁNH GIÁ 1-5 SAO & TẢI ẢNH</div>
+    <div class="mockup-body">
+      Khách chấm điểm từng món, viết nhận xét, tải 1-3 ảnh thực tế (ẩn danh tùy chọn). <strong>Nếu đánh giá ≤ 2 sao ➔ Kích hoạt Alert đỏ khẩn cấp tới Quản lý</strong> để gặp khách xử lý khiếu nại tại bàn trong 3 phút.
+    </div>
+  </div>
+</div>
+
+<hr class="page-break">
+
+<!-- ========================================== -->
+<!-- PHẦN III: NHÂN VIÊN — VẬN HÀNH QUẦY & BẾP -->
+<!-- ========================================== -->
+<h2>III. NHÂN VIÊN — Vận Hành Quầy & Bếp (Web-First)</h2>
+
+<p>100% giao diện Web Responsive — Không cài App. Thiết bị: Smart TV / Tablet Bếp (KDS) + PC / Tablet Quầy Thu Ngân (POS).</p>
+
+<div class="grid-2">
+  <!-- 3.1 CHAM CONG WIFI -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #0f766e;">
+      <span>📶 3.1. CHẤM CÔNG KHÓA MẠNG WIFI</span>
+      <span class="pill pill-green">Chống gian lận 100%</span>
+    </div>
+    <div class="mockup-body">
+      <div class="timeline-container" style="border: none; padding: 0; margin: 0;">
+        <div class="timeline-row">
+          <div class="timeline-icon">1</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Kết nối WiFi quán (bắt buộc)</div>
+            <div class="timeline-body">NV đến quán, kết nối WiFi chi nhánh. Tuyệt đối không dùng 4G/5G hoặc WiFi ngoài.</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon">2</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Mở Web Staff & Nhập Mã NV</div>
+            <div class="timeline-body">Mở cổng chấm công, nhập Mã số nhân viên (vd: "NV008").</div>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-icon green">3</div>
+          <div class="timeline-content">
+            <div class="timeline-header">Hệ thống xác thực kép</div>
+            <div class="timeline-body">
+              ✅ Đúng BSSID Router / IP Subnet của quán?<br>
+              ✅ Đúng Mã NV và có lịch phân ca hôm nay?<br>
+              ➔ Hợp lệ ghi nhận vào/ra ca. <em>Nếu sai WiFi ➔ Từ chối ngay!</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.2 DANG NHAP CA -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #1e3a8a;">
+      <span>🔐 3.2. ĐĂNG NHẬP CA LÀM VIỆC</span>
+      <span class="pill pill-blue">Phân quyền vai trò</span>
+    </div>
+    <div class="mockup-body">
+      <p>NV mở Web Staff / KDS trên Tablet/PC ➔ Nhập Mã NV + Mật khẩu ca + Chọn Chi nhánh ➔ Hệ thống xác thực và cấp quyền:</p>
+      <div class="grid-2" style="margin-top: 4px;">
+        <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 6px;">
+          <strong>📺 KDS Bếp/Bar:</strong> Dành cho Barista nhận đơn và xem công thức BOM.
+        </div>
+        <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 6px;">
+          <strong>🛒 POS Quầy:</strong> Dành cho Thu ngân tạo đơn mang về và tra CRM.
+        </div>
+        <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 6px;">
+          <strong>🗺️ Sơ Đồ Bàn:</strong> Dành cho Phục vụ theo dõi bàn và mang hóa đơn.
+        </div>
+        <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 6px;">
+          <strong>🛎️ Chuông Gọi:</strong> Tiếp nhận tín hiệu gọi hỗ trợ từ bàn.
+        </div>
+      </div>
+      <div style="margin-top: 4px; font-size: 7.5px; color: #dc2626;">
+        ⚠️ Nhập sai mật khẩu 3 lần ➔ Khóa tài khoản 5 phút + Báo Quản lý chi nhánh.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.3 KDS BEP CHI TIET -->
+<h3>3.3. Màn Hình KDS Bếp — Nhận Đơn & Pha Chế Real-Time</h3>
+
+<div class="grid-2">
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #0f2744;">
+      <span>📺 GIAO DIỆN TICKET KDS BẾP (SignalR)</span>
+      <span class="pill pill-green">Live Update</span>
+    </div>
+    <div class="mockup-body">
+      <div class="grid-3" style="margin-bottom: 4px;">
+        <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; padding: 4px;">
+          <strong style="color: #15803d;">🟢 ĐƠN MỚI #103</strong><br>
+          <span style="font-size: 7.5px;">DINE-IN • Bàn 04</span><br>
+          • Trà Oolong L (50% Đ, +Trân châu)<br>
+          <button style="background: #2563eb; color: #fff; border: none; padding: 2px 4px; border-radius: 3px; font-size: 7.5px; margin-top: 2px;">[Bắt đầu làm]</button>
+        </div>
+        <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 4px; padding: 4px;">
+          <strong style="color: #b45309;">🟡 ĐANG PHA #101</strong><br>
+          <span style="font-size: 7.5px;">TAKEAWAY • Quầy 02</span><br>
+          • CF Sữa Đá M (0% Đường)<br>
+          <button style="background: #10b981; color: #fff; border: none; padding: 2px 4px; border-radius: 3px; font-size: 7.5px; margin-top: 2px;">[Hoàn thành]</button>
+        </div>
+        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; padding: 4px;">
+          <strong style="color: #b91c1c;">🔴 QUÁ 10P #098</strong><br>
+          <span style="font-size: 7.5px;">DELIVERY • Giao nhà</span><br>
+          • Trà Đào L (100% Đ, +Cheese)<br>
+          <span style="font-size: 7.5px; color: #b91c1c; font-weight: 700;">⏱️ Chờ 12:35</span>
+        </div>
+      </div>
+      <div style="font-size: 8px; color: #334155;">
+        💡 <strong>Tính năng Barista:</strong> Bấm vào tên món ➔ Xem công thức BOM định lượng • Nút <strong>"Gom đơn" (Batching)</strong> làm đồng loạt món cùng loại • Bấm nhầm "Hoàn thành" ➔ Có nút <strong>Undo trong 10 giây</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #0f2744;">
+      <span>🧪 CÔNG THỨC BOM & KHÓA MÓN 86-TOGGLE</span>
+      <span class="pill pill-amber">Định mức trừ kho</span>
+    </div>
+    <div class="mockup-body">
+      <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px 6px; margin-bottom: 4px;">
+        <strong>Ví dụ Công thức BOM Trà Oolong Size L:</strong><br>
+        ├── 150ml cốt trà Oolong + 30g bột sữa + 20ml nước đường<br>
+        ├── 1 vá trân châu trắng + Đá viên 2/3 ly + Ly 700ml + nắp/ống hút<br>
+        <em>➔ Khi Barista bấm "Hoàn thành", hệ thống TỰ ĐỘNG trừ kho chính xác từng gam/ml!</em>
+      </div>
+      <div style="background: #fee2e2; border: 1px solid #fecaca; border-radius: 4px; padding: 4px 6px;">
+        <strong style="color: #b91c1c;">Công tắc 86-Toggle (Báo hết món khẩn cấp):</strong><br>
+        Khi quầy bar hết nguyên liệu đột xuất ➔ Barista gạt công tắc 86 ➔ Món tự động <strong>khóa và ẩn tức thì trên Menu QR</strong> của khách!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3.4 POS & 3.5 THANH TOAN & 3.6 SO DO BAN & 3.7 BAO CAO CA -->
+<div class="grid-2">
+  <!-- 3.4 POS QUAY -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #059669;">
+      <span>🛒 3.4. WEB POS QUẦY TAKEAWAY</span>
+      <span class="pill pill-green">Thu ngân</span>
+    </div>
+    <div class="mockup-body">
+      • <strong>Tra cứu SĐT CRM:</strong> Nhập SĐT khách ➔ Nhận diện khách mới/cũ ➔ Hiển thị số ly tích lũy (`CupBalance x/10`).<br>
+      • <strong>Ưu đãi 10 ly = tặng 1 ly:</strong> Nếu đủ 10 ly ➔ Bấm "Đổi 1 ly miễn phí" (Ly thứ 11 tặng 100%).<br>
+      • <strong>Thu tiền sau:</strong> Khách trả Tiền mặt (POS tự tính tiền thối) hoặc xuất VietQR quầy thanh toán sau khi nhận nước.
+    </div>
+  </div>
+
+  <!-- 3.5 DINE-IN BILL QR -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #0f766e;">
+      <span>🧾 3.5. XÁC NHẬN THU TIỀN DINE-IN NHÁNH B</span>
+      <span class="pill pill-amber">Tiền mặt / Bill QR</span>
+    </div>
+    <div class="mockup-body">
+      • Barista bấm Ready ➔ Máy in nhiệt xuất Hóa đơn có in sẵn <strong>Mã VietQR động</strong> đúng số tiền.<br>
+      • NV mang món ra bàn kèm Hóa đơn VietQR.<br>
+      • Khách trả tiền mặt ➔ NV bấm "Đã thu tiền" trên Web Staff; HOẶC khách quét VietQR trên bill ➔ PayOS tự động xác nhận Paid.
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <!-- 3.6 SO DO BAN -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #1e3a8a;">
+      <span>🗺️ 3.6. SƠ ĐỒ BÀN & CHUÔNG GỌI PHỤC VỤ</span>
+      <span class="pill pill-blue">Floor Map</span>
+    </div>
+    <div class="mockup-body">
+      • <strong>Khu vực Trong Nhà & Ngoài Trời:</strong> Hiển thị trạng thái màu sắc: 🟢 Bàn trống, 🟡 Đang dùng, 🔴 Có chuông gọi.<br>
+      • <strong>Xử lý chuông gọi:</strong> Popup âm thanh "Bàn 05 cần hỗ trợ" ➔ NV đến phục vụ và bấm "Đã xử lý" để tắt chuông.
+    </div>
+  </div>
+
+  <!-- 3.7 BAO CAO CA -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #0f2744;">
+      <span>📊 3.7. BÁO CÁO CUỐI CA NHÂN VIÊN</span>
+      <span class="pill pill-purple">Đối soát ca</span>
+    </div>
+    <div class="mockup-body">
+      • Cuối ca, Thu ngân mở "Báo cáo ca" ➔ Xem tổng số đơn đã phục vụ, cơ cấu Doanh thu tiền mặt và Doanh thu VietQR.<br>
+      • Đếm tổng tiền mặt thực nhận trong ca để bàn giao lại cho Quản lý chi nhánh đối soát két tiền.
+    </div>
+  </div>
+</div>
+
+<hr class="page-break">
+
+<!-- ========================================== -->
+<!-- PHẦN IV: QUẢN LÝ CHI NHÁNH -->
+<!-- ========================================== -->
+<h2>IV. QUẢN LÝ CHI NHÁNH — Giám Sát & Tài Chính</h2>
+
+<div class="timeline-container">
+  <!-- 4.1 MO CA -->
+  <div class="timeline-row">
+    <div class="timeline-icon">1</div>
+    <div class="timeline-content">
+      <div class="timeline-header">☀️ 4.1. ĐẦU NGÀY: MỞ CA LÀM VIỆC & KÉT TIỀN</div>
+      <div class="timeline-body">
+        Quản lý chi nhánh cùng thu ngân kiểm đếm tiền mặt lẻ ban đầu bàn giao trong két (ví dụ: 1.000.000 VNĐ gồm các mệnh giá 10k, 20k, 50k) ➔ Nhập vào hệ thống và xác nhận Mở ca ➔ Két tiền mở phiên bán hàng.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.2 TRONG CA -->
+  <div class="timeline-row">
+    <div class="timeline-icon amber">2</div>
+    <div class="timeline-content">
+      <div class="timeline-header">🏢 4.2. TRONG CA: GIÁM SÁT VẬN HÀNH, KHO & REVIEW</div>
+      <div class="timeline-body">
+        • <strong>Phiếu Xuất Kho Quầy Bar:</strong> Quản lý lập phiếu xuất nguyên vật liệu từ Kho tổng ra Quầy pha chế (trừ kho tổng, tăng kho khả dụng tại bar).<br>
+        • <strong>Tiếp Nhận Alert Review Khẩn Cấp (≤ 2 Sao):</strong> Khi khách chấm 1-2 sao trên PWA ➔ Hệ thống đẩy cảnh báo đỏ tức thì tới Quản lý kèm số bàn/SĐT để trực tiếp gặp khách giải quyết khiếu nại trong vòng <strong>3 phút</strong>.<br>
+        • <strong>Kiểm Duyệt Hình Ảnh Feedback:</strong> Xem và duyệt ảnh món do khách tải lên trước khi cho phép xuất bản công khai lên trang menu.<br>
+        • <strong>Lập Lịch Phân Ca & Cấu Hình WiFi:</strong> Xếp ca làm việc cho nhân viên và cập nhật danh sách BSSID/IP Subnet router chi nhánh.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.3 KET CA Z-REPORT -->
+  <div class="timeline-row">
+    <div class="timeline-icon green">3</div>
+    <div class="timeline-content">
+      <div class="timeline-header">🌙 4.3. CUỐI NGÀY: KẾT CA & ĐỐI SOÁT BIÊN BẢN Z-REPORT</div>
+      <div class="timeline-body">
+        Đếm tiền mặt thực tế theo từng mệnh giá ➔ Hệ thống tự động tính toán đối soát:<br>
+        <strong>Công thức:</strong> <em>Tiền lý thuyết = Tiền đầu ca + Doanh thu tiền mặt hệ thống - Tiền rút trong ca</em>.<br>
+        So sánh Tiền lý thuyết vs Tiền thực đếm ➔ <strong>Nếu chênh lệch > 50.000 VNĐ ➔ Bắt buộc nhập giải trình</strong> ➔ Ký duyệt biên bản <strong>Z-Report</strong> và tự động đồng bộ lên Dashboard Chủ chuỗi.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.4 KIEM KE KHO & 4.5 WIFI -->
+  <div class="timeline-row">
+    <div class="timeline-icon purple">4</div>
+    <div class="timeline-content">
+      <div class="timeline-header">📦 4.4. KIỂM KÊ KHO NGUYÊN LIỆU & 4.5. CẤU HÌNH WIFI CHẤM CÔNG</div>
+      <div class="timeline-body">
+        • <strong>Kiểm kê kho định kỳ:</strong> Cân đong nguyên liệu thực tế (cà phê hạt, sữa đặc, syrup, ly nắp) ➔ Nhập vào hệ thống ➔ Tự động tính chênh lệch so với định mức BOM tiêu hao lý thuyết ➔ Ghi nhận tỷ lệ hao hụt.<br>
+        • <strong>Cấu hình WiFi:</strong> Quản lý khai báo BSSID Access Point (ví dụ: `00:1A:2B:3C:4D:5E`) và Subnet IP (`192.168.1.0/24`) phục vụ chấm công chống gian lận.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================== -->
+<!-- PHẦN V: CHỦ CHUỖI / ADMIN -->
+<!-- ========================================== -->
+<h2>V. CHỦ CHUỖI / ADMIN — Toàn Quyền Quản Trị Hệ Thống</h2>
+
+<div class="grid-2">
+  <!-- 5.1 & 5.2 CRUD MENU -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #0f2744;">
+      <span>📋 5.1 & 5.2. PRODUCT FULL CRUD & MENU MÙA</span>
+      <span class="pill pill-green">Toàn quyền</span>
+    </div>
+    <div class="mockup-body">
+      • <strong>Tạo Món Mới:</strong> Nhập Tên, Mô tả, Giá cơ bản, Chọn Danh mục, Modifier (Đường/Đá/Topping), Best-seller, Tải ảnh WebP tối ưu.<br>
+      • <strong>Sửa / Xóa Mềm / Thay Thế Món:</strong> Sửa thông tin giá, xóa mềm (Soft Delete) hoặc tính năng <strong>Thay thế món (Replace Product)</strong> cập nhật tự động toàn chuỗi.<br>
+      • <strong>Menu Mùa (Seasonal Menu):</strong> Lên lịch thực đơn Tết, Giáng Sinh tự động xuất hiện và ẩn theo ngày giờ cấu hình.
+    </div>
+  </div>
+
+  <!-- 5.3 BOM & 5.4 GIA VUNG -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #1e3a8a;">
+      <span>🧪 5.3. ĐỊNH NGHĨA BOM & 5.4. GIÁ THEO VÙNG</span>
+      <span class="pill pill-blue">Đa chi nhánh</span>
+    </div>
+    <div class="mockup-body">
+      • <strong>Định Nghĩa BOM Chuẩn:</strong> Cài đặt định mức nguyên liệu tiêu hao cho từng Size (S/M/L) chi tiết đến từng ml/gam.<br>
+      • <strong>Thiết Lập Giá Theo Vùng (Price Groups):</strong> Cấu hình chính sách giá linh hoạt: <em>Vùng 1 (Sân Bay / TTTM) giá cao hơn 15-20% vs Vùng 2 (Trung Tâm)</em>.
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <!-- 5.5 AI COMBO -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #7c3aed;">
+      <span>🧠 5.5. AI-2 COMBO MINING & PHÊ DUYỆT</span>
+      <span class="pill pill-purple">Apriori Engine</span>
+    </div>
+    <div class="mockup-body">
+      • Thuật toán <strong>Apriori / FP-Growth</strong> phân tích giỏ hàng lịch sử toàn chuỗi ➔ Tự động phát hiện các cặp món mua kèm có tương quan cao (Lift > 1.2, Support > 0.02).<br>
+      • <strong>Human-in-the-loop:</strong> Hệ thống đề xuất combo kèm giá vốn BOM và biên lợi nhuận ➔ Chủ chuỗi chỉnh sửa % giảm giá và bấm <strong>"Phê duyệt phát hành"</strong> lên menu.
+    </div>
+  </div>
+
+  <!-- 5.6 & 5.7 HR & P&L -->
+  <div class="mockup-card">
+    <div class="mockup-header" style="background: #0f2744;">
+      <span>📊 5.6 & 5.7. QUẢN TRỊ CHUỖI & BÁO CÁO P&L</span>
+      <span class="pill pill-green">Real-time P&L</span>
+    </div>
+    <div class="mockup-body">
+      • <strong>Quản lý Nhân sự & Phân quyền RBAC:</strong> Quản lý hồ sơ, cấp tài khoản Manager/Staff, phân quyền 10 nhóm tài nguyên và xem Audit Log bất biến.<br>
+      • <strong>Dashboard P&L Hợp Nhất Real-Time:</strong> Doanh thu thuần - COGS chi phí nguyên liệu theo BOM - Chi phí vận hành = <strong>Lợi nhuận gộp & ròng từng chi nhánh</strong>.
+    </div>
+  </div>
+</div>
+
+<hr class="page-break">
+
+<!-- ========================================== -->
+<!-- PHẦN VI: BẢNG SO SÁNH 3 LOẠI ĐƠN -->
+<!-- ========================================== -->
+<h2>VI. Bảng Tóm Tắt So Sánh 3 Loại Đơn</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 14%;">Tiêu Chí</th>
+      <th style="width: 28%;">🪑 DINE-IN (Tại Bàn)</th>
+      <th style="width: 29%;">🏍️ DELIVERY (Giao Tận Nơi)</th>
+      <th style="width: 29%;">🥤 TAKEAWAY (Mang Về)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Mã QR</strong></td>
+      <td>QR Bàn (Table QR dán cố định)</td>
+      <td>QR Delivery riêng (poster/standee/web)</td>
+      <td><strong>KHÔNG dùng QR</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Người Thao Tác</strong></td>
+      <td>Khách hàng tự thao tác trên PWA</td>
+      <td>Khách hàng tự thao tác trên PWA</td>
+      <td><strong>Nhân viên</strong> thao tác trên Web POS</td>
+    </tr>
+    <tr>
+      <td><strong>Thanh Toán</strong></td>
+      <td>VietQR (trước) HOẶC Tiền mặt (sau)</td>
+      <td><strong>100% VietQR trả trước</strong> (Khóa COD)</td>
+      <td>Thanh toán SAU khi nhận nước (Tiền mặt/QR)</td>
+    </tr>
+    <tr>
+      <td><strong>Phí Giao Hàng</strong></td>
+      <td>0 VNĐ</td>
+      <td><strong>20.000 VNĐ cố định</strong></td>
+      <td>0 VNĐ</td>
+    </tr>
+    <tr>
+      <td><strong>Chương Trình Loyalty</strong></td>
+      <td>Không áp dụng</td>
+      <td>Không áp dụng</td>
+      <td><strong>TÍCH 10 LY = TẶNG 1 LY MIỄN PHÍ</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Bếp KDS Nhận Đơn</strong></td>
+      <td>• VietQR: Sau khi Paid<br>• Tiền mặt: Ngay khi đặt</td>
+      <td>Sau khi cổng PayOS xác nhận Paid</td>
+      <td>Ngay khi nhân viên tạo đơn trên POS</td>
+    </tr>
+    <tr>
+      <td><strong>Đóng Gói & Phục Vụ</strong></td>
+      <td>Ly thủy tinh/sứ phục vụ tại bàn</td>
+      <td>Ly nhựa/giấy đóng nắp màng + bao bì ship</td>
+      <td>Ly mang đi + túi chữ T / quai xách</td>
+    </tr>
+    <tr>
+      <td><strong>Dữ Liệu Bắt Buộc</strong></td>
+      <td>Số bàn, Chi nhánh</td>
+      <td>SĐT, Tên, <strong>Địa chỉ giao hàng</strong></td>
+      <td>SĐT khách hàng (tra cứu CRM tích ly)</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ========================================== -->
+<!-- PHẦN VII: SƠ ĐỒ TỔNG HỢP TOÀN BỘ HỆ THỐNG -->
+<!-- ========================================== -->
+<h2>VII. Sơ Đồ Tổng Hợp Toàn Bộ Hệ Thống</h2>
+
+<div class="mermaid-box">
+  <pre class="mermaid">
+graph TD
+    subgraph "👤 KHÁCH HÀNG"
+        C_DINE["🪑 Quét QR Bàn (Dine-in)"]
+        C_DEL["🏍️ Quét QR Delivery (Giao nhà)"]
+        C_TAKE["🥤 Đến quầy gọi món (Takeaway)"]
+    end
+
+    subgraph "👨‍💼 NHÂN VIÊN QUẦY"
+        S_KDS["📺 Web KDS Bếp (Pha chế BOM)"]
+        S_POS["🛒 Web POS Quầy (CRM 10 ly)"]
+        S_ATT["📶 Chấm Công Khóa WiFi"]
+    end
+
+    subgraph "🏪 QUẢN LÝ CHI NHÁNH"
+        M_SHIFT["💰 Mở/Kết Ca Két Tiền (Z-Report)"]
+        M_STOCK["📦 Xuất Kho & Kiểm Kê"]
+        M_KPI["📊 Dashboard Vận Hành"]
+    end
+
+    subgraph "👑 CHỦ CHUỖI / ADMIN"
+        A_MENU["📋 Full CRUD Menu & BOM"]
+        A_AI["🧠 Phê Duyệt AI-2 Combo"]
+        A_PL["📊 Báo Cáo P&L Hợp Nhất"]
+    end
+
+    C_DINE -->|"VietQR trước"| PAY["💳 PayOS VietQR"]
+    C_DINE -->|"Tiền mặt sau"| KDS_IN["🍳 Vào Bếp KDS"]
+    C_DEL -->|"VietQR + Phí Ship 20k"| PAY
+    PAY -->|"Webhook Paid"| KDS_IN
+    C_TAKE --> S_POS
+    S_POS -->|"Tạo đơn POS"| KDS_IN
+    KDS_IN --> S_KDS
+    S_KDS -->|"Hoàn thành"| DONE["✅ Sẵn Sàng / Giao Hàng"]
+
+    S_POS -->|"Tích 10 ly = tặng 1 ly"| LOYAL["🎁 Loyalty Takeaway"]
+    M_SHIFT --> A_PL
+    M_STOCK --> A_PL
+    A_MENU --> S_KDS
+    A_AI -->|"Phát hành"| C_DINE
+
+    style KDS_IN fill:#e11d48,color:#fff
+    style PAY fill:#7c3aed,color:#fff
+    style LOYAL fill:#d97706,color:#fff
+    style DONE fill:#059669,color:#fff
+  </pre>
+</div>
+
+<!-- GHI NHO QUAN TRONG -->
+<h3>📌 8 Ghi Nhớ Sống Còn Của Hệ Thống Smart F&B OS</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 8%;">#</th>
+      <th style="width: 25%;">Quy Tắc Nghiệp Vụ</th>
+      <th style="width: 67%;">Chi Tiết Vận Hành Bắt Buộc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1</strong></td>
+      <td><strong>📱 Không Cài Đặt App</strong></td>
+      <td>100% chạy trên trình duyệt Web (PWA di động cho khách, Web Responsive cho Nhân viên, KDS Bếp, Quản lý và Admin).</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td><strong>🪑 Dine-in 2 Nhánh</strong></td>
+      <td>Linh hoạt lựa chọn: VietQR trả trước (bếp nhận khi Paid) HOẶC Tiền mặt trả sau (bếp nhận ngay, mang bill có in sẵn QR).</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td><strong>🏍️ QR Delivery</strong></td>
+      <td>Dùng mã QR riêng, bắt buộc Địa chỉ giao hàng, tự động cộng Phí ship 20k, 100% VietQR trả trước (Khóa COD chống bùng hàng).</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td><strong>🥤 Takeaway POS</strong></td>
+      <td>Nhân viên thao tác trên Web POS, khách không quét QR, thanh toán sau, <strong>CHỈ ÁP DỤNG tích 10 ly = tặng 1 ly miễn phí</strong>.</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td>
+      <td><strong>📶 Chấm Công Khóa WiFi</strong></td>
+      <td>Bắt buộc kết nối WiFi chi nhánh (xác thực BSSID Router / IP Subnet) + Nhập Mã NV (Xóa bỏ 100% GPS 50m và QR động 30s).</td>
+    </tr>
+    <tr>
+      <td><strong>6</strong></td>
+      <td><strong>👑 Admin Full CRUD</strong></td>
+      <td>Toàn quyền Tạo/Sửa/Xóa/Thay thế món, định mức BOM chuẩn, lên lịch Menu mùa tự động bật/tắt, cấu hình bảng giá vùng.</td>
+    </tr>
+    <tr>
+      <td><strong>7</strong></td>
+      <td><strong>🧠 AI Chatbot & Combo</strong></td>
+      <td>AI-1 Gemini 1.5 Flash RAG tư vấn khẩu vị/thời tiết cho khách; AI-2 Apriori khai phá combo cho Admin phê duyệt.</td>
+    </tr>
+    <tr>
+      <td><strong>8</strong></td>
+      <td><strong>📊 P&L Hợp Nhất Real-Time</strong></td>
+      <td>Báo cáo Lợi nhuận & Lỗ hợp nhất đa chi nhánh thời gian thực, chi phí COGS tính tự động từ định mức nguyên liệu BOM.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="text-align: center; margin-top: 12px; font-size: 8px; color: #64748b;">
+  <em>Smart F&B Operating System — Đồ Án Capstone Kỹ Sư Phần Mềm 2026 | Nhóm 4 Thành Viên (.NET 8 + Next.js 14 + PostgreSQL 16 + Redis + SignalR + Google Gemini)</em>
+</div>
+
+</body>
+</html>

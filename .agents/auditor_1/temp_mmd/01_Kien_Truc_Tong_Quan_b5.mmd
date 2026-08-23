@@ -1,0 +1,30 @@
+flowchart TD
+    subgraph READ_FLOW["LUỒNG ĐỌC DỮ LIỆU TỐI ƯU (CACHE-ASIDE & 2-TIER CACHING)"]
+        REQ_R["Client Read Request (VD: GetBranchMenu)"] --> L1_CHECK{"Kiểm tra L1 In-Memory Cache (.NET MemoryCache)"}
+        L1_CHECK -->|Hit| RESP_L1["Trả về DTO ngay (< 5ms)"]
+        L1_CHECK -->|Miss| L2_CHECK{"Kiểm tra L2 Distributed Cache (Redis 7)"}
+        L2_CHECK -->|Hit| POP_L1["Ghi bù vào L1 Cache"] --> RESP_L2["Trả về DTO (< 20ms)"]
+        L2_CHECK -->|Miss| DB_QUERY["Truy vấn PostgreSQL 16 (EF Core Compiled Query)"]
+        DB_QUERY --> POP_L2["Ghi vào Redis 7 (TTL 24h)"] --> POP_L1 --> RESP_DB["Trả về Client DTO"]
+    end
+
+    subgraph WRITE_FLOW["LUỒNG GHI DỮ LIỆU AN TOÀN (DISTRIBUTED REDLOCK & ACID)"]
+        REQ_W["Client Write Request (VD: Đặt đơn / Trừ kho / Đổi giá)"] --> ACQ_LOCK{"Lấy Khóa Phân Tán RedLock (Redis 7)"}
+        ACQ_LOCK -->|Không lấy được| ERR_LOCK["Báo lỗi 409 Conflict: Thao tác đang được xử lý"]
+        ACQ_LOCK -->|Lấy khóa thành công| TX_BEGIN["Mở Giao Dịch ACID (PostgreSQL 16 Transaction)"]
+        TX_BEGIN --> EXEC_BIZ["Thực thi Business Logic & Cập nhật DbContext"]
+        EXEC_BIZ --> COMMIT_DB["Commit Giao Dịch Database Thành Công"]
+        COMMIT_DB --> INVAL_CACHE["Xóa Cache Liên Quan (Redis Invalidation)"]
+        INVAL_CACHE --> PUB_EVENT["Publish Domain Events & Bắn SignalR Hubs"]
+        PUB_EVENT --> REL_LOCK["Giải phóng Khóa RedLock"]
+    end
+
+    classDef reqStyle fill:#1e40af,stroke:#3b82f6,stroke-width:2px,color:#ffffff;
+    classDef checkStyle fill:#b45309,stroke:#f59e0b,stroke-width:2px,color:#ffffff;
+    classDef successStyle fill:#15803d,stroke:#22c55e,stroke-width:2px,color:#ffffff;
+    classDef errStyle fill:#b91c1c,stroke:#ef4444,stroke-width:2px,color:#ffffff;
+
+    class REQ_R,REQ_W reqStyle;
+    class L1_CHECK,L2_CHECK,ACQ_LOCK checkStyle;
+    class RESP_L1,RESP_L2,RESP_DB,TX_BEGIN,EXEC_BIZ,COMMIT_DB,INVAL_CACHE,PUB_EVENT,REL_LOCK successStyle;
+    class ERR_LOCK errStyle;

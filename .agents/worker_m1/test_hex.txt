@@ -1,0 +1,6 @@
+# ☕ SMART F&B OPERATING SYSTEM
+```mermaid
+graph TD
+A --> B
+```
+Tiếng Việt 100% chuẩn xác.

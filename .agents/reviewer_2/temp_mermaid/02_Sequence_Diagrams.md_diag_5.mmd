@@ -1,0 +1,52 @@
+sequenceDiagram
+    autonumber
+    actor ST as 👨‍🍳 Nhân Viên Ca Trực
+    participant BROWSER as 📱 Trình Duyệt Web Staff ((staff)/attendance)
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (AttendanceController)
+    participant DB as 🐘 PostgreSQL 16 (BranchWifiConfigs & Users)
+    participant HUB as 📡 SignalR NotificationHub
+    actor MGR as 🏪 Quản Lý Chi Nhánh (Manager Portal)
+
+    %% Bước 1: Kết nối WiFi & Nhập mã chấm công
+    ST->>ST: Kết nối thiết bị vào WiFi nội bộ quán ("SmartFB_Q1_Staff")
+    ST->>BROWSER: Truy cập https://smartfb.vn/staff/attendance
+    ST->>BROWSER: Nhập Mã NV: "NV-Q1-008" & Chọn [VÀO CA (CHECK-IN)]
+    
+    BROWSER->>NGINX: POST /api/v1/attendance/check-in (BranchId: "B01", EmployeeCode: "NV-Q1-008", ClientBssid: "00:1A:2B:3C:4D:5E")
+    NGINX->>API: Forward kèm Header: X-Forwarded-For: "192.168.1.142", X-Real-IP: "192.168.1.142"
+
+    activate API
+    %% Bước 2: Kiểm tra Lớp 1 - Mạng WiFi Chi Nhánh
+    API->>DB: SELECT AllowedIpSubnets, AllowedBSSIDs FROM BranchWifiConfigs WHERE BranchId = 'B01' AND IsActive = true
+    DB-->>API: ConfigData { Subnets: ["192.168.1.0/24"], BSSIDs: ["00:1A:2B:3C:4D:5E", "00:1A:2B:3C:4D:5F"] }
+
+    API->>API: Lớp 1: IPNetwork.Parse("192.168.1.0/24").Contains("192.168.1.142") == true && BSSID match
+
+    alt Trường hợp 1: Không đúng WiFi quán (Dùng 4G/5G hoặc WiFi nhà)
+        API-->>BROWSER: HTTP 403 Forbidden (RFC 7807: "WIFI_NETWORK_MISMATCH - Thiết bị chưa kết nối WiFi chi nhánh")
+        BROWSER-->>ST: 🔴 Cảnh báo đỏ: "Vui lòng kết nối WiFi SmartFB_Q1_Staff tại quán để chấm công!"
+    else Trường hợp 2: Đúng mạng WiFi chi nhánh
+        %% Bước 3: Kiểm tra Lớp 2 - Nhân sự & Ghi nhận
+        API->>DB: SELECT * FROM Users u JOIN BranchUsers bu ON u.Id = bu.UserId WHERE u.EmployeeCode = 'NV-Q1-008' AND bu.BranchId = 'B01' AND u.Status = 'Active'
+        
+        alt Mã NV không hợp lệ hoặc bị khóa
+            DB-->>API: Null
+            API-->>BROWSER: HTTP 404 Not Found (RFC 7807: "Mã nhân viên không tồn tại hoặc đã bị khóa")
+            BROWSER-->>ST: 🔴 Thông báo lỗi tài khoản nhân sự
+        else Nhân sự hợp lệ
+            DB-->>API: UserEntity (Name="Trần Văn Nam", Role="Barista")
+            
+            API->>DB: INSERT INTO Attendances (UserId, BranchId, EmployeeCode, ActionType='CHECK_IN', TimestampUtc=NOW(), ClientIp='192.168.1.142', IsWifiVerified=true, Status='OnTime')
+            DB-->>API: AttendanceRecordCreated (Id="att-9912", Time="06:55:10")
+            
+            API->>HUB: NotificationHub.Clients.Group("branch_B01_manager").SendAsync("StaffAttendanceLogged", { employeeName: "Trần Văn Nam", code: "NV-Q1-008", time: "06:55:10", status: "OnTime" })
+            API-->>BROWSER: HTTP 200 OK (EmployeeName="Trần Văn Nam", CheckInTime="06:55:10", Status="OnTime")
+        end
+    end
+    deactivate API
+
+    par Thông báo Giao diện Nhân Viên & Quản Lý
+        BROWSER-->>ST: 🟢 Màn hình chuyển xanh: "Chấm công vào ca thành công lúc 06:55:10. Chúc bạn ca làm việc vui vẻ!"
+        HUB-->>MGR: Manager Portal cập nhật Dashboard nhân sự: "Trần Văn Nam (Barista) vừa vào ca lúc 06:55:10"
+    end

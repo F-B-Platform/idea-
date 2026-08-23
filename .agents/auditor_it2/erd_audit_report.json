@@ -1,0 +1,225 @@
+{
+  "totalEntitiesInDiagram": 31,
+  "entitiesInDiagram": [
+    "USERS",
+    "ROLES",
+    "USER_ROLES",
+    "PERMISSIONS",
+    "ROLE_PERMISSIONS",
+    "REFRESH_TOKENS",
+    "BRANCHES",
+    "BRANCH_WIFI_CONFIGS",
+    "TABLES",
+    "TABLE_QR_CODES",
+    "CATEGORIES",
+    "PRODUCTS",
+    "PRODUCT_SIZES",
+    "TOPPINGS",
+    "PRODUCT_TOPPINGS",
+    "INGREDIENTS",
+    "PRODUCT_RECIPES",
+    "INVENTORY_STOCKS",
+    "INVENTORY_LOGS",
+    "ORDERS",
+    "ORDER_ITEMS",
+    "ORDER_ITEM_TOPPINGS",
+    "PAYMENTS",
+    "TRANSACTIONS",
+    "DELIVERY_ORDERS",
+    "CUSTOMERS",
+    "LOYALTY_CUP_TRANSACTIONS",
+    "CUSTOMER_FEEDBACKS",
+    "WORK_SHIFTS",
+    "STAFF_ATTENDANCES",
+    "SHIFT_HANDOVER_DISCREPANCIES"
+  ],
+  "all25Found": false,
+  "detailedChecks": [
+    {
+      "table": "Users",
+      "group": "Khách hàng & CRM",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "Customers",
+      "group": "Khách hàng & CRM",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "LoyaltyCupTransactions",
+      "group": "Khách hàng & CRM",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "Reviews",
+      "group": "Khách hàng & CRM",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "ReviewImages",
+      "group": "Khách hàng & CRM",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "Branches",
+      "group": "Chi nhánh & Bàn",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "BranchWifiConfigs",
+      "group": "Chi nhánh & Bàn",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "Tables",
+      "group": "Chi nhánh & Bàn",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "PriceGroups",
+      "group": "Chi nhánh & Bàn",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "Categories",
+      "group": "Thực đơn & BOM",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "Products",
+      "group": "Thực đơn & BOM",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "ProductModifiers",
+      "group": "Thực đơn & BOM",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "ProductBOMs",
+      "group": "Thực đơn & BOM",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "Ingredients",
+      "group": "Thực đơn & BOM",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "InventoryTransactions",
+      "group": "Thực đơn & BOM",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "Orders",
+      "group": "Đơn hàng & Thanh toán",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "OrderItems",
+      "group": "Đơn hàng & Thanh toán",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "Payments",
+      "group": "Đơn hàng & Thanh toán",
+      "inDiagram": true,
+      "inText": false,
+      "passed": true
+    },
+    {
+      "table": "PayOSTransactions",
+      "group": "Đơn hàng & Thanh toán",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "Vouchers",
+      "group": "Đơn hàng & Thanh toán",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "Attendances",
+      "group": "Vận hành & Nhân sự",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "StaffShifts",
+      "group": "Vận hành & Nhân sự",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "CashShifts",
+      "group": "Vận hành & Nhân sự",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "ZReports",
+      "group": "Vận hành & Nhân sự",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    },
+    {
+      "table": "AuditLogs",
+      "group": "Vận hành & Nhân sự",
+      "inDiagram": false,
+      "inText": false,
+      "passed": false
+    }
+  ],
+  "constraintsChecks": {
+    "hasDeliveryAddress": true,
+    "hasDeliveryFee": true,
+    "hasOrderType": true,
+    "hasWifiBSSID": true,
+    "hasWifiSubnet": true,
+    "has10CupsLoyalty": true,
+    "hasZReportDiscrepancy": true,
+    "hasNoGPSAttendance": true,
+    "hasNoQR30s": true
+  }
+}

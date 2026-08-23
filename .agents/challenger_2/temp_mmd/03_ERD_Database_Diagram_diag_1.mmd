@@ -1,0 +1,478 @@
+erDiagram
+    %% =========================================================================
+    %% MODULE 1: AUTHENTICATION, RBAC & IDENTITY
+    %% =========================================================================
+    USERS ||--o{ USER_ROLES : "assigned_roles"
+    ROLES ||--o{ USER_ROLES : "role_users"
+    ROLES ||--o{ ROLE_PERMISSIONS : "has_permissions"
+    PERMISSIONS ||--o{ ROLE_PERMISSIONS : "granted_to_roles"
+    USERS ||--o{ REFRESH_TOKENS : "owns_tokens"
+    BRANCHES ||--o{ USERS : "employs_staff"
+
+    %% =========================================================================
+    %% MODULE 2: BRANCHES, WIFI & TABLES
+    %% =========================================================================
+    BRANCHES ||--o{ BRANCH_WIFI_CONFIGS : "configured_with"
+    BRANCHES ||--o{ TABLES : "operates_tables"
+    TABLES ||--o| TABLE_QR_CODES : "identified_by_qr"
+    BRANCHES ||--o{ TABLE_QR_CODES : "issues_qr_codes"
+
+    %% =========================================================================
+    %% MODULE 3: MENU, PRODUCTS, SIZES & TOPPINGS
+    %% =========================================================================
+    CATEGORIES ||--o{ PRODUCTS : "contains_products"
+    PRODUCTS ||--o{ PRODUCT_SIZES : "has_size_variants"
+    PRODUCTS ||--o{ PRODUCT_TOPPINGS : "allows_toppings"
+    TOPPINGS ||--o{ PRODUCT_TOPPINGS : "applicable_to_products"
+
+    %% =========================================================================
+    %% MODULE 4: INGREDIENTS, BOM RECIPES & INVENTORY
+    %% =========================================================================
+    PRODUCTS ||--o{ PRODUCT_RECIPES : "defined_by_bom"
+    PRODUCT_SIZES ||--o{ PRODUCT_RECIPES : "size_specific_bom"
+    INGREDIENTS ||--o{ PRODUCT_RECIPES : "raw_ingredient"
+    BRANCHES ||--o{ INVENTORY_STOCKS : "maintains_stocks"
+    INGREDIENTS ||--o{ INVENTORY_STOCKS : "stock_ingredient"
+    BRANCHES ||--o{ INVENTORY_LOGS : "logs_stock_movements"
+    INGREDIENTS ||--o{ INVENTORY_LOGS : "ingredient_audit_trail"
+    ORDERS ||--o{ INVENTORY_LOGS : "auto_deducted_by_order"
+    USERS ||--o{ INVENTORY_LOGS : "manual_adjusted_by"
+
+    %% =========================================================================
+    %% MODULE 5: ORDERS, ORDER ITEMS & PAYMENTS
+    %% =========================================================================
+    BRANCHES ||--o{ ORDERS : "fulfills_orders"
+    TABLES ||--o{ ORDERS : "serves_dinein_orders"
+    CUSTOMERS ||--o{ ORDERS : "places_crm_orders"
+    ORDERS ||--o{ ORDER_ITEMS : "contains_line_items"
+    PRODUCTS ||--o{ ORDER_ITEMS : "item_master_product"
+    PRODUCT_SIZES ||--o{ ORDER_ITEMS : "item_size_variant"
+    ORDER_ITEMS ||--o{ ORDER_ITEM_TOPPINGS : "customized_with_toppings"
+    TOPPINGS ||--o{ ORDER_ITEM_TOPPINGS : "chosen_topping"
+    ORDERS ||--o{ PAYMENTS : "settled_via_payment"
+    USERS ||--o{ PAYMENTS : "confirmed_by_cashier"
+    PAYMENTS ||--o{ TRANSACTIONS : "logs_gateway_transactions"
+
+    %% =========================================================================
+    %% MODULE 6: DELIVERY LOGISTICS
+    %% =========================================================================
+    ORDERS ||--o| DELIVERY_ORDERS : "dispatches_delivery_order"
+
+    %% =========================================================================
+    %% MODULE 7: CRM, TAKEAWAY LOYALTY & FEEDBACKS
+    %% =========================================================================
+    CUSTOMERS ||--o{ LOYALTY_CUP_TRANSACTIONS : "tracks_cup_history"
+    ORDERS ||--o{ LOYALTY_CUP_TRANSACTIONS : "generates_takeaway_cups"
+    CUSTOMERS ||--o{ CUSTOMER_FEEDBACKS : "submits_feedbacks"
+    ORDERS ||--o{ CUSTOMER_FEEDBACKS : "feedback_for_order"
+    BRANCHES ||--o{ CUSTOMER_FEEDBACKS : "branch_feedback_received"
+    PRODUCTS ||--o{ CUSTOMER_FEEDBACKS : "product_feedback"
+    USERS ||--o{ CUSTOMER_FEEDBACKS : "urgent_alert_resolved_by"
+
+    %% =========================================================================
+    %% MODULE 8: WORK SHIFTS, ATTENDANCES & DISCREPANCIES
+    %% =========================================================================
+    BRANCHES ||--o{ WORK_SHIFTS : "shift_at_branch"
+    USERS ||--o{ WORK_SHIFTS : "cashier_operates_shift"
+    WORK_SHIFTS ||--o| SHIFT_HANDOVER_DISCREPANCIES : "reports_discrepancy"
+    BRANCHES ||--o{ SHIFT_HANDOVER_DISCREPANCIES : "branch_discrepancies"
+    USERS ||--o{ SHIFT_HANDOVER_DISCREPANCIES : "cashier_discrepancies"
+    USERS ||--o{ SHIFT_HANDOVER_DISCREPANCIES : "manager_approvals"
+    BRANCHES ||--o{ STAFF_ATTENDANCES : "branch_staff_attendances"
+    USERS ||--o{ STAFF_ATTENDANCES : "user_staff_attendances"
+
+    %% =========================================================================
+    %% ENTITY ATTRIBUTE DEFINITIONS
+    %% =========================================================================
+    USERS {
+        uuid id PK
+        uuid branch_id FK "nullable"
+        string username UK
+        string password_hash
+        string full_name
+        string email UK
+        string phone UK
+        string avatar_url
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+        boolean is_deleted
+    }
+
+    ROLES {
+        uuid id PK
+        string code UK
+        string name UK
+        string description
+        timestamp created_at
+    }
+
+    USER_ROLES {
+        uuid user_id PK,FK
+        uuid role_id PK,FK
+        timestamp assigned_at
+    }
+
+    PERMISSIONS {
+        uuid id PK
+        string code UK
+        string name
+        string module
+        string description
+        timestamp created_at
+    }
+
+    ROLE_PERMISSIONS {
+        uuid role_id PK,FK
+        uuid permission_id PK,FK
+        timestamp granted_at
+    }
+
+    REFRESH_TOKENS {
+        uuid id PK
+        uuid user_id FK
+        string token_hash UK
+        string jwt_id
+        boolean is_revoked
+        timestamp expires_at
+        timestamp created_at
+        string created_by_ip
+    }
+
+    BRANCHES {
+        uuid id PK
+        string code UK
+        string name
+        string address
+        string phone
+        string opening_time
+        string closing_time
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+        boolean is_deleted
+    }
+
+    BRANCH_WIFI_CONFIGS {
+        uuid id PK
+        uuid branch_id FK
+        string ssid_name
+        text bssid_list
+        text allowed_ip_subnets
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    TABLES {
+        uuid id PK
+        uuid branch_id FK
+        string table_number
+        string zone
+        int capacity
+        string status
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    TABLE_QR_CODES {
+        uuid id PK
+        uuid table_id FK,UK
+        uuid branch_id FK
+        string qr_code UK
+        string qr_image_url
+        string deep_link_url
+        int scan_count
+        boolean is_active
+        timestamp generated_at
+    }
+
+    CATEGORIES {
+        uuid id PK
+        string code UK
+        string name
+        string icon_url
+        int display_order
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+        boolean is_deleted
+    }
+
+    PRODUCTS {
+        uuid id PK
+        uuid category_id FK
+        string sku UK
+        string name
+        text description
+        decimal base_price
+        string image_url
+        int calories_approx
+        string allergen_info
+        boolean is_available
+        boolean is_best_seller
+        int display_order
+        timestamp created_at
+        timestamp updated_at
+        boolean is_deleted
+    }
+
+    PRODUCT_SIZES {
+        uuid id PK
+        uuid product_id FK
+        string size_name
+        decimal price_adjustment
+        boolean is_default
+        int display_order
+        timestamp created_at
+    }
+
+    TOPPINGS {
+        uuid id PK
+        string code UK
+        string name
+        string type
+        decimal price
+        boolean is_available
+        timestamp created_at
+    }
+
+    PRODUCT_TOPPINGS {
+        uuid product_id PK,FK
+        uuid topping_id PK,FK
+        boolean is_default
+        int max_quantity
+        timestamp created_at
+    }
+
+    INGREDIENTS {
+        uuid id PK
+        string code UK
+        string name
+        string unit
+        decimal unit_cost
+        decimal min_stock_threshold
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+        boolean is_deleted
+    }
+
+    PRODUCT_RECIPES {
+        uuid id PK
+        uuid product_id FK
+        uuid size_id FK
+        uuid ingredient_id FK
+        decimal quantity
+        decimal wastage_rate
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    INVENTORY_STOCKS {
+        uuid id PK
+        uuid branch_id FK
+        uuid ingredient_id FK
+        decimal current_quantity
+        timestamp last_checked_at
+        timestamp updated_at
+    }
+
+    INVENTORY_LOGS {
+        uuid id PK
+        uuid branch_id FK
+        uuid ingredient_id FK
+        uuid order_id FK "nullable"
+        uuid performed_by FK "nullable"
+        string change_type
+        decimal quantity_changed
+        decimal quantity_before
+        decimal quantity_after
+        text notes
+        timestamp created_at
+    }
+
+    ORDERS {
+        uuid id PK
+        string order_code UK
+        uuid branch_id FK
+        uuid table_id FK "nullable"
+        uuid customer_id FK "nullable"
+        string order_type
+        string status
+        string payment_method
+        decimal sub_total
+        decimal discount_amount
+        decimal delivery_fee
+        decimal total_amount
+        text customer_note
+        timestamp expires_at
+        timestamp created_at
+        timestamp paid_at
+        timestamp completed_at
+    }
+
+    ORDER_ITEMS {
+        uuid id PK
+        uuid order_id FK
+        uuid product_id FK
+        uuid size_id FK
+        int quantity
+        decimal unit_price
+        decimal total_price
+        string sugar_level
+        string ice_level
+        string item_note
+        string status
+        timestamp created_at
+    }
+
+    ORDER_ITEM_TOPPINGS {
+        uuid id PK
+        uuid order_item_id FK
+        uuid topping_id FK
+        int quantity
+        decimal price
+        decimal total_price
+    }
+
+    PAYMENTS {
+        uuid id PK
+        uuid order_id FK
+        string payment_method
+        decimal amount
+        string status
+        string transfer_content UK
+        text qr_code_url
+        uuid confirmed_by FK "nullable"
+        timestamp confirmed_at
+        timestamp created_at
+    }
+
+    TRANSACTIONS {
+        uuid id PK
+        uuid payment_id FK
+        string payos_order_code UK
+        string payos_payment_link_id
+        string gateway_transaction_id
+        decimal amount
+        string currency
+        string gateway_response_code
+        jsonb raw_webhook_payload
+        boolean is_verified
+        timestamp transaction_time
+        timestamp created_at
+    }
+
+    DELIVERY_ORDERS {
+        uuid id PK
+        uuid order_id FK,UK
+        string recipient_name
+        string recipient_phone
+        string delivery_address
+        decimal delivery_latitude
+        decimal delivery_longitude
+        decimal distance_km
+        decimal delivery_fee
+        string driver_name
+        string driver_phone
+        string delivery_status
+        text delivery_notes
+        timestamp dispatched_at
+        timestamp delivered_at
+        timestamp created_at
+    }
+
+    CUSTOMERS {
+        uuid id PK
+        string phone UK
+        string full_name
+        string email
+        date birth_date
+        int cup_balance
+        int total_cups_earned
+        int total_free_cups_redeemed
+        string membership_tier
+        decimal total_spent
+        timestamp last_visit_at
+        timestamp created_at
+        boolean is_deleted
+    }
+
+    LOYALTY_CUP_TRANSACTIONS {
+        uuid id PK
+        uuid customer_id FK
+        uuid order_id FK "nullable"
+        string transaction_type
+        int cups_changed
+        int cup_balance_after
+        string notes
+        timestamp created_at
+    }
+
+    CUSTOMER_FEEDBACKS {
+        uuid id PK
+        uuid order_id FK
+        uuid customer_id FK "nullable"
+        uuid branch_id FK
+        uuid product_id FK "nullable"
+        int rating_stars
+        text comment
+        jsonb photo_urls
+        boolean is_anonymous
+        boolean is_urgent_alert
+        text resolution_notes
+        uuid resolved_by FK "nullable"
+        timestamp resolved_at
+        timestamp created_at
+    }
+
+    WORK_SHIFTS {
+        uuid id PK
+        uuid branch_id FK
+        uuid cashier_id FK
+        string shift_name
+        timestamp opening_time
+        timestamp closing_time
+        decimal initial_cash
+        decimal cash_sales_system
+        decimal cash_refunds
+        decimal actual_cash_counted
+        decimal cash_difference
+        string status
+        text shift_notes
+        timestamp created_at
+    }
+
+    STAFF_ATTENDANCES {
+        uuid id PK
+        uuid user_id FK
+        uuid branch_id FK
+        string employee_code
+        timestamp check_in_time
+        timestamp check_out_time
+        string verified_ip
+        string verified_bssid
+        string verified_ssid
+        boolean is_wifi_verified
+        string status
+        string notes
+        timestamp created_at
+    }
+
+    SHIFT_HANDOVER_DISCREPANCIES {
+        uuid id PK
+        uuid work_shift_id FK,UK
+        uuid branch_id FK
+        uuid cashier_id FK
+        uuid manager_id FK "nullable"
+        decimal discrepancy_amount
+        string discrepancy_type
+        text cashier_explanation
+        text manager_assessment
+        string action_plan
+        boolean is_approved
+        timestamp created_at
+        timestamp resolved_at
+    }

@@ -1,0 +1,262 @@
+{
+  "timestamp": "2026-08-23T14:05:12.777Z",
+  "routeGroups": {
+    "items": [
+      {
+        "group": "(customer)",
+        "role": "Customer PWA",
+        "presentIn01": true,
+        "count": 4
+      },
+      {
+        "group": "(pos)",
+        "role": "Staff POS",
+        "presentIn01": true,
+        "count": 5
+      },
+      {
+        "group": "(kitchen)",
+        "role": "Kitchen KDS",
+        "presentIn01": true,
+        "count": 4
+      },
+      {
+        "group": "(admin)",
+        "role": "Admin & Manager",
+        "presentIn01": true,
+        "count": 4
+      },
+      {
+        "group": "(auth)",
+        "role": "Central Auth",
+        "presentIn01": true,
+        "count": 4
+      }
+    ],
+    "allPresent": true
+  },
+  "signalRHubs": {
+    "items": [
+      {
+        "hub": "OrderHub",
+        "inDoc01": true,
+        "inDoc02": true,
+        "inDoc04": true
+      },
+      {
+        "hub": "KitchenHub",
+        "inDoc01": true,
+        "inDoc02": true,
+        "inDoc04": true
+      },
+      {
+        "hub": "PaymentHub",
+        "inDoc01": true,
+        "inDoc02": true,
+        "inDoc04": true
+      },
+      {
+        "hub": "NotificationHub",
+        "inDoc01": true,
+        "inDoc02": true,
+        "inDoc04": true
+      }
+    ],
+    "allPresentIn01And02": true,
+    "wsLocationIn04": true
+  },
+  "cleanArchitecture": {
+    "items": [
+      {
+        "keyword": "Clean Architecture",
+        "present": true
+      },
+      {
+        "keyword": "Domain Layer",
+        "present": false
+      },
+      {
+        "keyword": "Application Layer",
+        "present": false
+      },
+      {
+        "keyword": "Infrastructure Layer",
+        "present": false
+      },
+      {
+        "keyword": "API",
+        "present": true
+      },
+      {
+        "keyword": "MediatR",
+        "present": true
+      },
+      {
+        "keyword": "FluentValidation",
+        "present": true
+      },
+      {
+        "keyword": "Entity Framework Core",
+        "present": true
+      },
+      {
+        "keyword": "Redis",
+        "present": true
+      },
+      {
+        "keyword": "RedLock",
+        "present": true
+      }
+    ],
+    "allPresent": false
+  },
+  "databaseSchema": {
+    "totalEntitiesRequired": 31,
+    "items": [
+      {
+        "table": "users",
+        "presentInDoc03": true
+      },
+      {
+        "table": "roles",
+        "presentInDoc03": true
+      },
+      {
+        "table": "user_roles",
+        "presentInDoc03": true
+      },
+      {
+        "table": "permissions",
+        "presentInDoc03": true
+      },
+      {
+        "table": "role_permissions",
+        "presentInDoc03": true
+      },
+      {
+        "table": "refresh_tokens",
+        "presentInDoc03": true
+      },
+      {
+        "table": "branches",
+        "presentInDoc03": true
+      },
+      {
+        "table": "branch_wifi_configs",
+        "presentInDoc03": true
+      },
+      {
+        "table": "tables",
+        "presentInDoc03": true
+      },
+      {
+        "table": "table_qr_codes",
+        "presentInDoc03": true
+      },
+      {
+        "table": "categories",
+        "presentInDoc03": true
+      },
+      {
+        "table": "products",
+        "presentInDoc03": true
+      },
+      {
+        "table": "product_sizes",
+        "presentInDoc03": true
+      },
+      {
+        "table": "toppings",
+        "presentInDoc03": true
+      },
+      {
+        "table": "product_toppings",
+        "presentInDoc03": true
+      },
+      {
+        "table": "ingredients",
+        "presentInDoc03": true
+      },
+      {
+        "table": "product_recipes",
+        "presentInDoc03": true
+      },
+      {
+        "table": "inventory_stocks",
+        "presentInDoc03": true
+      },
+      {
+        "table": "inventory_logs",
+        "presentInDoc03": true
+      },
+      {
+        "table": "orders",
+        "presentInDoc03": true
+      },
+      {
+        "table": "order_items",
+        "presentInDoc03": true
+      },
+      {
+        "table": "order_item_toppings",
+        "presentInDoc03": true
+      },
+      {
+        "table": "payments",
+        "presentInDoc03": true
+      },
+      {
+        "table": "transactions",
+        "presentInDoc03": true
+      },
+      {
+        "table": "delivery_orders",
+        "presentInDoc03": true
+      },
+      {
+        "table": "customers",
+        "presentInDoc03": true
+      },
+      {
+        "table": "loyalty_cup_transactions",
+        "presentInDoc03": true
+      },
+      {
+        "table": "customer_feedbacks",
+        "presentInDoc03": true
+      },
+      {
+        "table": "work_shifts",
+        "presentInDoc03": true
+      },
+      {
+        "table": "staff_attendances",
+        "presentInDoc03": true
+      },
+      {
+        "table": "shift_handover_discrepancies",
+        "presentInDoc03": true
+      }
+    ],
+    "all31Found": true,
+    "hasDeliveryAddress": true,
+    "hasDeliveryFee": true,
+    "hasBranchWifiConfigs": true,
+    "hasLoyaltyCups": true,
+    "hasDiscrepancy50k": true
+  },
+  "deploymentConfigs": {
+    "hasPostgresService": true,
+    "hasRedisService": true,
+    "hasBackendService": false,
+    "hasFrontendService": false,
+    "hasNginxService": true,
+    "hasNginxConf": false,
+    "hasWebSocketUpgrade": false,
+    "hasSSLConfig": true,
+    "hasRateLimiting": true,
+    "hasCI_CD": true,
+    "hasBackupScript": true
+  },
+  "allPassed": false
+}

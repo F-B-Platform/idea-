@@ -1,0 +1,46 @@
+{
+  "forbidden_matches": [],
+  "referenced_tables": [
+    "payments",
+    "loyalty_cup_transactions",
+    "user_roles",
+    "branch_wifi_configs",
+    "ingredients",
+    "users",
+    "inventory_stocks",
+    "tables",
+    "roles",
+    "orders",
+    "staff_attendances",
+    "inventory_logs",
+    "product_sizes",
+    "order_items",
+    "customer_feedbacks",
+    "product_recipes",
+    "delivery_orders",
+    "shift_handover_discrepancies",
+    "work_shifts",
+    "categories",
+    "transactions",
+    "products",
+    "customers"
+  ],
+  "inconsistencies": [
+    [
+      379,
+      "Column '34 lê duẩn' not in table 'delivery_orders'",
+      "API->>DB: INSERT INTO delivery_orders (order_id, recipient_name='Trần Thị Lan', recipient_phone='0988776655', delivery_address='Tòa Diamond Plaza, 34 Lê Duẩn, Q1', delivery_fee=20000, delivery_status='PendingPayment')"
+    ],
+    [
+      379,
+      "Column 'q1'' not in table 'delivery_orders'",
+      "API->>DB: INSERT INTO delivery_orders (order_id, recipient_name='Trần Thị Lan', recipient_phone='0988776655', delivery_address='Tòa Diamond Plaza, 34 Lê Duẩn, Q1', delivery_fee=20000, delivery_status='PendingPayment')"
+    ],
+    [
+      810,
+      "Column 'khách' not in table 'customer_feedbacks'",
+      "API->>DB: UPDATE customer_feedbacks SET is_urgent_alert=false, resolution_notes='Đã pha lại ly mới chuẩn vị & Tặng voucher 50k xin lỗi, khách hài lòng', resolved_by='mgr-01', resolved_at=NOW() WHERE id='rev-001'"
+    ]
+  ],
+  "total_sql_lines": 93
+}

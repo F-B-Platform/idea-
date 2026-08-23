@@ -1,0 +1,154 @@
+{
+  "total": 21,
+  "passed": 21,
+  "failed": 0,
+  "tests": [
+    {
+      "id": "TC-INV-01",
+      "category": "Soft Reservation",
+      "description": "Redis TTL 600s configured on reserved inventory keys",
+      "passed": true,
+      "details": "Found EXPIRE inventory:reserved:B01 600 and TTL 600s"
+    },
+    {
+      "id": "TC-INV-02",
+      "category": "Soft Reservation",
+      "description": "Seq-01 increments reserved stock via HINCRBY",
+      "passed": true,
+      "details": "Found HINCRBY inventory:reserved:B01 ing-coffee 80"
+    },
+    {
+      "id": "TC-INV-03",
+      "category": "Soft Reservation",
+      "description": "Available stock calculation strictly accounts for reserved stock",
+      "passed": true,
+      "details": "Formula: current_quantity - reserved_stock >= required_qty verified"
+    },
+    {
+      "id": "TC-INV-04",
+      "category": "Soft Reservation",
+      "description": "Compensation rollback decrements reserved stock on timeout/cancellation (Seq-01)",
+      "passed": true,
+      "details": "Found rollback HINCRBY -80 / -120 / -60"
+    },
+    {
+      "id": "TC-INV-05",
+      "category": "Soft Reservation",
+      "description": "Compensation rollback decrements reserved stock on timeout/cancellation (Seq-03)",
+      "passed": true,
+      "details": "Found rollback HINCRBY -60 / -100 / -80"
+    },
+    {
+      "id": "TC-INV-06",
+      "category": "Physical Stock Commit",
+      "description": "Seq-01 commits permanent physical stock deduction in DB on PayOS webhook",
+      "passed": true,
+      "details": "Found UPDATE inventory_stocks and INSERT INTO inventory_logs"
+    },
+    {
+      "id": "TC-INV-07",
+      "category": "Physical Stock Commit",
+      "description": "Seq-03 commits permanent physical stock deduction in DB on PayOS webhook",
+      "passed": true,
+      "details": "Found UPDATE inventory_stocks and INSERT INTO inventory_logs for delivery"
+    },
+    {
+      "id": "TC-INV-08",
+      "category": "Soft Reservation",
+      "description": "Seq-01 releases soft reservation in Redis after DB physical deduction",
+      "passed": true,
+      "details": "Found release HINCRBY -80 in webhook success branch"
+    },
+    {
+      "id": "TC-KDS-01",
+      "category": "KDS Gate",
+      "description": "KDS screen strictly blocks unconfirmed/unpaid Dine-In VietQR orders",
+      "passed": true,
+      "details": "Found explicit note blocking KDS display before payment"
+    },
+    {
+      "id": "TC-KDS-02",
+      "category": "KDS Gate",
+      "description": "Seq-02 Dine-In Cash immediately sends confirmed order to KDS",
+      "passed": true,
+      "details": "Found immediate NewKitchenOrder on Cash order creation"
+    },
+    {
+      "id": "TC-DEL-01",
+      "category": "Delivery Rules",
+      "description": "Fixed delivery fee 20,000 VND enforced",
+      "passed": true,
+      "details": "delivery_fee=20000 and 20.000 VNĐ verified"
+    },
+    {
+      "id": "TC-DEL-02",
+      "category": "Delivery Rules",
+      "description": "Delivery requires 100% VietQR prepayment (COD banned)",
+      "passed": true,
+      "details": "COD banned, 100% VietQR verified"
+    },
+    {
+      "id": "TC-CRM-01",
+      "category": "Loyalty CRM",
+      "description": "Loyalty 10 cups earn 1 free cup restricted strictly to Takeaway",
+      "passed": true,
+      "details": "Rule verified: Takeaway only"
+    },
+    {
+      "id": "TC-CRM-02",
+      "category": "Loyalty CRM",
+      "description": "Cup calculation and audit logging in loyalty_cup_transactions",
+      "passed": true,
+      "details": "Atomic balance update and log rows verified"
+    },
+    {
+      "id": "TC-ATT-01",
+      "category": "Attendance",
+      "description": "Dual-factor WiFi verification (BSSID + IP Subnet)",
+      "passed": true,
+      "details": "branch_wifi_configs BSSID + IP subnet check verified"
+    },
+    {
+      "id": "TC-ATT-02",
+      "category": "Attendance",
+      "description": "Zero GPS 50m and Zero 30s QR policy compliance",
+      "passed": true,
+      "details": "Verified removal of GPS 50m & 30s QR"
+    },
+    {
+      "id": "TC-86-01",
+      "category": "Emergency 86-Toggle",
+      "description": "86-Toggle locks product in DB, Redis cache, and broadcasts to customer PWAs via SignalR",
+      "passed": true,
+      "details": "Item86Toggled broadcast & Redis out_of_stock verified"
+    },
+    {
+      "id": "TC-SRV-01",
+      "category": "Service Call",
+      "description": "Redis rate limit lock (60s) prevents service call spam",
+      "passed": true,
+      "details": "lock:ratelimit:call:T04 NX EX 60 verified"
+    },
+    {
+      "id": "TC-REV-01",
+      "category": "Review & Alert",
+      "description": "Gemini 1.5 Flash sentiment analysis triggers UrgentRedAlert for ratings <= 2 stars",
+      "passed": true,
+      "details": "Gemini sentiment + UrgentRedAlert verified"
+    },
+    {
+      "id": "TC-SFT-01",
+      "category": "Shift & Z-Report",
+      "description": "Cash discrepancy > 50,000 VND enforces mandatory explanation and manager PIN",
+      "passed": true,
+      "details": "shift_handover_discrepancies logging verified"
+    },
+    {
+      "id": "TC-ADM-01",
+      "category": "Admin & AI",
+      "description": "ImageSharp WebP pipeline and Apriori combo mining with Lift > 1.5",
+      "passed": true,
+      "details": "Apriori Lift > 1.5 & ImageSharp pipeline verified"
+    }
+  ]
+}

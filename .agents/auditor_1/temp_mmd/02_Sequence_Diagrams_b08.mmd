@@ -1,0 +1,49 @@
+sequenceDiagram
+    autonumber
+    actor C as 👤 Khách Hàng (Tại bàn)
+    participant PWA as 📱 Customer PWA (Feedback Modal)
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (FeedbackController)
+    participant S3 as 🗄️ Object Storage CDN
+    participant AI as 🤖 Google Gemini 1.5 Flash API
+    participant DB as 🐘 PostgreSQL 16 (CustomerReviews)
+    participant HUB as 📡 SignalR NotificationHub
+    actor MGR as 🏪 Quản Lý Chi Nhánh (Manager Web Portal)
+
+    %% Bước 1: Khách gửi đánh giá 1 sao kèm ảnh
+    C->>PWA: Đơn hàng hoàn tất -> PWA mở Modal Đánh Giá
+    C->>PWA: Chấm 1 Sao ⭐, Nhập bình luận: "Cà phê quá ngọt và bị khét, phục vụ chậm hơn 20 phút!", Tải 1 ảnh ly nước, Bật [x] Ẩn danh
+    
+    PWA->>S3: Upload ảnh review -> Nhận CDN URL: "https://cdn.smartfb.vn/reviews/img_9912.webp"
+    PWA->>NGINX: POST /api/v1/reviews
+    Note over PWA,API: Payload: { orderId: "ord-9942", rating: 1, comment: "...", images: ["https://..."], isAnonymous: true }
+    NGINX->>API: Forward Request
+
+    activate API
+    %% Bước 2: AI Sentiment Analysis qua Gemini 1.5 Flash
+    API->>AI: POST /v1beta/models/gemini-1.5-flash:generateContent (Prompt: Analyze Sentiment, Toxicity & Complaint Categories for: "Cà phê quá ngọt và bị khét...")
+    activate AI
+    AI-->>API: Trả về JSON: { sentiment: "Negative", severity: "High", categories: ["DrinkQuality", "ServiceSpeed"], summary: "Khách chê cà phê khét và phục vụ chậm" }
+    deactivate AI
+
+    %% Bước 3: Lưu DB & Phân nhánh Escalation
+    API->>DB: INSERT INTO CustomerReviews (OrderId='ord-9942', Rating=1, Comment=..., ImageUrls=..., Sentiment='Negative', Status='Escalated', IsAnonymous=true)
+    
+    alt Đánh giá xấu (Rating <= 2 Sao) — KÍCH HOẠT RED ALERT
+        API->>HUB: NotificationHub.Clients.Group("branch_B01_manager").SendAsync("UrgentRedAlert", { reviewId: "rev-001", orderId: "ord-9942", tableNumber: "04", rating: 1, comment: "Cà phê khét & phục vụ chậm", aiSummary: "Chất lượng pha chế kém", timestamp: "14:35:10" })
+        API-->>PWA: HTTP 201 Created (Message: "Ý kiến của bạn đã được ghi nhận. Quản lý sẽ hỗ trợ bạn ngay lập tức!")
+        
+        HUB-->>MGR: Manager Portal PHÁT CÒI BÁO ĐỘNG ĐỎ 🚨 & Mở Pop-up Khẩn Cấp: "RED ALERT: Đánh giá 1 sao tại Bàn 04!"
+        
+        %% Bước 4: Quản lý xử lý khiếu nại tại bàn
+        MGR->>C: Quản lý trực tiếp tới Bàn 04 cúi chào, xin lỗi chân thành, đổi ngay ly cà phê mới ít ngọt & tặng Voucher giảm 50k
+        C->>MGR: Khách hàng hài lòng với thái độ xử lý nhanh của Quản lý
+        
+        MGR->>API: PUT /api/v1/reviews/rev-001/resolve { resolutionAction: "Đã pha lại ly mới chuẩn vị & Tặng voucher 50k xin lỗi, khách hài lòng", managerId: "mgr-01" }
+        API->>DB: UPDATE CustomerReviews SET Status='Resolved', ResolutionNotes=... WHERE Id='rev-001'
+        API-->>MGR: HTTP 200 OK (Ghi nhận biên bản xử lý khiếu nại thành công)
+    else Đánh giá tốt (Rating >= 3 Sao)
+        API->>DB: UPDATE CustomerReviews SET Status='Published'
+        API-->>PWA: HTTP 201 Created (Message: "Cảm ơn bạn đã đánh giá! Chúc bạn một ngày tốt lành ❤️")
+    end
+    deactivate API

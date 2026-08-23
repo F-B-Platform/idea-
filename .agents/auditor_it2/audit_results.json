@@ -1,0 +1,340 @@
+{
+  "timestamp": "2026-08-23T14:03:35.766Z",
+  "files": {
+    "01_Kien_Truc_Tong_Quan.md": {
+      "sizeBytes": 64130,
+      "lineCount": 768,
+      "mermaidCount": 9
+    },
+    "02_Sequence_Diagrams.md": {
+      "sizeBytes": 75821,
+      "lineCount": 1010,
+      "mermaidCount": 10
+    },
+    "03_ERD_Database_Diagram.md": {
+      "sizeBytes": 91375,
+      "lineCount": 1441,
+      "mermaidCount": 1
+    },
+    "04_Deployment_Diagram.md": {
+      "sizeBytes": 72597,
+      "lineCount": 1019,
+      "mermaidCount": 2
+    }
+  },
+  "placeholderViolations": [],
+  "legacyRemnantsViolations": [
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "Staff Mobile App (Flutter/RN active)",
+      "line": 17,
+      "matched": "Flutter",
+      "snippet": "> 1. **Web-First Monorepo (Zero Mobile App):** Hợp nhất 100% cổng vận hành (Customer PWA, Staff Web POS, Kitchen KDS TV, Manager Portal, Admin Portal) vào một dự án Next.js 14 duy nhất phân tách qua 5 Route Groups. **LOẠI BỎ TRIỆT ĐỂ** ứng dụng di động riêng cho nhân viên (Flutter/React Native) và thiết bị POS chuyên dụng đắt đỏ.",
+      "isDeprecationExplanation": false
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "Staff Mobile App (Flutter/RN active)",
+      "line": 17,
+      "matched": "React Native",
+      "snippet": "> 1. **Web-First Monorepo (Zero Mobile App):** Hợp nhất 100% cổng vận hành (Customer PWA, Staff Web POS, Kitchen KDS TV, Manager Portal, Admin Portal) vào một dự án Next.js 14 duy nhất phân tách qua 5 Route Groups. **LOẠI BỎ TRIỆT ĐỂ** ứng dụng di động riêng cho nhân viên (Flutter/React Native) và thiết bị POS chuyên dụng đắt đỏ.",
+      "isDeprecationExplanation": false
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "Staff Mobile App (Flutter/RN active)",
+      "line": 756,
+      "matched": "Staff Mobile App",
+      "snippet": "| **Ứng Dụng Nhân Viên** | ✅ 100% Web Responsive (KDS & POS) | ❌ XÓA Staff Mobile App | Loại bỏ hoàn toàn App di động. |",
+      "isDeprecationExplanation": true
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "GPS 50m / GPS chấm công",
+      "line": 18,
+      "matched": "GPS 50m",
+      "snippet": "> 2. **Chấm Công Khóa Mạng WiFi (WiFi-Locked):** Xóa bỏ hoàn toàn định vị vệ tinh GPS 50m và mã QR động 30s. Chấm công an toàn qua cơ chế Dual-Check: Mạng WiFi chi nhánh (BSSID Access Point / IP Subnet) + Mã số nhân viên.",
+      "isDeprecationExplanation": true
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "QR 30s / QR động 30s",
+      "line": 18,
+      "matched": "QR động 30s",
+      "snippet": "> 2. **Chấm Công Khóa Mạng WiFi (WiFi-Locked):** Xóa bỏ hoàn toàn định vị vệ tinh GPS 50m và mã QR động 30s. Chấm công an toàn qua cơ chế Dual-Check: Mạng WiFi chi nhánh (BSSID Access Point / IP Subnet) + Mã số nhân viên.",
+      "isDeprecationExplanation": true
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "QR 30s / QR động 30s",
+      "line": 460,
+      "matched": "30 Giây",
+      "snippet": "| **Payment Process Lock** | `lock:payment:order:{orderId}` | 30 Giây | Chặn xử lý trùng lặp giao dịch khi PayOS Webhook bắn lại hoặc nhân viên xác nhận tiền mặt trùng. |",
+      "isDeprecationExplanation": false
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "C-23 / C-24 feature codes",
+      "line": 23,
+      "matched": "C-23",
+      "snippet": "> 4. **Loại Bỏ Hoàn Toàn Out-of-Scope Features:** Xóa bỏ triệt để tính năng chia sẻ món mạng xã hội (C-23), Push notification khuyến mãi PWA (C-24), ví voucher riêng lẻ và tra cứu calo tách biệt.",
+      "isDeprecationExplanation": true
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "C-23 / C-24 feature codes",
+      "line": 23,
+      "matched": "C-24",
+      "snippet": "> 4. **Loại Bỏ Hoàn Toàn Out-of-Scope Features:** Xóa bỏ triệt để tính năng chia sẻ món mạng xã hội (C-23), Push notification khuyến mãi PWA (C-24), ví voucher riêng lẻ và tra cứu calo tách biệt.",
+      "isDeprecationExplanation": true
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "type": "Ví voucher riêng lẻ",
+      "line": 23,
+      "matched": "ví voucher",
+      "snippet": "> 4. **Loại Bỏ Hoàn Toàn Out-of-Scope Features:** Xóa bỏ triệt để tính năng chia sẻ món mạng xã hội (C-23), Push notification khuyến mãi PWA (C-24), ví voucher riêng lẻ và tra cứu calo tách biệt.",
+      "isDeprecationExplanation": true
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "type": "GPS 50m / GPS chấm công",
+      "line": 557,
+      "matched": "GPS 50m",
+      "snippet": "- **Quy tắc bảo mật bất biến:** Loại bỏ 100% định vị GPS 50m (sai số lớn trong nhà) và mã QR 30 giây.",
+      "isDeprecationExplanation": true
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "type": "QR 30s / QR động 30s",
+      "line": 557,
+      "matched": "30 giây",
+      "snippet": "- **Quy tắc bảo mật bất biến:** Loại bỏ 100% định vị GPS 50m (sai số lớn trong nhà) và mã QR 30 giây.",
+      "isDeprecationExplanation": true
+    }
+  ],
+  "mermaidDiagrams": [
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 1,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b01.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b01.mmd",
+      "diagramType": "flowchart TD",
+      "lineCount": 49,
+      "byteLength": 4436,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 2,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b02.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b02.mmd",
+      "diagramType": "flowchart TB",
+      "lineCount": 88,
+      "byteLength": 5245,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 3,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b03.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b03.mmd",
+      "diagramType": "flowchart TD",
+      "lineCount": 66,
+      "byteLength": 5227,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 4,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b04.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b04.mmd",
+      "diagramType": "flowchart TD",
+      "lineCount": 26,
+      "byteLength": 1596,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 5,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b05.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b05.mmd",
+      "diagramType": "flowchart TD",
+      "lineCount": 30,
+      "byteLength": 2070,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 6,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b06.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b06.mmd",
+      "diagramType": "flowchart TD",
+      "lineCount": 59,
+      "byteLength": 3470,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 7,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b07.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b07.mmd",
+      "diagramType": "flowchart TD",
+      "lineCount": 36,
+      "byteLength": 2118,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 8,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b08.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b08.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 31,
+      "byteLength": 1729,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 9,
+      "mmdFileName": "01_Kien_Truc_Tong_Quan_b09.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\01_Kien_Truc_Tong_Quan_b09.mmd",
+      "diagramType": "flowchart TD",
+      "lineCount": 52,
+      "byteLength": 2671,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 1,
+      "mmdFileName": "02_Sequence_Diagrams_b01.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b01.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 148,
+      "byteLength": 9789,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 2,
+      "mmdFileName": "02_Sequence_Diagrams_b02.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b02.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 91,
+      "byteLength": 5589,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 3,
+      "mmdFileName": "02_Sequence_Diagrams_b03.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b03.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 130,
+      "byteLength": 9148,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 4,
+      "mmdFileName": "02_Sequence_Diagrams_b04.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b04.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 79,
+      "byteLength": 4998,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 5,
+      "mmdFileName": "02_Sequence_Diagrams_b05.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b05.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 52,
+      "byteLength": 3805,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 6,
+      "mmdFileName": "02_Sequence_Diagrams_b06.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b06.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 63,
+      "byteLength": 4458,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 7,
+      "mmdFileName": "02_Sequence_Diagrams_b07.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b07.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 50,
+      "byteLength": 2913,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 8,
+      "mmdFileName": "02_Sequence_Diagrams_b08.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b08.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 50,
+      "byteLength": 3862,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 9,
+      "mmdFileName": "02_Sequence_Diagrams_b09.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b09.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 67,
+      "byteLength": 4237,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "02_Sequence_Diagrams.md",
+      "blockIndex": 10,
+      "mmdFileName": "02_Sequence_Diagrams_b10.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\02_Sequence_Diagrams_b10.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 71,
+      "byteLength": 4857,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "03_ERD_Database_Diagram.md",
+      "blockIndex": 1,
+      "mmdFileName": "03_ERD_Database_Diagram_b01.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\03_ERD_Database_Diagram_b01.mmd",
+      "diagramType": "erDiagram",
+      "lineCount": 478,
+      "byteLength": 13798,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "04_Deployment_Diagram.md",
+      "blockIndex": 1,
+      "mmdFileName": "04_Deployment_Diagram_b01.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\04_Deployment_Diagram_b01.mmd",
+      "diagramType": "graph TB",
+      "lineCount": 117,
+      "byteLength": 8452,
+      "renderStatus": "PENDING"
+    },
+    {
+      "file": "04_Deployment_Diagram.md",
+      "blockIndex": 2,
+      "mmdFileName": "04_Deployment_Diagram_b02.mmd",
+      "mmdFilePath": "d:\\Idea_DoAn\\.agents\\auditor_it2\\temp_mmd\\04_Deployment_Diagram_b02.mmd",
+      "diagramType": "sequenceDiagram",
+      "lineCount": 38,
+      "byteLength": 2042,
+      "renderStatus": "PENDING"
+    }
+  ],
+  "technicalValidation": {},
+  "verdict": "PENDING"
+}

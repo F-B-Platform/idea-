@@ -1,0 +1,65 @@
+sequenceDiagram
+    autonumber
+    actor CS as 🧑‍💼 Thu Ngân / Trưởng Ca
+    participant POS as 💻 Web Staff/Manager Portal ((manager)/shifts)
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (ShiftController)
+    participant DB as 🐘 PostgreSQL 16 (Shifts & Payments)
+    participant PRN as 🖨️ Máy In Nhiệt Quầy POS
+    actor MGR as 🏪 Quản Lý Chi Nhánh
+
+    %% GIAI ĐOẠN 1: MỞ CA ĐẦU NGÀY
+    Note over CS,DB: GIAI ĐOẠN 1: MỞ KÉT TIỀN ĐẦU CA
+    CS->>POS: Truy cập (manager)/shifts/open -> Đếm tiền lẻ két: 1.500.000đ -> Bấm [Mở Ca]
+    POS->>NGINX: POST /api/v1/shifts/open { branchId: "B01", openingCash: 1500000 }
+    NGINX->>API: Forward Request
+    
+    activate API
+    API->>DB: INSERT INTO Shifts (BranchId='B01', CashierId=userId, OpeningCash=1500000, Status='Open', OpenedAt=NOW()) RETURNING Id
+    DB-->>API: ShiftId = "shift-8831"
+    API-->>POS: HTTP 201 Created (ShiftId="shift-8831", Status="Open")
+    deactivate API
+    POS-->>CS: Màn hình POS chuyển sang trạng thái "Ca đang mở — Sẵn sàng bán hàng!"
+
+    %% GIAI ĐOẠN 2: BÁN HÀNG TRONG CA
+    Note over CS,DB: GIAI ĐOẠN 2: BÁN HÀNG TRONG CA (Hệ thống tự động cộng dồn doanh thu Cash vs VietQR)
+
+    %% GIAI ĐOẠN 3: KẾT CA & ĐỐI SOÁT CUỐI NGÀY
+    Note over CS,DB: GIAI ĐOẠN 3: KẾT CA & ĐỐI SOÁT Z-REPORT
+    CS->>POS: Bấm [Kết Ca & Kiểm Đếm Két Tiền]
+    CS->>POS: Nhập bảng kiểm đếm mệnh giá: 10x 500k, 20x 200k, 15x 100k, 10x 50k -> Thực tế: 11.000.000 VNĐ
+    
+    POS->>NGINX: POST /api/v1/shifts/shift-8831/close-preview { actualCash: 11000000, denominations: [...] }
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: SELECT OpeningCash FROM Shifts WHERE Id='shift-8831' (1.500.000đ)
+    API->>DB: SELECT SUM(Amount) FROM Payments WHERE ShiftId='shift-8831' AND PaymentMethod='Cash' AND Status='Success' (9.430.000đ)
+    API->>DB: SELECT COALESCE(SUM(Amount), 0) FROM CashPayouts WHERE ShiftId='shift-8831' (0đ)
+    
+    API->>API: SystemCash = 1.500.000 + 9.430.000 - 0 = 10.930.000 VNĐ
+    API->>API: Discrepancy = 11.000.000 - 10.930.000 = +70.000 VNĐ (Thừa 70k > 50k threshold!)
+
+    API-->>POS: HTTP 200 OK { expectedCash: 10930000, actualCash: 11000000, difference: 70000, requireExplanation: true }
+    deactivate API
+
+    %% Bước 4: Bắt buộc giải trình chênh lệch > 50k
+    POS-->>CS: ⚠️ Cảnh báo: "Lệch két: +70.000 VNĐ (> 50k). Bắt buộc nhập giải trình & Quản lý ký duyệt PIN!"
+    CS->>POS: Nhập lý do: "Khách mua mang về gửi lại 70k tiền bo vào két"
+    MGR->>POS: Quản lý kiểm tra & Nhập Mã PIN bảo mật: "9988"
+    
+    POS->>NGINX: POST /api/v1/shifts/shift-8831/close-finalize
+    Note over POS,API: Payload: { actualCash: 11000000, explanation: "Khách gửi 70k tiền bo", managerPin: "9988" }
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: BEGIN TRANSACTION
+    API->>DB: UPDATE Shifts SET Status='Closed', ClosedAt=NOW(), SystemCash=10930000, ActualCash=11000000, CashDifference=70000, ExplanationNotes="Khách bo 70k", ApprovedBy=mgrId WHERE Id='shift-8831'
+    API->>DB: INSERT INTO AuditLogs (Action='CLOSE_SHIFT_ZREPORT', ShiftId='shift-8831', Difference=70000)
+    API->>DB: COMMIT TRANSACTION
+
+    API-->>POS: HTTP 200 OK (Message: "Đóng ca & Xuất Z-Report thành công")
+    deactivate API
+
+    POS->>PRN: Lệnh in Báo Cáo Z-Report ESC/POS (Doanh thu Tiền mặt, VietQR, Chênh lệch, Chữ ký Thu ngân & Quản lý)
+    PRN-->>CS: In ra phiếu Báo Cáo Kết Ca Z-Report hoàn tất

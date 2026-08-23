@@ -1,0 +1,76 @@
+sequenceDiagram
+    autonumber
+    actor C as 👤 Khách Hàng (Tại nhà / Cơ quan)
+    participant PWA as 📱 Next.js Delivery PWA
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (DeliveryController)
+    participant DB as 🐘 PostgreSQL 16 (EF Core)
+    participant PAY as 🏦 Cổng PayOS Gateway
+    participant HUB as 📡 SignalR (Kitchen & Order Hub)
+    actor KDS as 🧋 Barista / Đóng Gói (Web KDS)
+    actor SHP as 🛵 Shipper Chi Nhánh
+
+    %% Bước 1: Khách nhập thông tin & Chọn món
+    C->>PWA: Quét QR Delivery / Truy cập Web Delivery
+    C->>PWA: Nhập Họ tên: "Trần Thị Lan", SĐT: "0988776655", Địa chỉ: "Tòa Diamond Plaza, 34 Lê Duẩn, Q1"
+    C->>PWA: Chọn 2x Trà Đào Cam Sả Size L (80.000đ)
+    PWA->>PWA: Tự động cộng Phí giao hàng cố định: +20.000đ -> Tổng thanh toán: 100.000đ
+    C->>PWA: Bấm chọn [Thanh toán VietQR & Đặt Giao Hàng]
+
+    %% Bước 2: Backend Validation & Tạo Đơn
+    PWA->>NGINX: POST /api/v1/orders/delivery
+    Note over PWA,API: Payload: { recipientName, recipientPhone, deliveryAddress, deliveryFee: 20000, items: [...] }
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>API: FluentValidation: Kiểm tra Phone Regex & Length(Address) >= 10 & DeliveryFee == 20000
+    
+    alt Dữ liệu không hợp lệ (Ví dụ: Thiếu địa chỉ / SĐT sai)
+        API-->>PWA: HTTP 422 Unprocessable Entity (RFC 7807 ProblemDetails: "Địa chỉ giao hàng không hợp lệ")
+        PWA-->>C: Báo lỗi trên Form nhập liệu
+    else Dữ liệu hợp lệ
+        API->>DB: BEGIN TRANSACTION
+        API->>DB: INSERT INTO Orders (OrderType='Delivery', Status='PendingPayment', DeliveryAddress=..., DeliveryFee=20000, TotalAmount=100000)
+        API->>DB: INSERT INTO OrderItems (...)
+        API->>DB: INSERT INTO Payments (PaymentMethod='VietQR', Status='Pending', TransferContent='DEL_B01_0055')
+        API->>DB: COMMIT TRANSACTION
+
+        API->>PAY: POST /v2/payment-requests (Amount=100000, Description="DEL_B01_0055")
+        PAY-->>API: Trả về PaymentLink (QrCodeDataUrl, CheckoutUrl)
+        API-->>PWA: HTTP 201 Created (OrderId="del-0055", QrCodeUrl, TotalAmount=100000, ExpiresAt="10:00")
+    end
+    deactivate API
+
+    %% Bước 3: Thanh toán VietQR & Nhận Webhook
+    PWA-->>C: Hiển thị mã VietQR 100.000 VNĐ kèm đồng hồ đếm ngược
+    C->>PAY: Mở App Ngân Hàng -> Quét QR -> Chuyển 100.000đ
+    PAY->>NGINX: POST /api/v1/webhooks/payos (HMAC-SHA256, DEL_B01_0055, 100000đ)
+    NGINX->>API: Forward Webhook
+
+    activate API
+    API->>API: Verify HMAC-SHA256 & Idempotency Key
+    API->>DB: UPDATE Payments SET Status='Success', PaidAt=NOW()
+    API->>DB: UPDATE Orders SET Status='Confirmed', PaidAt=NOW() WHERE Id='del-0055'
+    
+    API->>HUB: OrderHub.Clients.Group("order_del-0055").SendAsync("PaymentReceived", { orderId: "del-0055" })
+    API->>HUB: KitchenHub.Clients.Group("branch_B01_kitchen").SendAsync("NewKitchenOrder", DeliveryTicketDto)
+    API-->>PAY: HTTP 200 OK
+    deactivate API
+
+    par Phản hồi Realtime
+        HUB-->>PWA: Event `PaymentReceived` -> PWA: "Thanh toán thành công! Quán đang pha chế & đóng gói 🛵"
+        HUB-->>KDS: KDS hiện vé `[DELIVERY #DEL-0055]` (Xanh lục nổi bật kèm SĐT & Địa chỉ giao hàng)
+    end
+
+    %% Bước 4: Pha chế, Đóng gói & Giao hàng
+    KDS->>API: PATCH /api/v1/kds/orders/del-0055/status { status: "Preparing" }
+    KDS->>KDS: Pha chế đồ uống -> Dán tem nắp ly chống tràn -> Đóng túi niêm phong -> Dán tem địa chỉ
+    KDS->>API: PATCH /api/v1/kds/orders/del-0055/status { status: "Ready" }
+    API->>HUB: NotificationHub.Clients.Group("branch_B01_staff").SendAsync("DeliveryReadyForPickup", "del-0055")
+    
+    SHP->>KDS: Nhận túi đồ uống niêm phong
+    SHP->>C: Vận chuyển đến "Tòa Diamond Plaza, 34 Lê Duẩn, Q1" -> Giao tận tay khách hàng
+    SHP->>API: POST /api/v1/orders/del-0055/delivery-complete
+    API->>DB: UPDATE Orders SET Status='Completed', CompletedAt=NOW()
+    API->>HUB: OrderHub.Clients.Group("order_del-0055").SendAsync("OrderStatusUpdated", "Completed")
+    HUB-->>PWA: PWA thông báo: "Đơn hàng đã giao thành công! Chúc bạn thưởng thức ngon miệng 🎉"

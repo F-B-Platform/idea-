@@ -1,0 +1,59 @@
+flowchart TD
+    subgraph DATA_SOURCES["DỮ LIỆU ĐẦU VÀO CHO AI (DATA PERSISTENCE)"]
+        D_MENU["Danh Mục Thực Đơn & Công Thức BOM (PostgreSQL 16)"]
+        D_CRM["Lịch Sử Tiêu Dùng & Khẩu Vị Khách Hàng (PostgreSQL 16)"]
+        D_ORDERS["Lịch Sử 10,000+ Giao Dịch Đơn Hàng Đã Bán (PostgreSQL 16)"]
+        D_WEATHER["Dữ Liệu Thời Tiết & Nhiệt Độ Chi Nhánh (OpenWeatherMap API)"]
+    end
+
+    subgraph ACTIVE_AI["🤖 2 MODULES AI TRIỂN KHAI CHÍNH THỨC TRONG 16 TUẦN (ACTIVE MVP)"]
+        direction TB
+        
+        subgraph AI1_PIPELINE["AI-1: RAG Recommendation Chatbot Pipeline (Google Gemini 1.5 Flash)"]
+            P1_INPUT["Tin nhắn yêu cầu của Khách hàng (VD: 'Trời nóng muốn uống món thanh mát ít ngọt')"]
+            P1_BUILDER["Context Builder: Lọc món còn bán (Active & !86-out) + Tag Calo + Dữ liệu thời tiết"]
+            P1_PROMPT["System Prompt Structurer & Temperature 0.3 (Định dạng JSON Schema)"]
+            P1_GEMINI["Google Gemini 1.5 Flash Cloud LLM"]
+            P1_FALLBACK["Fallback Engine: Tự động trả về Top 3 Best-Seller nếu Timeout > 1.5s hoặc lỗi mạng"]
+            P1_OUTPUT["Giao diện PWA: Thẻ món ăn trực quan kèm nút 'Thêm Ngay Vào Giỏ'"]
+
+            P1_INPUT --> P1_BUILDER
+            P1_BUILDER --> P1_PROMPT
+            P1_PROMPT --> P1_GEMINI
+            P1_GEMINI -->|Thành công| P1_OUTPUT
+            P1_GEMINI -.->|Timeout / Error| P1_FALLBACK
+            P1_FALLBACK --> P1_OUTPUT
+        end
+
+        subgraph AI2_PIPELINE["AI-2: Market Basket Analysis & Combo Mining (Apriori Engine)"]
+            P2_EXTRACT["Trích xuất tập giao dịch (Transaction Dataset) từ bảng OrderItems"]
+            P2_MINE["Thuật toán Apriori / FP-Growth: Min Support >= 0.02, Min Confidence >= 0.3, Lift > 1.2"]
+            P2_FILTER["Bộ lọc quy tắc kết hợp (Association Rules): Món chính + Đồ ăn kèm / Topping"]
+            P2_ADMIN_UI["Giao diện Admin Portal: Chủ Chuỗi xem xét, chỉnh mức chiết khấu và phê duyệt"]
+            P2_PUBLISH["Phát hành Combo lên Menu PWA Khách hàng ➔ Tăng giá trị trung bình đơn hàng (AOV)"]
+
+            P2_EXTRACT --> P2_MINE
+            P2_MINE --> P2_FILTER
+            P2_FILTER --> P2_ADMIN_UI
+            P2_ADMIN_UI -->|Admin Phê Duyệt| P2_PUBLISH
+        end
+    end
+
+    subgraph SCALEUP_AI["🔮 3 MODULES AI MỞ RỘNG TƯƠNG LAI (SCALE-UP EXTENSIONS)"]
+        direction LR
+        AI3_EXT["AI-3: Text-to-SQL Analytics<br>[Hỏi đáp số liệu kinh doanh tự nhiên]"]
+        AI4_EXT["AI-4: Churn Prediction<br>[Mô hình XGBoost RFM dự báo khách rời bỏ]"]
+        AI5_EXT["AI-5: Demand Forecasting<br>[Dự báo nhu cầu nguyên liệu theo ngày]"]
+    end
+
+    D_MENU & D_CRM & D_WEATHER --> P1_BUILDER
+    D_ORDERS --> P2_EXTRACT
+    D_ORDERS -.-> AI3_EXT & AI4_EXT & AI5_EXT
+
+    classDef srcStyle fill:#1e293b,stroke:#475569,stroke-width:2px,color:#ffffff;
+    classDef aiStyle fill:#581c87,stroke:#a855f7,stroke-width:2px,color:#ffffff;
+    classDef futStyle fill:#374151,stroke:#6b7280,stroke-dasharray: 5 5,stroke-width:2px,color:#ffffff;
+
+    class D_MENU,D_CRM,D_ORDERS,D_WEATHER srcStyle;
+    class P1_INPUT,P1_BUILDER,P1_PROMPT,P1_GEMINI,P1_FALLBACK,P1_OUTPUT,P2_EXTRACT,P2_MINE,P2_FILTER,P2_ADMIN_UI,P2_PUBLISH aiStyle;
+    class AI3_EXT,AI4_EXT,AI5_EXT futStyle;

@@ -1,0 +1,208 @@
+{
+  "01_Kien_Truc_Tong_Quan.md": [
+    {
+      "block_number": 1,
+      "lines": "80-129",
+      "diagram_type": "flowchart",
+      "header_preview": "flowchart TD",
+      "status": "PASS",
+      "error": "",
+      "block_length": 3883
+    },
+    {
+      "block_number": 2,
+      "lines": "138-226",
+      "diagram_type": "flowchart",
+      "header_preview": "flowchart TB",
+      "status": "PASS",
+      "error": "",
+      "block_length": 5100
+    },
+    {
+      "block_number": 3,
+      "lines": "235-301",
+      "diagram_type": "flowchart",
+      "header_preview": "flowchart TD",
+      "status": "PASS",
+      "error": "",
+      "block_length": 5082
+    },
+    {
+      "block_number": 4,
+      "lines": "369-395",
+      "diagram_type": "flowchart",
+      "header_preview": "flowchart TD",
+      "status": "PASS",
+      "error": "",
+      "block_length": 1507
+    },
+    {
+      "block_number": 5,
+      "lines": "411-441",
+      "diagram_type": "flowchart",
+      "header_preview": "flowchart TD",
+      "status": "PASS",
+      "error": "",
+      "block_length": 1968
+    },
+    {
+      "block_number": 6,
+      "lines": "467-526",
+      "diagram_type": "flowchart",
+      "header_preview": "flowchart TD",
+      "status": "PASS",
+      "error": "",
+      "block_length": 3226
+    },
+    {
+      "block_number": 7,
+      "lines": "535-571",
+      "diagram_type": "flowchart",
+      "header_preview": "flowchart TD",
+      "status": "PASS",
+      "error": "",
+      "block_length": 1894
+    },
+    {
+      "block_number": 8,
+      "lines": "587-618",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 1590
+    },
+    {
+      "block_number": 9,
+      "lines": "669-721",
+      "diagram_type": "flowchart",
+      "header_preview": "flowchart TD",
+      "status": "PASS",
+      "error": "",
+      "block_length": 2620
+    }
+  ],
+  "02_Sequence_Diagrams.md": [
+    {
+      "block_number": 1,
+      "lines": "57-205",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 9216
+    },
+    {
+      "block_number": 2,
+      "lines": "218-309",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 5156
+    },
+    {
+      "block_number": 3,
+      "lines": "324-454",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 8630
+    },
+    {
+      "block_number": 4,
+      "lines": "469-548",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 4584
+    },
+    {
+      "block_number": 5,
+      "lines": "563-615",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 3491
+    },
+    {
+      "block_number": 6,
+      "lines": "626-689",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 4110
+    },
+    {
+      "block_number": 7,
+      "lines": "702-752",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 2585
+    },
+    {
+      "block_number": 8,
+      "lines": "766-816",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 3444
+    },
+    {
+      "block_number": 9,
+      "lines": "830-897",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 3867
+    },
+    {
+      "block_number": 10,
+      "lines": "909-980",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 4484
+    }
+  ],
+  "03_ERD_Database_Diagram.md": [
+    {
+      "block_number": 1,
+      "lines": "37-515",
+      "diagram_type": "erDiagram",
+      "header_preview": "erDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 13798
+    }
+  ],
+  "04_Deployment_Diagram.md": [
+    {
+      "block_number": 1,
+      "lines": "67-184",
+      "diagram_type": "graph",
+      "header_preview": "graph TB",
+      "status": "PASS",
+      "error": "",
+      "block_length": 8078
+    },
+    {
+      "block_number": 2,
+      "lines": "723-761",
+      "diagram_type": "sequenceDiagram",
+      "header_preview": "sequenceDiagram",
+      "status": "PASS",
+      "error": "",
+      "block_length": 1927
+    }
+  ]
+}

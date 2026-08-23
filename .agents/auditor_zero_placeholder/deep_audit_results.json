@@ -1,0 +1,483 @@
+{
+  "uat": {
+    "total_tc_blocks": 0,
+    "total_unique_tcs": 0,
+    "all_tc_ids": [],
+    "tc_details": []
+  },
+  "seed": {
+    "sql_blocks_count": 4,
+    "total_sql_length": 96404,
+    "created_tables": [
+      {
+        "table_name": "branches",
+        "column_count": 10,
+        "raw_length": 480,
+        "has_pk": true,
+        "has_fk": false
+      },
+      {
+        "table_name": "branch_wifi_configs",
+        "column_count": 8,
+        "raw_length": 417,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "tables",
+        "column_count": 12,
+        "raw_length": 660,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "users",
+        "column_count": 15,
+        "raw_length": 643,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "roles",
+        "column_count": 4,
+        "raw_length": 192,
+        "has_pk": true,
+        "has_fk": false
+      },
+      {
+        "table_name": "user_roles",
+        "column_count": 4,
+        "raw_length": 242,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "audit_logs",
+        "column_count": 9,
+        "raw_length": 364,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "categories",
+        "column_count": 10,
+        "raw_length": 440,
+        "has_pk": true,
+        "has_fk": false
+      },
+      {
+        "table_name": "products",
+        "column_count": 15,
+        "raw_length": 686,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "product_sizes",
+        "column_count": 8,
+        "raw_length": 430,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "product_branch_prices",
+        "column_count": 8,
+        "raw_length": 481,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "modifiers",
+        "column_count": 8,
+        "raw_length": 354,
+        "has_pk": true,
+        "has_fk": false
+      },
+      {
+        "table_name": "product_modifiers",
+        "column_count": 5,
+        "raw_length": 320,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "ingredients",
+        "column_count": 17,
+        "raw_length": 629,
+        "has_pk": true,
+        "has_fk": false
+      },
+      {
+        "table_name": "recipes_bom",
+        "column_count": 12,
+        "raw_length": 684,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "inventory_checks",
+        "column_count": 8,
+        "raw_length": 485,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "inventory_check_details",
+        "column_count": 11,
+        "raw_length": 541,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "customers",
+        "column_count": 14,
+        "raw_length": 619,
+        "has_pk": true,
+        "has_fk": false
+      },
+      {
+        "table_name": "orders",
+        "column_count": 23,
+        "raw_length": 986,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "order_items",
+        "column_count": 16,
+        "raw_length": 711,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "order_item_modifiers",
+        "column_count": 7,
+        "raw_length": 429,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "payments",
+        "column_count": 10,
+        "raw_length": 467,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "loyalty_cup_transactions",
+        "column_count": 8,
+        "raw_length": 488,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "vouchers",
+        "column_count": 17,
+        "raw_length": 861,
+        "has_pk": true,
+        "has_fk": false
+      },
+      {
+        "table_name": "customer_reviews",
+        "column_count": 11,
+        "raw_length": 600,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "combos",
+        "column_count": 15,
+        "raw_length": 513,
+        "has_pk": true,
+        "has_fk": false
+      },
+      {
+        "table_name": "combo_items",
+        "column_count": 5,
+        "raw_length": 370,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "shifts",
+        "column_count": 16,
+        "raw_length": 681,
+        "has_pk": true,
+        "has_fk": true
+      },
+      {
+        "table_name": "attendances",
+        "column_count": 10,
+        "raw_length": 553,
+        "has_pk": true,
+        "has_fk": true
+      }
+    ],
+    "inserted_tables": [
+      {
+        "table_name": "branches",
+        "columns": "branch_id, code, name, address, phone, operating_hours, is_active",
+        "row_count": 4,
+        "raw_length": 697
+      },
+      {
+        "table_name": "branch_wifi_configs",
+        "columns": "wifi_config_id, branch_id, ssid_name, bssid_list, allowed_ip_subnets, is_active",
+        "row_count": 4,
+        "raw_length": 573
+      },
+      {
+        "table_name": "tables",
+        "columns": "table_id, branch_id, table_number, zone_name, capacity, qr_token, qr_code_url, status, is_active",
+        "row_count": 34,
+        "raw_length": 5815
+      },
+      {
+        "table_name": "roles",
+        "columns": "role_id, role_name, description",
+        "row_count": 6,
+        "raw_length": 558
+      },
+      {
+        "table_name": "users",
+        "columns": "user_id, branch_id, user_code, username, password_hash, full_name, email, phone, status",
+        "row_count": 11,
+        "raw_length": 2607
+      },
+      {
+        "table_name": "user_roles",
+        "columns": "user_id, role_id",
+        "row_count": 11,
+        "raw_length": 1145
+      },
+      {
+        "table_name": "categories",
+        "columns": "category_id, code, name, description, display_order, image_url, is_active",
+        "row_count": 6,
+        "raw_length": 1228
+      },
+      {
+        "table_name": "products",
+        "columns": "product_id, category_id, sku, name, description, base_price, image_url, is_available, is_best_seller, calories_approx, allergen_info",
+        "row_count": 34,
+        "raw_length": 6867
+      },
+      {
+        "table_name": "product_sizes",
+        "columns": "size_id, product_id, size_name, price_adjustment, display_order",
+        "row_count": 55,
+        "raw_length": 5820
+      },
+      {
+        "table_name": "product_branch_prices",
+        "columns": "branch_price_id, product_id, branch_id, price_override, is_available_86",
+        "row_count": 7,
+        "raw_length": 1015
+      },
+      {
+        "table_name": "modifiers",
+        "columns": "modifier_id, code, name, type, extra_price, is_available",
+        "row_count": 20,
+        "raw_length": 1769
+      },
+      {
+        "table_name": "product_modifiers",
+        "columns": "product_id, modifier_id, is_default, max_quantity",
+        "row_count": 18,
+        "raw_length": 1244
+      },
+      {
+        "table_name": "ingredients",
+        "columns": "ingredient_id, code, name, unit, current_stock, min_stock_threshold, unit_cost",
+        "row_count": 16,
+        "raw_length": 1907
+      },
+      {
+        "table_name": "recipes_bom",
+        "columns": "recipe_id, product_id, size_id, ingredient_id, standard_quantity, wastage_percentage",
+        "row_count": 27,
+        "raw_length": 4287
+      },
+      {
+        "table_name": "customers",
+        "columns": "customer_id, phone_number, full_name, email, membership_tier, cup_balance, total_points, last_visited_at",
+        "row_count": 11,
+        "raw_length": 1525
+      },
+      {
+        "table_name": "orders",
+        "columns": "order_id, branch_id, table_id, customer_id, order_code, order_type, status, sub_total, discount_amount, delivery_fee, total_amount, delivery_address, recipient_name, recipient_phone, created_at, paid_at, completed_at",
+        "row_count": 7,
+        "raw_length": 1933
+      },
+      {
+        "table_name": "order_items",
+        "columns": "order_item_id, order_id, product_id, size_id, quantity, unit_price, subtotal_price, note, item_status",
+        "row_count": 0,
+        "raw_length": 63
+      },
+      {
+        "table_name": "order_item_modifiers",
+        "columns": "item_mod_id, order_item_id, modifier_id, quantity, extra_price",
+        "row_count": 5,
+        "raw_length": 624
+      },
+      {
+        "table_name": "payments",
+        "columns": "payment_id, order_id, payment_method, amount, transaction_code, status, payos_payment_link_id, paid_at",
+        "row_count": 7,
+        "raw_length": 1060
+      },
+      {
+        "table_name": "loyalty_cup_transactions",
+        "columns": "trans_id, customer_id, order_id, cups_earned, cups_redeemed, transaction_type, notes",
+        "row_count": 4,
+        "raw_length": 763
+      },
+      {
+        "table_name": "shifts",
+        "columns": "shift_id, branch_id, cashier_id, opening_time, closing_time, initial_cash, actual_cash_counted, system_cash_calculated, cash_difference, shift_notes, status",
+        "row_count": 7,
+        "raw_length": 1296
+      },
+      {
+        "table_name": "attendances",
+        "columns": "attendance_id, branch_id, user_id, employee_code, check_in_time, check_out_time, verified_ip, verified_bssid, status",
+        "row_count": 7,
+        "raw_length": 1399
+      },
+      {
+        "table_name": "inventory_checks",
+        "columns": "check_id, branch_id, checked_by, approved_by, check_date, status, notes",
+        "row_count": 2,
+        "raw_length": 310
+      },
+      {
+        "table_name": "inventory_check_details",
+        "columns": "detail_id, check_id, ingredient_id, system_quantity, actual_quantity, difference_quantity, reason",
+        "row_count": 4,
+        "raw_length": 648
+      },
+      {
+        "table_name": "vouchers",
+        "columns": "voucher_id, code, discount_type, discount_value, min_order_value, max_discount_amount, start_date, end_date, usage_limit, used_count, is_active",
+        "row_count": 4,
+        "raw_length": 598
+      },
+      {
+        "table_name": "customer_reviews",
+        "columns": "review_id, order_id, product_id, customer_id, rating_stars, comment, photo_urls, is_anonymous, is_approved, is_urgent_alert, created_at",
+        "row_count": 6,
+        "raw_length": 1797
+      },
+      {
+        "table_name": "combos",
+        "columns": "combo_id, code, name, description, discount_percentage, support_metric, confidence_metric, lift_metric, is_active",
+        "row_count": 2,
+        "raw_length": 254
+      },
+      {
+        "table_name": "combo_items",
+        "columns": "combo_item_id, combo_id, product_id, quantity",
+        "row_count": 3,
+        "raw_length": 353
+      },
+      {
+        "table_name": "audit_logs",
+        "columns": "audit_id, user_id, action, entity_name, entity_id, old_values, new_values, ip_address, timestamp",
+        "row_count": 4,
+        "raw_length": 1016
+      }
+    ]
+  },
+  "git": {
+    "total_code_blocks": 24,
+    "csharp_blocks_count": 6,
+    "csharp_analysis": [
+      {
+        "block_idx": 1,
+        "lines_count": 103,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": "}"
+      },
+      {
+        "block_idx": 2,
+        "lines_count": 296,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": "}"
+      },
+      {
+        "block_idx": 3,
+        "lines_count": 43,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": ");"
+      },
+      {
+        "block_idx": 4,
+        "lines_count": 157,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": "}"
+      },
+      {
+        "block_idx": 5,
+        "lines_count": 60,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": "}"
+      },
+      {
+        "block_idx": 6,
+        "lines_count": 98,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": "}"
+      }
+    ],
+    "ts_blocks_count": 4,
+    "ts_analysis": [
+      {
+        "block_idx": 1,
+        "lines_count": 94,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": "}"
+      },
+      {
+        "block_idx": 2,
+        "lines_count": 266,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "\"use client\";",
+        "last_line": "};"
+      },
+      {
+        "block_idx": 3,
+        "lines_count": 164,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": "}"
+      },
+      {
+        "block_idx": 4,
+        "lines_count": 161,
+        "has_todo": false,
+        "has_empty_catch": false,
+        "first_line": "// ============================================================================",
+        "last_line": ");"
+      }
+    ],
+    "yaml_blocks_count": 1
+  }
+}

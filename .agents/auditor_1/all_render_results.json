@@ -1,0 +1,249 @@
+{
+  "total": 22,
+  "passed": 22,
+  "failed": 0,
+  "details": [
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 1,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b01.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b01.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b01.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b01.svg",
+      "status": "PASS",
+      "size": 36980,
+      "timeMs": 2470
+    },
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 2,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b02.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b02.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b02.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b02.svg",
+      "status": "PASS",
+      "size": 60817,
+      "timeMs": 2554
+    },
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 3,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b03.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b03.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b03.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b03.svg",
+      "status": "PASS",
+      "size": 57286,
+      "timeMs": 2225
+    },
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 4,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b04.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b04.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b04.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b04.svg",
+      "status": "PASS",
+      "size": 30288,
+      "timeMs": 2108
+    },
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 5,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b05.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b05.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b05.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b05.svg",
+      "status": "PASS",
+      "size": 40965,
+      "timeMs": 2307
+    },
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 6,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b06.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b06.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b06.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b06.svg",
+      "status": "PASS",
+      "size": 44355,
+      "timeMs": 2245
+    },
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 7,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b07.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b07.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b07.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b07.svg",
+      "status": "PASS",
+      "size": 91810,
+      "timeMs": 2167
+    },
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 8,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b08.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b08.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b08.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b08.svg",
+      "status": "PASS",
+      "size": 36882,
+      "timeMs": 2031
+    },
+    {
+      "filename": "01_Kien_Truc_Tong_Quan.md",
+      "blockIndex": 9,
+      "mmdName": "01_Kien_Truc_Tong_Quan_b09.mmd",
+      "svgName": "01_Kien_Truc_Tong_Quan_b09.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b09.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\01_Kien_Truc_Tong_Quan_b09.svg",
+      "status": "PASS",
+      "size": 36526,
+      "timeMs": 2343
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 1,
+      "mmdName": "02_Sequence_Diagrams_b01.mmd",
+      "svgName": "02_Sequence_Diagrams_b01.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b01.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b01.svg",
+      "status": "PASS",
+      "size": 67045,
+      "timeMs": 2132
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 2,
+      "mmdName": "02_Sequence_Diagrams_b02.mmd",
+      "svgName": "02_Sequence_Diagrams_b02.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b02.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b02.svg",
+      "status": "PASS",
+      "size": 62480,
+      "timeMs": 2165
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 3,
+      "mmdName": "02_Sequence_Diagrams_b03.mmd",
+      "svgName": "02_Sequence_Diagrams_b03.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b03.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b03.svg",
+      "status": "PASS",
+      "size": 59981,
+      "timeMs": 2309
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 4,
+      "mmdName": "02_Sequence_Diagrams_b04.mmd",
+      "svgName": "02_Sequence_Diagrams_b04.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b04.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b04.svg",
+      "status": "PASS",
+      "size": 59279,
+      "timeMs": 2309
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 5,
+      "mmdName": "02_Sequence_Diagrams_b05.mmd",
+      "svgName": "02_Sequence_Diagrams_b05.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b05.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b05.svg",
+      "status": "PASS",
+      "size": 45657,
+      "timeMs": 2198
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 6,
+      "mmdName": "02_Sequence_Diagrams_b06.mmd",
+      "svgName": "02_Sequence_Diagrams_b06.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b06.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b06.svg",
+      "status": "PASS",
+      "size": 52129,
+      "timeMs": 2274
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 7,
+      "mmdName": "02_Sequence_Diagrams_b07.mmd",
+      "svgName": "02_Sequence_Diagrams_b07.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b07.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b07.svg",
+      "status": "PASS",
+      "size": 46489,
+      "timeMs": 2302
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 8,
+      "mmdName": "02_Sequence_Diagrams_b08.mmd",
+      "svgName": "02_Sequence_Diagrams_b08.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b08.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b08.svg",
+      "status": "PASS",
+      "size": 44530,
+      "timeMs": 2188
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 9,
+      "mmdName": "02_Sequence_Diagrams_b09.mmd",
+      "svgName": "02_Sequence_Diagrams_b09.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b09.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b09.svg",
+      "status": "PASS",
+      "size": 50020,
+      "timeMs": 2151
+    },
+    {
+      "filename": "02_Sequence_Diagrams.md",
+      "blockIndex": 10,
+      "mmdName": "02_Sequence_Diagrams_b10.mmd",
+      "svgName": "02_Sequence_Diagrams_b10.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b10.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\02_Sequence_Diagrams_b10.svg",
+      "status": "PASS",
+      "size": 56689,
+      "timeMs": 2223
+    },
+    {
+      "filename": "03_ERD_Database_Diagram.md",
+      "blockIndex": 1,
+      "mmdName": "03_ERD_Database_Diagram_b01.mmd",
+      "svgName": "03_ERD_Database_Diagram_b01.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\03_ERD_Database_Diagram_b01.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\03_ERD_Database_Diagram_b01.svg",
+      "status": "PASS",
+      "size": 975461,
+      "timeMs": 2920
+    },
+    {
+      "filename": "04_Deployment_Diagram.md",
+      "blockIndex": 1,
+      "mmdName": "04_Deployment_Diagram_b01.mmd",
+      "svgName": "04_Deployment_Diagram_b01.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\04_Deployment_Diagram_b01.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\04_Deployment_Diagram_b01.svg",
+      "status": "PASS",
+      "size": 73178,
+      "timeMs": 2539
+    },
+    {
+      "filename": "04_Deployment_Diagram.md",
+      "blockIndex": 2,
+      "mmdName": "04_Deployment_Diagram_b02.mmd",
+      "svgName": "04_Deployment_Diagram_b02.svg",
+      "mmdPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\04_Deployment_Diagram_b02.mmd",
+      "svgPath": "d:\\Idea_DoAn\\.agents\\auditor_1\\temp_mmd\\04_Deployment_Diagram_b02.svg",
+      "status": "PASS",
+      "size": 39878,
+      "timeMs": 2128
+    }
+  ]
+}

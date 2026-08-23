@@ -1,0 +1,31 @@
+sequenceDiagram
+    autonumber
+    actor NV as Nhân Viên (Staff Browser)
+    participant POS as Web POS / Attendance Route
+    participant BE as .NET 8 Backend API
+    participant DB as PostgreSQL 16
+    participant HUB as SignalR NotificationHub
+
+    NV->>POS: Truy cập (pos)/attendance & Nhập Mã Nhân Viên (VD: NV-088)
+    POS->>BE: POST /api/v1/attendance/check-in { employeeCode: "NV-088", clientIp: "192.168.1.45", bssid: "00:14:22:01:23:45" }
+    
+    Note over BE,DB: BƯỚC 1: DUAL-CHECK KIỂM TRA MẠNG WIFI
+    BE->>DB: Query bảng BranchWifiConfigs theo branch_id
+    DB-->>BE: Trả về danh sách BSSID & Allowed IP Subnets hợp lệ
+    
+    alt IP hoặc BSSID KHÔNG khớp với cấu hình chi nhánh
+        BE-->>POS: HTTP 403 Forbidden: "Bạn không kết nối đúng mạng WiFi của quán!"
+        POS-->>NV: Hiển thị thông báo đỏ: Chấm công thất bại!
+    else Mạng WiFi hợp lệ
+        Note over BE,DB: BƯỚC 2: KIỂM TRA ĐỊNH DANH NHÂN VIÊN & CA LÀM
+        BE->>DB: Query User & ShiftSchedule theo employeeCode
+        alt Mã NV không tồn tại hoặc không có ca hôm nay
+            BE-->>POS: HTTP 400 Bad Request: "Mã NV không hợp lệ hoặc chưa được phân ca!"
+        else Thông tin hợp lệ
+            BE->>DB: INSERT INTO Attendances (check_in_time, verified_ip, verified_bssid, status='OnTime')
+            DB-->>BE: Confirm Inserted
+            BE->>HUB: Broadcast 'StaffCheckedInEvent' tới Group "Branch_{branchId}_Manager"
+            BE-->>POS: HTTP 200 OK: "Chấm công thành công lúc 07:55 AM (Đúng giờ)"
+            POS-->>NV: Hiển thị màn hình xanh thành công & mở quyền POS
+        end
+    end

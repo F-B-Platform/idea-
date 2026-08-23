@@ -1,0 +1,117 @@
+graph TB
+    %% =========================================================================
+    %% TẦNG 1: CLIENT EDGE TIERS
+    %% =========================================================================
+    subgraph CLIENT_EDGE["📱 TẦNG THIẾT BỊ ĐẦU CUỐI (CLIENT EDGE LAYER - 100% WEB RESPONSIVE)"]
+        direction LR
+        CLI_PWA["📱 Khách Hàng (Customer)<br/>• iOS Safari / Android Chrome<br/>• PWA QR Menu / QR Delivery<br/>• Web-First No App Store"]
+        CLI_KDS["📺 Bếp & Pha Chế (Barista KDS)<br/>• Smart TV Android / iPad / Tablet<br/>• Full-screen Web KDS<br/>• SignalR Real-Time 86-Toggle"]
+        CLI_POS["💻 Nhân Viên Thu Ngân (Staff POS)<br/>• Laptop / PC / Tablet Quầy<br/>• Web POS Takeaway & CRM 10 Ly<br/>• Chấm công WiFi Check-in"]
+        CLI_MGR["👔 Quản Lý & Chủ Chuỗi (Admin/Manager)<br/>• Desktop / Laptop Chrome<br/>• Mở/Kết ca Z-Report, Kho BOM<br/>• Quản trị Chuỗi & Phê duyệt AI Combo"]
+    end
+
+    %% =========================================================================
+    %% TẦNG 2: INGRESS, WAF & EDGE SECURITY
+    %% =========================================================================
+    subgraph INGRESS_SECURITY["🛡️ TẦNG CỔNG VÀO & BẢO MẬT BIÊN (INGRESS & EDGE SECURITY)"]
+        CF_EDGE["🌐 Cloudflare Edge Network<br/>• Anycast DNS (smartfb.vn)<br/>• Global CDN Caching (Static Files)<br/>• L3/L4 DDoS Mitigation"]
+        
+        subgraph REVERSE_PROXY_HOST["🔒 NGINX Ingress Reverse Proxy (Port 80 / 443)"]
+            NGX_ROUTER["⚡ NGINX 1.25 Alpine Engine<br/>• TLS 1.2 / TLS 1.3 Termination (Let's Encrypt)<br/>• Rate Limiter (60 req/min/IP, Burst 20)<br/>• OWASP Top 10 Security Headers<br/>• Gzip / Brotli Static Compression"]
+            NGX_WS["🔌 WebSocket Upgrade Engine<br/>• Map Connection Upgrade for SignalR<br/>• Proxy Read Timeout: 3600s"]
+        end
+    end
+
+    %% =========================================================================
+    %% TẦNG 3: APPLICATION SERVICES (DOCKER CONTAINER NETWORK)
+    %% =========================================================================
+    subgraph APP_TIER["🐳 TẦNG XỬ LÝ ỨNG DỤNG (APPLICATION TIER - DOCKER BRIDGE NETWORK)"]
+        subgraph FE_CONTAINER["🌐 Frontend SSR Node.js Container"]
+            FE_SRV["smartfb-frontend (Port: 3000)<br/>• Next.js 14 App Router (Node.js 20 Alpine)<br/>• 5 Route Groups: (customer), (kds), (staff), (manager), (admin)<br/>• Standalone Server Output Mode"]
+        end
+
+        subgraph BE_CONTAINER["⚙️ Backend Core API Container"]
+            BE_API["smartfb-webapi (Port: 5000)<br/>• ASP.NET Core 8 Web API (Clean Architecture)<br/>• MediatR CQRS Command/Query Handlers<br/>• FluentValidation & RFC 7807 ProblemDetails"]
+            BE_HUBS["📡 Real-Time SignalR WebSockets<br/>• /hubs/orders (Dine-In/Delivery)<br/>• /hubs/kitchen (KDS Điều Phối Bếp)<br/>• /hubs/payments (PayOS Webhook Notify)<br/>• /hubs/notifications (Chuông Gọi Bàn & Alert)"]
+            BE_WORKERS["⏰ Background Worker Services<br/>• HostedService: Apriori Combo Mining<br/>• Scheduled Job: Tự Động Đóng Ca & Cảnh Báo Kho<br/>• Seasonal Menu Activation Scheduler"]
+        end
+    end
+
+    %% =========================================================================
+    %% TẦNG 4: DATA PERSISTENCE & CACHING TIER
+    %% =========================================================================
+    subgraph DATA_TIER["💾 TẦNG DỮ LIỆU & LƯU TRỮ (DATA PERSISTENCE & CACHING TIER)"]
+        subgraph PG_CLUSTER["🐘 PostgreSQL 16 Relational Database"]
+            PG_DB["smartfb-postgres (Port: 5432)<br/>• 25 Thực Thể Chuẩn Hóa 3NF<br/>• Connection Pooling (Npgsql: Min 10, Max 100)<br/>• JSONB Dynamic Modifiers & Timescale Logs<br/>• Persistent Volume: postgres_data"]
+        end
+
+        subgraph REDIS_CLUSTER["⚡ Redis 7 In-Memory Caching & Bus"]
+            REDIS_DB["smartfb-redis (Port: 6379)<br/>• Redis 7 Alpine with AOF & RDB Snapshot<br/>• Cache-Aside Pattern (Menu, Table, CRM)<br/>• RedLock Distributed Locking (Bàn, KDS, Idempotency)<br/>• Redis Pub/Sub SignalR Multi-instance Backplane"]
+        end
+    end
+
+    %% =========================================================================
+    %% TẦNG 5: THIRD-PARTY CLOUD SERVICES & HARDWARE
+    %% =========================================================================
+    subgraph EXTERNAL_TIER["☁️ TẦNG DỊCH VỤ NGOÀI & PHẦN CỨNG CHI NHÁNH (3RD-PARTY INTEGRATIONS)"]
+        EXT_PAYOS["💳 Cổng Thanh Toán PayOS (VietQR)<br/>• Dynamic QR Code Generation API<br/>• HMAC-SHA256 Webhook Notifications"]
+        EXT_GEMINI["🤖 Google Gemini 1.5 Flash Cloud<br/>• RAG AI-1 Khẩu vị & Dinh dưỡng Calo<br/>• Menu Context Injection & JSON Output"]
+        EXT_WEATHER["⛅ OpenWeatherMap Cloud API<br/>• Real-time Branch Weather Context<br/>• Kích hoạt Gợi ý Món Nóng/Lạnh"]
+        EXT_STORAGE["🪣 AWS S3 / Cloudflare R2 Bucket<br/>• Product Images & Menu Banners<br/>• Customer Review Photos & Bill PDF"]
+        LAN_PRINTER["🖨️ Máy In Nhiệt LAN / USB Chi Nhánh<br/>• Giao thức ESC/POS (Raw TCP Port 9100)<br/>• In Tem Dán Ly & Bill Có Mã VietQR"]
+    end
+
+    %% =========================================================================
+    %% TẦNG 6: OBSERVABILITY & DEVOPS
+    %% =========================================================================
+    subgraph OBSERVE_TIER["📊 TẦNG GIÁM SÁT & VẬN HÀNH (OBSERVABILITY & OPERATIONS)"]
+        PROM_SRV["📈 Prometheus 2.45<br/>• Scrape Metrics /metrics: 15s<br/>• Host & Container Stats"]
+        GRAF_SRV["📊 Grafana 10 Dashboard<br/>• Latency P50/P95/P99, RPS, Error Rate<br/>• CPU/RAM, Active SignalR Sockets"]
+        SEQ_SRV["📜 Seq / Grafana Loki<br/>• Centralized Serilog Aggregator<br/>• CorrelationId Tracing Across Tiers"]
+    end
+
+    %% =========================================================================
+    %% KẾT NỐI LUỒNG DỮ LIỆU (RELATIONSHIPS & PROTOCOLS)
+    %% =========================================================================
+    CLI_PWA & CLI_KDS & CLI_POS & CLI_MGR -->|"HTTPS (Port 443) / WSS"| CF_EDGE
+    CF_EDGE -->|"Proxied Traffic (Port 443)"| NGX_ROUTER
+
+    NGX_ROUTER -->|"HTTP / (Port 3000)"| FE_SRV
+    NGX_ROUTER -->|"HTTP /api/v1/* (Port 5000)"| BE_API
+    NGX_ROUTER -->|"WSS /hubs/* (Upgrade: websocket)"| NGX_WS
+    NGX_WS -->|"TCP WebSocket Forward"| BE_HUBS
+
+    FE_SRV -.->|"Internal SSR Calls"| BE_API
+    BE_API <-->|"Npgsql Connection Pool"| PG_DB
+    BE_API <-->|"StackExchange.Redis (Cache & Locks)"| REDIS_DB
+    BE_HUBS <-->|"Pub/Sub Backplane"| REDIS_DB
+    BE_WORKERS -->|"Background Queries & Mining"| PG_DB
+    BE_WORKERS -->|"Invalidate Expired Cache"| REDIS_DB
+
+    BE_API -->|"REST API (Create Payment Link)"| EXT_PAYOS
+    EXT_PAYOS -->|"POST Webhook (HMAC Signed)"| NGX_ROUTER
+    BE_API -->|"HTTPS REST Prompt Call"| EXT_GEMINI
+    BE_API -->|"HTTPS Weather Query"| EXT_WEATHER
+    BE_API -->|"S3 SDK PutObject/GetObject"| EXT_STORAGE
+    BE_API -.->|"Raw Socket TCP:9100 / Web Print"| LAN_PRINTER
+
+    BE_API & FE_SRV & PG_DB & REDIS_DB -.->|"Expose Metrics"| PROM_SRV
+    PROM_SRV -->|"Data Source"| GRAF_SRV
+    BE_API -.->|"Structured JSON Logs"| SEQ_SRV
+
+    %% =========================================================================
+    %% STYLING CLASSES
+    %% =========================================================================
+    classDef clientStyle fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#ffffff;
+    classDef ingressStyle fill:#312e81,stroke:#818cf8,stroke-width:2px,color:#ffffff;
+    classDef appStyle fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ffffff;
+    classDef dataStyle fill:#701a75,stroke:#f472b6,stroke-width:2px,color:#ffffff;
+    classDef extStyle fill:#7c2d12,stroke:#fb923c,stroke-width:2px,color:#ffffff;
+    classDef obsStyle fill:#134e4a,stroke:#2dd4bf,stroke-width:2px,color:#ffffff;
+
+    class CLI_PWA,CLI_KDS,CLI_POS,CLI_MGR clientStyle;
+    class CF_EDGE,NGX_ROUTER,NGX_WS ingressStyle;
+    class FE_SRV,BE_API,BE_HUBS,BE_WORKERS appStyle;
+    class PG_DB,REDIS_DB dataStyle;
+    class EXT_PAYOS,EXT_GEMINI,EXT_WEATHER,EXT_STORAGE,LAN_PRINTER extStyle;
+    class PROM_SRV,GRAF_SRV,SEQ_SRV obsStyle;

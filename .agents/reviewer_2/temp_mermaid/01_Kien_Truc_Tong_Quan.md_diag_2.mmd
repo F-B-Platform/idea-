@@ -1,0 +1,88 @@
+flowchart TB
+    subgraph CLIENT_TIER["🖥️ CLIENT LAYER (Next.js 14 App Router Monorepo - Port 3000)"]
+        direction TB
+        FE_AUTH["🔐 Auth Route Group: (auth)<br>[React 19 / Tailwind]<br>Đăng nhập tập trung JWT RBAC, OTP SĐT"]
+        FE_CUST["📱 Customer Route Group: (customer)<br>[PWA Mobile-First / Zustand]<br>Dine-in Menu, Delivery Form 20k, VietQR, AI Chat, Review"]
+        FE_POS["💻 Staff Route Group: (pos)<br>[Web Responsive / TanStack Query]<br>Takeaway POS, CRM 10 Ly, Sơ đồ bàn, Thu tiền, Chấm công WiFi"]
+        FE_KDS["📺 Kitchen Route Group: (kitchen)<br>[Fullscreen TV / SignalR Hook]<br>Hàng đợi KDS Barista, Định mức BOM, Nút bấm 86-Toggle"]
+        FE_ADM["🏢 Admin & Manager Route Group: (admin)<br>[Shadcn UI / Data Grid / Recharts]<br>Ca két Z-Report, Kho BOM, WiFi Config, CRUD Menu, AI Combo, P&L"]
+    end
+
+    subgraph EDGE_TIER["🛡️ API GATEWAY & REVERSE PROXY LAYER (Port 80/443)"]
+        NGINX["🛡️ NGINX Reverse Proxy & WAF (Alpine Linux)<br>• SSL/TLS Termination (Let's Encrypt)<br>• Rate Limiting (60 req/min/IP cho Khách, 300 req/min cho POS)<br>• Gzip/Brotli Compression & Static CDN Proxy"]
+    end
+
+    subgraph BACKEND_TIER["⚙️ APPLICATION BACKEND CONTAINER (.NET 8 Web API - Port 5000)"]
+        direction TB
+        API_GATE["🌐 API Controllers & Middlewares<br>[JWT Auth, Exception Middleware, Request Audit Logger]"]
+        CQRS_BUS["🔀 MediatR Pipeline & CQRS Engine<br>[ValidationBehavior, LoggingBehavior, TransactionScope]"]
+        
+        subgraph BUSINESS_MODULES["Core Business Handlers"]
+            MOD_ORDER["📦 Order Engine (DineIn 2 nhánh, Delivery 20k, Takeaway)"]
+            MOD_PAY["💳 Payment & PayOS Webhook HMAC Handler"]
+            MOD_KDS["🍳 KDS & Inventory BOM Auto-Deduction Engine"]
+            MOD_CRM["🎁 CRM & Loyalty 10-Cup Rule Engine (Takeaway Only)"]
+            MOD_ATT["📶 WiFi-Locked Attendance Validator (BSSID/IP)"]
+            MOD_SHIFT["💵 Cash Shift & Z-Report Reconciliation Handler"]
+        end
+
+        SIG_ENGINE["⚡ SignalR Real-Time Hubs Server<br>[/hubs/orders, /hubs/kitchen, /hubs/payments, /hubs/notifications]"]
+    end
+
+    subgraph AI_CONTAINER["🧠 AI MICRO-ENGINE & ANALYTICS CONTAINER"]
+        AI_RAG["🤖 AI-1: RAG Chatbot Service (Gemini 1.5 Flash SDK)<br>Context Builder + Semantic Prompt + Fallback Top Best-Sellers"]
+        AI_APRIORI["📊 AI-2: Market Basket Association Miner<br>Apriori / FP-Growth (Support >= 0.02, Lift > 1.2)"]
+    end
+
+    subgraph DATA_TIER["🗄️ PERSISTENCE & IN-MEMORY DATA LAYER (Docker Bridge Network)"]
+        PG_DB[("🐘 PostgreSQL 16 Enterprise Database (Port 5432)<br>25 Tables 3NF, B-Tree & GIN Indexes, Foreign Keys, ACID Isolation")]
+        REDIS_CACHE[("⚡ Redis 7.2 Alpine In-Memory Cache (Port 6379)<br>• L2 Distributed Cache (Menu, Categories, Stores)<br>• RedLock Distributed Locks (lock:tbl, lock:inv, lock:pay)<br>• SignalR Redis Backplane Pub/Sub (smartfb:signalr:*)")]
+    end
+
+    subgraph EXT_INTEGRATIONS["🌐 EXTERNAL INTEGRATION ENDPOINTS"]
+        EXT_PAYOS["💳 PayOS VietQR API"]
+        EXT_GEMINI["🤖 Google Gemini API Cloud"]
+        EXT_OPENWEATHER["⛅ OpenWeatherMap API"]
+        EXT_STORAGE["📁 S3 / Cloudflare R2"]
+        EXT_PRINTER["🖨️ Máy In Nhiệt LAN/USB (ESC/POS)"]
+    end
+
+    %% Client to NGINX
+    FE_AUTH & FE_CUST & FE_POS & FE_KDS & FE_ADM -->|"HTTPS (Port 443) / WSS"| NGINX
+
+    %% NGINX to Backend
+    NGINX -->|"HTTP REST Requests (/api/v1/*)"| API_GATE
+    NGINX -->|"WebSocket Upgrades (/hubs/*)"| SIG_ENGINE
+
+    %% Inside Backend
+    API_GATE --> CQRS_BUS
+    CQRS_BUS --> BUSINESS_MODULES
+    BUSINESS_MODULES -->|"State Events & Broadcasts"| SIG_ENGINE
+    BUSINESS_MODULES <-->|"In-process / Internal Call"| AI_CONTAINER
+
+    %% Backend to Data Layer
+    BUSINESS_MODULES -->|"EF Core 8 Npgsql (ACID Transactions)"| PG_DB
+    BUSINESS_MODULES <-->|"Cache-Aside & RedLock Acquirements"| REDIS_CACHE
+    SIG_ENGINE <-->|"Pub/Sub Message Bus Backplane"| REDIS_CACHE
+
+    %% Backend to External
+    MOD_PAY <-->|"REST API & HMAC Webhook"| EXT_PAYOS
+    AI_RAG -->|"Prompt Context / GenerateContent"| EXT_GEMINI
+    AI_RAG -->|"Query Current Weather"| EXT_OPENWEATHER
+    API_GATE -->|"Pre-signed Upload / Media Fetch"| EXT_STORAGE
+    MOD_ORDER & MOD_KDS -->|"RAW Byte TCP/IP Socket (Port 9100)"| EXT_PRINTER
+
+    %% Styling
+    classDef clientStyle fill:#1e3a8a,stroke:#3b82f6,stroke-width:2px,color:#ffffff;
+    classDef edgeStyle fill:#b91c1c,stroke:#ef4444,stroke-width:2px,color:#ffffff;
+    classDef beStyle fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#ffffff;
+    classDef aiStyle fill:#581c87,stroke:#a855f7,stroke-width:2px,color:#ffffff;
+    classDef dataStyle fill:#701a75,stroke:#ec4899,stroke-width:2px,color:#ffffff;
+    classDef extStyle fill:#374151,stroke:#9ca3af,stroke-width:2px,color:#ffffff;
+
+    class FE_AUTH,FE_CUST,FE_POS,FE_KDS,FE_ADM clientStyle;
+    class NGINX edgeStyle;
+    class API_GATE,CQRS_BUS,BUSINESS_MODULES,SIG_ENGINE beStyle;
+    class AI_RAG,AI_APRIORI aiStyle;
+    class PG_DB,REDIS_CACHE dataStyle;
+    class EXT_PAYOS,EXT_GEMINI,EXT_OPENWEATHER,EXT_STORAGE,EXT_PRINTER extStyle;

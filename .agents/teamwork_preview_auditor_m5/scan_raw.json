@@ -1,0 +1,228 @@
+{
+  "placeholders": [],
+  "prohibited_legacy": [
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 46,
+      "content": "7. **Chấm công thiếu chính xác & Gian lận vị trí:** Máy chấm công vân tay dễ hư hỏng do dầu mỡ; chấm công GPS di động dễ bị giả lập tọa độ (Fake GPS) hoặc sai lệch lớn trong nhà/tầng hầm.",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 56,
+      "content": "│ 1. 100% Web-First Monorepo        │ Không phát triển Staff Mobile App (Flutter/React Native).     │",
+      "issue": "Staff Mobile App reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 56,
+      "content": "│ 1. 100% Web-First Monorepo        │ Không phát triển Staff Mobile App (Flutter/React Native).     │",
+      "issue": "Flutter reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 56,
+      "content": "│ 1. 100% Web-First Monorepo        │ Không phát triển Staff Mobile App (Flutter/React Native).     │",
+      "issue": "React Native reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 59,
+      "content": "│ 2. Chấm Công Khóa Mạng WiFi       │ Bỏ 100% GPS 50m và QR 30s. Xác thực Dual-Check: BSSID Router │",
+      "issue": "GPS 50m reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 59,
+      "content": "│ 2. Chấm Công Khóa Mạng WiFi       │ Bỏ 100% GPS 50m và QR 30s. Xác thực Dual-Check: BSSID Router │",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 59,
+      "content": "│ 2. Chấm Công Khóa Mạng WiFi       │ Bỏ 100% GPS 50m và QR 30s. Xác thực Dual-Check: BSSID Router │",
+      "issue": "QR 30s reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 148,
+      "content": "Quy trình kiểm thực chấm công loại bỏ 100% các giải pháp lỗi thời (GPS 50m dễ bị Fake GPS; QR 30s gây phiền toái):",
+      "issue": "GPS 50m reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 148,
+      "content": "Quy trình kiểm thực chấm công loại bỏ 100% các giải pháp lỗi thời (GPS 50m dễ bị Fake GPS; QR 30s gây phiền toái):",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 148,
+      "content": "Quy trình kiểm thực chấm công loại bỏ 100% các giải pháp lỗi thời (GPS 50m dễ bị Fake GPS; QR 30s gây phiền toái):",
+      "issue": "QR 30s reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 169,
+      "content": "│ 01 │ Staff Mobile App              │ Tốn chi phí build đa nền tảng,│ Hợp nhất 100% trên Web     │",
+      "issue": "Staff Mobile App reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 170,
+      "content": "│    │ (Flutter / React Native)      │ duyệt App Store phức tạp.     │ Responsive POS & KDS.      │",
+      "issue": "Flutter reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 170,
+      "content": "│    │ (Flutter / React Native)      │ duyệt App Store phức tạp.     │ Responsive POS & KDS.      │",
+      "issue": "React Native reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 172,
+      "content": "│ 02 │ Chấm công Định vị GPS 50m     │ Sai số lớn trong nhà/tầng hầm,│ Chấm công Khóa mạng WiFi   │",
+      "issue": "GPS 50m reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 172,
+      "content": "│ 02 │ Chấm công Định vị GPS 50m     │ Sai số lớn trong nhà/tầng hầm,│ Chấm công Khóa mạng WiFi   │",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 173,
+      "content": "│    │                               │ dễ bị giả lập Fake GPS.       │ (BSSID + IP Subnet + Mã NV)│",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 178,
+      "content": "│ 04 │ Tính năng C-23 (Chia sẻ MXH)  │ Ngoài phạm vi cốt lõi MVP,    │ Chuyển sang danh mục       │",
+      "issue": "C-23 legacy feature reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 179,
+      "content": "│    │ & C-24 (Push Notification)    │ không phục vụ luồng vận hành. │ Scale Up / Future Work.    │",
+      "issue": "C-24 legacy feature reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 181,
+      "content": "│ 05 │ Ví Voucher độc lập riêng lẻ   │ Rườm rà, tăng ma sát UI.      │ Tích hợp trực tiếp vào     │",
+      "issue": "Vi voucher reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 184,
+      "content": "│ 06 │ Màn hình Tra cứu Calo riêng lẻ│ Tách rời trải nghiệm gọi món. │ Tích hợp trực tiếp vào chi │",
+      "issue": "Tra cuu calo rieng reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 370,
+      "content": "Giao diện thực thi: **Web Responsive POS Quầy & Web KDS Fullscreen** (`(kds)`, `(staff)`). **100% không dùng Staff Mobile App**.",
+      "issue": "Staff Mobile App reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 382,
+      "content": "- **Quy Tắc & Ràng Buộc:** Từ chối 100% nếu nhân viên sử dụng 4G/5G hoặc kết nối sai WiFi chi nhánh. Bỏ hoàn toàn GPS 50m và QR 30s.",
+      "issue": "GPS 50m reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 382,
+      "content": "- **Quy Tắc & Ràng Buộc:** Từ chối 100% nếu nhân viên sử dụng 4G/5G hoặc kết nối sai WiFi chi nhánh. Bỏ hoàn toàn GPS 50m và QR 30s.",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "01_Phan_Tich_Yeu_Cau.md",
+      "line": 382,
+      "content": "- **Quy Tắc & Ràng Buộc:** Từ chối 100% nếu nhân viên sử dụng 4G/5G hoặc kết nối sai WiFi chi nhánh. Bỏ hoàn toàn GPS 50m và QR 30s.",
+      "issue": "QR 30s reference"
+    },
+    {
+      "file": "03_Thiet_Ke_API_Contract.md",
+      "line": 867,
+      "content": "* **Mô tả:** Xác thực kép địa chỉ BSSID của Access Point Router và dải IP Subnet nội bộ chi nhánh kết hợp Mã số nhân viên / PIN. Chống 100% gian lận Fake GPS hay chấm công ngoài quán.",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "04_Thiet_Ke_UI_UX.md",
+      "line": 9,
+      "content": "> **Cam kết chất lượng:** Phân rã trọn vẹn 5 Route Groups độc lập, loại bỏ 100% ứng dụng di động native/GPS/QR xoay vòng. Xuất bản đầy đủ Design Tokens, 7 Sơ đồ luồng trải nghiệm người dùng, 20 Khung giao diện ASCII Wireframes chuẩn hóa chi tiết và Bảng ma trận truy vết 62 tính năng cốt lõi. Zero Placeholder.",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "06_Quy_Trinh_Frontend.md",
+      "line": 8,
+      "content": "> **Cam kết chất lượng:** Phân rã kiến trúc Frontend Monorepo phân tách thành 5 Route Groups độc lập, loại bỏ 100% Staff Mobile App, GPS 50m, QR xoay 30s, C-23/C-24. Cung cấp đầy đủ 5 Zustand Stores bằng TypeScript hoàn chỉnh 100%, Hooks SignalR Real-Time với Web Audio API Chime, Service Worker Cache Menu Offline. Zero Placeholder.",
+      "issue": "Staff Mobile App reference"
+    },
+    {
+      "file": "06_Quy_Trinh_Frontend.md",
+      "line": 8,
+      "content": "> **Cam kết chất lượng:** Phân rã kiến trúc Frontend Monorepo phân tách thành 5 Route Groups độc lập, loại bỏ 100% Staff Mobile App, GPS 50m, QR xoay 30s, C-23/C-24. Cung cấp đầy đủ 5 Zustand Stores bằng TypeScript hoàn chỉnh 100%, Hooks SignalR Real-Time với Web Audio API Chime, Service Worker Cache Menu Offline. Zero Placeholder.",
+      "issue": "GPS 50m reference"
+    },
+    {
+      "file": "06_Quy_Trinh_Frontend.md",
+      "line": 8,
+      "content": "> **Cam kết chất lượng:** Phân rã kiến trúc Frontend Monorepo phân tách thành 5 Route Groups độc lập, loại bỏ 100% Staff Mobile App, GPS 50m, QR xoay 30s, C-23/C-24. Cung cấp đầy đủ 5 Zustand Stores bằng TypeScript hoàn chỉnh 100%, Hooks SignalR Real-Time với Web Audio API Chime, Service Worker Cache Menu Offline. Zero Placeholder.",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "06_Quy_Trinh_Frontend.md",
+      "line": 8,
+      "content": "> **Cam kết chất lượng:** Phân rã kiến trúc Frontend Monorepo phân tách thành 5 Route Groups độc lập, loại bỏ 100% Staff Mobile App, GPS 50m, QR xoay 30s, C-23/C-24. Cung cấp đầy đủ 5 Zustand Stores bằng TypeScript hoàn chỉnh 100%, Hooks SignalR Real-Time với Web Audio API Chime, Service Worker Cache Menu Offline. Zero Placeholder.",
+      "issue": "C-23 legacy feature reference"
+    },
+    {
+      "file": "06_Quy_Trinh_Frontend.md",
+      "line": 8,
+      "content": "> **Cam kết chất lượng:** Phân rã kiến trúc Frontend Monorepo phân tách thành 5 Route Groups độc lập, loại bỏ 100% Staff Mobile App, GPS 50m, QR xoay 30s, C-23/C-24. Cung cấp đầy đủ 5 Zustand Stores bằng TypeScript hoàn chỉnh 100%, Hooks SignalR Real-Time với Web Audio API Chime, Service Worker Cache Menu Offline. Zero Placeholder.",
+      "issue": "C-24 legacy feature reference"
+    },
+    {
+      "file": "README.md",
+      "line": 92,
+      "content": "│ ❌ **Staff Mobile App**      │ ✅ **Responsive Web POS & KDS**│ Nhân viên và Barista chỉ sử dụng  │",
+      "issue": "Staff Mobile App reference"
+    },
+    {
+      "file": "README.md",
+      "line": 95,
+      "content": "│ ❌ **Chấm công GPS 50m**     │ ✅ **WiFi-Locked Attendance** │ Chấm công khóa mạng 2 lớp: Subnet │",
+      "issue": "GPS 50m reference"
+    },
+    {
+      "file": "README.md",
+      "line": 95,
+      "content": "│ ❌ **Chấm công GPS 50m**     │ ✅ **WiFi-Locked Attendance** │ Chấm công khóa mạng 2 lớp: Subnet │",
+      "issue": "GPS reference"
+    },
+    {
+      "file": "README.md",
+      "line": 101,
+      "content": "│ ❌ **Tính năng C-23 & C-24** │ ✅ **Chuẩn hóa đúng 62 FRs**  │ Giới hạn danh mục tính năng đúng: │",
+      "issue": "C-23 legacy feature reference"
+    },
+    {
+      "file": "README.md",
+      "line": 101,
+      "content": "│ ❌ **Tính năng C-23 & C-24** │ ✅ **Chuẩn hóa đúng 62 FRs**  │ Giới hạn danh mục tính năng đúng: │",
+      "issue": "C-24 legacy feature reference"
+    }
+  ],
+  "core_engines": {},
+  "features_check": {},
+  "db_tables": {},
+  "api_groups": {},
+  "ui_routes": {},
+  "mermaid_blocks": [],
+  "code_blocks": []
+}

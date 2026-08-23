@@ -1,0 +1,148 @@
+sequenceDiagram
+    autonumber
+    actor C as 👤 Khách Hàng (Tại bàn)
+    participant PWA as 📱 Next.js PWA (Customer)
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (OrderController)
+    participant REDIS as ⚡ Redis 7 (RedLock & Soft Reservation)
+    participant DB as 🐘 PostgreSQL 16 (EF Core)
+    participant PAY as 🏦 Cổng PayOS (VietQR)
+    participant HUB as 📡 SignalR (Kitchen & Payment Hub)
+    actor KDS as 🧋 Barista (Web KDS Bếp)
+    actor ST as 🧑‍💼 Nhân Viên Phục Vụ
+
+    %% Bước 1: Quét QR & Chọn món
+    C->>PWA: Quét mã QR Bàn 04 (URL: /menu?branch=B01&table=T04&sig=a8f9...)
+    PWA->>NGINX: GET /api/v1/menu/items?branchId=B01
+    NGINX->>API: Forward request
+    API->>REDIS: GET menu:branch:B01:active
+    REDIS-->>API: Trả về Cache Menu DTOs
+    API-->>PWA: HTTP 200 OK (Danh mục, Món, Topping, Giá vùng)
+    C->>PWA: Tùy biến món: 2x Cà Phê Muối Size L, 50% Đường, 70% Đá
+    C->>PWA: Nhập SĐT "0901234567" & Chọn [Thanh toán VietQR Trả Trước]
+
+    %% Bước 2: Tạo Đơn Hàng, Khóa Bàn & Soft Inventory Reservation
+    PWA->>NGINX: POST /api/v1/orders/dine-in (TableId: "T04", Items, Phone, PaymentMethod="VIETQR")
+    NGINX->>API: Forward kèm Header Idempotency-Key
+    
+    activate API
+    API->>REDIS: RedLock.AcquireAsync("lock:table:T04", expire=5s)
+    REDIS-->>API: Lock Acquired (Thành công)
+    
+    %% Kiểm tra trạng thái bàn và tồn kho BOM khả dụng
+    API->>DB: SELECT status, is_active FROM tables WHERE id='T04'
+    DB-->>API: TableRecord { status: "Available", is_active: true }
+    
+    API->>DB: SELECT r.ingredient_id, r.quantity FROM product_recipes r WHERE r.product_id='prod-cf-muoi' AND r.size_id='size-L'
+    DB-->>API: RecipeData { Coffee: 40g, Milk: 60ml, SaltCream: 30ml } (x2 Ly = 80g Coffee, 120ml Milk, 60ml SaltCream)
+    
+    API->>DB: SELECT s.ingredient_id, s.current_quantity FROM inventory_stocks s WHERE s.branch_id='B01' AND s.ingredient_id IN ('ing-coffee', 'ing-milk', 'ing-salt')
+    DB-->>API: CurrentStockData { Coffee: 5000g, Milk: 10000ml, SaltCream: 2000ml }
+    
+    API->>REDIS: HGETALL inventory:reserved:B01
+    REDIS-->>API: ReservedData { Coffee: 200g, Milk: 500ml, SaltCream: 100ml }
+    
+    API->>API: Kiểm tra: available_stock = current_quantity - reserved_stock >= required_qty (Đủ tồn kho khả dụng)
+    
+    %% Thực hiện Giữ Tồn Kho Tạm Thời (Soft Reservation) trên Redis (TTL 600s)
+    API->>REDIS: HINCRBY inventory:reserved:B01 ing-coffee 80
+    API->>REDIS: HINCRBY inventory:reserved:B01 ing-milk 120
+    API->>REDIS: HINCRBY inventory:reserved:B01 ing-salt 60
+    API->>REDIS: EXPIRE inventory:reserved:B01 600
+    
+    API->>DB: BEGIN TRANSACTION
+    API->>DB: INSERT INTO orders (order_code='ORD-B01-9942', branch_id='B01', table_id='T04', order_type='DINE_IN', status='PendingPayment', total_amount=90000, expires_at=NOW()+INTERVAL '10 min')
+    API->>DB: INSERT INTO order_items (order_id, product_id, size_id, quantity=2, unit_price=45000, total_price=90000, sugar_level='50%', ice_level='70%', status='PendingPayment')
+    API->>DB: INSERT INTO payments (order_id, payment_method='VIETQR', amount=90000, status='Pending', transfer_content='ORD_B01_9942')
+    API->>DB: UPDATE tables SET status='Occupied_PendingPayment', updated_at=NOW() WHERE id='T04'
+    API->>DB: COMMIT TRANSACTION
+    
+    API->>REDIS: SET table:T04:active_order "ord-9942" EX 600
+    API->>REDIS: RedLock.ReleaseAsync("lock:table:T04")
+    
+    %% Bước 3: Gọi PayOS Gateway sinh VietQR
+    API->>PAY: POST /v2/payment-requests (Amount=90000, Description="ORD_B01_9942", CancelUrl=..., ReturnUrl=...)
+    PAY-->>API: Trả về PaymentLinkResponse (PaymentLinkId="plink_8841", QrCodeDataUrl="vietqr_payload_string", CheckoutUrl=...)
+    
+    API-->>PWA: HTTP 201 Created (OrderId="ord-9942", QrCodeUrl, TotalAmount=90000, ExpiresAt="10:00")
+    deactivate API
+
+    %% Bước 4: Hiển thị VietQR cho khách
+    PWA-->>C: Hiển thị mã VietQR động + Bộ đếm ngược 10:00 + DeepLink App Ngân hàng
+    Note over KDS: ⚠️ Màn hình KDS Bếp CHƯA hiển thị đơn này (Chặn đơn chưa thanh toán)
+
+    %% Bước 5: Chuyển khoản & Webhook Xử lý (2 Nhánh)
+    alt Nhánh A1: Khách Chuyển Khoản Thành Công Qua PayOS
+        C->>PAY: Mở App Ngân Hàng (NAPAS 24/7) -> Quét VietQR -> Chuyển 90.000đ
+        PAY->>NGINX: POST /api/v1/webhooks/payos (Header: x-payos-signature: "d7a8e5b...")
+        NGINX->>API: Forward Webhook Payload
+        
+        activate API
+        API->>API: Xác minh chữ ký HMAC-SHA256 với PayOS_Checksum_Key
+        API->>REDIS: SETNX lock:webhook:payos:ORD_B01_9942 "1" EX 60 (Chống duplicate webhook)
+        
+        API->>DB: BEGIN TRANSACTION
+        API->>DB: UPDATE payments SET status='Success', confirmed_at=NOW() WHERE transfer_content='ORD_B01_9942'
+        API->>DB: INSERT INTO transactions (payment_id, gateway_transaction_id='FT2623598124', amount=90000, is_verified=true, raw_webhook_payload=...)
+        API->>DB: UPDATE orders SET status='Confirmed', paid_at=NOW() WHERE id='ord-9942'
+        API->>DB: UPDATE tables SET status='Occupied_Paid' WHERE id='T04'
+        
+        %% Khấu trừ Tồn kho Vật lý Vĩnh viễn (Physical Stock Deduction)
+        API->>DB: UPDATE inventory_stocks SET current_quantity = current_quantity - 80, updated_at=NOW() WHERE branch_id='B01' AND ingredient_id='ing-coffee'
+        API->>DB: UPDATE inventory_stocks SET current_quantity = current_quantity - 120, updated_at=NOW() WHERE branch_id='B01' AND ingredient_id='ing-milk'
+        API->>DB: UPDATE inventory_stocks SET current_quantity = current_quantity - 60, updated_at=NOW() WHERE branch_id='B01' AND ingredient_id='ing-salt'
+        
+        API->>DB: INSERT INTO inventory_logs (branch_id, ingredient_id, order_id, change_type='BOM_AUTO_DEDUCT', quantity_changed=-80, notes='Deducted for ord-9942')
+        API->>DB: INSERT INTO inventory_logs (branch_id, ingredient_id, order_id, change_type='BOM_AUTO_DEDUCT', quantity_changed=-120, notes='Deducted for ord-9942')
+        API->>DB: INSERT INTO inventory_logs (branch_id, ingredient_id, order_id, change_type='BOM_AUTO_DEDUCT', quantity_changed=-60, notes='Deducted for ord-9942')
+        API->>DB: COMMIT TRANSACTION
+        
+        %% Giải phóng Giữ Tồn Kho Tạm Thời (Release Soft Reservation) trên Redis
+        API->>REDIS: HINCRBY inventory:reserved:B01 ing-coffee -80
+        API->>REDIS: HINCRBY inventory:reserved:B01 ing-milk -120
+        API->>REDIS: HINCRBY inventory:reserved:B01 ing-salt -60
+        
+        %% Bước 6: Realtime Broadcast
+        API->>HUB: PaymentHub.Clients.Group("order_ord-9942").SendAsync("PaymentReceived", { orderId: "ord-9942", status: "Paid" })
+        API->>HUB: KitchenHub.Clients.Group("branch_B01_kitchen").SendAsync("NewKitchenOrder", OrderTicketDto)
+        API-->>PAY: HTTP 200 OK (Webhook Processed Successfully)
+        deactivate API
+        
+        par Đồng bộ Giao diện Khách & KDS
+            HUB-->>PWA: Event `PaymentReceived` -> PWA chuyển sang màn hình "Đã Thanh Toán! Bếp đang nhận đơn ☕"
+            HUB-->>KDS: Event `NewKitchenOrder` -> KDS phát chuông 🔔 Ting-Ting & Thẻ đơn trượt vào cột "Chờ Pha Chế"
+        end
+    else Nhánh A2: Hết Hạn 10 Phút Quét QR Hoặc Khách Hủy Đơn (Compensation Rollback)
+        API->>DB: BEGIN TRANSACTION
+        API->>DB: UPDATE orders SET status='Cancelled', expires_at=NOW() WHERE id='ord-9942'
+        API->>DB: UPDATE payments SET status='Cancelled' WHERE order_id='ord-9942'
+        API->>DB: UPDATE tables SET status='Available' WHERE id='T04'
+        API->>DB: COMMIT TRANSACTION
+        
+        %% Hoàn lại Số lượng Giữ Tồn Kho Tạm Thời trong Redis
+        API->>REDIS: HINCRBY inventory:reserved:B01 ing-coffee -80
+        API->>REDIS: HINCRBY inventory:reserved:B01 ing-milk -120
+        API->>REDIS: HINCRBY inventory:reserved:B01 ing-salt -60
+        API->>REDIS: DEL table:T04:active_order
+        
+        API->>HUB: PaymentHub.Clients.Group("order_ord-9942").SendAsync("OrderExpired", { orderId: "ord-9942" })
+        HUB-->>PWA: PWA thông báo: "Đơn hàng đã hết hạn thanh toán. Vui lòng tạo đơn mới!"
+    end
+
+    %% Bước 7: Pha chế & Phục vụ (Dành cho đơn đã Paid)
+    KDS->>API: PATCH /api/v1/kds/orders/ord-9942/status { status: "Preparing" }
+    API->>DB: UPDATE orders SET status='Preparing' WHERE id='ord-9942'
+    API->>HUB: OrderHub.Clients.Group("order_ord-9942").SendAsync("OrderStatusUpdated", "Preparing")
+    HUB-->>PWA: PWA cập nhật thanh tiến trình: "Quán đang pha chế đồ uống của bạn..."
+
+    KDS->>API: PATCH /api/v1/kds/orders/ord-9942/status { status: "Ready" }
+    API->>DB: UPDATE orders SET status='Ready' WHERE id='ord-9942'
+    API->>HUB: OrderHub.Clients.Group("order_ord-9942").SendAsync("OrderStatusUpdated", "Ready")
+    HUB-->>PWA: PWA rung chuông thông báo: "Đồ uống đã sẵn sàng! Nhân viên đang mang tới bàn."
+
+    ST->>C: Bưng khay đồ uống ra Bàn 04
+    ST->>API: PATCH /api/v1/orders/ord-9942/status { status: "Served" }
+    API->>DB: UPDATE orders SET status='Completed', completed_at=NOW() WHERE id='ord-9942'
+    API->>DB: UPDATE tables SET status='Available' WHERE id='T04'
+    API->>HUB: OrderHub.Clients.Group("order_ord-9942").SendAsync("OrderStatusUpdated", "Completed")
+    HUB-->>PWA: PWA hiển thị Modal Đánh Giá 1-5 Sao ⭐

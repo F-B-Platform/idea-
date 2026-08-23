@@ -1,0 +1,386 @@
+{
+  "totalFiles": 9,
+  "files": {
+    "01_Phan_Tich_Yeu_Cau.md": {
+      "size_bytes": 97709,
+      "lines_count": 826,
+      "blocks_count": 4
+    },
+    "02_Thiet_Ke_Database.md": {
+      "size_bytes": 56261,
+      "lines_count": 1339,
+      "blocks_count": 10
+    },
+    "03_Thiet_Ke_API_Contract.md": {
+      "size_bytes": 72555,
+      "lines_count": 1563,
+      "blocks_count": 46
+    },
+    "04_Thiet_Ke_UI_UX.md": {
+      "size_bytes": 80677,
+      "lines_count": 939,
+      "blocks_count": 29
+    },
+    "05_Quy_Trinh_Backend.md": {
+      "size_bytes": 81837,
+      "lines_count": 1843,
+      "blocks_count": 27
+    },
+    "06_Quy_Trinh_Frontend.md": {
+      "size_bytes": 50361,
+      "lines_count": 1347,
+      "blocks_count": 15
+    },
+    "07_Ke_Hoach_Kiem_Thu.md": {
+      "size_bytes": 69250,
+      "lines_count": 964,
+      "blocks_count": 22
+    },
+    "08_Trien_Khai_He_Thong.md": {
+      "size_bytes": 43015,
+      "lines_count": 1016,
+      "blocks_count": 16
+    },
+    "README.md": {
+      "size_bytes": 42312,
+      "lines_count": 359,
+      "blocks_count": 8
+    }
+  },
+  "mermaid": {
+    "total": 17,
+    "passed": 17,
+    "failed": 0,
+    "items": []
+  },
+  "json": {
+    "total": 31,
+    "passed": 31,
+    "failed": 0,
+    "items": []
+  },
+  "yaml": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "items": []
+  },
+  "tables": {
+    "total": 13,
+    "passed": 13,
+    "failed": 0,
+    "items": []
+  },
+  "headings": {
+    "total": 376,
+    "issues": 37,
+    "items": [
+      {
+        "file": "01_Phan_Tich_Yeu_Cau.md",
+        "line": 38,
+        "prev_level": 1,
+        "level": 3,
+        "title": "1.1 Tuyên Bố Vấn Đề (Problem Statement & 8 F&B Pains)",
+        "msg": "Heading level jump: h1 -> h3 (1.1 Tuyên Bố Vấn Đề (Problem Statement & 8 F&B Pains))"
+      },
+      {
+        "file": "02_Thiet_Ke_Database.md",
+        "line": 34,
+        "prev_level": 1,
+        "level": 3,
+        "title": "1.1 Nguyên Tắc Thiết Kế Cốt Lõi",
+        "msg": "Heading level jump: h1 -> h3 (1.1 Nguyên Tắc Thiết Kế Cốt Lõi)"
+      },
+      {
+        "file": "02_Thiet_Ke_Database.md",
+        "line": 1071,
+        "prev_level": 1,
+        "level": 3,
+        "title": "7.1 OrderConfiguration.cs",
+        "msg": "Heading level jump: h1 -> h3 (7.1 OrderConfiguration.cs)"
+      },
+      {
+        "file": "03_Thiet_Ke_API_Contract.md",
+        "line": 46,
+        "prev_level": 1,
+        "level": 3,
+        "title": "1.1 Cấu Trúc Envelope Phản Hồi Chuẩn (`ApiResponse<T>` & `PagedResponse<T>`)",
+        "msg": "Heading level jump: h1 -> h3 (1.1 Cấu Trúc Envelope Phản Hồi Chuẩn (`ApiResponse<T>` & `PagedResponse<T>`))"
+      },
+      {
+        "file": "03_Thiet_Ke_API_Contract.md",
+        "line": 1152,
+        "prev_level": 1,
+        "level": 3,
+        "title": "3.1 Kiến Trúc Tổng Thể & Redis Message Bus Backplane",
+        "msg": "Heading level jump: h1 -> h3 (3.1 Kiến Trúc Tổng Thể & Redis Message Bus Backplane)"
+      },
+      {
+        "file": "03_Thiet_Ke_API_Contract.md",
+        "line": 1353,
+        "prev_level": 1,
+        "level": 3,
+        "title": "4.1 Sơ Đồ Tuần Tự Xử Lý Webhook (Mermaid Sequence)",
+        "msg": "Heading level jump: h1 -> h3 (4.1 Sơ Đồ Tuần Tự Xử Lý Webhook (Mermaid Sequence))"
+      },
+      {
+        "file": "04_Thiet_Ke_UI_UX.md",
+        "line": 44,
+        "prev_level": 1,
+        "level": 3,
+        "title": "1.1 Bảng Màu Nhận Diện Thương Hiệu & Trạng Thái Ngữ Cảnh",
+        "msg": "Heading level jump: h1 -> h3 (1.1 Bảng Màu Nhận Diện Thương Hiệu & Trạng Thái Ngữ Cảnh)"
+      },
+      {
+        "file": "04_Thiet_Ke_UI_UX.md",
+        "line": 117,
+        "prev_level": 1,
+        "level": 3,
+        "title": "2.1 Cây Thư Mục Monorepo Chuẩn Hóa",
+        "msg": "Heading level jump: h1 -> h3 (2.1 Cây Thư Mục Monorepo Chuẩn Hóa)"
+      },
+      {
+        "file": "04_Thiet_Ke_UI_UX.md",
+        "line": 174,
+        "prev_level": 1,
+        "level": 3,
+        "title": "3.1 Luồng 1: Đặt Món Tại Bàn Dine-In (Nhánh A VietQR vs Nhánh B Tiền Mặt)",
+        "msg": "Heading level jump: h1 -> h3 (3.1 Luồng 1: Đặt Món Tại Bàn Dine-In (Nhánh A VietQR vs Nhánh B Tiền Mặt))"
+      },
+      {
+        "file": "04_Thiet_Ke_UI_UX.md",
+        "line": 852,
+        "prev_level": 1,
+        "level": 3,
+        "title": "5.1 Tiêu Chuẩn Tiếp Cận WCAG 2.1 AA Checklist",
+        "msg": "Heading level jump: h1 -> h3 (5.1 Tiêu Chuẩn Tiếp Cận WCAG 2.1 AA Checklist)"
+      },
+      {
+        "file": "05_Quy_Trinh_Backend.md",
+        "line": 59,
+        "prev_level": 1,
+        "level": 3,
+        "title": "1.1 Cấu Trúc Thư Mục Solution & Projects",
+        "msg": "Heading level jump: h1 -> h3 (1.1 Cấu Trúc Thư Mục Solution & Projects)"
+      },
+      {
+        "file": "05_Quy_Trinh_Backend.md",
+        "line": 154,
+        "prev_level": 1,
+        "level": 3,
+        "title": "2.1 Thực Thể Cơ Sở & Giao Diện (Base Entities & Interfaces)",
+        "msg": "Heading level jump: h1 -> h3 (2.1 Thực Thể Cơ Sở & Giao Diện (Base Entities & Interfaces))"
+      },
+      {
+        "file": "05_Quy_Trinh_Backend.md",
+        "line": 337,
+        "prev_level": 1,
+        "level": 3,
+        "title": "3.1 Mô Hình CQRS: Commands vs Queries",
+        "msg": "Heading level jump: h1 -> h3 (3.1 Mô Hình CQRS: Commands vs Queries)"
+      },
+      {
+        "file": "05_Quy_Trinh_Backend.md",
+        "line": 549,
+        "prev_level": 1,
+        "level": 3,
+        "title": "4.1 EF Core 8 Context, Interceptors & Cấu Hình Fluent API",
+        "msg": "Heading level jump: h1 -> h3 (4.1 EF Core 8 Context, Interceptors & Cấu Hình Fluent API)"
+      },
+      {
+        "file": "05_Quy_Trinh_Backend.md",
+        "line": 692,
+        "prev_level": 1,
+        "level": 3,
+        "title": "5.1 Global Exception Handling Middleware (Chuẩn RFC 7807)",
+        "msg": "Heading level jump: h1 -> h3 (5.1 Global Exception Handling Middleware (Chuẩn RFC 7807))"
+      },
+      {
+        "file": "05_Quy_Trinh_Backend.md",
+        "line": 765,
+        "prev_level": 1,
+        "level": 3,
+        "title": "6.1 `CreateOrderCommandHandler.cs` (Xử Lý Đơn 3 Kênh, Khóa Bàn & SignalR)",
+        "msg": "Heading level jump: h1 -> h3 (6.1 `CreateOrderCommandHandler.cs` (Xử Lý Đơn 3 Kênh, Khóa Bàn & SignalR))"
+      },
+      {
+        "file": "05_Quy_Trinh_Backend.md",
+        "line": 1729,
+        "prev_level": 1,
+        "level": 3,
+        "title": "7.1 `OrderTtlExpirationWorker.cs` (Tự Động Hủy Đơn Quá Hạn 10 Phút)",
+        "msg": "Heading level jump: h1 -> h3 (7.1 `OrderTtlExpirationWorker.cs` (Tự Động Hủy Đơn Quá Hạn 10 Phút))"
+      },
+      {
+        "file": "06_Quy_Trinh_Frontend.md",
+        "line": 47,
+        "prev_level": 1,
+        "level": 3,
+        "title": "1.1 Cấu Trúc Cây Thư Mục Toàn Diện",
+        "msg": "Heading level jump: h1 -> h3 (1.1 Cấu Trúc Cây Thư Mục Toàn Diện)"
+      },
+      {
+        "file": "06_Quy_Trinh_Frontend.md",
+        "line": 145,
+        "prev_level": 1,
+        "level": 3,
+        "title": "2.1 `useCartStore.ts` (Giỏ Hàng Khách Hàng, Dine-In Bàn & Delivery 20k)",
+        "msg": "Heading level jump: h1 -> h3 (2.1 `useCartStore.ts` (Giỏ Hàng Khách Hàng, Dine-In Bàn & Delivery 20k))"
+      },
+      {
+        "file": "06_Quy_Trinh_Frontend.md",
+        "line": 673,
+        "prev_level": 1,
+        "level": 3,
+        "title": "3.1 Cấu Hình `QueryClient` & Chính Sách Caching",
+        "msg": "Heading level jump: h1 -> h3 (3.1 Cấu Hình `QueryClient` & Chính Sách Caching)"
+      },
+      {
+        "file": "06_Quy_Trinh_Frontend.md",
+        "line": 877,
+        "prev_level": 1,
+        "level": 3,
+        "title": "4.1 `ModifierDrawer.tsx` (Drawer Tùy Biến Món Size, Đường, Đá & Topping)",
+        "msg": "Heading level jump: h1 -> h3 (4.1 `ModifierDrawer.tsx` (Drawer Tùy Biến Món Size, Đường, Đá & Topping))"
+      },
+      {
+        "file": "06_Quy_Trinh_Frontend.md",
+        "line": 1199,
+        "prev_level": 1,
+        "level": 3,
+        "title": "5.1 Cấu Hình `manifest.json` Chuẩn W3C PWA (`/public/manifest.json`)",
+        "msg": "Heading level jump: h1 -> h3 (5.1 Cấu Hình `manifest.json` Chuẩn W3C PWA (`/public/manifest.json`))"
+      },
+      {
+        "file": "07_Ke_Hoach_Kiem_Thu.md",
+        "line": 43,
+        "prev_level": 1,
+        "level": 3,
+        "title": "1.1 Tỷ Lệ Phân Bổ & Mục Tiêu Phủ Mã Nguồn (Code Coverage Goals)",
+        "msg": "Heading level jump: h1 -> h3 (1.1 Tỷ Lệ Phân Bổ & Mục Tiêu Phủ Mã Nguồn (Code Coverage Goals))"
+      },
+      {
+        "file": "07_Ke_Hoach_Kiem_Thu.md",
+        "line": 120,
+        "prev_level": 1,
+        "level": 3,
+        "title": "2.1 Kênh 1: Dine-In Tại Bàn (2 Nhánh Thanh Toán Độc Lập)",
+        "msg": "Heading level jump: h1 -> h3 (2.1 Kênh 1: Dine-In Tại Bàn (2 Nhánh Thanh Toán Độc Lập))"
+      },
+      {
+        "file": "07_Ke_Hoach_Kiem_Thu.md",
+        "line": 219,
+        "prev_level": 1,
+        "level": 3,
+        "title": "3.1 Bảng Tổng Hợp 10 Kịch Bản Biên",
+        "msg": "Heading level jump: h1 -> h3 (3.1 Bảng Tổng Hợp 10 Kịch Bản Biên)"
+      },
+      {
+        "file": "07_Ke_Hoach_Kiem_Thu.md",
+        "line": 502,
+        "prev_level": 1,
+        "level": 3,
+        "title": "4.1 Kịch Bản k6 Load Test 1.000 VUs Cho RESTful API",
+        "msg": "Heading level jump: h1 -> h3 (4.1 Kịch Bản k6 Load Test 1.000 VUs Cho RESTful API)"
+      },
+      {
+        "file": "07_Ke_Hoach_Kiem_Thu.md",
+        "line": 683,
+        "prev_level": 1,
+        "level": 3,
+        "title": "5.1 Ma Trận Kiểm Soát Truy Cập RBAC Matrix",
+        "msg": "Heading level jump: h1 -> h3 (5.1 Ma Trận Kiểm Soát Truy Cập RBAC Matrix)"
+      },
+      {
+        "file": "07_Ke_Hoach_Kiem_Thu.md",
+        "line": 739,
+        "prev_level": 1,
+        "level": 3,
+        "title": "6.1 Traceability Phân Hệ Khách Hàng (Customer: `C-01` ~ `C-20`)",
+        "msg": "Heading level jump: h1 -> h3 (6.1 Traceability Phân Hệ Khách Hàng (Customer: `C-01` ~ `C-20`))"
+      },
+      {
+        "file": "08_Trien_Khai_He_Thong.md",
+        "line": 43,
+        "prev_level": 1,
+        "level": 3,
+        "title": "1.1 Sơ Đồ Luồng Mạng & Phân Vùng Cô Lập (Network Topology)",
+        "msg": "Heading level jump: h1 -> h3 (1.1 Sơ Đồ Luồng Mạng & Phân Vùng Cô Lập (Network Topology))"
+      },
+      {
+        "file": "08_Trien_Khai_He_Thong.md",
+        "line": 100,
+        "prev_level": 1,
+        "level": 3,
+        "title": "2.1 Tệp `docker-compose.yml` Đầy Đủ 5 Dịch Vụ",
+        "msg": "Heading level jump: h1 -> h3 (2.1 Tệp `docker-compose.yml` Đầy Đủ 5 Dịch Vụ)"
+      },
+      {
+        "file": "08_Trien_Khai_He_Thong.md",
+        "line": 439,
+        "prev_level": 1,
+        "level": 3,
+        "title": "3.1 Tệp `nginx.conf` Hoàn Chỉnh 100%",
+        "msg": "Heading level jump: h1 -> h3 (3.1 Tệp `nginx.conf` Hoàn Chỉnh 100%)"
+      },
+      {
+        "file": "08_Trien_Khai_He_Thong.md",
+        "line": 630,
+        "prev_level": 1,
+        "level": 3,
+        "title": "4.1 Quy Trình 2 Giai Đoạn: Quality Gate & Zero-Downtime Deploy",
+        "msg": "Heading level jump: h1 -> h3 (4.1 Quy Trình 2 Giai Đoạn: Quality Gate & Zero-Downtime Deploy)"
+      },
+      {
+        "file": "08_Trien_Khai_He_Thong.md",
+        "line": 787,
+        "prev_level": 1,
+        "level": 3,
+        "title": "5.1 Kịch Bản Sao Lưu Tự Động Hàng Ngày (`backup_postgres.sh`)",
+        "msg": "Heading level jump: h1 -> h3 (5.1 Kịch Bản Sao Lưu Tự Động Hàng Ngày (`backup_postgres.sh`))"
+      },
+      {
+        "file": "08_Trien_Khai_He_Thong.md",
+        "line": 899,
+        "prev_level": 1,
+        "level": 3,
+        "title": "6.1 Bộ Endpoint Health Checks (`/healthz/live` & `/healthz/ready`)",
+        "msg": "Heading level jump: h1 -> h3 (6.1 Bộ Endpoint Health Checks (`/healthz/live` & `/healthz/ready`))"
+      },
+      {
+        "file": "08_Trien_Khai_He_Thong.md",
+        "line": 973,
+        "prev_level": 1,
+        "level": 3,
+        "title": "7.1 Cài Đặt Ban Đầu Cho Máy Chủ Linux",
+        "msg": "Heading level jump: h1 -> h3 (7.1 Cài Đặt Ban Đầu Cho Máy Chủ Linux)"
+      },
+      {
+        "file": "README.md",
+        "line": 151,
+        "prev_level": 1,
+        "level": 3,
+        "title": "4.1 Phân Hệ Khách Hàng (Customer: `C-01` ~ `C-20`)",
+        "msg": "Heading level jump: h1 -> h3 (4.1 Phân Hệ Khách Hàng (Customer: `C-01` ~ `C-20`))"
+      },
+      {
+        "file": "README.md",
+        "line": 243,
+        "prev_level": 1,
+        "level": 3,
+        "title": "5.1 Yêu Cầu Tiên Quyết Hệ Thống (Prerequisites)",
+        "msg": "Heading level jump: h1 -> h3 (5.1 Yêu Cầu Tiên Quyết Hệ Thống (Prerequisites))"
+      }
+    ]
+  },
+  "callouts": {
+    "total": 13,
+    "valid": 13,
+    "invalid": 0,
+    "items": []
+  },
+  "placeholders": {
+    "total": 0,
+    "items": []
+  }
+}

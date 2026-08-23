@@ -1,0 +1,36 @@
+flowchart TD
+    START([Khách Quét QR Bàn & Đưa Món Vào Giỏ]) --> CHOOSE_PAY{Khách Chọn Phương Thức Thanh Toán}
+
+    %% NHANH A: VIETQR TRẢ TRƯỚC
+    CHOOSE_PAY -->|Nhánh A: VietQR Trả Trước| A1[Khởi tạo đơn: Status = PendingPayment]
+    A1 --> A2[Hiển thị Mã VietQR Động từ PayOS]
+    A2 --> A3[Khách quét mã chuyển khoản ngân hàng]
+    A3 --> A4[PayOS gửi Webhook xác nhận chữ ký HMAC]
+    A4 --> A5[Cập nhật trạng thái: Status = Paid]
+    A5 --> A6[SignalR KitchenHub bắn vé đơn vào Bếp]
+    A6 --> A7[BẾP KDS MỚI NHẬN ĐƠN ĐỂ PHA CHẾ]
+    A7 --> A8[Barista bấm: Status = Preparing]
+    A8 --> A9[Barista bấm: Status = Ready]
+    A9 --> A10[Phục vụ bưng món ra bàn: Status = Served / Completed]
+
+    %% NHANH B: TIỀN MẶT TRẢ SAU
+    CHOOSE_PAY -->|Nhánh B: Tiền Mặt Trả Sau| B1[Tạo đơn: Status = Confirmed]
+    B1 --> B2[SignalR KitchenHub bắn vé đơn vào Bếp NGAY LẬP TỨC]
+    B2 --> B3[ĐƠN VÀO BẾP PHA CHẾ NGAY KHÔNG CẦN CHỜ TIỀN]
+    B3 --> B4[Barista bấm: Status = Preparing]
+    B4 --> B5[Barista bấm: Status = Ready]
+    B5 --> B6[Máy in quầy tự động in Hóa đơn CÓ IN MÃ VIETQR]
+    B6 --> B7[Nhân viên bưng món ra bàn KÈM HÓA ĐƠN ĐÃ IN]
+    B7 --> B8[Cập nhật trạng thái: Status = Served -> Chờ Thu Tiền]
+    B8 --> B9{Khách Chọn Cách Trả Tiền Tại Bàn}
+    B9 -->|Đưa Tiền Mặt Cho NV| B10[NV thu tiền & bấm Xác Nhận Tiền Mặt trên Web POS]
+    B9 -->|Quét Mã QR Trên Bill| B11[Khách quét VietQR trên Bill & PayOS báo Webhook Paid]
+    B10 & B11 --> B12[Đơn hàng hoàn tất: Status = Paid / Completed]
+
+    classDef initStyle fill:#7c2d12,stroke:#ea580c,stroke-width:2px,color:#ffffff;
+    classDef aStyle fill:#1e3a8a,stroke:#3b82f6,stroke-width:2px,color:#ffffff;
+    classDef bStyle fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#ffffff;
+
+    class START,CHOOSE_PAY initStyle;
+    class A1,A2,A3,A4,A5,A6,A7,A8,A9,A10 aStyle;
+    class B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12 bStyle;

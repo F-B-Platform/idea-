@@ -1,0 +1,71 @@
+sequenceDiagram
+    autonumber
+    actor ADM as 👑 Chủ Chuỗi / Chain Admin
+    participant FE as 💻 Next.js Admin Portal ((admin)/menu, /ai)
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (AdminMenu & AI Controller)
+    participant S3 as 🗄️ ImageSharp & CDN S3
+    participant DB as 🐘 PostgreSQL 16 (products, product_sizes, product_recipes)
+    participant RD as ⚡ Redis 7 Cache Store
+    participant AI_MINING as 📊 AI-2 Mining Worker (Apriori Engine)
+    participant AI_GEMINI as 🤖 Google Gemini 1.5 Flash (Forecasting)
+    participant HUB as 📡 SignalR KitchenHub
+    participant PWA as 📱 QR Menu Khách Hàng
+
+    %% PHẦN 1: TẢI ẢNH, CRUD MÓN ĂN & CÔNG THỨC BOM
+    Note over ADM,DB: PHẦN 1: QUẢN TRỊ THỰC ĐƠN & CÔNG THỨC BOM THEO SIZE
+    ADM->>FE: Tải ảnh món "Matcha Latte" (matcha.png, 4MB)
+    FE->>NGINX: POST /api/v1/admin/media/upload
+    NGINX->>API: Forward File Multipart
+    
+    activate API
+    API->>S3: Validate Magic Bytes -> ImageSharp nén sang WebP (1200px Original & 400px Thumbnail) -> Upload CDN S3
+    S3-->>API: Trả về CDN URLs: { originalUrl: "https://cdn.../matcha.webp", thumbUrl: "https://cdn.../thumb.webp" }
+    API-->>FE: HTTP 200 OK (CDN URLs)
+    deactivate API
+
+    ADM->>FE: Nhập Tên món, Giá cơ bản 55k, Cấu hình BOM Size M (10g Matcha, 150ml Sữa) & Size L (15g Matcha, 200ml Sữa)
+    ADM->>FE: Bấm [Lưu & Phát Hành Món]
+    FE->>NGINX: POST /api/v1/admin/products
+    Note over FE,API: Payload: { name: "Matcha Latte", basePrice: 55000, sizes: [...], recipes: [...], imageUrl: "https://..." }
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: BEGIN TRANSACTION
+    API->>DB: INSERT INTO products (category_id, sku, name, base_price, image_url, is_available) VALUES ('cat-01', 'SKU-MATCHA', 'Matcha Latte', 55000, 'https://...', true) RETURNING id
+    DB-->>API: ProductId = "prod-matcha"
+    
+    API->>DB: INSERT INTO product_sizes (product_id, size_name, price_adjustment, is_default) VALUES ('prod-matcha', 'M', 0, true), ('prod-matcha', 'L', 10000, false)
+    API->>DB: INSERT INTO product_recipes (product_id, size_id, ingredient_id, quantity, wastage_rate) VALUES ('prod-matcha', 'size-M', 'ing-matcha', 10, 0.05), ('prod-matcha', 'size-L', 'ing-matcha', 15, 0.05)
+    API->>DB: COMMIT TRANSACTION
+
+    API->>RD: DEL menu:branch:* (Xóa toàn bộ Cache Menu cũ)
+    API->>HUB: KitchenHub.Clients.All.SendAsync("MenuStructureChanged", { action: "CREATE", productId: "prod-matcha" })
+    API-->>FE: HTTP 201 Created (Message: "Tạo món và định mức BOM thành công!")
+    deactivate API
+    HUB-->>PWA: PWA làm mới danh mục thực đơn tức thì
+
+    %% PHẦN 2: LÊN LỊCH THỰC ĐƠN THEO MÙA (SEASONAL MENU)
+    Note over ADM,DB: PHẦN 2: LÊN LỊCH THỰC ĐƠN MÙA VỤ (HANGFIRE SCHEDULER)
+    ADM->>FE: Tạo "Thực Đơn Giáng Sinh" (Từ 01/12/2026 đến 31/12/2026) -> Chọn 3 món lễ hội -> Bấm [Lên Lịch]
+    FE->>API: POST /api/v1/admin/seasonal-menus { name: "Thực Đơn Giáng Sinh", startDate: "2026-12-01", endDate: "2026-12-31", productIds: [...] }
+    API->>DB: INSERT INTO categories (code, name, is_active) VALUES ('CAT-SEASON-XMAS', 'Thực Đơn Giáng Sinh', true)
+    API-->>FE: HTTP 201 Created (Message: "Lên lịch thực đơn mùa vụ thành công!")
+
+    %% PHẦN 3: KHAI PHÁ AI-2 APRIORI COMBO & GEMINI FORECASTING
+    Note over AI_MINING,PWA: PHẦN 3: KHAI PHÁ APRIORI COMBO & GEMINI DỰ BÁO NHU CẦU
+    AI_MINING->>DB: Quét tập 5.000 đơn hàng 30 ngày qua từ orders & order_items -> Chạy Apriori (Support >= 0.05, Confidence >= 0.70, Lift > 1.5)
+    AI_MINING->>RD: HSET ai:combo_suggestions "sug-102" "{ rule: '{Matcha Latte} => {Croissant Bơ}', lift: 2.45, support: 0.08, status: 'Pending' }"
+    
+    ADM->>FE: Mở tab [AI Combo Suggestions] -> Xem đề xuất: "Matcha Latte + Bánh Croissant (Lift: 2.45)"
+    ADM->>FE: Đặt tên "Combo Chiều Thư Thái", chỉnh Giảm giá 15% (Từ 90k còn 76.500đ) -> Bấm [Phê Duyệt & Xuất Bản]
+    
+    FE->>API: POST /api/v1/admin/ai/combos/approve { suggestionId: "sug-102", comboName: "Combo Chiều Thư Thái", discountRate: 0.15 }
+    activate API
+    API->>DB: INSERT INTO products (sku, name, base_price, is_available) VALUES ('SKU-COMBO-01', 'Combo Chiều Thư Thái', 76500, true)
+    API->>RD: DEL menu:combos:*
+    API-->>FE: HTTP 200 OK (Message: "Combo mới đã được phát hành lên đầu Menu PWA!")
+    deactivate API
+
+    FE-->>ADM: Banner Xanh: "Combo Chiều Thư Thái đã hiển thị ưu tiên trên trang chủ PWA!"
+    PWA->>RD: GET menu:combos -> Tải Combo mới lên vị trí đầu trang thực đơn

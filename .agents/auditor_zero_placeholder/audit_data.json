@@ -1,0 +1,827 @@
+{
+  "files_stats": {
+    "uat": {
+      "exists": true,
+      "filename": "UAT_Test_Cases.md",
+      "size_bytes": 99532,
+      "line_count": 1448
+    },
+    "seed": {
+      "exists": true,
+      "filename": "Seed_Data_&_Database_Script.md",
+      "size_bytes": 136911,
+      "line_count": 1732
+    },
+    "git": {
+      "exists": true,
+      "filename": "Git_Workflow_&_Branching_Strategy.md",
+      "size_bytes": 111751,
+      "line_count": 2370
+    }
+  },
+  "patterns_findings": {
+    "placeholders": {
+      "uat": [
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 271,
+          "match_text": "...",
+          "line_content": "- Trả về JWT Token chứa các Claims: `Role: \"Barista\"`, `BranchId: \"b1a2c3d4-...\"`, `Permissions: [\"kds:read\", \"kds:update_status\", \"kds:toggle_86\"]`."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1399,
+          "match_text": "...",
+          "line_content": "- Khi mất mạng: KDS hiện thông báo vàng \"Đang kết nối lại...\"."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1437,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1447,
+          "match_text": "...",
+          "line_content": "....................................          ...................................."
+        }
+      ],
+      "seed": [
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 8,
+          "match_text": "...",
+          "line_content": "> **Chuẩn mực thiết kế:** 100% Chuẩn hóa 3NF (Third Normal Form), Khóa chính UUID v4 (`gen_random_uuid()`), Toàn vẹn tham chiếu (Foreign Keys & Cascade Rules), Ràng buộc kiểm tra (Check Constraints), Bộ chỉ mục kép B-Tree/GIN, Triggers tự động hóa, Sổ cái bất biến Audit Trail, và **ZERO Hardcoded Placeholders / Zero Ellipses (`...`)**."
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 8,
+          "match_text": "Placeholder",
+          "line_content": "> **Chuẩn mực thiết kế:** 100% Chuẩn hóa 3NF (Third Normal Form), Khóa chính UUID v4 (`gen_random_uuid()`), Toàn vẹn tham chiếu (Foreign Keys & Cascade Rules), Ràng buộc kiểm tra (Check Constraints), Bộ chỉ mục kép B-Tree/GIN, Triggers tự động hóa, Sổ cái bất biến Audit Trail, và **ZERO Hardcoded Placeholders / Zero Ellipses (`...`)**."
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 30,
+          "match_text": "PLACEHOLDER",
+          "line_content": "3. [CHƯƠNG 3: PHẦN II — TOÀN VĂN KỊCH BẢN DML SEED DATA THỰC TẾ 100% (ZERO PLACEHOLDERS)](#chương-3-phần-ii--toàn-văn-kịch-bản-dml-seed-data-thực-tế-100-zero-placeholders)"
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 30,
+          "match_text": "placeholder",
+          "line_content": "3. [CHƯƠNG 3: PHẦN II — TOÀN VĂN KỊCH BẢN DML SEED DATA THỰC TẾ 100% (ZERO PLACEHOLDERS)](#chương-3-phần-ii--toàn-văn-kịch-bản-dml-seed-data-thực-tế-100-zero-placeholders)"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 182,
+          "match_text": "...",
+          "line_content": "> Toàn bộ kịch bản DDL dưới đây có thể thực thi độc lập trên PostgreSQL 16+. Cú pháp được chuẩn hóa với các lệnh `IF NOT EXISTS` và `DO $$ ... $$` an toàn cho việc khởi tạo lặp lại."
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 922,
+          "match_text": "PLACEHOLDER",
+          "line_content": "# CHƯƠNG 3: PHẦN II — TOÀN VĂN KỊCH BẢN DML SEED DATA THỰC TẾ 100% (ZERO PLACEHOLDERS)"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 925,
+          "match_text": "...",
+          "line_content": "> Toàn bộ các câu lệnh `INSERT` dưới đây sử dụng mệnh đề `ON CONFLICT DO NOTHING` hoặc `ON CONFLICT (...) DO UPDATE`. Bạn có thể thực thi kịch bản nhiều lần mà không sợ trùng lặp hoặc lỗi vi phạm khóa chính/khóa ngoại."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1485,
+          "match_text": "...",
+          "line_content": "logger.LogInformation(\"--> [Database Initializer] Checking database migration state...\");"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1500,
+          "match_text": "...",
+          "line_content": "logger.LogInformation(\"--> [Database Initializer] Seeding initial data for Smart F&B OS...\");"
+        },
+        {
+          "pattern": "TODO",
+          "line_num": 1724,
+          "match_text": "TODO",
+          "line_content": "| **03** | **Zero Placeholder** | Toàn bộ câu lệnh SQL có đầy đủ dữ liệu thực tế, không có ký tự giữ chỗ `...` hay `TODO` | ✅ **ĐẠT (100%)** |"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1724,
+          "match_text": "...",
+          "line_content": "| **03** | **Zero Placeholder** | Toàn bộ câu lệnh SQL có đầy đủ dữ liệu thực tế, không có ký tự giữ chỗ `...` hay `TODO` | ✅ **ĐẠT (100%)** |"
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 1724,
+          "match_text": "Placeholder",
+          "line_content": "| **03** | **Zero Placeholder** | Toàn bộ câu lệnh SQL có đầy đủ dữ liệu thực tế, không có ký tự giữ chỗ `...` hay `TODO` | ✅ **ĐẠT (100%)** |"
+        }
+      ],
+      "git": [
+        {
+          "pattern": "placeholder",
+          "line_num": 20,
+          "match_text": "Placeholder",
+          "line_content": "> **Nguyên tắc Chất lượng Zero-Placeholder (100% Complete Implementation):**"
+        },
+        {
+          "pattern": "TODO",
+          "line_num": 21,
+          "match_text": "TODO",
+          "line_content": "> Mọi đoạn mã nguồn, lớp đối tượng, hàm xử lý, cấu hình CI/CD và quy chuẩn kỹ thuật trong tài liệu này đều được viết hoàn chỉnh 100%, không chứa mã khung (skeleton code), không dùng ký hiệu giữ chỗ (`// TODO`, `/* rest of code */`, `...`), sẵn sàng biên dịch và thực thi trong môi trường sản xuất thực tế."
+        },
+        {
+          "pattern": "/* rest of",
+          "line_num": 21,
+          "match_text": "/* rest of",
+          "line_content": "> Mọi đoạn mã nguồn, lớp đối tượng, hàm xử lý, cấu hình CI/CD và quy chuẩn kỹ thuật trong tài liệu này đều được viết hoàn chỉnh 100%, không chứa mã khung (skeleton code), không dùng ký hiệu giữ chỗ (`// TODO`, `/* rest of code */`, `...`), sẵn sàng biên dịch và thực thi trong môi trường sản xuất thực tế."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 21,
+          "match_text": "...",
+          "line_content": "> Mọi đoạn mã nguồn, lớp đối tượng, hàm xử lý, cấu hình CI/CD và quy chuẩn kỹ thuật trong tài liệu này đều được viết hoàn chỉnh 100%, không chứa mã khung (skeleton code), không dùng ký hiệu giữ chỗ (`// TODO`, `/* rest of code */`, `...`), sẵn sàng biên dịch và thực thi trong môi trường sản xuất thực tế."
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 35,
+          "match_text": "Placeholder",
+          "line_content": "- [2.5 Bộ mã nguồn C# mẫu 100% Zero-Placeholder:](#25-bộ-mã-nguồn-c-mẫu-100-zero-placeholder)"
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 35,
+          "match_text": "placeholder",
+          "line_content": "- [2.5 Bộ mã nguồn C# mẫu 100% Zero-Placeholder:](#25-bộ-mã-nguồn-c-mẫu-100-zero-placeholder)"
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 46,
+          "match_text": "Placeholder",
+          "line_content": "- [3.5 Bộ mã nguồn TypeScript/React mẫu 100% Zero-Placeholder:](#35-bộ-mã-nguồn-typescriptreact-mẫu-100-zero-placeholder)"
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 46,
+          "match_text": "placeholder",
+          "line_content": "- [3.5 Bộ mã nguồn TypeScript/React mẫu 100% Zero-Placeholder:](#35-bộ-mã-nguồn-typescriptreact-mẫu-100-zero-placeholder)"
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 84,
+          "match_text": "Placeholder",
+          "line_content": "5. **Zero-Placeholder Guarantee:** Mã nguồn xuất xưởng phải hoàn chỉnh, có kiểm thử đơn vị (Unit Test) đi kèm, vượt qua kiểm tra chất lượng tĩnh (SonarQube) trước khi được tích hợp vào nhánh chính."
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 242,
+          "match_text": "...",
+          "line_content": "2. **Projections qua `.Select()`:** Tuyệt đối không nạp toàn bộ Entity lớn khi chỉ cần một vài trường hiển thị. Luôn dùng `.Select(x => new Dto { ... })` để Entity Framework Core sinh câu lệnh SQL `SELECT` chính xác các cột cần thiết."
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 249,
+          "match_text": "Placeholder",
+          "line_content": "### 2.5 Bộ mã nguồn C# mẫu 100% Zero-Placeholder"
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 1107,
+          "match_text": "Placeholder",
+          "line_content": "### 3.5 Bộ mã nguồn TypeScript/React mẫu 100% Zero-Placeholder"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1284,
+          "match_text": "...",
+          "line_content": ": [...prev, topping]"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1427,
+          "match_text": "...",
+          "line_content": "placeholder=\"Vd: Ít sữa đặc, uống nóng, tách đá riêng...\""
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 1427,
+          "match_text": "placeholder",
+          "line_content": "placeholder=\"Vd: Ít sữa đặc, uống nóng, tách đá riêng...\""
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1586,
+          "match_text": "...",
+          "line_content": "setConnectionError(`Mất kết nối tới KDS Hub: ${error?.message || \"Đang kết nối lại...\"}`);"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1764,
+          "match_text": "...",
+          "line_content": "const updatedItems = [...state.items];"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1767,
+          "match_text": "...",
+          "line_content": "...updatedItems[existingIndex],"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1773,
+          "match_text": "...",
+          "line_content": "...itemData,"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1776,
+          "match_text": "...",
+          "line_content": "set({ items: [...state.items, newItem] });"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1791,
+          "match_text": "...",
+          "line_content": "return newQty > 0 && newQty <= 20 ? { ...item, quantity: newQty } : null;"
+        },
+        {
+          "pattern": "... (ellipsis)",
+          "line_num": 1941,
+          "match_text": "...",
+          "line_content": "> **Tuyệt đối KHÔNG sử dụng `git merge develop`** vào nhánh `feature/*` vì sẽ tạo commit rác (`Merge branch 'develop' into feature/...`) làm vỡ cấu trúc linear history. Toàn bộ lập trình viên bắt buộc phải sử dụng `git rebase develop`."
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 2133,
+          "match_text": "Placeholder",
+          "line_content": "### 4. Cam Kết Zero-Placeholder & Kiểm Chứng Thực Tế (Hard Verification)"
+        },
+        {
+          "pattern": "TODO",
+          "line_num": 2134,
+          "match_text": "TODO",
+          "line_content": "- [ ] **Zero Placeholder 100%:** Tuyệt đối không có `// TODO`, `/* rest of code */`, hàm rỗng nuốt lỗi."
+        },
+        {
+          "pattern": "/* rest of",
+          "line_num": 2134,
+          "match_text": "/* rest of",
+          "line_content": "- [ ] **Zero Placeholder 100%:** Tuyệt đối không có `// TODO`, `/* rest of code */`, hàm rỗng nuốt lỗi."
+        },
+        {
+          "pattern": "placeholder",
+          "line_num": 2134,
+          "match_text": "Placeholder",
+          "line_content": "- [ ] **Zero Placeholder 100%:** Tuyệt đối không có `// TODO`, `/* rest of code */`, hàm rỗng nuốt lỗi."
+        }
+      ]
+    },
+    "purged": {
+      "uat": [
+        {
+          "term": "Mobile App",
+          "line_num": 50,
+          "match_text": "Mobile App",
+          "line_content": "│ 5. HỢP NHẤT 100% WEB STACK: Đơn nền tảng Next.js 14 Responsive Monorepo, loại bỏ Mobile App      │"
+        },
+        {
+          "term": "Staff Mobile App",
+          "line_num": 82,
+          "match_text": "Staff Mobile App",
+          "line_content": "> - ❌ **Staff Mobile App (Flutter/React Native):** Loại bỏ hoàn toàn, thay thế bằng 100% Web App Responsive."
+        },
+        {
+          "term": "Mobile App",
+          "line_num": 82,
+          "match_text": "Mobile App",
+          "line_content": "> - ❌ **Staff Mobile App (Flutter/React Native):** Loại bỏ hoàn toàn, thay thế bằng 100% Web App Responsive."
+        },
+        {
+          "term": "GPS 50m",
+          "line_num": 83,
+          "match_text": "GPS 50m",
+          "line_content": "> - ❌ **Định vị GPS 50m khi chấm công:** Loại bỏ do sai số nhà cao tầng/tầng hầm, thay thế bằng WiFi-Locked Attendance."
+        },
+        {
+          "term": "C-23",
+          "line_num": 85,
+          "match_text": "C-23",
+          "line_content": "> - ❌ **Tính năng C-23 & C-24 cũ:** Loại bỏ tính năng chia sẻ mạng xã hội và push notification không cần thiết."
+        },
+        {
+          "term": "C-24",
+          "line_num": 85,
+          "match_text": "C-24",
+          "line_content": "> - ❌ **Tính năng C-23 & C-24 cũ:** Loại bỏ tính năng chia sẻ mạng xã hội và push notification không cần thiết."
+        }
+      ],
+      "seed": [
+        {
+          "term": "Mobile App",
+          "line_num": 70,
+          "match_text": "Mobile App",
+          "line_content": "| **5** | **Hợp Nhất 100% Web Stack (Xóa Mobile App)** | • Loại bỏ hoàn toàn ứng dụng di động native cho nhân viên; 100% phân hệ (KDS Bếp, POS Thu ngân, Barista, Quản lý, Khách hàng) chạy trên trình duyệt Web Responsive PWA.<br>• Tối ưu hóa tải thực đơn $< 50$ms và phản hồi API $< 200$ms thông qua hệ thống Composite B-Tree và GIN Indexes chuyên biệt. |"
+        }
+      ],
+      "git": [
+        {
+          "term": "Mobile App",
+          "line_num": 2082,
+          "match_text": "mobile app",
+          "line_content": "20. refactor(web): remove deprecated mobile app artifacts and consolidate into Next.js portals"
+        }
+      ]
+    }
+  },
+  "uat_audit": {
+    "total_unique_tcs": 51,
+    "all_tc_codes": [
+      "TC-ADM-01",
+      "TC-ADM-02",
+      "TC-ADM-03",
+      "TC-AI-01",
+      "TC-AI-02",
+      "TC-AI-03",
+      "TC-ATT-01",
+      "TC-ATT-02",
+      "TC-ATT-03",
+      "TC-ATT-04",
+      "TC-AUTH-01",
+      "TC-AUTH-02",
+      "TC-AUTH-03",
+      "TC-AUTH-04",
+      "TC-DEL-01",
+      "TC-DEL-02",
+      "TC-DEL-03",
+      "TC-DEL-04",
+      "TC-DINE-01A",
+      "TC-DINE-01B",
+      "TC-DINE-02",
+      "TC-DINE-03",
+      "TC-DINE-04",
+      "TC-EDGE-01",
+      "TC-EDGE-02",
+      "TC-EDGE-03",
+      "TC-EDGE-04",
+      "TC-EDGE-05",
+      "TC-EDGE-06",
+      "TC-EDGE-07",
+      "TC-EDGE-08",
+      "TC-EDGE-09",
+      "TC-EDGE-10",
+      "TC-KDS-01",
+      "TC-KDS-02",
+      "TC-KDS-03",
+      "TC-KDS-04",
+      "TC-MENU-01",
+      "TC-MENU-02",
+      "TC-MENU-03",
+      "TC-MENU-04",
+      "TC-REV-01",
+      "TC-REV-02",
+      "TC-REV-03",
+      "TC-SHIFT-01",
+      "TC-SHIFT-02",
+      "TC-SHIFT-03",
+      "TC-TAKE-01",
+      "TC-TAKE-02",
+      "TC-TAKE-03",
+      "TC-TAKE-04"
+    ],
+    "expected_check": {
+      "TC-DINE-01A": true,
+      "TC-DINE-01B": true,
+      "TC-DEL-01": true,
+      "TC-TAKE-01": true,
+      "TC-ATT-01": true,
+      "TC-KDS-01": true,
+      "TC-MGR-01": false,
+      "TC-ADM-01": true,
+      "TC-EDGE-01": true,
+      "TC-EDGE-02": true,
+      "TC-EDGE-03": true,
+      "TC-EDGE-04": true,
+      "TC-EDGE-05": true,
+      "TC-EDGE-06": true,
+      "TC-EDGE-07": true,
+      "TC-EDGE-08": true,
+      "TC-EDGE-09": true,
+      "TC-EDGE-10": true
+    },
+    "demo_scenario_present": true
+  },
+  "seed_audit": {
+    "total_create_tables": 29,
+    "unique_create_tables": [
+      "attendances",
+      "audit_logs",
+      "branch_wifi_configs",
+      "branches",
+      "categories",
+      "combo_items",
+      "combos",
+      "customer_reviews",
+      "customers",
+      "ingredients",
+      "inventory_check_details",
+      "inventory_checks",
+      "loyalty_cup_transactions",
+      "modifiers",
+      "order_item_modifiers",
+      "order_items",
+      "orders",
+      "payments",
+      "product_branch_prices",
+      "product_modifiers",
+      "product_sizes",
+      "products",
+      "recipes_bom",
+      "roles",
+      "shifts",
+      "tables",
+      "user_roles",
+      "users",
+      "vouchers"
+    ],
+    "total_insert_statements": 29,
+    "unique_insert_tables": [
+      "attendances",
+      "audit_logs",
+      "branch_wifi_configs",
+      "branches",
+      "categories",
+      "combo_items",
+      "combos",
+      "customer_reviews",
+      "customers",
+      "ingredients",
+      "inventory_check_details",
+      "inventory_checks",
+      "loyalty_cup_transactions",
+      "modifiers",
+      "order_item_modifiers",
+      "order_items",
+      "orders",
+      "payments",
+      "product_branch_prices",
+      "product_modifiers",
+      "product_sizes",
+      "products",
+      "recipes_bom",
+      "roles",
+      "shifts",
+      "tables",
+      "user_roles",
+      "users",
+      "vouchers"
+    ],
+    "missing_creates": [
+      "menu_items",
+      "item_sizes",
+      "timekeepings",
+      "z_reports",
+      "combo_suggestions"
+    ],
+    "missing_inserts": [
+      "menu_items",
+      "item_sizes",
+      "timekeepings",
+      "z_reports",
+      "combo_suggestions"
+    ]
+  },
+  "git_audit": {
+    "code_blocks_count": 24,
+    "languages": {
+      "mermaid": 4,
+      "unknown": 4,
+      "csharp": 6,
+      "tsx": 2,
+      "typescript": 2,
+      "bash": 2,
+      "git": 1,
+      "markdown": 1,
+      "yaml": 1,
+      "json": 1
+    },
+    "keyword_checks": {
+      "Clean Architecture / CQRS": true,
+      "FluentValidation": true,
+      "Result Pattern / Exceptions": true,
+      "Next.js App Router / React": true,
+      "Zod Schema": false,
+      "GitFlow Definitions": true,
+      "Conventional Commits": false,
+      "SonarQube / CI/CD Gates": true
+    }
+  },
+  "callout_audit": {
+    "uat": {
+      "total": 4,
+      "breakdown": {
+        "NOTE": 1,
+        "IMPORTANT": 1,
+        "TIP": 1,
+        "WARNING": 1
+      }
+    },
+    "seed": {
+      "total": 4,
+      "breakdown": {
+        "IMPORTANT": 1,
+        "NOTE": 1,
+        "TIP": 1,
+        "WARNING": 1
+      }
+    },
+    "git": {
+      "total": 4,
+      "breakdown": {
+        "NOTE": 1,
+        "IMPORTANT": 1,
+        "WARNING": 1,
+        "CAUTION": 1
+      }
+    }
+  }
+}

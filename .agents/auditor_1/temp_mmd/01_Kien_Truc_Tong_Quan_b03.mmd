@@ -1,0 +1,66 @@
+flowchart TD
+    subgraph L1["1. PRESENTATION / WEBAPI LAYER (SmartFB.API)"]
+        direction TB
+        CTRL["REST API Controllers<br>• AuthController, OrdersController, PaymentsController<br>• ProductsController, CategoriesController, TablesController<br>• AttendanceController, ShiftsController, InventoryController<br>• ReviewsController, AnalyticsController, AiController"]
+        HUBS["SignalR Real-Time Hubs<br>• OrderHub (/hubs/orders)<br>• KitchenHub (/hubs/kitchen)<br>• PaymentHub (/hubs/payments)<br>• NotificationHub (/hubs/notifications)"]
+        MW["Middlewares & Action Filters<br>• JwtAuthenticationMiddleware & ClaimsPrincipalTransformer<br>• GlobalExceptionHandlingMiddleware (RFC 7807 ProblemDetails)<br>• RateLimitingFilter (Fixed Window / Sliding Window)<br>• SerilogRequestLoggingMiddleware & AuditActionFilter"]
+    end
+
+    subgraph L2["2. APPLICATION LAYER (SmartFB.Application - CQRS MediatR)"]
+        direction TB
+        CMD["Commands & Handlers (Write Side - ACID)<br>• CreateDineInOrderCommand / CreateDeliveryOrderCommand / CreateTakeawayOrderCommand<br>• ProcessPayOSWebhookCommand / ConfirmCashPaymentCommand<br>• UpdateKdsItemStatusCommand / ToggleProduct86StatusCommand<br>• VerifyWifiAttendanceCommand / OpenCashShiftCommand / CloseCashShiftCommand<br>• ApproveAiComboCommand / CreateProductWithBOMCommand"]
+        QRY["Queries & Handlers (Read Side - Optimized Cache)<br>• GetBranchMenuQuery / GetCustomerLoyaltyQuery / GetActiveKdsQueueQuery<br>• GetCashShiftReconciliationQuery / GetPnLConsolidatedReportQuery / GetAiRecommendationsQuery"]
+        PIPE["MediatR Pipeline Behaviors<br>• ValidationBehavior (Tự động kích hoạt FluentValidation trước Handler)<br>• LoggingBehavior (Ghi log tham số đầu vào và kết quả có cấu trúc)<br>• PerformanceBehavior (Cảnh báo khi thời gian thực thi > 500ms)<br>• TransactionBehavior (Quản lý DbTransaction Unit of Work tự động)"]
+        VAL["FluentValidation Validators<br>• CreateOrderValidator, CheckInWifiValidator, CashShiftValidator..."]
+        DTOS["DTOs, ViewModels & AutoMapper Profiles"]
+        PORTS["Application Interfaces (Ports)<br>• IAppDbContext, IRedisCacheService, IRedLockManager<br>• IPayOSGateway, IGeminiAiClient, IWeatherClient, IEmailService, ITelegramBotService"]
+    end
+
+    subgraph L3["3. DOMAIN LAYER (SmartFB.Domain - Core Enterprise Rules)"]
+        direction TB
+        ENT["Domain Entities (25 Real Entities)<br>• Branch, BranchWifiConfig, Table, User, Role, UserRole, AuditLog<br>• Category, Product, ProductSize, ProductBranchPrice, Modifier, ProductModifier<br>• Ingredient, RecipeBOM, Order, OrderItem, OrderItemModifier, Payment<br>• Customer, LoyaltyCupTransaction, Voucher, CustomerReview, Shift, Attendance"]
+        VO["Value Objects<br>• Money, Address, PhoneNumber, WifiSubnet, GeoLocation"]
+        ENUMS["Domain Enums<br>• OrderType (DineIn, TakeAway, Delivery)<br>• OrderStatus (PendingPayment, Paid, Confirmed, Preparing, Ready, Served, Cancelled)<br>• PaymentMethod (VietQR, Cash)<br>• ShiftStatus (Open, Closed, Reconciled)"]
+        EVENTS["Domain Events<br>• OrderPaidDomainEvent, OrderConfirmedDomainEvent<br>• OrderReadyDomainEvent, LowRatingAlertDomainEvent, StockShortageDomainEvent"]
+        EXCEPTIONS["Domain Exceptions (Business Rule Invariants)"]
+    end
+
+    subgraph L4["4. INFRASTRUCTURE LAYER (SmartFB.Infrastructure - Adapters)"]
+        direction TB
+        EF["Entity Framework Core 8 DbContext<br>• AppDbContext (25 DbSets, Fluent API Mapping, Shadow Properties)<br>• SoftDeleteGlobalFilter, AuditableEntityInterceptor, MigrationManager"]
+        REPOS["Repositories & Unit of Work Implementation<br>• OrderRepository, ProductRepository, ShiftRepository, AttendanceRepository"]
+        REDIS_IMPL["Redis 7 Services<br>• RedisCacheService (Cache-Aside Engine)<br>• RedLockDistributedLockManager (RedLock.net Implementation)<br>• SignalR Redis Backplane Bus"]
+        EXT_ADAPTERS["External Gateway Adapters<br>• PayOSPaymentGateway (PayOS .NET SDK + HMAC-SHA256 Validator)<br>• GoogleGeminiClient (Semantic Prompt Builder + RestClient)<br>• OpenWeatherClient (HttpClientFactory)<br>• SmtpEmailService & TelegramBotService (Cảnh báo đỏ khẩn cấp)"]
+    end
+
+    %% Dependencies
+    L1 --> L2
+    L2 --> L3
+    L4 --> L3
+    L4 --> L2
+    L1 --> L4
+
+    CTRL --> MW
+    MW --> PIPE
+    PIPE --> VAL
+    PIPE --> CMD & QRY
+    CMD & QRY --> PORTS
+    PORTS -.-> L4
+    CMD & QRY --> ENT & VO & ENUMS
+    CMD --> EVENTS
+
+    REPOS --> EF
+    REDIS_IMPL -.-> PORTS
+    EXT_ADAPTERS -.-> PORTS
+    EF --> ENT
+
+    %% Styling
+    classDef preStyle fill:#1e293b,stroke:#475569,stroke-width:2px,color:#ffffff;
+    classDef appStyle fill:#1e40af,stroke:#3b82f6,stroke-width:2px,color:#ffffff;
+    classDef domStyle fill:#991b1b,stroke:#ef4444,stroke-width:2px,color:#ffffff;
+    classDef infStyle fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#ffffff;
+
+    class CTRL,HUBS,MW preStyle;
+    class CMD,QRY,PIPE,VAL,DTOS,PORTS appStyle;
+    class ENT,VO,ENUMS,EVENTS,EXCEPTIONS domStyle;
+    class EF,REPOS,REDIS_IMPL,EXT_ADAPTERS infStyle;

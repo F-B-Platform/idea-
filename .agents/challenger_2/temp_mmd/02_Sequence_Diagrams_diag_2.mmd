@@ -1,0 +1,78 @@
+sequenceDiagram
+    autonumber
+    actor C as 👤 Khách Hàng (Tại bàn)
+    participant PWA as 📱 Next.js PWA (Customer)
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (OrderController)
+    participant DB as 🐘 PostgreSQL 16 (EF Core)
+    participant HUB as 📡 SignalR (Kitchen & Order Hub)
+    actor KDS as 🧋 Barista (Web KDS Bếp)
+    participant PRN as 🖨️ Máy In Nhiệt Bar (ESC/POS)
+    actor ST as 🧑‍💼 Phục Vụ / Thu Ngân
+    participant POS as 💻 Web Staff POS Portal
+    participant PAY as 🏦 Cổng PayOS Gateway
+
+    %% Bước 1: Tạo Đơn Trả Sau
+    C->>PWA: Chọn món & Bấm chọn [Thanh toán Tiền Mặt / Trả Sau Tại Bàn]
+    PWA->>NGINX: POST /api/v1/orders/dine-in (TableId: "T04", Items: [...], PaymentMethod: "Cash")
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: INSERT INTO Orders (OrderType='DineIn', Status='Confirmed', PaymentMethod='Cash', TotalAmount=70000)
+    API->>DB: INSERT INTO OrderItems (...)
+    API->>HUB: KitchenHub.Clients.Group("branch_B01_kitchen").SendAsync("NewKitchenOrder", OrderTicketDto)
+    API-->>PWA: HTTP 201 Created (OrderId="ord-9943", Status="Confirmed", TotalAmount=70000)
+    deactivate API
+
+    par Cập nhật Giao diện Đặt món & KDS
+        PWA-->>C: Thông báo: "Đơn hàng đã gửi bếp! Quý khách sẽ thanh toán khi nhận đồ uống."
+        HUB-->>KDS: KDS phát chuông 🔔 & Hiển thị thẻ đơn Bàn 04 ở cột "Chờ Pha Chế"
+    end
+
+    %% Bước 2: Pha chế & In Bill kèm VietQR
+    KDS->>API: PATCH /api/v1/kds/orders/ord-9943/status { status: "Preparing" }
+    API->>DB: UPDATE Orders SET Status='Preparing'
+    
+    KDS->>API: PATCH /api/v1/kds/orders/ord-9943/status { status: "Ready" }
+    activate API
+    API->>DB: UPDATE Orders SET Status='Ready'
+    API->>PAY: GenerateVietQrPayload(Amount=70000, Description="ORD_B01_9943")
+    PAY-->>API: Trả về Chuỗi VietQR Payload Base64
+    API->>PRN: SendRawEscPosPrintJob (Chi tiết đơn + Tổng tiền 70k + Mã VietQR In Sẵn)
+    deactivate API
+
+    PRN-->>KDS: In ra Phiếu Hóa Đơn Tạm Tính có in sẵn mã VietQR
+    KDS->>ST: Bàn giao khay đồ uống kèm tờ Hóa Đơn VietQR
+    ST->>C: Bưng nước ra Bàn 04 + Đặt tờ Hóa Đơn lên bàn
+    ST->>API: PATCH /api/v1/orders/ord-9943/status { status: "Served" }
+    API->>DB: UPDATE Orders SET Status='PendingPayment'
+
+    %% Bước 3: Khách hàng Thanh toán (2 Nhánh)
+    alt Nhánh B1: Khách Trả Tiền Mặt
+        C->>ST: Đưa 100.000đ tiền mặt
+        ST->>POS: Mở đơn Bàn 04 -> Nhập Tiền Khách Đưa: 100.000đ -> Bấm [Xác nhận thu tiền mặt]
+        POS->>API: POST /api/v1/payments/cash-confirm { orderId: "ord-9943", cashGiven: 100000 }
+        activate API
+        API->>DB: UPDATE Payments SET Status='Success', Amount=70000, PaymentMethod='Cash'
+        API->>DB: UPDATE Orders SET Status='Paid', PaidAt=NOW()
+        API->>DB: UPDATE Shifts SET CashRevenue = CashRevenue + 70000 WHERE Status='Open'
+        API->>HUB: OrderHub.Clients.Group("order_ord-9943").SendAsync("OrderPaid", { orderId: "ord-9943" })
+        API-->>POS: HTTP 200 OK (ChangeAmount=30000, Status="Paid")
+        deactivate API
+        POS-->>ST: Mở két tiền -> Hiển thị tiền thối: 30.000đ
+        ST->>C: Thối lại 30.000đ tiền mặt cho khách
+    else Nhánh B2: Khách Quét Mã VietQR Trên Hóa Đơn
+        C->>C: Mở App Ngân Hàng -> Quét mã VietQR in trên tờ hóa đơn -> Chuyển 70.000đ
+        PAY->>API: POST /api/v1/webhooks/payos (HMAC-SHA256, ORD_B01_9943, 70000đ)
+        activate API
+        API->>API: Xác thực chữ ký HMAC-SHA256 & Idempotency Key
+        API->>DB: UPDATE Payments SET Status='Success', PaymentMethod='VietQR', TransactionRef=...
+        API->>DB: UPDATE Orders SET Status='Paid', PaidAt=NOW()
+        API->>HUB: OrderHub.Clients.Group("order_ord-9943").SendAsync("OrderPaid", { orderId: "ord-9943" })
+        API->>HUB: NotificationHub.Clients.Group("branch_B01_staff").SendAsync("TablePaidNotification", "Bàn 04 đã chuyển khoản!")
+        API-->>PAY: HTTP 200 OK
+        deactivate API
+        HUB-->>POS: Web POS quầy tự động chuyển trạng thái Bàn 04 sang [ĐÃ THANH TOÁN XANH LÁ]
+    end
+
+    HUB-->>PWA: PWA chuyển sang trạng thái "Đã thanh toán thành công!" & Mở Form Review

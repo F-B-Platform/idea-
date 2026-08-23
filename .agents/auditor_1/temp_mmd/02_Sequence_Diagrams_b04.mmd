@@ -1,0 +1,76 @@
+sequenceDiagram
+    autonumber
+    actor C as 👤 Khách Hàng (Tại quầy)
+    actor CS as 🧑‍💼 Thu Ngân (Cashier)
+    participant POS as 💻 Web Staff POS Portal
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (PosOrder & CRM Controller)
+    participant DB as 🐘 PostgreSQL 16 (Customers & Loyalty Table)
+    participant HUB as 📡 SignalR KitchenHub
+    actor KDS as 🧋 Barista (Web KDS Bếp)
+    participant PRN as 🖨️ Máy In Hóa Đơn POS
+
+    %% Bước 1: Khách đọc SĐT & Tra cứu CRM
+    C->>CS: "Cho mình 2 Cà phê Muối mang về, SĐT mình: 0909123456"
+    CS->>POS: Nhập "0909123456" vào ô tìm kiếm CRM
+    POS->>NGINX: GET /api/v1/crm/customers/lookup?phone=0909123456
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: SELECT * FROM Customers WHERE PhoneNumber = '0909123456'
+    DB-->>API: CustomerRecord (FullName="Nguyễn Hoàng Nam", CupBalance=10)
+    API-->>POS: HTTP 200 OK (CustomerId="c-8821", Name="Nguyễn Hoàng Nam", CupBalance=10, CanRedeem=true)
+    deactivate API
+
+    POS-->>CS: Hiển thị Huy hiệu Vàng: "🎁 KHÁCH ĐỦ 10 LY — ĐỦ ĐIỀU KIỆN ĐỔI 1 LY MIỄN PHÍ"
+    CS->>C: "Anh Nam đang có 10 ly tích lũy, anh có muốn đổi 1 ly miễn phí hôm nay không ạ?"
+    C->>CS: "Có, đổi giúp mình 1 ly nhé!"
+
+    %% Bước 2: Chọn món & Áp dụng Đổi Thưởng
+    CS->>POS: Chọn 2x Cà phê Muối (70.000đ) -> Bấm [Áp Dụng Đổi 1 Ly Free (-35.000đ)]
+    POS->>POS: Tính lại Tổng thanh toán: 70.000đ - 35.000đ = 35.000 VNĐ
+    CS->>POS: Bấm [Tạo Đơn & Gửi Bếp]
+
+    POS->>NGINX: POST /api/v1/pos/orders/takeaway
+    Note over POS,API: Payload: { customerId: "c-8821", items: [...], redeemFreeCup: true, totalAmount: 35000 }
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: BEGIN TRANSACTION
+    API->>DB: INSERT INTO Orders (OrderType='TakeAway', Status='Confirmed', TableId=NULL, TotalAmount=35000)
+    API->>DB: INSERT INTO OrderItems (...)
+    API->>DB: COMMIT TRANSACTION
+
+    API->>HUB: KitchenHub.Clients.Group("branch_B01_kitchen").SendAsync("NewKitchenOrder", TakeawayTicketDto)
+    API-->>POS: HTTP 201 Created (OrderId="tk-0089", OrderNumber="TK-89", TotalAmount=35000)
+    deactivate API
+
+    HUB-->>KDS: KDS phát chuông 🔔 & Xuất hiện vé `[MANG VỀ #TK-89]`
+    KDS->>API: PATCH Status -> Preparing -> Ready (Pha chế & Đóng túi mang đi)
+    HUB-->>POS: Web POS báo chuông: "Đơn mang về #TK-89 đã sẵn sàng!"
+
+    %% Bước 3: Thu tiền & Cập nhật Loyalty CRM
+    CS->>C: Bàn giao túi đồ uống: "Tổng tiền của anh là 35.000đ ạ."
+    C->>CS: Đưa 100.000đ tiền mặt
+    CS->>POS: Nhập Tiền Khách Đưa: 100.000đ -> POS tính Tiền Thối: 65.000đ -> Bấm [Hoàn Tất & In Bill]
+
+    POS->>NGINX: POST /api/v1/pos/orders/tk-0089/finalize-payment
+    Note over POS,API: Payload: { paymentMethod: "Cash", amountGiven: 100000, changeAmount: 65000 }
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: BEGIN TRANSACTION
+    API->>DB: UPDATE Orders SET Status='Paid', PaidAt=NOW()
+    API->>DB: INSERT INTO Payments (PaymentMethod='Cash', Amount=35000, Status='Success')
+    API->>DB: UPDATE Customers SET CupBalance = (10 - 10 + 2) = 2 WHERE Id='c-8821'
+    API->>DB: INSERT INTO LoyaltyCupTransactions (CustomerId='c-8821', CupsCount=-10, Reason='RedeemFreeCup')
+    API->>DB: INSERT INTO LoyaltyCupTransactions (CustomerId='c-8821', CupsCount=+2, Reason='EarnTakeawayCups')
+    API->>DB: UPDATE Shifts SET CashRevenue = CashRevenue + 35000 WHERE Status='Open'
+    API->>DB: COMMIT TRANSACTION
+
+    API-->>POS: HTTP 200 OK (NewCupBalance=2, ChangeReturned=65000)
+    deactivate API
+
+    POS->>PRN: Lệnh in Bill ESC/POS (Hóa đơn bán lẻ + Thông tin tích lũy: 2/10 ly)
+    PRN-->>CS: In ra tờ Hóa đơn thanh toán
+    CS->>C: Gửi lại 65.000đ tiền thừa + Hóa đơn: "Cảm ơn anh Nam, anh đã tích lũy lại 2 ly mới ạ!"

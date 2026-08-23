@@ -1,0 +1,91 @@
+sequenceDiagram
+    autonumber
+    actor C as 👤 Khách Hàng (Tại bàn)
+    participant PWA as 📱 Next.js PWA (Customer)
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (OrderController)
+    participant DB as 🐘 PostgreSQL 16 (EF Core)
+    participant HUB as 📡 SignalR (Kitchen & Order Hub)
+    actor KDS as 🧋 Barista (Web KDS Bếp)
+    participant PRN as 🖨️ Máy In Nhiệt Bar (ESC/POS)
+    actor ST as 🧑‍💼 Phục Vụ / Thu Ngân
+    participant POS as 💻 Web Staff POS Portal
+    participant PAY as 🏦 Cổng PayOS Gateway
+
+    %% Bước 1: Tạo Đơn Trả Sau
+    C->>PWA: Chọn món & Bấm chọn [Thanh toán Tiền Mặt / Trả Sau Tại Bàn]
+    PWA->>NGINX: POST /api/v1/orders/dine-in (TableId: "T04", Items: [...], PaymentMethod="CASH")
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: BEGIN TRANSACTION
+    API->>DB: INSERT INTO orders (order_code='ORD-B01-9943', branch_id='B01', table_id='T04', order_type='DINE_IN', status='Confirmed', payment_method='CASH', total_amount=70000)
+    API->>DB: INSERT INTO order_items (order_id, product_id, size_id, quantity=2, unit_price=35000, total_price=70000, status='Confirmed')
+    API->>DB: UPDATE tables SET status='Occupied_PendingPayment' WHERE id='T04'
+    API->>DB: COMMIT TRANSACTION
+    
+    API->>HUB: KitchenHub.Clients.Group("branch_B01_kitchen").SendAsync("NewKitchenOrder", OrderTicketDto)
+    API-->>PWA: HTTP 201 Created (OrderId="ord-9943", Status="Confirmed", TotalAmount=70000)
+    deactivate API
+
+    par Cập nhật Giao diện Đặt món & KDS
+        PWA-->>C: Thông báo: "Đơn hàng đã gửi bếp! Quý khách sẽ thanh toán khi nhận đồ uống."
+        HUB-->>KDS: KDS phát chuông 🔔 & Hiển thị thẻ đơn Bàn 04 ở cột "Chờ Pha Chế"
+    end
+
+    %% Bước 2: Pha chế & In Bill kèm VietQR
+    KDS->>API: PATCH /api/v1/kds/orders/ord-9943/status { status: "Preparing" }
+    API->>DB: UPDATE orders SET status='Preparing' WHERE id='ord-9943'
+    
+    KDS->>API: PATCH /api/v1/kds/orders/ord-9943/status { status: "Ready" }
+    activate API
+    API->>DB: UPDATE orders SET status='Ready' WHERE id='ord-9943'
+    API->>PAY: GenerateVietQrPayload(Amount=70000, Description="ORD_B01_9943")
+    PAY-->>API: Trả về Chuỗi VietQR Payload Base64
+    API->>PRN: SendRawEscPosPrintJob (Chi tiết đơn + Tổng tiền 70k + Mã VietQR In Sẵn)
+    deactivate API
+
+    PRN-->>KDS: In ra Phiếu Hóa Đơn Tạm Tính có in sẵn mã VietQR
+    KDS->>ST: Bàn giao khay đồ uống kèm tờ Hóa Đơn VietQR
+    ST->>C: Bưng nước ra Bàn 04 + Đặt tờ Hóa Đơn lên bàn
+    ST->>API: PATCH /api/v1/orders/ord-9943/status { status: "Served" }
+    API->>DB: UPDATE orders SET status='Served' WHERE id='ord-9943'
+
+    %% Bước 3: Khách hàng Thanh toán (2 Nhánh)
+    alt Nhánh B1: Khách Trả Tiền Mặt Cho Phục Vụ
+        C->>ST: Đưa 100.000đ tiền mặt
+        ST->>POS: Mở đơn Bàn 04 -> Nhập Tiền Khách Đưa: 100.000đ -> Bấm [Xác nhận thu tiền mặt]
+        POS->>API: POST /api/v1/payments/cash-confirm { orderId: "ord-9943", cashGiven: 100000 }
+        activate API
+        API->>DB: BEGIN TRANSACTION
+        API->>DB: INSERT INTO payments (order_id, payment_method='CASH', amount=70000, status='Success', confirmed_at=NOW())
+        API->>DB: UPDATE orders SET status='Completed', paid_at=NOW(), completed_at=NOW() WHERE id='ord-9943'
+        API->>DB: UPDATE tables SET status='Available' WHERE id='T04'
+        API->>DB: UPDATE work_shifts SET cash_sales_system = cash_sales_system + 70000 WHERE id=current_shift_id AND status='Open'
+        API->>DB: COMMIT TRANSACTION
+        
+        API->>HUB: OrderHub.Clients.Group("order_ord-9943").SendAsync("OrderPaid", { orderId: "ord-9943" })
+        API-->>POS: HTTP 200 OK (ChangeAmount=30000, Status="Paid")
+        deactivate API
+        POS-->>ST: Mở két tiền -> Hiển thị tiền thối: 30.000đ
+        ST->>C: Thối lại 30.000đ tiền mặt cho khách
+    else Nhánh B2: Khách Quét Mã VietQR Trên Hóa Đơn
+        C->>C: Mở App Ngân Hàng -> Quét mã VietQR in trên tờ hóa đơn -> Chuyển 70.000đ
+        PAY->>API: POST /api/v1/webhooks/payos (HMAC-SHA256, ORD_B01_9943, 70000đ)
+        activate API
+        API->>API: Xác thực chữ ký HMAC-SHA256 & Idempotency Key
+        API->>DB: BEGIN TRANSACTION
+        API->>DB: INSERT INTO payments (order_id, payment_method='VIETQR', amount=70000, status='Success', confirmed_at=NOW(), transfer_content='ORD_B01_9943')
+        API->>DB: INSERT INTO transactions (payment_id, gateway_transaction_id=..., amount=70000, is_verified=true)
+        API->>DB: UPDATE orders SET status='Completed', paid_at=NOW(), completed_at=NOW() WHERE id='ord-9943'
+        API->>DB: UPDATE tables SET status='Available' WHERE id='T04'
+        API->>DB: COMMIT TRANSACTION
+        
+        API->>HUB: OrderHub.Clients.Group("order_ord-9943").SendAsync("OrderPaid", { orderId: "ord-9943" })
+        API->>HUB: NotificationHub.Clients.Group("branch_B01_staff").SendAsync("TablePaidNotification", "Bàn 04 đã chuyển khoản thành công!")
+        API-->>PAY: HTTP 200 OK
+        deactivate API
+        HUB-->>POS: Web POS quầy tự động chuyển trạng thái Bàn 04 sang [ĐÃ THANH TOÁN XANH LÁ]
+    end
+
+    HUB-->>PWA: PWA chuyển sang trạng thái "Đã thanh toán thành công!" & Mở Form Review

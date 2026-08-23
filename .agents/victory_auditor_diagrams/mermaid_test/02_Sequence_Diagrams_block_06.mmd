@@ -1,0 +1,63 @@
+sequenceDiagram
+    autonumber
+    actor KDS as 🧋 Barista (Web KDS)
+    participant UI as 💻 Next.js KDS App
+    participant NGINX as 🛡️ NGINX Reverse Proxy
+    participant API as ⚙️ .NET 8 API (KDS & Inventory Controller)
+    participant DB as 🐘 PostgreSQL 16 (product_recipes, inventory_stocks, inventory_logs, ingredients, products)
+    participant RD as ⚡ Redis 7 Cache & Hash Store
+    participant HUB as 📡 SignalR (Kitchen & Notification Hub)
+    participant PWA as 📱 QR Menu Khách Hàng (Tất cả bàn)
+    actor MGR as 🏪 Quản Lý Chi Nhánh
+
+    %% PHẦN 1: PHA CHẾ & TỰ ĐỘNG TRỪ KHO THEO BOM (GAM / ML)
+    Note over KDS,DB: PHẦN 1: PHA CHẾ HOÀN TẤT & KHẤU TRỪ ĐỊNH LƯỢNG BOM
+    KDS->>UI: Chạm nút [Hoàn Tất Pha Chế] trên thẻ đơn #ORD-B01-9942 (2x Matcha Latte Size L)
+    UI->>NGINX: PATCH /api/v1/kds/orders/ord-9942/complete-prep
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: BEGIN TRANSACTION
+    API->>DB: UPDATE orders SET status='Ready' WHERE id='ord-9942'
+    
+    API->>DB: SELECT r.ingredient_id, r.quantity, r.wastage_rate FROM product_recipes r WHERE r.product_id='prod-matcha' AND r.size_id='size-L'
+    DB-->>API: Recipe Data: { Bột Matcha: 15g, Sữa Tươi: 180ml, Nước Đường: 20ml } (x2 Ly = 30g Matcha, 360ml Sữa)
+    
+    API->>DB: UPDATE inventory_stocks SET current_quantity = current_quantity - 30, updated_at=NOW() WHERE ingredient_id='ing-matcha' AND branch_id='B01'
+    API->>DB: UPDATE inventory_stocks SET current_quantity = current_quantity - 360, updated_at=NOW() WHERE ingredient_id='ing-milk' AND branch_id='B01'
+    API->>DB: INSERT INTO inventory_logs (branch_id, ingredient_id, order_id, change_type='BOM_AUTO_DEDUCT', quantity_changed=-30, notes='Auto deduct KDS Ready')
+    API->>DB: INSERT INTO inventory_logs (branch_id, ingredient_id, order_id, change_type='BOM_AUTO_DEDUCT', quantity_changed=-360, notes='Auto deduct KDS Ready')
+    
+    API->>DB: SELECT i.name, s.current_quantity, i.min_stock_threshold FROM inventory_stocks s JOIN ingredients i ON s.ingredient_id = i.id WHERE s.branch_id='B01' AND s.current_quantity <= i.min_stock_threshold
+    DB-->>API: AlertList: [{ name: "Sữa Tươi Thanh Trùng", current_quantity: 1200, min_stock_threshold: 2000 }]
+    API->>DB: COMMIT TRANSACTION
+
+    API->>HUB: KitchenHub.Clients.Group("branch_B01_kitchen").SendAsync("OrderStatusUpdated", "Ready")
+    opt Phát hiện nguyên liệu dưới ngưỡng tối thiểu
+        API->>HUB: NotificationHub.Clients.Group("branch_B01_manager").SendAsync("LowStockAlert", { ingredient: "Sữa Tươi Thanh Trùng", current: "1.2L", min: "2.0L" })
+    end
+    API-->>UI: HTTP 200 OK (Status="Ready", StockDeducted=true)
+    deactivate API
+
+    HUB-->>MGR: Manager Portal hiển thị cảnh báo đỏ nhấp nháy: "⚠️ Sữa Tươi Thanh Trùng sắp hết (Còn 1.2L)"
+
+    %% PHẦN 2: CÔNG TẮC 86-TOGGLE KHÓA MÓN HẾT HÀNG TỨC THÌ
+    Note over KDS,PWA: PHẦN 2: CÔNG TẮC KHẨN CẤP 86-TOGGLE (KHÓA MÓN HẾT HÀNG)
+    KDS->>UI: Phát hiện hết Đào ngâm -> Mở tab [Tồn Món] -> Gạt Toggle món "Trà Đào Cam Sả" sang [HẾT HÀNG]
+    UI->>NGINX: PATCH /api/v1/kds/menu-items/prod-tra-dao/availability { branchId: "B01", isAvailable: false, reason: "Hết Đào Ngâm" }
+    NGINX->>API: Forward Request
+
+    activate API
+    API->>DB: UPDATE products SET is_available = false, updated_at = NOW() WHERE id='prod-tra-dao'
+    API->>RD: HSET branch:B01:out_of_stock "prod-tra-dao" "1"
+    API->>RD: DEL menu:branch:B01:active (Xóa cache thực đơn chi nhánh)
+    
+    API->>HUB: KitchenHub.Clients.Group("branch_B01_kitchen").SendAsync("Item86Toggled", { productId: "prod-tra-dao", isAvailable: false })
+    API->>HUB: OrderHub.Clients.Group("branch_B01_customers").SendAsync("Item86Toggled", { productId: "prod-tra-dao", isAvailable: false })
+    API-->>UI: HTTP 200 OK (Message: "Đã khóa món Trà Đào Cam Sả thành công")
+    deactivate API
+
+    par Đồng bộ tức thời dưới 1 giây
+        UI-->>KDS: Nút chuyển sang trạng thái đỏ [86 - HẾT HÀNG]
+        HUB-->>PWA: WebSocket Event `Item86Toggled` -> Toàn bộ điện thoại khách trong quán tự động làm mờ món "Trà Đào Cam Sả", hiện nhãn "Tạm Hết Món" và khóa nút [Thêm vào giỏ]
+    end

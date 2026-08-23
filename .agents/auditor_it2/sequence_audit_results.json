@@ -1,0 +1,75 @@
+{
+  "all10Valid": true,
+  "sequences": [
+    {
+      "id": "Seq-01",
+      "name": "Dine-In Nhánh A (VietQR trả trước -> PayOS Webhook -> KDS Bếp)",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 147
+    },
+    {
+      "id": "Seq-02",
+      "name": "Dine-In Nhánh B (Tiền mặt trả sau / In Bill kèm VietQR -> Thu tiền sau)",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 90
+    },
+    {
+      "id": "Seq-03",
+      "name": "QR Delivery (Form SĐT + Địa chỉ, Phí ship 20k, 100% VietQR trước)",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 129
+    },
+    {
+      "id": "Seq-04",
+      "name": "Takeaway Web POS (NV thao tác tại quầy, CRM SĐT, Tích 10 ly đổi 1 ly)",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 78
+    },
+    {
+      "id": "Seq-05",
+      "name": "Chấm công Khóa mạng WiFi (BSSID Router / IP Subnet + Mã NV)",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 51
+    },
+    {
+      "id": "Seq-06",
+      "name": "Điều phối KDS Bếp, Trừ kho định mức BOM & Công tắc khẩn cấp 86-Toggle",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 62
+    },
+    {
+      "id": "Seq-07",
+      "name": "Gọi phục vụ tại bàn & Tiếp nhận chuông báo trên Web Staff/KDS",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 49
+    },
+    {
+      "id": "Seq-08",
+      "name": "Đánh giá món 1-5 sao, Tải ảnh & Kích hoạt Alert đỏ Quản lý khi <= 2 sao",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 49
+    },
+    {
+      "id": "Seq-09",
+      "name": "Mở ca két tiền, Quản lý kho, Kết ca đối soát Z-Report (giải trình khi lệch > 50k)",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 66
+    },
+    {
+      "id": "Seq-10",
+      "name": "Admin CRUD Menu, BOM từng size, Lên lịch Seasonal Menu & Phê duyệt AI Combo",
+      "hasHeader": true,
+      "hasDiagram": true,
+      "diagramLines": 70
+    }
+  ]
+}
