@@ -28,8 +28,8 @@
 │ • Bàn giao 100% mã nguồn bản quyền   │   Vật tư giấy in nhiệt 3 quán  │ • Hỗ trợ theo lần:             │
 │ • 0 VNĐ phí bản quyền phần mềm       │ • Kịch bản VPS tối ưu chi phí  │   👉 300.000 – 500.000 đ/lần   │
 │                                      │                                │ • Thêm tính năng mới:          │
-│ 💰 **15.000.000 VNĐ (TRẢ 1 LẦN)**    │ 💰 **940.000 VNĐ / THÁNG**     │   👉 THƯƠNG LƯỢNG THEO YÊU CẦU │
-│    *(Sở hữu hệ thống vĩnh viễn)*     │    *(Chỉ ~313.000 đ/quán/tháng)*│    *(Tùy chỉnh linh hoạt)*     │
+│ 💰 **15.000.000 VNĐ (CHIA 3 ĐỢT)**   │ 💰 **940.000 VNĐ / THÁNG**     │   👉 THƯƠNG LƯỢNG THEO YÊU CẦU │
+│    *(30% – 40% – 30%)*               │    *(Chỉ ~313.000 đ/quán/tháng)*│    *(Tùy chỉnh linh hoạt)*     │
 └──────────────────────────────────────┴────────────────────────────────┴────────────────────────────────┘
 ```
 
@@ -38,10 +38,20 @@
 # PHẦN 1. BÁO GIÁ PHÁT TRIỂN PHẦN MỀM TRỌN GÓI (CAPEX)
 
 > [!IMPORTANT]
-> **Quy Chế Bản Quyền & Sở Hữu Vĩnh Viễn:** Khách hàng thanh toán **01 lần duy nhất**, được bàn giao **100% mã nguồn và tài liệu kỹ thuật**. Khách hàng sở hữu vĩnh viễn hệ thống, **hoàn toàn KHÔNG phải trả phí duy trì bản quyền phần mềm hàng tháng (0 VNĐ Software License Fee)**.
+> **Quy Chế Bản Quyền & Sở Hữu Vĩnh Viễn:** Khách hàng thanh toán **01 lần theo 3 đợt tiến độ**, được bàn giao **100% mã nguồn và tài liệu kỹ thuật**. Khách hàng sở hữu vĩnh viễn hệ thống, **hoàn toàn KHÔNG phải trả phí duy trì bản quyền phần mềm hàng tháng (0 VNĐ Software License Fee)**.
 
 ### 💰 TỔNG CHI PHÍ PHÁT TRIỂN PHẦN MỀM TRỌN GÓI: **15.000.000 VNĐ**
-*(Bằng chữ: Mười lăm triệu đồng chẵn — Trả một lần duy nhất, sở hữu vĩnh viễn mã nguồn).*
+*(Bằng chữ: Mười lăm triệu đồng chẵn — Trả theo 3 đợt bàn giao, sở hữu vĩnh viễn mã nguồn).*
+
+### 💳 Kế Hoạch Phân Kỳ 3 Đợt Thanh Toán:
+
+| Đợt Thanh Toán | Tỷ Lệ | Số Tiền (VNĐ) | Điều Kiện & Cột Mốc Kích Hoạt |
+|:---:|:---:|:---:|---|
+| **Đợt 1 (Tạm ứng)** | **30%** | **4.500.000** | Ký kết hợp đồng và phê duyệt Bản đặc tả kỹ thuật (SRS & API Contract) |
+| **Đợt 2 (Nghiệm thu UAT)** | **40%** | **6.000.000** | Hoàn thành bản dựng hệ thống, cấu hình cổng PayOS & chạy thử nghiệm UAT |
+| **Đợt 3 (Quyết toán)** | **30%** | **4.500.000** | Nghiệm thu chính thức, bàn giao 100% mã nguồn, Docker và hoàn tất chuyển giao |
+| | | | |
+| 🏆 **TỔNG CỘNG** | **100%** | **15.000.000 VNĐ** | **Thanh toán theo đúng tiến độ hoàn thành thực tế** |
 
 #### 📦 Gói phát triển bao gồm đầy đủ toàn bộ các phân hệ và hạng mục kỹ thuật:
 1. **Hệ thống Backend Lõi:** Kiến trúc .NET 8 Clean Architecture, CQRS MediatR, SignalR Real-time Hubs, Distributed Locks, phân quyền JWT/RBAC, 10 nhóm Resource RESTful APIs, State Machine 4 kênh bán (Dine-in A/B, Takeaway, Delivery).
