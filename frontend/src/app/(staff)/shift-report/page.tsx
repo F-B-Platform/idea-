@@ -1,102 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
-import { formatCurrencyVND, formatDateTime } from "@/lib/utils";
-import { Button } from "@/components/ui/Button";
-import { Textarea } from "@/components/ui/Textarea";
-import { FileText, DollarSign, Coffee, CheckCircle2, UserCheck } from "lucide-react";
+import { FileText, Send } from "lucide-react";
 
-export default function ShiftReportPage() {
-  const [handoverNote, setHandoverNote] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const mockShiftSummary = {
-    shiftCode: "SHIFT-20260825-S1",
-    cashierName: "Nguyễn Văn Thu Ngân",
-    openedAt: "2026-08-25T07:00:00Z",
-    closedAt: new Date().toISOString(),
-    totalOrders: 38,
-    cashSales: 1250000,
-    vietQrSales: 2480000,
-    totalSales: 3730000,
-  };
-
-  const handleHandover = () => {
-    setIsSubmitted(true);
-  };
-
+export default function StaffShiftReportPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-amber-700 text-white flex items-center justify-center font-black shadow-sm">
-            <FileText className="h-5 w-5" />
-          </div>
-          <div>
-            <h1 className="text-lg font-black text-slate-900 leading-tight">
-              Báo Cáo Tổng Kết Ca & Bàn Giao Nhân Viên
-            </h1>
-            <span className="text-xs text-slate-500">Mã Ca: #{mockShiftSummary.shiftCode}</span>
-          </div>
-        </div>
-      </div>
+    <div className="p-6 max-w-xl mx-auto space-y-6">
+      <header>
+        <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <FileText className="w-5 h-5 text-orange-600" /> Báo Cáo & Bàn Giao Ca Làm Việc
+        </h1>
+        <p className="text-xs text-slate-500">Nhân viên ghi chú các vấn đề phát sinh trong ca để bàn giao cho ca tiếp theo.</p>
+      </header>
 
-      {isSubmitted && (
-        <div className="p-4 bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold rounded-2xl flex items-center gap-2 animate-in fade-in">
-          <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0" />
-          <span>Biên bản bàn giao ca đã được gửi thành công tới Quản lý chi nhánh!</span>
-        </div>
-      )}
-
-      {/* KPI Sales Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500 block">Tổng Đơn Phục Vụ</span>
-          <span className="text-2xl font-black text-slate-900">{mockShiftSummary.totalOrders} đơn</span>
+      <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <div>
+          <label className="text-xs font-bold text-slate-700">Ca Làm Việc Hiện Tại</label>
+          <div className="text-sm font-semibold text-slate-900 mt-1">Ca Sáng (06:30 - 14:30) • Nhân viên: Lê Văn B</div>
         </div>
 
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500 block">Doanh Thu Tiền Mặt</span>
-          <span className="text-2xl font-black text-slate-900">
-            {formatCurrencyVND(mockShiftSummary.cashSales)}
-          </span>
+        <div>
+          <label className="text-xs font-bold text-slate-700">Ghi Chú Bàn Giao (Nguyên liệu thiếu, sự cố máy móc...)</label>
+          <textarea
+            rows={4}
+            placeholder="Nhập nội dung bàn giao..."
+            className="w-full mt-1 p-3 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          />
         </div>
 
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500 block">Doanh Thu VietQR</span>
-          <span className="text-2xl font-black text-amber-800">
-            {formatCurrencyVND(mockShiftSummary.vietQrSales)}
-          </span>
-        </div>
-      </div>
-
-      {/* Handover Form */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
-        <h3 className="font-bold text-xs uppercase tracking-wider text-slate-700 border-b border-slate-100 pb-3">
-          Ghi Chú Bàn Giao Ca Kế Tiếp
-        </h3>
-
-        <Textarea
-          label="Ghi chú tồn đọng / Sự cố trong ca"
-          placeholder="Ví dụ: Đã vệ sinh máy pha espresso, quầy bar còn 2 hộp sữa tươi, bàn 02 để quên ô..."
-          value={handoverNote}
-          onChange={(e) => setHandoverNote(e.target.value)}
-          rows={3}
-        />
-
-        <div className="flex justify-end pt-2">
-          <Button
-            type="button"
-            onClick={handleHandover}
-            disabled={isSubmitted}
-            variant="primary"
-            className="font-bold"
-            leftIcon={<UserCheck className="h-4 w-4" />}
-          >
-            Xác Nhận Bàn Giao Ca
-          </Button>
-        </div>
+        <button
+          type="button"
+          className="w-full py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold flex items-center justify-center gap-2 shadow"
+        >
+          <Send className="w-4 h-4" /> Gửi Báo Cáo Bàn Giao
+        </button>
       </div>
     </div>
   );
