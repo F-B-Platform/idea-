@@ -1,30 +1,42 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartFB.Application.Common.Models;
+using SmartFB.Application.Features.Auth.Commands.LoginUser;
+using SmartFB.Application.Features.Auth.Commands.RefreshToken;
+using SmartFB.Application.Features.Auth.Commands.RegisterUser;
+using SmartFB.Application.Features.Auth.DTOs;
+using SmartFB.Application.Features.Auth.Queries.GetUserProfile;
 
 namespace SmartFB.API.Controllers;
 
 public class AuthController : BaseApiController
 {
-    public record LoginRequest(string Username, string Password);
-    public record AuthResponse(string Token, string RefreshToken, string Username, string Role, Guid? BranchId);
-
     [HttpPost("login")]
-    public ActionResult<ApiResponse<AuthResponse>> Login([FromBody] LoginRequest request)
+    public async Task<ActionResult<ApiResponse<AuthResultDto>>> Login([FromBody] LoginUserCommand command)
     {
-        if (string.IsNullOrWhiteSpace(request.Username) || string.IsNullOrWhiteSpace(request.Password))
-        {
-            return BadRequest(ApiResponse<AuthResponse>.FailureResult("Tên đăng nhập và mật khẩu không được để trống."));
-        }
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
 
-        // Demo seed credentials response for initial setup
-        var response = new AuthResponse(
-            Token: "mock_jwt_token_for_development_purposes_2026",
-            RefreshToken: "mock_refresh_token_2026",
-            Username: request.Username,
-            Role: "Admin",
-            BranchId: Guid.Parse("11111111-1111-1111-1111-111111111111")
-        );
+    [HttpPost("register")]
+    public async Task<ActionResult<ApiResponse<UserProfileDto>>> Register([FromBody] RegisterUserCommand command)
+    {
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
 
-        return Ok(ApiResponse<AuthResponse>.SuccessResult(response, "Đăng nhập thành công."));
+    [HttpPost("refresh-token")]
+    public async Task<ActionResult<ApiResponse<AuthResultDto>>> RefreshToken([FromBody] RefreshTokenCommand command)
+    {
+        var result = await Mediator.Send(command);
+        return Ok(result);
+    }
+
+    [Authorize]
+    [HttpGet("profile/{userId:guid}")]
+    public async Task<ActionResult<ApiResponse<UserProfileDto>>> GetProfile(Guid userId)
+    {
+        var result = await Mediator.Send(new GetUserProfileQuery(userId));
+        return Ok(result);
     }
 }

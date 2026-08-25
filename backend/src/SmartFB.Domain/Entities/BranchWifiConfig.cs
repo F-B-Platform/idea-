@@ -5,11 +5,14 @@ namespace SmartFB.Domain.Entities;
 public class BranchWifiConfig : BaseEntity
 {
     public Guid BranchId { get; set; }
-    public string Ssid { get; set; } = string.Empty;
-    public string Bssid { get; set; } = string.Empty; // MAC address of router
-    public string IpSubnet { get; set; } = string.Empty; // Subnet range e.g., 192.168.1.0/24
+    public string SsidName { get; set; } = string.Empty;
+    public string Ssid { get => SsidName; set => SsidName = value; }
+    public string BssidList { get; set; } = string.Empty;
+    public string Bssid { get => BssidList; set => BssidList = value; }
+    public string AllowedIpSubnets { get; set; } = string.Empty;
+    public string IpSubnet { get => AllowedIpSubnets; set => AllowedIpSubnets = value; }
     public bool IsActive { get; set; } = true;
 
     // Navigation Properties
-    public Branch Branch { get; set; } = null!;
+    public virtual Branch Branch { get; set; } = null!;
 }

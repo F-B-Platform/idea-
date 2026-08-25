@@ -1,25 +1,21 @@
-# DISPATCH LOG
+## 2026-08-25T02:50:47Z
+You are the Forensic Integrity Auditor for the Smart F&B Operating System project.
+Working directory: d:\Idea_DoAn\.agents\auditor_1\
+Original Request path: d:\Idea_DoAn\.agents\ORIGINAL_REQUEST.md
+Project specification: d:\Idea_DoAn\PROJECT.md
 
-## 2026-08-23T13:51:58Z
-
-**From**: Parent / Orchestrator (`fc4000ed-ba06-4464-9f3e-e071f99a8f77`)
-**Task**: Forensic Audit (teamwork_preview_auditor) for 4 architecture diagram files in `d:\Idea_DoAn\04_Thiet_Ke_Kien_Truc_Diagrams\`:
-1. `01_Kien_Truc_Tong_Quan.md`
-2. `02_Sequence_Diagrams.md`
-3. `03_ERD_Database_Diagram.md`
-4. `04_Deployment_Diagram.md`
-
-**Objectives & Rules**:
-- Source of truth:
-  - `d:\Idea_DoAn\01_Tai_Lieu_Dac_Ta_Goc\Smart_FB_Operating_System.md`
-  - `d:\Idea_DoAn\01_Tai_Lieu_Dac_Ta_Goc\Workflow_Quy_Trinh_Nghiep_Vu.md`
-  - `d:\Idea_DoAn\01_Tai_Lieu_Dac_Ta_Goc\Tong_Quan_Kien_Truc_He_Thong.md`
-  - `d:\Idea_DoAn\03_Quy_Trinh_Trien_Khai\02_Thiet_Ke_Database.md`
-  - `d:\Idea_DoAn\03_Quy_Trinh_Trien_Khai\03_Thiet_Ke_API_Contract.md`
-  - `d:\Idea_DoAn\.agents\ORIGINAL_REQUEST.md`
-- Integrity Checks:
-  1. Zero Placeholder Check (TODO, TBD, ..., lazy code, cut/stubbed diagrams)
-  2. Authenticity Check (Production-grade Mermaid diagrams, data dictionaries, NGINX/Docker configs, CI/CD, Trade-offs)
-  3. Spec Alignment Check v2.5.0 (No Staff Mobile App, GPS 50m, QR 30s, C-23, C-24)
-  4. Mermaid Rendering Validity (Syntax verification for all Mermaid blocks)
-- Verdict: CLEAN or INTEGRITY VIOLATION
+TASK:
+Perform an exhaustive forensic integrity audit across the entire codebase (`backend/` and `frontend/`):
+1. Cheating / Dummy / Facade Detection:
+   - Check if any method is hardcoded to return test results or mock strings instead of real logic.
+   - Check if unit/integration tests test real implementations or fake assertions.
+   - Search for placeholders (`TODO`, `FIXME`, `/* rest of code */`, `throw new NotImplementedException()`).
+2. Architecture & Schema Conformance:
+   - Verify 25 3NF entities in Domain, 10 CQRS feature modules in Application, 25 EF configurations in Infrastructure, 10 Controllers and 4 Hubs in API.
+   - Verify 5 Route Groups, 30 pages, 6 Zustand stores, 4 custom hooks in Frontend.
+   - Verify .github/workflows/ci.yml pipeline configuration.
+3. Execution Verification:
+   - Verify that `dotnet build`, `dotnet test`, `npm run typecheck`, and `npm run build` execute genuine compilers and test runners.
+4. Write your full forensic report to `d:\Idea_DoAn\.agents\auditor_1\analysis.md`.
+5. Write your handoff report to `d:\Idea_DoAn\.agents\auditor_1\handoff.md` with an explicit verdict: `CLEAN` or `INTEGRITY VIOLATION`.
+6. Update `d:\Idea_DoAn\.agents\auditor_1\progress.md` and send message to caller when done.

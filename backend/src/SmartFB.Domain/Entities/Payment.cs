@@ -3,18 +3,18 @@ using SmartFB.Domain.Enums;
 
 namespace SmartFB.Domain.Entities;
 
-public class Payment : BaseEntity
+public class Payment : BaseEntity, IAggregateRoot
 {
     public Guid OrderId { get; set; }
-    public string PaymentCode { get; set; } = string.Empty;
-    public PaymentMethod Method { get; set; }
-    public PaymentStatus Status { get; set; } = PaymentStatus.Pending;
+    public PaymentMethod PaymentMethod { get; set; }
+    public PaymentMethod Method { get => PaymentMethod; set => PaymentMethod = value; }
     public decimal Amount { get; set; }
-    public string? TransactionReference { get; set; } // PayOS paymentLinkId or OrderCode
-    public string? QrCodeUrl { get; set; }
+    public string? TransactionCode { get; set; }
+    public string? PaymentCode { get => TransactionCode; set => TransactionCode = value; }
+    public PaymentStatus Status { get; set; } = PaymentStatus.Pending;
+    public string? PayosPaymentLinkId { get; set; }
     public DateTime? PaidAt { get; set; }
-    public string? PayOsWebhookDataJson { get; set; }
 
     // Navigation Properties
-    public Order Order { get; set; } = null!;
+    public virtual Order Order { get; set; } = null!;
 }

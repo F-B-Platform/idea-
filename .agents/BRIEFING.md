@@ -1,37 +1,37 @@
-# BRIEFING — 2026-08-23T14:55:00Z
+# BRIEFING — 2026-08-25T02:32:03Z
 
 ## Mission
-Rewrite, upgrade, and standardize all 3 files in `05_Quy_Chuan_&_Test_Cases/` to 100% reflect v2.5.0 system specs.
+Thiết lập và cấu hình toàn diện bộ khung thư mục, file interfaces, DTOs, Controllers, EF Core entity configurations, Route groups, components, stores, hooks và test scaffolding cho toàn bộ hệ thống Smart F&B OS trong thư mục `d:\Idea_DoAn\` dựa trên bộ tài liệu đặc tả v2.5.0, đảm bảo 100% cấu trúc sẵn sàng để bắt đầu code.
 
 ## 🔒 My Identity
 - Archetype: sentinel
-- Working directory: d:\Idea_DoAn\.agents\sentinel
-- Orchestrator: 0b2ef8ca-1df6-462d-9760-dfcd010abad2 (completed)
-- Victory Auditor: 244166f6-d22a-468b-9a88-438629a41468 (confirmed)
+- Working directory: d:\Idea_DoAn\.agents\sentinel\
+- Orchestrator: [TBD]
+- Victory Auditor: f9c697b8-3cdd-4bc3-9dfe-61bf8b08c72e
 
 ## 🔒 Key Constraints
 - No technical decisions — relay only
 - Victory Audit is MANDATORY before reporting completion
-- Zero placeholders (100% complete SQL scripts and 35+ test cases)
-- Exact alignment with 62 features, 4 actors, 25 3NF tables, Dine-In 2 branches, 20k delivery fee, 10 takeaway cups loyalty, WiFi attendance, no Staff App.
+- Route to teamwork_preview_orchestrator (General path)
+- Keep context ultra-light
+- Zero Placeholders: Absolute 100% completeness. No `TODO`, no `/* rest of code */`.
+- Hard Verification: `dotnet build`, `dotnet test`, `npm run typecheck` must pass with 0 errors.
 
 ## User Context
-- **Last user request**: Rewrite, upgrade, and standardize 3 files in `d:\Idea_DoAn\05_Quy_Chuan_&_Test_Cases\`
+- **Last user request**: Setup and configure backend (.NET 8 Clean Architecture), frontend (Next.js 14 App Router), test scaffolding, and CI/CD pipeline for Smart F&B OS.
 - **Pending clarifications**: none
-- **Delivered results**:
-  - `d:\Idea_DoAn\05_Quy_Chuan_&_Test_Cases\UAT_Test_Cases.md` (1,449 lines)
-  - `d:\Idea_DoAn\05_Quy_Chuan_&_Test_Cases\Seed_Data_&_Database_Script.md` (1,733 lines)
-  - `d:\Idea_DoAn\05_Quy_Chuan_&_Test_Cases\Git_Workflow_&_Branching_Strategy.md` (2,371 lines)
+- **Delivered results**: [none]
 
 ## Project Status
-- **Phase**: complete
+- **Phase**: auditing
 
 ## Victory Audit Status
 - **Triggered**: yes
-- **Verdict**: VICTORY CONFIRMED
+- **Verdict**: pending
 - **Retry count**: 0
 
 ## Artifact Index
-- `d:\Idea_DoAn\05_Quy_Chuan_&_Test_Cases\UAT_Test_Cases.md` — UAT Test Cases & Demo Script (1,449 lines, 47 test cases)
-- `d:\Idea_DoAn\05_Quy_Chuan_&_Test_Cases\Seed_Data_&_Database_Script.md` — PostgreSQL 16 Seed Data (1,733 lines, 29 tables)
-- `d:\Idea_DoAn\05_Quy_Chuan_&_Test_Cases\Git_Workflow_&_Branching_Strategy.md` — GitFlow, CI/CD Gates, Coding Standards (2,371 lines)
+- d:\Idea_DoAn\.agents\ORIGINAL_REQUEST.md — Original User Request
+- d:\Idea_DoAn\backend\SmartFB.slnx — Backend Solution
+- d:\Idea_DoAn\frontend\package.json — Frontend Next.js 14 App
+- d:\Idea_DoAn\.github\workflows\ci.yml — CI/CD Pipeline

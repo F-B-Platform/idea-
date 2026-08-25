@@ -5,7 +5,7 @@ using SmartFB.Domain.Entities;
 
 namespace SmartFB.Infrastructure.Persistence;
 
-public class ApplicationDbContext : DbContext, IApplicationDbContext
+public class ApplicationDbContext : DbContext, IApplicationDbContext, IAppDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -13,66 +13,38 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<Branch> Branches => Set<Branch>();
     public DbSet<BranchWifiConfig> BranchWifiConfigs => Set<BranchWifiConfig>();
+    public DbSet<Table> Tables => Set<Table>();
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Role> Roles => Set<Role>();
+    public DbSet<UserRoleMapping> UserRoles => Set<UserRoleMapping>();
+    public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+    public DbSet<Category> Categories => Set<Category>();
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<ProductSize> ProductSizes => Set<ProductSize>();
+    public DbSet<ProductBranchPrice> ProductBranchPrices => Set<ProductBranchPrice>();
+    public DbSet<Modifier> Modifiers => Set<Modifier>();
+    public DbSet<ProductModifier> ProductModifiers => Set<ProductModifier>();
+    public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+    public DbSet<RecipeBom> RecipeBoms => Set<RecipeBom>();
+    public DbSet<InventoryTransaction> InventoryTransactions => Set<InventoryTransaction>();
+    public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+    public DbSet<OrderItemModifier> OrderItemModifiers => Set<OrderItemModifier>();
     public DbSet<Payment> Payments => Set<Payment>();
-    public DbSet<Customer> Customers => Set<Customer>();
+    public DbSet<PayOSTransaction> PayOSTransactions => Set<PayOSTransaction>();
+    public DbSet<Voucher> Vouchers => Set<Voucher>();
+    public DbSet<CustomerReview> CustomerReviews => Set<CustomerReview>();
+    public DbSet<ReviewImage> ReviewImages => Set<ReviewImage>();
+    public DbSet<Shift> Shifts => Set<Shift>();
+    public DbSet<ZReport> ZReports => Set<ZReport>();
     public DbSet<Attendance> Attendances => Set<Attendance>();
+    public DbSet<LoyaltyCupTransaction> LoyaltyCupTransactions => Set<LoyaltyCupTransaction>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        // Global Query Filter for Soft Delete
-        modelBuilder.Entity<Branch>().HasQueryFilter(e => !e.IsDeleted);
-        modelBuilder.Entity<BranchWifiConfig>().HasQueryFilter(e => !e.IsDeleted);
-        modelBuilder.Entity<Product>().HasQueryFilter(e => !e.IsDeleted);
-        modelBuilder.Entity<Order>().HasQueryFilter(e => !e.IsDeleted);
-        modelBuilder.Entity<OrderItem>().HasQueryFilter(e => !e.IsDeleted);
-        modelBuilder.Entity<Payment>().HasQueryFilter(e => !e.IsDeleted);
-        modelBuilder.Entity<Customer>().HasQueryFilter(e => !e.IsDeleted);
-        modelBuilder.Entity<Attendance>().HasQueryFilter(e => !e.IsDeleted);
-
-        // Configure Decimals precision
-        modelBuilder.Entity<Product>().Property(p => p.BasePrice).HasPrecision(18, 2);
-        modelBuilder.Entity<Order>().Property(o => o.SubTotal).HasPrecision(18, 2);
-        modelBuilder.Entity<Order>().Property(o => o.DiscountAmount).HasPrecision(18, 2);
-        modelBuilder.Entity<Order>().Property(o => o.DeliveryFee).HasPrecision(18, 2);
-        modelBuilder.Entity<Order>().Property(o => o.TotalAmount).HasPrecision(18, 2);
-        modelBuilder.Entity<OrderItem>().Property(oi => oi.UnitPrice).HasPrecision(18, 2);
-        modelBuilder.Entity<OrderItem>().Property(oi => oi.TotalPrice).HasPrecision(18, 2);
-        modelBuilder.Entity<Payment>().Property(p => p.Amount).HasPrecision(18, 2);
-
-        // Relationships & Indexes
-        modelBuilder.Entity<BranchWifiConfig>()
-            .HasOne(w => w.Branch)
-            .WithMany(b => b.WifiConfigs)
-            .HasForeignKey(w => w.BranchId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<OrderItem>()
-            .HasOne(oi => oi.Order)
-            .WithMany(o => o.Items)
-            .HasForeignKey(oi => oi.OrderId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<Payment>()
-            .HasOne(p => p.Order)
-            .WithMany(o => o.Payments)
-            .HasForeignKey(p => p.OrderId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<Order>()
-            .HasIndex(o => o.OrderCode)
-            .IsUnique();
-
-        modelBuilder.Entity<Order>()
-            .HasIndex(o => new { o.BranchId, o.Status, o.CreatedAt });
-
-        modelBuilder.Entity<Customer>()
-            .HasIndex(c => c.PhoneNumber)
-            .IsUnique();
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -82,7 +54,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             switch (entry.State)
             {
                 case EntityState.Added:
-                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                    if (entry.Entity.CreatedAt == default)
+                    {
+                        entry.Entity.CreatedAt = DateTime.UtcNow;
+                    }
                     break;
 
                 case EntityState.Modified:
@@ -92,6 +67,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
                 case EntityState.Deleted:
                     entry.State = EntityState.Modified;
                     entry.Entity.IsDeleted = true;
+                    entry.Entity.DeletedAt = DateTime.UtcNow;
                     entry.Entity.UpdatedAt = DateTime.UtcNow;
                     break;
             }

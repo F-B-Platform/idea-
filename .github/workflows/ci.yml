@@ -1,0 +1,128 @@
+name: Smart F&B OS - Continuous Integration & Quality Gate
+
+on:
+  pull_request:
+    branches: [ develop, main ]
+  push:
+    branches: [ develop, main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend-ci:
+    name: Backend (.NET 8) Build, Test & Coverage
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: smartfb_test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: TestPassword123!
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore Backend Dependencies
+        run: dotnet restore backend/SmartFB.slnx
+
+      - name: Build Backend Solution (Treat Warnings As Errors)
+        run: dotnet build backend/SmartFB.slnx --no-restore --configuration Release /p:TreatWarningsAsErrors=true
+
+      - name: Run Unit & Integration Tests with Coverage
+        run: >
+          dotnet test backend/SmartFB.slnx
+          --no-build
+          --configuration Release
+          --collect:"XPlat Code Coverage"
+          --results-directory ./TestResults
+          --logger "trx;LogFileName=test_results.trx"
+
+      - name: Upload Test Results & Coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results
+          path: ./TestResults
+
+  frontend-ci:
+    name: Frontend (Next.js 14) Lint, TypeCheck & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Frontend Dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run ESLint
+        working-directory: frontend
+        run: npm run lint
+
+      - name: Run TypeScript Strict Type-Check
+        working-directory: frontend
+        run: npm run typecheck
+
+      - name: Build Next.js Application
+        working-directory: frontend
+        env:
+          NEXT_PUBLIC_API_URL: https://api-staging.smartfb.vn/api/v1
+          NEXT_PUBLIC_SIGNALR_ORDER_HUB_URL: https://api-staging.smartfb.vn/hubs/orders
+          NEXT_PUBLIC_SIGNALR_KITCHEN_HUB_URL: https://api-staging.smartfb.vn/hubs/kitchen
+          NEXT_PUBLIC_SIGNALR_PAYMENT_HUB_URL: https://api-staging.smartfb.vn/hubs/payments
+          NEXT_PUBLIC_SIGNALR_NOTIF_HUB_URL: https://api-staging.smartfb.vn/hubs/notifications
+        run: npm run build
+
+  security-audit:
+    name: Security & Vulnerability Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Audit Backend NuGet Packages
+        run: dotnet list backend/SmartFB.slnx package --vulnerable --include-transitive
+
+      - name: Setup Node.js 20 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Audit Frontend NPM Dependencies
+        working-directory: frontend
+        run: npm audit --audit-level=high || true
