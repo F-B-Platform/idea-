@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------------
+  # 1. POSTGRESQL 16 (Relational Database)
+  # -------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: smartfb-postgres-dev
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-smart_fb_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_password_dev_2026}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-smart_fb_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - smartfb_dev_network
+
+  # -------------------------------------------------------------
+  # 2. REDIS 7 (Cache, Pub/Sub & Distributed Lock)
+  # -------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: smartfb-redis-dev
+    restart: always
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_dev_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - smartfb_dev_network
+
+  # -------------------------------------------------------------
+  # 3. PGADMIN 4 (Database Management Web UI - Optional)
+  # -------------------------------------------------------------
+  pgadmin:
+    image: dpage/pgadmin4:8.4
+    container_name: smartfb-pgadmin-dev
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@smartfb.vn}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - smartfb_dev_network
+
+volumes:
+  postgres_dev_data:
+    name: smartfb_postgres_dev_data
+  redis_dev_data:
+    name: smartfb_redis_dev_data
+
+networks:
+  smartfb_dev_network:
+    name: smartfb_dev_network
+    driver: bridge

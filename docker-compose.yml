@@ -1,0 +1,121 @@
+version: '3.8'
+
+services:
+  # -------------------------------------------------------------
+  # 1. POSTGRESQL 16
+  # -------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: smartfb-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-smart_fb_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_password_prod_2026}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-smart_fb_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - smartfb_network
+
+  # -------------------------------------------------------------
+  # 2. REDIS 7
+  # -------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: smartfb-redis
+    restart: always
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_prod_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - smartfb_network
+
+  # -------------------------------------------------------------
+  # 3. BACKEND API (.NET 8 Clean Architecture)
+  # -------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: src/SmartFB.API/Dockerfile
+    container_name: smartfb-backend
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=${POSTGRES_DB:-smart_fb_db};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-postgres_password_prod_2026};
+      Redis__ConnectionString: redis:6379,abortConnect=false
+      Jwt__Secret: ${JWT_SECRET:-super_secret_jwt_key_smart_fb_os_production_standard_256bit_min_length_2026}
+      Jwt__Issuer: SmartFB_AuthServer
+      Jwt__Audience: SmartFB_AppClients
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - smartfb_network
+
+  # -------------------------------------------------------------
+  # 4. FRONTEND WEB (Next.js 14 App Router)
+  # -------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: smartfb-frontend
+    restart: always
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://localhost:5000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - smartfb_network
+
+  # -------------------------------------------------------------
+  # 5. NGINX REVERSE PROXY & SSL
+  # -------------------------------------------------------------
+  nginx:
+    image: nginx:alpine
+    container_name: smartfb-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - smartfb_network
+
+volumes:
+  postgres_prod_data:
+    name: smartfb_postgres_prod_data
+  redis_prod_data:
+    name: smartfb_redis_prod_data
+
+networks:
+  smartfb_network:
+    name: smartfb_network
+    driver: bridge

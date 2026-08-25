@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SmartFB.API/SmartFB.API.csproj" />
+    <Project Path="src/SmartFB.Application/SmartFB.Application.csproj" />
+    <Project Path="src/SmartFB.Domain/SmartFB.Domain.csproj" />
+    <Project Path="src/SmartFB.Infrastructure/SmartFB.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/SmartFB.IntegrationTests/SmartFB.IntegrationTests.csproj" />
+    <Project Path="tests/SmartFB.UnitTests/SmartFB.UnitTests.csproj" />
+  </Folder>
+</Solution>
